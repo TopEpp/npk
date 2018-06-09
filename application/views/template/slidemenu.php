@@ -11,11 +11,17 @@
 
           <!-- menu profile quick info -->
           <br>
+          <!-- //query year form db -->
+          <?php  $query = $this->db->query("select * from tbl_year");
+                  $years = $query->result();
+          ?>
+          <!-- //end query year form db -->
+
           <div class="profile clearfix" style="margin-left: 5px;">
             <select class="selectpicker">
-              <option>ปีงบประมาณ 2561</option>
-              <option>ปีงบประมาณ 2560</option>
-              <option>ปีงบประมาณ 2559</option>
+              <?php foreach ($years as $key => $value) { ?>
+                <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label?></option>
+              <?php } ?>
             </select>
           </div>
           <br>
