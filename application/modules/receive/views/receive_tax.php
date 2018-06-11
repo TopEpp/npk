@@ -86,7 +86,7 @@
                                     <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_taxadd_popup/') . '/' . $value->individual_id; ?>'" id="edit-individual" class="btn btn-success btn-sm" title="แก้ไข">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </button>
-                                    <button type="button" id="btn_delete" class="btn btn-danger btn-sm" data-id="<?php echo $value->individual_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">
+                                    <button type="button" id="<?php echo $value->individual_id; ?>" class="btn btn-danger btn-sm " data-id="<?php echo $value->individual_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </button>
                                 </div>
@@ -109,7 +109,28 @@
                 <!-- Modal Popup -->          
           <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <?php $this->load->view('receive/del_popup.php'); ?>
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="delmodal">การแจ้งเตือน!</h4>
+                      </div>
+                      
+                      
+                      <div class="modal-body">
+                              <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                      </div>
+
+                      <div class="modal-footer">
+                          <button type="button" id="btn-del"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                          </button>
+
+                          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
+                          </button>
+                      </div>
+                  </div>
+              </div>
             </div>
           </div>
 
@@ -120,6 +141,31 @@ th{
 text-align: center;
 }
 </style>
+
+<script type="text/javascript">
+    var domain='<?php  echo base_url(); ?>/';
+</script>
+<script type="text/javascript">
+ setTimeout(function(){
+  $(document).ready(function(){
+    //load id to modal
+    $('#delmodal').on('show.bs.modal', function(e) {
+      var data = $(e.relatedTarget).data();
+      $(this).find('#btn-del').attr('del', data.id);
+    });
+
+  // check delete on click
+   $('#btn-del').on('click',function(e){
+      e.preventDefault();
+     
+       var id = $(this).attr('del');
+       window.location.replace(domain+'receive/'+'receive_tax_delete'+'/'+id);
+   });
+    // onclick=" 
+  });
+}, 1000);
+    
+</script>
 
 
       
