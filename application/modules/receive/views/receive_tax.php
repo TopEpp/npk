@@ -59,42 +59,18 @@
                 </div>
 
                <div class="x_content">
-                  <table id="myTable" class="display" style="width:100%">
+                  <table id="tax_table" class="table" width="100%">
                       <thead>
                         <tr>
-                          <th style="width: 30px;">ลำดับ</th>
-                          <th >เลขประจำตัวผู้เสียภาษี</th>
-                          <th>ชื่อผู้เสียภาษี</th>
-                          <th >ประเภทผู้เสียภาษี</th>
-                          <th style="width: 120px;">เครื่องมือ</th>
+                          <th width="5%">ลำดับ</th>
+                          <th  width="30%">เลขประจำตัวผู้เสียภาษี</th>
+                          <th  width="30%">ชื่อผู้เสียภาษี</th>
+                          <th  width="10%">ประเภทผู้เสียภาษี</th>
+                          <th  width="20%">เครื่องมือ</th>
                         </tr>
                       </thead>
                       <tbody>
-                      <?php 
-                      $type_name = ['', 'บุคคลธรรมดา', 'นิติบุคคล'];
-                      foreach ($individual as $key => $value) { ?>
-                        <tr>
-                          <td align="center"><?php echo $key + 1; ?></td>
-                          <td align="center"><?php echo $value->individual_number; ?></td>  
-                          <td><?php echo $value->individual_prename . ' ' . $value->individual_firstname . ' ' . $value->individual_lastname; ?></td>
-                          <td><?php echo $type_name[$value->individual_type]; ?></td>                          <td>
-                            <center>
-                                <div class="btn-group ">
-                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_add/') ?>'"id="" class="btn btn-success btn-sm" title="เพิ่มการประเมินรายรับ">
-                                        <i class="fa fa-plus-square"></i>
-                                    </button>
-                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_taxadd_popup/') . '/' . $value->individual_id; ?>'" id="edit-individual" class="btn btn-success btn-sm" title="แก้ไข">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                    <button type="button" id="<?php echo $value->individual_id; ?>" class="btn btn-danger btn-sm " data-id="<?php echo $value->individual_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </div>
-                            </center>               
-                          </td>
-                        </tr>
-                      <?php 
-                    } ?>
+                     
 
                       <tbody>
                     </table>
@@ -142,32 +118,8 @@ text-align: center;
 }
 </style>
 
-<script type="text/javascript">
-    var domain='<?php  echo base_url(); ?>/';
-</script>
-<script type="text/javascript">
- setTimeout(function(){
-  $(document).ready(function(){
-    //load id to modal
-    $('#delmodal').on('show.bs.modal', function(e) {
-      var data = $(e.relatedTarget).data();
-      $(this).find('#btn-del').attr('del', data.id);
-    });
 
-  // check delete on click
-   $('#btn-del').on('click',function(e){
-      e.preventDefault();
-     
-       var id = $(this).attr('del');
-       window.location.replace(domain+'receive/'+'receive_tax_delete'+'/'+id);
-   });
-    // onclick=" 
-  });
-}, 1000);
-    
-</script>
 
 
       
-
 

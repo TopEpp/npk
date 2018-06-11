@@ -41,10 +41,13 @@ class Project_training extends MY_Controller
         // $data['project_create'] = date('Y-m-d H:i:s');
         if ($edit == 'false'){
           
-            $data['project_level'] = 1;
+           
             if (!empty($id)){
                 $data['project_parent'] = $id;
                 $data['project_level'] = 2;
+            }
+            else{
+                $data['project_level'] = 1;
             }
             if (!empty($hidden_level)){
                 $data['project_level'] = $hidden_level;

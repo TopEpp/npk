@@ -38,6 +38,8 @@ class Receive extends MY_Controller
 
         $this->config->set_item('title', 'ข้อมูลผู้เสียภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_tax', $data);
+                //load js 
+        $this->template->javascript->add('assets/modules/receive/index.js');
         $this->publish();
     }
 
@@ -51,12 +53,12 @@ class Receive extends MY_Controller
             $amphur = substr($data['individual'][0]->individual_provice, 0, 2);
             $data['amphur'] = array();
             if ($amphur) {
-                $query = $this->db->query("SELECT area_code,area_name_th FROM std_area WHERE area_type = 'Amphur' AND area_code LIKE '{$amphur}%'  ");
+                $query = $this->db->query("SELECT area_code,area_name_th FROM std_area WHERE area_type = 'Amphur' AND area_code LIKE '{$amphur}%' ");
                 $data['amphur'] = $query->result();
             }
 
 
-            $tambon = substr($data['individual'][0]->individual_district, 0, 3);
+            $tambon = substr($data['individual'][0]->individual_district, 0, 4);
             $data['tambon'] = array();
             if ($tambon) {
                 $query = $this->db->query("SELECT area_code,area_name_th FROM std_area WHERE area_type = 'Tambon' AND area_code LIKE '{$tambon}%'  ");
@@ -71,7 +73,7 @@ class Receive extends MY_Controller
             }
 
 
-            $tambon = substr($data['individual'][0]->individual_send_district, 0, 3);
+            $tambon = substr($data['individual'][0]->individual_send_district, 0, 4);
             $data['send_tambon'] = array();
             if ($tambon) {
                 $query = $this->db->query("SELECT area_code,area_name_th FROM std_area WHERE area_type = 'Tambon' AND area_code LIKE '{$tambon}%'  ");
@@ -87,15 +89,21 @@ class Receive extends MY_Controller
         $query = $this->db->query("SELECT * FROM std_prename WHERE pren_status = 'Active'");
         $data['prename'] = $query->result();
         // query get prename 
-        $query = $this->db->query("SELECT area_code,area_name_th FROM std_area WHERE area_type = 'Province'");
+        $query = $this->db->query("SELECT area_code,area_name_th FROM std_area WHERE area_type = 'Province' ORDER BY area_name_th ");
         $data['province'] = $query->result();
 
+
+        
+        $this->template->stylesheet->add('assets/plugins/select2/dist/css/select2.css');
+        $this->template->javascript->add('assets/plugins/select2/dist/js/select2.js');
 
         //import smartwizard
         $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
         //import input mark
         $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
 
+        //load js 
+        $this->template->javascript->add('assets/modules/receive/taxadd.js');
         $this->setView('receive_taxadd_popup', $data);
         $this->publish();
 
@@ -200,7 +208,7 @@ class Receive extends MY_Controller
     {
         $district = $this->input->post('district');
         if (!empty($district)) {
-            $district = substr($district, 0, 3);
+            $district = substr($district, 0, 4);
             $query = $this->db->query("SELECT area_code,area_name_th FROM std_area WHERE area_type = 'Tambon' AND area_code LIKE '{$district}%' ");
             // if(!empty($query->result())){
             echo '<option value="">เลือก</option>';
@@ -213,6 +221,26 @@ class Receive extends MY_Controller
         }
         return false;
 
+    }
+
+    public function getAjaxReceiveTax(){
+        $order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+ 
+        $results = $this->Receive_model->getRecieveTaxAjax($param);
+ 
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+ 
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
     //import users to table indevidual form data house 
     // public function import_data_house(){
