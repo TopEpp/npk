@@ -54,22 +54,33 @@
                       <a href="<?php echo site_url('receive/receive_save'); ?>">ข้อมูลบันทึกรายรับ</a>
                     </li>
                     <li>
-                      <a href="<?php echo site_url('receive/receipts_add'); ?>">บันทึกรายรับภาษีอื่น</a>
+                      <a href="<?php echo site_url('receive/other_tax'); ?>">ข้อมูลบันทึกรายรับภาษีอื่น</a>
                     </li>
                     <li>
-                      <a href="<?php echo site_url('receive/receipts_dashborad'); ?>">ข้อมูลบันทึกรายรับภาษีอื่น</a>
+                      <a href="<?php echo site_url('#'); ?>">ข้อมูลบันทึกรายรับนอกงบประมาณ</a>
                     </li>
-                    <li>
+                    <!-- <li>
                       <a href="<?php echo site_url('#'); ?>">ข้อมูลการประมาณการรายรับ</a>
                     </li>
                     <li>
                       <a href="<?php echo site_url('#'); ?>">นำเข้าข้อมูล</a>
-                    </li>
+                    </li> -->
                   </ul>
                 </li>
 
                 <li> 
-                    <a  href="<?php echo site_url('expenditure/expenditure_prj'); ?>"> <i class="fa fa-table"></i> ระบบบัญชีรายจ่าย</a>
+                  <a>
+                    <i class="fa fa-table"></i> ระบบบัญชีรายจ่าย
+                    <span class="fa fa-chevron-down"></span>
+                  </a>
+                    <ul class="nav child_menu">
+                      <li>
+                        <a href="<?php echo site_url('expenditure/expenditure_prj'); ?>">บัญชีรายจ่าย</a>
+                      </li> 
+                      <li>
+                        <a  href="<?php echo site_url('#'); ?>"></i> ระบบรายจ่ายนอกงบประมาน</a>
+                      </li>
+                    </ul>
                 </li>
 
                 <li>
