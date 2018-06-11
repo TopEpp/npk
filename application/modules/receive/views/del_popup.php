@@ -27,9 +27,10 @@
 <script type="text/javascript">
  setTimeout(function(){
   $(document).ready(function(){
-   $('#btn-del').click(function(){
-       var id = $('#btn_delete').data('id');
+   $('#btn_delete').on('click',function(){
      
+       var id = $(this).attr("data-id");
+        console.log(id);return false;
        window.location.replace(domain+'receive/'+'receive_tax_delete'+'/'+id);
    });
     // onclick=" 
