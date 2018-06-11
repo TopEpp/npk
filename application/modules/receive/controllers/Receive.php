@@ -24,6 +24,13 @@ class Receive extends MY_Controller
     {
         $data = array();
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
+
+        //import smartwizard
+        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
+        //import input mark
+        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
+
+
         $this->setView('receive_add', $data);
         $this->publish();
     }
@@ -60,6 +67,26 @@ class Receive extends MY_Controller
         redirect(base_url('Receive/other_tax'));
     }
 
+    public function updateOtherTax()
+    {
+        $input = $this->input->post();
+        $this->Receive_model->updateOtherTax($input);
+        redirect(base_url('Receive/other_tax'));
+    }
+
+    public function other_tax_update()
+    {
+        $id = $this->uri->segment(3);
+        $query = $this->Receive_model->read_OtherTax_update($id);
+
+        $value = array(
+            'other_tax' => $query
+        );
+        $this->config->set_item('title', 'แก้ไขรายการรายรับภาษี - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('other_tax_update', $value);
+        $this->publish();
+
+    }
 
     public function other_tax_add()
     {
