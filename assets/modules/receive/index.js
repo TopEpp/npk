@@ -56,7 +56,7 @@ $(function(){
                 '<div class="btn-group ">'+
                 '<button type="button" onclick="window.location.href=\''+domain+'receive/receive_add/'+'\'"id="" class="btn btn-success btn-sm" title="เพิ่มการประเมินรายรับ"><i class="fa fa-plus-square"></i></button>'+
                 '<button type="button" onclick="window.location.href=\''+domain+'receive/receive_taxadd_popup/'+''+data+'\'" id="edit-individual" class="btn btn-success btn-sm" title="แก้ไข"><i class="glyphicon glyphicon-edit"></i></button>'+
-                '<button type="button" class="btn btn-danger btn-sm " id="'+data+'" data-toggle="modal" data-target="#delmodal" title="ลบ"><i class="glyphicon glyphicon-trash"></i></button>'
+                '<button type="button" class="btn btn-danger btn-sm " id="'+data+'" data-id="'+data+'" data-toggle="modal" data-target="#delmodal" title="ลบ"><i class="glyphicon glyphicon-trash"></i></button>'
                 '</div>';
                      
                 return btn;
