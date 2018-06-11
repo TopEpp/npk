@@ -39,8 +39,20 @@ class Receive_model extends CI_Model
      }
  
      //insert data individual
-     public function insertIndividual($data){
+     public function insertIndividual($data,$id = ''){
+         if (!empty($id)){
+             $this->db->where('individual_id',$id);
+             $this->db->update('tbl_individual',$data);
+         }
          return $this->db->insert('tbl_individual',$data);
      }
+
+    //delelte data individual
+    public function del_individual($id){
+        $this->db->where('individual_id',$id);
+        return $this->db->delete('tbl_individual');
+    }
+
+
 
 }

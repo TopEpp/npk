@@ -105,6 +105,7 @@ class Receive extends MY_Controller
     public function receive_taxadd_popup_save($id = '')
     {
         // check data individual tpye
+
         $data = array();
 
         $check_num = $this->input->post('individual_number');
@@ -137,16 +138,15 @@ class Receive extends MY_Controller
                 $data['individual_business_name'] = $this->input->post('individual_business_name')[$key];
 
                 //insert data individual
-                $status = $this->Receive_model->insertIndividual($data);
-
-                redirect(base_url('receive/receive_tax'));
-
-
+                if (!empty($id)){
+                    $status = $this->Receive_model->insertIndividual($data,$id);
+                }else{
+                    $status = $this->Receive_model->insertIndividual($data);
+                }
 
             }
-
-
         }
+        redirect(base_url('receive/receive_tax'));
 
 
     }

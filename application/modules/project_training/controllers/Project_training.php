@@ -157,11 +157,14 @@ class Project_training extends MY_Controller
         foreach ($prj as $key => $value) {
             $data['rows'][$data['total']+$key]['id'] = '';
             $data['rows'][$data['total']+$key]['budget'] = number_format($value->prj_budget);
-            $data['rows'][$data['total']+$key]['name'] = $value->prj_name;
+            $data['rows'][$data['total']+$key]['name'] = "<p style='color:#73899f;'>".$value->prj_name.'</p>';
             $data['rows'][$data['total']+$key]['tools'] = "
+            <button disabled onClick='add_prj(".$value->prj_id.")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
             <button onClick='edit_prj(".$value->prj_id.")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
             <button onClick='del_prj(".$value->prj_id.",".'"1"'.")'  id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
             $data['rows'][$data['total']+$key]['_parentId'] = $value->prj_parent;
+            $data['rows'][$data['total']+$key]['iconCls'] = 'icon-ok';
+             
         }
     
         $this->json_publish($data);
