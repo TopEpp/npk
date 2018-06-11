@@ -79,10 +79,8 @@
                             <tr>
                                 <th style="width: 30px;">ลำดับ</th>
                                 <th>วันที่รับ</th>
-                                <th>เลขประจำตัวผู้เสียภาษี</th>
-                                <th>ชื่อผู้เสียภาษี</th>
                                 <th>หมวดรายได้</th>
-                                <th>จำนวนเงินที่ชำระ (บาท)</th>
+                                <th>จำนวนเงินที่รับ (บาท)</th>
                                 <th style="width: 120px;">เครื่องมือ</th>
                             </tr>
                         </thead>
@@ -90,10 +88,8 @@
                             <?php 
                             foreach ($tax_receive as $key => $value) { ?>
                                   <tr>
-                                    <td align="center"><?php echo $value->receive_id; ?></td>
+                                    <td align="center"><?php echo $key + 1; ?></td>
                                     <td align="center"><?php echo date("d/m/Y", strtotime($value->receive_date)); ?></td>
-                                    <td align="center"><?php echo $value->individual_number; ?></td>  
-                                    <td><?php echo $value->individual_prename . ' ' . $value->individual_firstname . ' ' . $value->individual_lastname; ?></td>
                                     <td><?php echo $value->tax_name ?></td>   
                                     <td align="right"><?php echo number_format($value->receive_amount, 2); ?></td>                        
                                     <td>

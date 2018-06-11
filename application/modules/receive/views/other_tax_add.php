@@ -17,28 +17,13 @@
                         <div class="x_panel">
                             <div class="x_content">
                             <br />
+                            <br />
 
                                 <?php echo form_open('Receive/insert_other_tax') ?>
                                         <div class="form-horizontal form-label-left">
-                                                <div class="form-group" style="margin-bottom: 0px;">
-                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> เลขประจำตัวผู้เสียภาษี
-                                                    </label>
-                                                        <div class="col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="input-group">
-                                                                <input type="text" name="" placeholder="เลขประจำตัว 13 หลัก" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
-                                                                    <span class="input-group-btn">
-                                                                        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#detail" style="margin-right: 0px;">
-                                                                            <i class="fa fa-search"></i>
-                                                                        </button>
-                                                                    </span>
-                                                            </div>
-                                                        </div>
-                                                </div>
-
                                                 <div class="form-group">
                                                             <label class="control-label col-md-4 col-sm-3 col-xs-12" for="first">
-                                                                <span class="required" style="color:red">*</span> หมวดรายได้
+                                                                หมวดรายได้ <span class="required" style="color:red">*</span> 
                                                             </label>
                                                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                                                     <select id="colorselector" name="tax_id" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
@@ -84,7 +69,7 @@
 
                                                 <div class="form-group" style="margin-bottom: 0px;">
                                                         <label for="second" class="control-label col-md-4 col-sm-3 col-xs-12" for="">
-                                                            <span class="required" style="color:red">*</span> วันที่รับ
+                                                             วันที่รับ <span class="required" style="color:red">*</span>
                                                         </label>
                                                     <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <div class='input-group date col-md-12 col-xs-12' id='inputdatepicker'>
@@ -95,23 +80,7 @@
 
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> เลขที่
-                                                    </label>
-                                                        <div class="col-md-1 col-sm-2 col-xs-12">
-                                                            <input type="text" name="" value="" class="form-control col-md-7 col-xs-12">
-                                                        </div>
-                                                                    
-                                                    <label class="control-label col-md-1 col-sm-1 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> เล่มที่
-                                                    </label>
-                                                        <div class="col-md-1 col-sm-2 col-xs-12">
-                                                                <input type="text" name="" value="" class="form-control col-md-7 col-xs-12">
-                                                        </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> จำนวนภาษี
+                                                        จำนวนภาษี <span class="required" style="color:red">*</span>
                                                     </label>
                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <input type="text" name="receive_amount" value="" placeholder="0.00" class="form-control col-md-7 col-xs-12">
