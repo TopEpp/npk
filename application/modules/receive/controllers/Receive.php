@@ -11,7 +11,6 @@ class Receive extends MY_Controller
         $this->load->model('Receive_model');
 
     }
-
     public function receive_dashborad()
     {
         $data = array();
@@ -29,7 +28,6 @@ class Receive extends MY_Controller
         $this->publish();
     }
 
-
     public function receive_tax()
     {
         $data = array();
@@ -40,6 +38,54 @@ class Receive extends MY_Controller
         $this->setView('receive_tax', $data);
         $this->publish();
     }
+
+    //////////////////////////////// other_tax //////////////////////////
+
+    public function other_tax()
+    {
+        $data = array();
+
+        $data['tax_receive'] = $this->Receive_model->getOtherTaxAll();
+
+        $this->config->set_item('title', 'รายการข้อมูลรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('other_tax', $data);
+        $this->publish();
+    }
+
+    public function insert_other_tax()
+    {
+        $input = $this->input->post();
+
+        $this->Receive_model->insertOtherTax($input);
+        redirect(base_url('Receive/other_tax'));
+    }
+
+
+    public function other_tax_add()
+    {
+        $data = array();
+
+        $tax_allocate = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '2' ORDER BY tax_name");
+        $tax_fine = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '3' ORDER BY tax_name");
+        $tax_asset = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '4' ORDER BY tax_name");
+        $tax_health = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '5' ORDER BY tax_name");
+        $tax_miscellaneous = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '6' ORDER BY tax_name");
+        $tax_subsidy = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '7' ORDER BY tax_name");
+
+        $data['tax_allocate'] = $tax_allocate->result();
+        $data['tax_fine'] = $tax_fine->result();
+        $data['tax_asset'] = $tax_asset->result();
+        $data['tax_health'] = $tax_health->result();
+        $data['tax_miscellaneous'] = $tax_miscellaneous->result();
+        $data['tax_subsidy'] = $tax_subsidy->result();
+
+        $this->config->set_item('title', 'บันทึกรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('other_tax_add', $data);
+        $this->publish();
+
+
+    }
+
 
     //form individual  
     public function receive_taxadd_popup($id = '')
@@ -375,26 +421,8 @@ class Receive extends MY_Controller
         }
         echo $status;
         die();
-
-
-    }
-    
-    ////////////////////////////////   receipts  //////////////////////////
-    public function receipts_add()
-    {
-        $data = array();
-        $this->config->set_item('title', 'บันทึกข้อมูลรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
-        $this->setView('receipts_add', $data);
-        $this->publish();
     }
 
-    public function receipts_dashborad()
-    {
-        $data = array();
-        $this->config->set_item('title', 'รายการข้อมูลรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
-        $this->setView('receipts_dashborad', $data);
-        $this->publish();
-    }
 
 
 
