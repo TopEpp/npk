@@ -106,12 +106,6 @@ class Receive_model extends CI_Model
     // }
 
 
-    //delelte data individual
-    public function del_individual($id)
-    {
-        $this->db->where('individual_id', $id);
-        return $this->db->delete('tbl_individual');
-    }
 
 
 
