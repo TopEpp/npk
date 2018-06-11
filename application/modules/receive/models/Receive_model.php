@@ -42,7 +42,7 @@ class Receive_model extends CI_Model
      public function insertIndividual($data,$id = ''){
          if (!empty($id)){
              $this->db->where('individual_id',$id);
-             $this->db->update('tbl_individual',$data);
+             return $this->db->update('tbl_individual',$data);
          }
          return $this->db->insert('tbl_individual',$data);
      }
