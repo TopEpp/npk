@@ -480,6 +480,18 @@
                                             </div>
                                       </div>
                               </div>
+
+                              <div class="col-md-4 col-sm-6 col-xs-12">
+                                      <div class="form-group">
+                                        <span class="required" style="color:red">*</span>
+                                          <label  > ชื่อกิจการ
+                                          </label>
+                                            <div >
+                                                <input type="text" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12" >
+                                            </div>
+                                      </div>
+                              </div>
+
                           </div>
 
                           <div class="row">
