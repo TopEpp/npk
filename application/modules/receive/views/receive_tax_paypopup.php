@@ -9,6 +9,20 @@
       <div class="modal-body">
         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
             <br>
+            <div class="form-group">
+                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">เลขที่ใบเสร็จ
+                    </label>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <input type="text" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12">
+                        </div>
+            </div>
+            <div class="form-group">
+                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">เล่มที่ใบเสร็จ
+                    </label>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <input type="text" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12">
+                        </div>
+            </div>
             <div class="form-group" style="margin-bottom: 0px;">
                 <label for="second" class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">วันที่ชำระ
                 </label>
@@ -51,6 +65,8 @@
                         <tr>
                             <th>ครั้งที่</th>
                             <th>วันที่ชำระ</th>
+                            <th>เลขที่</th>
+                            <th>เล่มที่</th>
                             <th>หมวดรายได้</th>
                             <th>ชำระแล้ว</th>
                             <th>เงินเพิ่ม</th>
@@ -61,6 +77,8 @@
                             <tr>
                                 <th scope="row">1</th>
                                 <td style="text-align: center;">29/04/2560</td>
+                                <td></td>
+                                <td></td>
                                 <td>ภาษีบำรุงท้องที่</td>
                                 <td style="text-align: right;">2,000.00</td>
                                 <td style="text-align: right;">0.00</td>

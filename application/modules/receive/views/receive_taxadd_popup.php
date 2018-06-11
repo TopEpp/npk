@@ -44,14 +44,19 @@
                           
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" >
-                                  <span class="required" style="color:red">*</span>เลขประจำตัวผู้เสียภาษี
+                                  <span class="required" style="color:red">* </span>เลขประจำตัวผู้เสียภาษี
                                 </label>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <input name="individual_number[0]" type="text" value="<?php echo @$individual[0]->individual_number; ?>" placeholder="4371239640692" id="id_tax_tab1" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                                    <input name="individual_number[0]" type="text" value="<?php echo @$individual[0]->individual_number; ?>" placeholder="เลขประจำตัว 13 หลัก" id="id_tax_tab1" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
                                 </div>
                             </div>
                             <hr/>
-                            <h4>ที่อยู่</h4><br/>
+                            <div class="row">
+                              <div class="col-md-2">
+                                <label>ที่อยู่</label>
+                              </div>
+                            </div>
+                            <br>
                             <div class="form-group type-value" id="" style="display:block;margin-bottom: 0px;" >
                               <div class="row">
                                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -76,7 +81,7 @@
                                     <label for="middle-name" class="" for="name">ชื่อ
                                     </label>
                                     <div >
-                                        <input type="text" value="<?php echo @$individual[0]->individual_firstname; ?>" placeholder="ไพโรจน์" id="name_tax" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" value="<?php echo @$individual[0]->individual_firstname; ?>" placeholder="ภาษาไทย" id="name_tax" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                               
                                   </div>
@@ -86,7 +91,7 @@
                                     <label for="middle-name" class="" for="last_name">นามสกุล
                                     </label>
                                     <div >
-                                        <input type="text" value="<?php echo @$individual[0]->individual_lastname; ?>" placeholder="" id="name_tax" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" value="<?php echo @$individual[0]->individual_lastname; ?>" placeholder="ภาษาไทย" id="name_tax" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                       
                                   </div>
@@ -102,7 +107,7 @@
                                       <label  >เบอร์โทรศัพท์
                                       </label>
                                       <div >
-                                          <input type="text" value="<?php echo @$individual[0]->individual_phone; ?>" name="individual_phone[0]" placeholder="xxx-xxxxxxx" id="id_tax" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
+                                          <input type="text" value="<?php echo @$individual[0]->individual_phone; ?>" name="individual_phone[0]" placeholder="0xx-xxxxxxx" id="id_tax" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
                                       </div>
                                         
                                     </div>
@@ -111,7 +116,7 @@
                                   <label >เลขที่บ้าน
                                   </label>
                                   <div >
-                                      <input type="text" name="individual_address[0]" value="<?php echo @$individual[0]->individual_address; ?>" placeholder="-" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" name="individual_address[0]" value="<?php echo @$individual[0]->individual_address; ?>" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12">
                                   </div>
 
                                 </div>
@@ -119,21 +124,21 @@
                                   <label  >หมู่
                                     </label>
                                     <div>
-                                        <input type="text" name="individual_village[0]" value="<?php echo @$individual[0]->individual_village; ?>" placeholder="-"id="id_tax" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" name="individual_village[0]" value="<?php echo @$individual[0]->individual_village; ?>" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-sm-3 col-xs-4">
                                   <label  >ซอย/ตรอก
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-" name="individual_lane[0]" value="<?php echo @$individual[0]->individual_lane; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="" name="individual_lane[0]" value="<?php echo @$individual[0]->individual_lane; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-sm-3 col-xs-4">
                                   <label  >ถนน
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_road[0]" value="<?php echo @$individual[0]->individual_road; ?>" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_road[0]" value="<?php echo @$individual[0]->individual_road; ?>" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -141,7 +146,7 @@
                               </div>
 
                               <div class="row">
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label>จังหวัด
                                   </label>
                                   <div>
@@ -159,7 +164,7 @@
                                       </select>
                                   </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >อำเภอ
                                     </label>
                                     <div>
@@ -178,7 +183,7 @@
                                       </select>
                                     </div>
                                   </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >ตำบล
                                     </label>
                                     <div >
@@ -201,7 +206,6 @@
                                   
 
                               </div>
-                              <br/>
                               <div class="row">
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <label  >รหัสไปรษณีย์
@@ -226,40 +230,39 @@
                               <div class="col-md-2">
                                 <label>ที่อยู่จัดส่ง</label>
                               </div>
-
                             </div>
                             <br/>
                             <div class="form-group type-value" id="individual_tab1"style="display:block;margin-bottom: 0px;" >
 
                               <div class="row">
 
-                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
                                   <label >เลขที่
                                   </label>
                                   <div >
-                                      <input type="text" placeholder="-" name="individual_send_address[0]" value="<?php echo @$individual[0]->individual_send_address; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder="" name="individual_send_address[0]" value="<?php echo @$individual[0]->individual_send_address; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
                                   </div>
 
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >หมู่
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-" id="id_tax" name="individual_send_village[0]" value="<?php echo @$individual[0]->individual_send_village; ?>" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="" id="id_tax" name="individual_send_village[0]" value="<?php echo @$individual[0]->individual_send_village; ?>" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >ซอย/ตรอก
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_send_lane[0]" value="<?php echo @$individual[0]->individual_send_lane; ?>" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_send_lane[0]" value="<?php echo @$individual[0]->individual_send_lane; ?>" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >ถนน
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_send_road[0]" value="<?php echo @$individual[0]->individual_send_road; ?>" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_send_road[0]" value="<?php echo @$individual[0]->individual_send_road; ?>" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -267,7 +270,7 @@
                               </div>
 
                               <div class="row">
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label>จังหวัด
                                   </label>
                                   <div>
@@ -286,7 +289,7 @@
                                       </select>
                                   </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >อำเภอ
                                     </label>
                                     <div>
@@ -305,7 +308,7 @@
                                       </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >ตำบล
                                     </label>
                                     <div >
@@ -360,7 +363,7 @@
                         
                           <div class="form-group">
                               <label class="control-label col-md-4 col-sm-3 col-xs-12" >
-                                <span class="required" style="color:red">*</span>เลขประจำตัวผู้เสียภาษี
+                                <span class="required" style="color:red">* </span>เลขประจำตัวผู้เสียภาษี
                               </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
                                   <input type="text" placeholder="4371239640692" id="id_tax_tab2" name="individual_number[1]"  value="<?php echo @$individual[0]->individual_number; ?>" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999999999999'">
@@ -375,7 +378,7 @@
                                 <label for="middle-name" for="name_company">ชื่อบริษัท
                                   </label>
                                   <div >
-                                      <input type="text" placeholder="-" id="name_tax" name="individual_firstname[1]" value="<?php echo @$individual[0]->individual_firstname; ?>" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder="ชื่อภาษาไทย" id="name_tax" name="individual_firstname[1]" value="<?php echo @$individual[0]->individual_firstname; ?>" class="form-control col-md-7 col-xs-12">
                                   </div>
                               </div>
                             
@@ -385,7 +388,7 @@
                                   <label  >เบอร์โทรศัพท์
                                   </label>
                                   <div >
-                                      <input type="text" placeholder="xxx-xxxxxxx" nane="individual_phone[1]" value="<?php echo @$individual[0]->individual_phone; ?>" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
+                                      <input type="text" placeholder="0xx-xxxxxxx" nane="individual_phone[1]" value="<?php echo @$individual[0]->individual_phone; ?>" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
                                   </div>
                                     
                                 </div>
@@ -397,7 +400,7 @@
                                       <label >เลขที่
                                       </label>
                                       <div >
-                                          <input type="text" placeholder="-" name="individual_address[1]" value="<?php echo @$individual[0]->individual_address; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                          <input type="text" placeholder="" name="individual_address[1]" value="<?php echo @$individual[0]->individual_address; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
                                       </div>
 
                                     </div>
@@ -405,7 +408,7 @@
                                       <label  >หมู่
                                         </label>
                                         <div>
-                                            <input type="text" placeholder="-" name="individual_village[1]" value="<?php echo @$individual[0]->individual_village; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" placeholder="" name="individual_village[1]" value="<?php echo @$individual[0]->individual_village; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                 </div>
@@ -416,23 +419,23 @@
 
                             <div class="row">
 
-                              <div class="col-md-2 col-sm-3 col-xs-4">
+                              <div class="col-md-2 col-sm-3 col-xs-4" style="margin-bottom: 10px;">
                                 <label  >ซอย/ตรอก
                                   </label>
                                   <div>
-                                      <input type="text" placeholder="-" name="individual_lane[1]" id="id_tax" value="<?php echo @$individual[0]->individual_lane; ?>" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder="" name="individual_lane[1]" id="id_tax" value="<?php echo @$individual[0]->individual_lane; ?>" class="form-control col-md-7 col-xs-12">
                                   </div>
                               </div>
-                              <div class="col-md-2 col-sm-3 col-xs-4">
+                              <div class="col-md-2 col-sm-3 col-xs-4" style="margin-bottom: 10px;">
                                 <label  >ถนน
                                   </label>
                                   <div>
-                                      <input type="text" placeholder="-" name="individual_road[1]" id="id_tax" value="<?php echo @$individual[0]->individual_road; ?>" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder="" name="individual_road[1]" id="id_tax" value="<?php echo @$individual[0]->individual_road; ?>" class="form-control col-md-7 col-xs-12">
                                   </div>
                               </div>
 
 
-                              <div class="col-md-4 col-sm-6 col-xs-12">
+                              <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                 <label>จังหวัด
                                 </label>
                                 <div>
@@ -451,7 +454,7 @@
                                     </select>
                                 </div>
                               </div>
-                              <div class="col-md-4 col-sm-6 col-xs-12">
+                              <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label >อำเภอ
                                   </label>
                                   <div>
@@ -471,7 +474,6 @@
                                   </div>
                               </div>
                             </div>
-                            <br/>
 
                             <div class="row">
                                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -524,33 +526,33 @@
 
                             <div class="row">
 
-                              <div class="col-md-3 col-sm-6 col-xs-6">
+                              <div class="col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
                                 <label >เลขที่บ้าน
                                 </label>
                                 <div >
-                                    <input type="text" placeholder="-" name="individual_send_address[1]" value="<?php echo @$individual[0]->individual_send_address; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" placeholder="" name="individual_send_address[1]" value="<?php echo @$individual[0]->individual_send_address; ?>" id="id_tax" class="form-control col-md-7 col-xs-12">
                                 </div>
 
                               </div>
-                              <div class="col-md-3 col-sm-3 col-xs-6">
+                              <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                 <label  >หมู่
                                   </label>
                                   <div>
-                                      <input type="text" placeholder="-" id="id_tax" name="individual_send_village[1]" value="<?php echo @$individual[0]->individual_send_village; ?>" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder="" id="id_tax" name="individual_send_village[1]" value="<?php echo @$individual[0]->individual_send_village; ?>" class="form-control col-md-7 col-xs-12">
                                   </div>
                               </div>
-                              <div class="col-md-3 col-sm-3 col-xs-6">
+                              <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                 <label  >ซอย/ตรอก
                                   </label>
                                   <div>
-                                      <input type="text" placeholder="-"id="id_tax" name="individual_send_lane[1]" value="<?php echo @$individual[0]->individual_send_lane; ?>" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder=""id="id_tax" name="individual_send_lane[1]" value="<?php echo @$individual[0]->individual_send_lane; ?>" class="form-control col-md-7 col-xs-12">
                                   </div>
                               </div>
-                              <div class="col-md-3 col-sm-3 col-xs-6">
+                              <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                 <label  >ถนน
                                   </label>
                                   <div>
-                                      <input type="text" placeholder="-"id="id_tax" name="individual_send_road[1]" value="<?php echo @$individual[0]->individual_send_road; ?>" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder=""id="id_tax" name="individual_send_road[1]" value="<?php echo @$individual[0]->individual_send_road; ?>" class="form-control col-md-7 col-xs-12">
                                   </div>
                               </div>
 
@@ -558,7 +560,7 @@
                             </div>
 
                             <div class="row">
-                              <div class="col-md-4 col-sm-6 col-xs-12">
+                              <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                 <label>จังหวัด
                                 </label>
                                 <div>
@@ -576,7 +578,7 @@
                                     </select>
                                 </div>
                               </div>
-                              <div class="col-md-4 col-sm-6 col-xs-12">
+                              <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label >อำเภอ
                                   </label>
                                   <div>
@@ -595,7 +597,7 @@
                                     </select>
                                   </div>
                               </div>
-                              <div class="col-md-4 col-sm-6 col-xs-12">
+                              <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label >ตำบล
                                   </label>
                                   <div >
@@ -657,14 +659,20 @@
                           
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" >
-                                  <span class="required" style="color:red">*</span>เลขประจำตัวผู้เสียภาษี
+                                  <span class="required" style="color:red">* </span>เลขประจำตัวผู้เสียภาษี
                                 </label>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <input name="individual_number[0]" type="text" placeholder="4371239640692" id="id_tax_tab1" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                                    <input name="individual_number[0]" type="text" placeholder="เลขประจำตัว 13 หลัก" id="id_tax_tab1" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
                                 </div>
                             </div>
                             <hr/>
-                            <h4>ที่อยู่</h4><br/>
+
+                            <div class="row">
+                              <div class="col-md-2">
+                                <label>ที่อยู่</label>
+                              </div>
+                            </div>
+                            <br>
                             <div class="form-group type-value" id="" style="display:block;margin-bottom: 0px;" >
                               <div class="row">
                                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -684,17 +692,17 @@
                                     <label for="middle-name" class="" for="name">ชื่อ
                                     </label>
                                     <div >
-                                        <input type="text" placeholder="ไพโรจน์" id="name_tax" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="ภาษาไทย" id="name_tax" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                               
                                   </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                    <label for="middle-name" class="" for="last_name">นามสกุล
+                                    <label for="middle-name" for="last_name">นามสกุล
                                     </label>
                                     <div >
-                                        <input type="text" placeholder="" id="name_tax" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="ภาษาไทย" id="name_tax" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                       
                                   </div>
@@ -710,7 +718,7 @@
                                       <label  >เบอร์โทรศัพท์
                                       </label>
                                       <div >
-                                          <input type="text" name="individual_phone[0]" placeholder="xxx-xxxxxxx" id="id_tax" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
+                                          <input type="text" name="individual_phone[0]" placeholder="0xx-xxxxxxx" id="id_tax" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
                                       </div>
                                         
                                     </div>
@@ -719,7 +727,7 @@
                                   <label >เลขที่บ้าน
                                   </label>
                                   <div >
-                                      <input type="text" name="individual_address[0]" placeholder="-" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" name="individual_address[0]" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12">
                                   </div>
 
                                 </div>
@@ -727,21 +735,21 @@
                                   <label  >หมู่
                                     </label>
                                     <div>
-                                        <input type="text" name="individual_village[0]" placeholder="-"id="id_tax" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" name="individual_village[0]" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-sm-3 col-xs-4">
                                   <label  >ซอย/ตรอก
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-" name="individual_lane[0]" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="" name="individual_lane[0]" id="id_tax" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-sm-3 col-xs-4">
                                   <label  >ถนน
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_road[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_road[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -749,7 +757,7 @@
                               </div>
 
                               <div class="row">
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label>จังหวัด
                                   </label>
                                   <div>
@@ -762,7 +770,7 @@
                                       </select>
                                   </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >อำเภอ
                                     </label>
                                     <div>
@@ -771,7 +779,7 @@
                                       </select>
                                     </div>
                                   </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >ตำบล
                                     </label>
                                     <div >
@@ -780,11 +788,7 @@
                                       </select>
                                     </div>
                                   </div>
-
-                                  
-
                               </div>
-                              <br/>
                               <div class="row">
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <label  >รหัสไปรษณีย์
@@ -818,37 +822,37 @@
                             
                             </div>
                             <br/>
-                            <div class="form-group type-value" id="individual_tab1"style="display:block;margin-bottom: 0px;" >
+                            <div class="form-group type-value" id="individual_tab1" >
 
                               <div class="row">
 
-                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
                                   <label >เลขที่
                                   </label>
                                   <div >
-                                      <input type="text" placeholder="-" name="individual_send_address[0]" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder="" name="individual_send_address[0]" id="id_tax" class="form-control col-md-7 col-xs-12">
                                   </div>
 
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >หมู่
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-" id="id_tax" name="individual_send_village[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="" id="id_tax" name="individual_send_village[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >ซอย/ตรอก
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_send_lane[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_send_lane[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >ถนน
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_send_road[0]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_send_road[0]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -878,7 +882,7 @@
                                       </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >ตำบล
                                     </label>
                                     <div >
@@ -887,12 +891,9 @@
                                       </select>
                                     </div>
                                   </div>
-
-                                  
-
                               </div>
                               <div class="row">
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                       <label  >รหัสไปรษณีย์
                                       </label>
                                       <div >
@@ -911,10 +912,10 @@
                           
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" >
-                                  <span class="required" style="color:red">*</span>เลขประจำตัวผู้เสียภาษี
+                                  <span class="required" style="color:red">* </span>เลขประจำตัวผู้เสียภาษี
                                 </label>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <input type="text" placeholder="4371239640692" id="id_tax_tab2" name="individual_number[1]" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                                    <input type="text" placeholder="เลขประจำตัว 13 หลัก" id="id_tax_tab2" name="individual_number[1]" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
                                 </div>
                             </div>
                             <hr/>
@@ -926,7 +927,7 @@
                                   <label for="middle-name" for="name_company">ชื่อบริษัท
                                     </label>
                                     <div >
-                                        <input type="text" placeholder="-" id="name_tax" name="individual_firstname[1]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="ภาษาไทย" id="name_tax" name="individual_firstname[1]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
                               
@@ -936,7 +937,7 @@
                                     <label  >เบอร์โทรศัพท์
                                     </label>
                                     <div >
-                                        <input type="text" placeholder="xxx-xxxxxxx" nane="individual_phone[1]" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
+                                        <input type="text" placeholder="0xx-xxxxxxx" nane="individual_phone[1]" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '999-9999999'">
                                     </div>
                                       
                                   </div>
@@ -948,7 +949,7 @@
                                         <label >เลขที่
                                         </label>
                                         <div >
-                                            <input type="text" placeholder="-" name="individual_address[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" placeholder="" name="individual_address[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
                                         </div>
 
                                       </div>
@@ -956,7 +957,7 @@
                                         <label  >หมู่
                                           </label>
                                           <div>
-                                              <input type="text" placeholder="-" name="individual_village[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                              <input type="text" placeholder="" name="individual_village[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
                                           </div>
                                       </div>
                                   </div>
@@ -967,23 +968,23 @@
 
                               <div class="row">
 
-                                <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="col-md-2 col-sm-3 col-xs-4" style="margin-bottom: 10px;">
                                   <label  >ซอย/ตรอก
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-" name="individual_lane[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="" name="individual_lane[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="col-md-2 col-sm-3 col-xs-4" style="margin-bottom: 10px;">
                                   <label  >ถนน
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-" name="individual_road[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="" name="individual_road[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
 
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label>จังหวัด
                                   </label>
                                   <div>
@@ -996,7 +997,7 @@
                                       </select>
                                   </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >อำเภอ
                                     </label>
                                     <div>
@@ -1006,8 +1007,6 @@
                                     </div>
                                 </div>
                               </div>
-                              <br/>
-
                               <div class="row">
                                   <div class="col-md-4 col-sm-6 col-xs-12">
                                     <label >ตำบล
@@ -1045,37 +1044,37 @@
                             
                             </div>
                             <br/>
-                            <div class="form-group type-value" id="individual_tab1"style="display:block;margin-bottom: 0px;" >
+                            <div class="form-group type-value" id="individual_tab1" style="display:block;margin-bottom: 0px;" >
 
                               <div class="row">
 
-                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
                                   <label >เลขที่
                                   </label>
                                   <div >
-                                      <input type="text" placeholder="-" name="individual_send_address[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" placeholder="" name="individual_send_address[1]" id="id_tax" class="form-control col-md-7 col-xs-12">
                                   </div>
 
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >หมู่
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-" id="id_tax" name="individual_send_village[1]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder="" id="id_tax" name="individual_send_village[1]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >ซอย/ตรอก
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_send_lane[1]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_send_lane[1]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 10px;">
                                   <label  >ถนน
                                     </label>
                                     <div>
-                                        <input type="text" placeholder="-"id="id_tax" name="individual_send_road[1]" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" placeholder=""id="id_tax" name="individual_send_road[1]" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -1083,7 +1082,7 @@
                               </div>
 
                               <div class="row">
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                   <label>จังหวัด
                                   </label>
                                   <div>
@@ -1096,7 +1095,7 @@
                                       </select>
                                   </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >อำเภอ
                                     </label>
                                     <div>
@@ -1105,7 +1104,7 @@
                                       </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                     <label >ตำบล
                                     </label>
                                     <div >
@@ -1117,7 +1116,7 @@
                                 
                               </div>
                               <div class="row">
-                                  <div class="col-md-4 col-sm-6 col-xs-12">
+                                  <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                         <label  >รหัสไปรษณีย์
                                         </label>
                                         <div >
@@ -1164,7 +1163,7 @@
 </div>
 
  
-<style>
+ <style>
   
   ul.anchor {
     position: relative;
@@ -1188,8 +1187,8 @@
     padding-right: 3px;
     border: 0px solid #E0E0E0;
     float: left;
-}
-ul.anchor li a.selected {
+  }
+  ul.anchor li a.selected {
     color: #F8F8F8;
     background: #2A3F54;
     border: 1px solid #2A3F54;
@@ -1197,8 +1196,8 @@ ul.anchor li a.selected {
     -moz-box-shadow: 5px 5px 8px #888;
     -webkit-box-shadow: 5px 5px 8px #888;
     box-shadow: 5px 5px 8px #888;
-}
-ul.anchor li a {
+  }
+  ul.anchor li a {
     display: block;
     position: relative;
     float: left;
@@ -1211,8 +1210,8 @@ ul.anchor li a {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     z-index: 99;
-}
-ul.anchor li a .stepNumber {
+  }
+  ul.anchor li a .stepNumber {
     position: relative;
     float: left;
     width: 30px;
@@ -1221,43 +1220,43 @@ ul.anchor li a .stepNumber {
         padding-top: 5px;
     padding-top: 0;
     font: bold 45px Verdana, Arial, Helvetica, sans-serif;
-}
+  }
 
-ul.anchor li a .stepDesc {
+  ul.anchor li a .stepDesc {
     position: relative;
     display: block;
     float: left;
     text-align: left;
-    padding: 5px;
-    font: bold 20px Verdana, Arial, Helvetica, sans-serif;
-}
-ul.anchor li a .stepDesc small {
-    font: normal 12px Verdana, Arial, Helvetica, sans-serif;
-}
+    padding: 5px; 
+    font: bold 16px CSChatThaiUI, sans-serif;
+  }
+  ul.anchor li a .stepDesc small {
+      font: normal 12px CSChatThaiUI, sans-serif;
+  }
 
-ul.anchor li a.done:hover {
+  ul.anchor li a.done:hover {
     color: #2A3F54;
     background: #476888;
     border: 1px solid #5A5655;
-}
+  }
 
-ul.anchor li a.done {
-    position: relative;
-    color: #FFF;
-    background: #476888;
-    border: 1px solid #476888;
-    z-index: 99;
-}
-.swMain .stepContainer {
-    display: block;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    border: 0px solid #CCC;
-    overflow: hidden;
-    clear: both;
-    height: 300px;
-}
+  ul.anchor li a.done {
+      position: relative;
+      color: #FFF;
+      background: #476888;
+      border: 1px solid #476888;
+      z-index: 99;
+  }
+  .swMain .stepContainer {
+      display: block;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      border: 0px solid #CCC;
+      overflow: hidden;
+      clear: both;
+      height: 300px;
+  }
 
 </style>
 
