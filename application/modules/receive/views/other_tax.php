@@ -99,10 +99,10 @@
                                     <td>
                                       <center>
                                           <div class="btn-group ">
-                                              <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_taxadd_popup/') . '/' . $value->individual_id; ?>'" id="edit-individual" class="btn btn-success btn-sm" title="แก้ไข">
+                                              <button type="button" onclick="window.location.href='<?php echo base_url('receive/other_tax_update/') . '/' . $value->receive_id; ?>'" id="edit-receive" class="btn btn-success btn-sm" title="แก้ไข">
                                                   <i class="glyphicon glyphicon-edit"></i>
                                               </button>
-                                              <button type="button" id="btn_delete" class="btn btn-danger btn-sm" data-id="<?php echo $value->individual_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">
+                                              <button type="button" id="btn_delete" class="btn btn-danger btn-sm" data-id="<?php echo $value->receive_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">
                                                   <i class="glyphicon glyphicon-trash"></i>
                                               </button>
                                           </div>
