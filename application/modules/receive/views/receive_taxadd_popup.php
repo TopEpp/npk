@@ -18,11 +18,13 @@
               <br />
 
               <!-- Smart Wizard -->
-              <?php if (!empty($this->uri->segment(3))){?>
-                <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save'.'/'.$this->uri->segment(3)); ?>" data-parsley-validate class="form-horizontal form-label-left">          
-              <?php }else{ ?>
+              <?php if (!empty($this->uri->segment(3))) { ?>
+                <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save' . '/' . $this->uri->segment(3)); ?>" data-parsley-validate class="form-horizontal form-label-left">          
+              <?php 
+            } else { ?>
                 <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save'); ?>" data-parsley-validate class="form-horizontal form-label-left">          
-              <?php } ?>
+              <?php 
+            } ?>
             
                 <!-- Smart Wizard -->
                   <div id="form_tab" class="swMain">

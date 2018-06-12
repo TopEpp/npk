@@ -81,6 +81,7 @@
                     <table id="myTable" class="display" style="width:100%">                        
                         <thead>
                           <tr>
+                            <th style="width: 30px;">ลำดับ</th>
                             <th style="width: 30px;">รหัสประเมิน</th>
                             <th style="width: 100px;">เลขประจำตัวผู้เสียภาษี</th>
                             <th>ชื่อผู้เสียภาษี</th>
@@ -92,9 +93,10 @@
                         </thead>
                         <tbody>
                                 <?php if (!empty($notice)) {
-                                  foreach ($notice as $value) : ?>
+                                  foreach ($notice as $key => $value) : ?>
                                     
                                     <tr>
+                                        <td align="center"><?php echo $key + 1; ?></td>
                                         <td  align="center"><?php echo $value['notice_id'] ?></td>
                                         <td  align="center"><?php echo $value['individual_number'] ?></td>
                                         <td> <?php echo $value['individual_prename'] ?><?php echo $value['individual_firstname'] ?>&nbsp;&nbsp;&nbsp;<?php echo $value['individual_lastname'] ?> </td>

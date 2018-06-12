@@ -28,6 +28,11 @@ class Receive_model extends CI_Model
         return $query->result_array();
     }
 
+    public function insertNotice($data)
+    {
+        return $this->db->insert('tax_notice', $data);
+    }
+
     public function insertDataImport($data)
     {
         return $this->db->insert('tbl_individual', $data);

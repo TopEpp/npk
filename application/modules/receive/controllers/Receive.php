@@ -1,4 +1,7 @@
 <?php
+
+use function GuzzleHttp\Promise\each;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '2048M');
@@ -20,11 +23,22 @@ class Receive extends MY_Controller
         $this->publish();
     }
 
-    public function receive_add()
+    public function insert_receive()
+    {
+        $input = $this->input->post();
+
+        $this->Receive_model->insertNotice($input);
+        redirect(base_url('Receive/receive_dashborad'));
+    }
+
+
+    public function receive_add($id = '')
     {
         $data = array();
+
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
 
+        $data['tax_notice'] = $this->Receive_model->read_receive($id);
         //import smartwizard
         $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
         //import input mark
@@ -34,6 +48,41 @@ class Receive extends MY_Controller
         $this->setView('receive_add', $data);
         $this->publish();
     }
+
+        //add or edit individual to db
+    public function receive_taxadd_save($id = '')
+    {
+            // check data individual tpye
+
+        $data = array();
+        $check_num = $this->input->post('individual_id');
+        foreach ($check_num as $key => $value) {
+            if (!empty($this->input->post('individual_id')[$key])) {
+                    // $data['individual_type'] = $key + 1;
+                $data['individual_number'] = $this->input->post('individual_number')[$key];
+                $data['notice_date'] = $this->input->post('notice_date')[$key];
+                $data['notice_reception'] = $this->input->post('notice_reception')[$key];
+                $data['notice_number'] = $this->input->post('notice_number')[$key];
+                $data['notice_no'] = $this->input->post('notice_no')[$key];
+                $data['notice_deed'] = $this->input->post('notice_deed')[$key];
+                $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
+                $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
+    
+    
+                    //insert data individual
+                if (!empty($id)) {
+                    $status = $this->Receive_model->insertNotice($data, $id);
+                } else {
+                    $status = $this->Receive_model->insertNotice($data);
+                }
+
+            }
+        }
+        redirect(base_url('receive/receive_dashborad'));
+
+
+    }
+
 
     public function receive_tax()
     {
@@ -211,9 +260,9 @@ class Receive extends MY_Controller
                 $data['individual_business_name'] = $this->input->post('individual_business_name')[$key];
 
                 //insert data individual
-                if (!empty($id)){
-                    $status = $this->Receive_model->insertIndividual($data,$id);
-                }else{
+                if (!empty($id)) {
+                    $status = $this->Receive_model->insertIndividual($data, $id);
+                } else {
                     $status = $this->Receive_model->insertIndividual($data);
                 }
 

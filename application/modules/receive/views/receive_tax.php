@@ -80,7 +80,7 @@
                           <td><?php echo $type_name[$value->individual_type]; ?></td>                          <td>
                             <center>
                                 <div class="btn-group ">
-                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_add/') ?>'"id="" class="btn btn-success btn-sm" title="เพิ่มการประเมินรายรับ">
+                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_add/') . '/' . $value->individual_id; ?>'"id="" class="btn btn-success btn-sm" title="เพิ่มการประเมินรายรับ">
                                         <i class="fa fa-plus-square"></i>
                                     </button>
                                     <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_taxadd_popup/') . '/' . $value->individual_id; ?>'" id="edit-individual" class="btn btn-success btn-sm" title="แก้ไข">
@@ -143,7 +143,7 @@ text-align: center;
 </style>
 
 <script type="text/javascript">
-    var domain='<?php  echo base_url(); ?>/';
+    var domain='<?php echo base_url(); ?>/';
 </script>
 <script type="text/javascript">
  setTimeout(function(){
