@@ -18,12 +18,13 @@
               <br />
 
               <!-- Smart Wizard -->
-
-              <?php if (!empty($this->uri->segment(3))){?>
-                <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save'.'/'.$this->uri->segment(3)); ?>" data-parsley-validate class="form-horizontal form-label-left">          
-              <?php }else{ ?>
+              <?php if (!empty($this->uri->segment(3))) { ?>
+                <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save' . '/' . $this->uri->segment(3)); ?>" data-parsley-validate class="form-horizontal form-label-left">          
+              <?php 
+            } else { ?>
                 <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save'); ?>" data-parsley-validate class="form-horizontal form-label-left">          
-              <?php } ?>
+              <?php 
+            } ?>
             
                 <!-- Smart Wizard -->
                   <div id="form_tab" class="x_panel">
@@ -232,17 +233,17 @@
                                       </div>
                                       <div class="col-md-3">
                                         <p>
-                                          <input type="radio"  <?php echo (empty($individual[0]->individual_send_address))? 'checked' : '';?> class="flat" name="individual_adr" id="individual_adr" value="0" checked=""  /> ที่อยู่เดิม &nbsp;
-                                          <input type="radio" <?php echo (!empty($individual[0]->individual_send_address))? 'checked' : '';?> class="flat" name="individual_adr" id="individual_adr2" value="1" /> เพิ่มที่อยู่
+                                          <input type="radio"  <?php echo (empty($individual[0]->individual_send_address)) ? 'checked' : ''; ?> class="flat" name="individual_adr" id="individual_adr" value="0" checked=""  /> ที่อยู่เดิม &nbsp;
+                                          <input type="radio" <?php echo (!empty($individual[0]->individual_send_address)) ? 'checked' : ''; ?> class="flat" name="individual_adr" id="individual_adr2" value="1" /> เพิ่มที่อยู่
                                         </p>
                                       </div>
                                     </div>
                                     <br/>
                                     <?php $display = 'display:none;';
-                                    if (!empty($individual[0]->individual_send_address)){
+                                    if (!empty($individual[0]->individual_send_address)) {
                                       $display = 'display:block';
-                                    }?>
-                                    <div class="form-group type-value" id="individual_tab1" style="<?= $display;?>margin-bottom: 0px;" >
+                                    } ?>
+                                    <div class="form-group type-value" id="individual_tab1" style="<?= $display; ?>margin-bottom: 0px;" >
 
                                       <div class="row">
 
@@ -531,19 +532,19 @@
                                     </div>
                                     <div class="col-md-3">
                                       <p>
-                                        <input <?php echo (empty($individual[0]->individual_send_address))? 'checked' : '';?> type="radio" class="flat" name="individual_adr1"  value="0"   /> ที่อยู่เดิม &nbsp;
-                                        <input <?php echo (!empty($individual[0]->individual_send_address))? 'checked' : '';?> type="radio" class="flat" name="individual_adr1" id="individual_adr12" value="1" /> เพิ่มที่อยู่
+                                        <input <?php echo (empty($individual[0]->individual_send_address)) ? 'checked' : ''; ?> type="radio" class="flat" name="individual_adr1"  value="0"   /> ที่อยู่เดิม &nbsp;
+                                        <input <?php echo (!empty($individual[0]->individual_send_address)) ? 'checked' : ''; ?> type="radio" class="flat" name="individual_adr1" id="individual_adr12" value="1" /> เพิ่มที่อยู่
                                       </p>
                                     </div>
                                   
                                   </div>
                                   <br/>
-                                  <?php $display = 'display:none;'; 
-                                    if (!empty($individual[0]->individual_send_address)){
-                                     
-                                      $display = 'display:block';
-                                    }?>
-                                  <div class="form-group type-value" id="individual_tab2"style="<?= $display;?> margin-bottom: 0px;" >
+                                  <?php $display = 'display:none;';
+                                  if (!empty($individual[0]->individual_send_address)) {
+
+                                    $display = 'display:block';
+                                  } ?>
+                                  <div class="form-group type-value" id="individual_tab2"style="<?= $display; ?> margin-bottom: 0px;" >
 
                                     <div class="row">
 
