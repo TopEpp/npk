@@ -99,7 +99,7 @@
                                         <td align="center"><?php echo $key + 1; ?></td>
                                         <td  align="center"><?php echo $value['notice_id'] ?></td>
                                         <td  align="center"><?php echo $value['individual_number'] ?></td>
-                                        <td> <?php echo $value['individual_prename'] ?><?php echo $value['individual_firstname'] ?>&nbsp;&nbsp;&nbsp;<?php echo $value['individual_lastname'] ?> </td>
+                                        <td> <?php echo $value['individual_prename'] ?><?php echo $value['individual_firstname'] ?><?php echo $value['individual_lastname'] ?> </td>
                                         <td> <?php echo $value['tax_type_name'] ?></td>
                                         <td> <?php echo $value['tax_name'] ?></td>
                                         <td align="right"> <?php echo number_format($value['notice_estimate'], 2) ?></td>

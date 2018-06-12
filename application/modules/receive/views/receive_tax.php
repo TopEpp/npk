@@ -62,7 +62,7 @@
                   <table id="tax_table" class="table" width="100%">
                       <thead>
                         <tr>
-                          <th width="5%">ลำดับ</th>
+                          <th  width="5%">ลำดับ</th>
                           <th  width="30%">เลขประจำตัวผู้เสียภาษี</th>
                           <th  width="30%">ชื่อผู้เสียภาษี</th>
                           <th  width="10%">ประเภทผู้เสียภาษี</th>
