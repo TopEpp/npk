@@ -106,7 +106,7 @@
                                         <td>
                                             <center>
                                                 <div class="btn-group ">
-                                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_add/') ?>'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข">
+                                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_add/') . '/' . $value['individual_id'] ?>'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข">
                                                         <i class="glyphicon glyphicon-edit"></i>
                                                     </button>
                                                     <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">

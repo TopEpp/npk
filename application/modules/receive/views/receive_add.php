@@ -31,7 +31,7 @@
                         <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ภาษีป้าย</a>
                         </li>
                       </ul>
-
+                    <input type='hidden' name="individual_id" value="<?php echo @$tax_notice[0]->individual_id; ?>" class="form-control" />
                     <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                           <div id="step-1">
@@ -385,7 +385,7 @@
                                                         <label  > จำนวนภาษีที่ประเมิน <span class="required" style="color:red"> *</span>
                                                         </label>
                                                             <div >
-                                                                <input type="text" name="notice_estimate" placeholder="0"id="id_tax" class="form-control col-md-7 col-xs-12">
+                                                                <input type="text" name="" placeholder="0"id="id_tax" class="form-control col-md-7 col-xs-12">
                                                             </div>
                                                     </div>
                                             </div>                  
@@ -458,7 +458,7 @@
                                                     <div class="form-group" style="margin-bottom: 0px;">
                                                         
                                                         <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                        <input type='date' class="form-control" />
+                                                        <input type='date' name="notice_date" class="form-control" />
                                                     </div>
                                             </div>
 
@@ -469,7 +469,7 @@
                                                         <span class="required" style="color:red"> *</span>
                                                     </label>
                                                     <div >
-                                                        <input type="text" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                        <input type="text" name="notice_number" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
                                                     </div>
                                                 </div>
                                             </div>
@@ -477,11 +477,11 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                                     <div class="form-group" style="margin-bottom: 0px;">
                                                         
-                                                        <label for="middle-name" class="" for="name"> สถานที่ติดตั้งป้าย
+                                                        <label for="middle-name" class="" for="name"> เลขที่อยู่ที่ตั้งป้าย
                                                         <span class="required" style="color:red"> *</span>
                                                         </label>
                                                         <div >
-                                                            <input type="text" placeholder="สถานที่ติดตั้งป้าย" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                            <input type="text" name="notice_address_number" placeholder="อยู่ที่ตั้งป้าย" id="name_tax" class="form-control col-md-7 col-xs-12">
                                                         </div>
                                                     </div>
                                             </div>
@@ -494,7 +494,7 @@
                                                 <label > หมู่ที่ <span class="required" style="color:red"> *</span>
                                                 </label>
                                                 <div >
-                                                    <input type="text" placeholder="หมู่ที่อยู่ติดตั้งป้าย"id="id_tax" class="form-control col-md-7 col-xs-12">
+                                                    <input type="text" name="notice_address_moo" placeholder="หมู่ที่อยู่ติดตั้งป้าย"id="id_tax" class="form-control col-md-7 col-xs-12">
                                                 </div>
                                             </div>
 
@@ -504,7 +504,7 @@
                                                         <label  > ตำบล <span class="required" style="color:red"> *</span>
                                                         </label>
                                                             <div >
-                                                                <input type="text" value="หนองป่าครั่ง" disabled id="id_tax" class="form-control col-md-7 col-xs-12" >
+                                                                <input type="text" name="notice_address_subdistrict" value="หนองป่าครั่ง" disabled id="id_tax" class="form-control col-md-7 col-xs-12" >
                                                             </div>
                                                     </div>
                                             </div>
@@ -512,10 +512,10 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12" >
                                                     <div class="form-group">
                                                         
-                                                        <label  > ชื่อกิจการ <span class="required" style="color:red"> *</span>
+                                                        <label  > ชื่อกิจการ/ร้านค้า <span class="required" style="color:red"> *</span>
                                                         </label>
                                                             <div >
-                                                                <input type="text" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12" >
+                                                                <input type="text" name="noice_name_operation" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12" >
                                                             </div>
                                                     </div>
                                             </div>
