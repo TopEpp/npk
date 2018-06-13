@@ -116,6 +116,7 @@
 th{
 text-align: center;
 }
+.dataTables_filter, .dataTables_info { display: none; }
 </style>
 
 
