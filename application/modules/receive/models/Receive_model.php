@@ -101,12 +101,23 @@ class Receive_model extends CI_Model
         $keyword = $param['keyword'];
 		$this->db->select('*');
  
-		$condition = "1=1";
-		if(!empty($keyword)){
-            // $condition .= " and (individual_number like '%{$keyword}%' or  individual_firstname '%{$keyword}%')";
-            $condition .= " and (individual_number like '%{$keyword}%')";
-		}
- 
+        $condition = "1=1";
+
+		if(!empty($param['filter'])){
+            $filter = $param['filter'];
+            if (!empty($filter[1])){
+                $this->db->like('individual_type',$filter[1]);
+            }
+            if (!empty($filter[2])){
+                $this->db->like('individual_number',$filter[2]);
+            }
+            if (!empty($filter[3])){
+                $this->db->like('individual_fullname',$filter[3]);
+            }
+
+        }
+
+        
 		$this->db->where($condition);
 		$this->db->limit($param['page_size'], $param['start']);
 		$this->db->order_by($param['column'], $param['dir']);

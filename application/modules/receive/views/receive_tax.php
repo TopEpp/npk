@@ -26,8 +26,9 @@
                       </label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
                         <select class="form-control" type="text" id="type_tax">
-                          <option>บุคคลธรรมดา</option>
-                          <option>นิติบุคคล</option>
+                          <option value="">เลือก</option>
+                          <option value="1">บุคคลธรรมดา</option>
+                          <option value="2">นิติบุคคล</option>
                         </select>
                       </div>
                     </div>
@@ -35,7 +36,7 @@
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี
                       </label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                          <input type="text" placeholder="1048174650120" class="form-control col-md-4 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                          <input type="text" name="number_tax" id="number_tax" placeholder="1048174650120" class="form-control col-md-4 col-xs-12" data-inputmask="'mask': '9999999999999'">
                       </div>
                     </div>
                     <div class="form-group">
@@ -45,17 +46,16 @@
                       </div>
                     </div>
   
-                    
-
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
-                          <br>
-                          <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
-                          <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
-                        </div>
-                      </div>
                     <div class="ln_solid"></div>
                   </form>
+                  
+                  <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
+                          <br>
+                          <button type="submit" id="search_receive" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
+                          <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
+                        </div>
+                  </div>
                 </div>
 
                <div class="x_content">

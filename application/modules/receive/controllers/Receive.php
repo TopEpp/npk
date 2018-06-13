@@ -353,7 +353,13 @@ class Receive extends MY_Controller
         $param['keyword'] = trim($this->input->get('search[value]'));
         $param['column'] = $this->input->get("columns[{$order_index}][data]");
         $param['dir'] = $this->input->get('order[0][dir]');
- 
+        //check filter data
+        $filter = array();
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[]  = $value['search']['value'];
+        }
+        $param['filter'] = $filter;
+
         $results = $this->Receive_model->getRecieveTaxAjax($param);
  
         $data['draw'] = $param['draw'];
