@@ -1,5 +1,42 @@
 $(function(){
 
+    //grid tree
+    $('#tg').treegrid({
+        url:domain+'project_training/getProjectJson',
+        rownumbers: false,
+        animate: false,
+        collapsible: false,
+        fitColumns: true,
+        idField:'id',
+        treeField:'name',
+        onContextMenu: onContextMenu,
+        columns:[[
+            {title:'แผนงาน',field:'name',width:50},
+            {field:'budget',title:'งบประมาณ',width:30,align:'right'},
+            {field:'tools',title:'&nbsp;',width:20,align:'right'},
+            // {field:'end',title:'End Date',width:80}
+        ]],
+        onLoadSuccess: function(row){
+            $(this).treegrid('enableDnd', row?row.id:null);
+        }
+        
+      
+    }).treegrid('enableFilter',[
+        {
+            field:'name',
+            type:'text',
+        },
+        {
+            field: 'budget',
+            type: 'text',
+            options: { precision: 1 },
+        },
+        {
+            field: 'tools',
+            type: 'label',
+        }
+    ]);
+    
       
     //add plan data
     $('#btn-submit-plans').click(function(){
@@ -15,8 +52,10 @@ $(function(){
             url: domain+'project_training/insertProjectPlan',
             data: {data:data,id:id,edit:edit}
         }) .done(function( msg ) {
-            if(msg)
-                window.location.href = domain+'project_training/project';
+            if(msg){
+                $('.create_plan').modal('hide');
+                $('#tg').treegrid('reload');
+            }
         })
     });
     //end plan
@@ -35,8 +74,10 @@ $(function(){
             url: domain+'project_training/insertProjectPlan',
             data: {data:data,id:id,level:level,edit:edit}
         }) .done(function( msg ) {
-            if(msg)
-                window.location.href = domain+'project_training/project';
+            if(msg){
+                $('.create_plan_detail').modal('hide');
+                $('#tg').treegrid('reload');
+            }
         })
     });
     //end plan
@@ -57,8 +98,10 @@ $(function(){
             url: domain+'project_training/insertProjectPlan',
             data: {data:data,id:id,level:level,edit:edit}
         }) .done(function( msg ) {
-            if(msg)
-                window.location.href = domain+'project_training/project';
+            if(msg){
+                $('.create_plan_cost').modal('hide');
+                $('#tg').treegrid('reload');
+            }
         })
     });
     //end plan
@@ -79,8 +122,12 @@ $(function(){
             url: domain+'project_training/insertProject',
             data: {data:data,edit:edit,id:id}
         }) .done(function( msg ) {
-            if(msg)
-                window.location.href = domain+'project_training/project';
+            if(msg){
+                $('.creat_prj').modal('hide');
+                $('#tg').treegrid('reload');
+            }
+            
+                // window.location.href = domain+'project_training/project';
         })
     });
     //end plan
@@ -93,6 +140,8 @@ $(function(){
     });
     
 });
+
+
 
 // create project
 function project_add_plan(id,value){

@@ -97,6 +97,11 @@
     <!-- datatable -->
     <?php echo js_asset('../plugins/datatables/1.10.16/js/jquery.dataTables.min.js'); ?>
 
+    <!-- datatable -->
+    <?php echo js_asset('../js/datagrid-filter.js'); ?>
+    <!-- datatable -->
+    <?php echo js_asset('../js/treegrid-dnd.js'); ?>
+
     
     <?php echo $this->template->javascript; ?>
 
