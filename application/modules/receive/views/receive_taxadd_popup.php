@@ -82,7 +82,7 @@
                                             <label for="middle-name" class="" for="name">ชื่อ
                                             </label>
                                             <div >
-                                                <input type="text" value="<?php echo @$individual[0]->individual_firstname; ?>" placeholder="ภาษาไทย" id="name_tax" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
+                                                <input type="text" value="<?php echo @$individual[0]->individual_firstname; ?>" placeholder="ภาษาไทย" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
                                             </div>
                                                       
                                           </div>
@@ -92,7 +92,7 @@
                                             <label for="middle-name" class="" for="last_name">นามสกุล
                                             </label>
                                             <div >
-                                                <input type="text" value="<?php echo @$individual[0]->individual_lastname; ?>" placeholder="ภาษาไทย" id="name_tax" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
+                                                <input type="text" value="<?php echo @$individual[0]->individual_lastname; ?>" placeholder="ภาษาไทย" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
                                             </div>
                                               
                                           </div>

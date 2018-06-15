@@ -20,33 +20,23 @@
 
                                 <?php echo form_open('Receive/updateOtherTax') ?>
                                         <div class="form-horizontal form-label-left">
-                                                <div class="form-group" style="margin-bottom: 0px;">
-                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> เลขประจำตัวผู้เสียภาษี
-                                                    </label>
-                                                        <div class="col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="input-group">
-                                                                <input type="text" name="" placeholder="เลขประจำตัว 13 หลัก" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
-                                                                    <span class="input-group-btn">
-                                                                        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#detail" style="margin-right: 0px;">
-                                                                            <i class="fa fa-search"></i>
-                                                                        </button>
-                                                                    </span>
-                                                            </div>
-                                                        </div>
-                                                </div>
 
-                                                <!-- <div class="form-group">
+                                                <div class="form-group">
                                                             <label class="control-label col-md-4 col-sm-3 col-xs-12" for="first">
                                                                 <span class="required" style="color:red">*</span> หมวดรายได้
                                                             </label>
-                                                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="col-md-4 col-sm-6 col-xs-12">
                                                                     <select id="colorselector" name="tax_id" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
                                                                         <optgroup label="หมวดภาษีจัดสรร">
                                                                             <?php foreach ($tax_allocate as $key => $value) { ?>
-                                                                                <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
-                                                                                <?php 
-                                                                            } ?>
+
+                                                                                <?php if ($other_tax[0]['receive_amount'] == $key['tax_id']) : ?>
+                                                                                    <option selected value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php else : ?>  
+                                                                                    <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php endif; ?>
+                                                                            <?php 
+                                                                        } ?>
                                                                         </optgroup>
                                                                         <optgroup label="หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต">
                                                                             <?php foreach ($tax_fine as $key => $value) { ?>
@@ -80,7 +70,7 @@
                                                                         </optgroup>
                                                                     </select>
                                                                 </div>
-                                                </div> -->
+                                                </div>
 
                                                 <div class="form-group" style="margin-bottom: 0px;">
                                                         <label for="second" class="control-label col-md-4 col-sm-3 col-xs-12" for="">
@@ -93,21 +83,6 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> เลขที่
-                                                    </label>
-                                                        <div class="col-md-1 col-sm-2 col-xs-12">
-                                                            <input type="text" name="" value="" class="form-control col-md-7 col-xs-12">
-                                                        </div>
-                                                                    
-                                                    <label class="control-label col-md-1 col-sm-1 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> เล่มที่
-                                                    </label>
-                                                        <div class="col-md-1 col-sm-2 col-xs-12">
-                                                                <input type="text" name="" value="" class="form-control col-md-7 col-xs-12">
-                                                        </div>
-                                                </div>
 
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4 col-sm-3 col-xs-12">

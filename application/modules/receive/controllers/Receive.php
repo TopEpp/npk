@@ -79,7 +79,7 @@ class Receive extends MY_Controller
                 $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
                 $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
                 $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
-                // $data['notice_address_subdistrict'] = $this->input->post('notice_address_subdistrict')[$key];
+                $data['notice_address_subdistrict'] = $this->input->post('notice_address_subdistrict')[$key];
                 // $data['notice_asset'] = $this->input->post('notice_asset')[$key];
                 $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];
                 $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];

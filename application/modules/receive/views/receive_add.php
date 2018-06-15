@@ -409,7 +409,7 @@
                                                             </div>
                                                             <div class="col-md-2 col-sm-6 col-xs-12" align="center"><label>ถึง</label></div>
                                                             <div class="col-md-5 col-sm-6 col-xs-12" style="padding-right: 0px;">
-                                                                <select class="form-control" name="tax_year[1]" type="text" >
+                                                                <select class="form-control" name="tax_local_year[1]" type="text" >
                                                                         <?php foreach ($years as $key => $value) { ?>
                                                                             <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
                                                                             <?php 
@@ -522,45 +522,6 @@
                                                 </div>
                                     </div>
 
-                                    <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-                                                            
-                                                            <label  > เนื้อที่ดิน (ไร่) <span class="required" style="color:red"> *</span>
-                                                            </label>
-                                                                <div >
-                                                                    <input type="text" name="land_rai[1]" value="<?php echo @$notice[0]->land_rai; ?>" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
-                                                                </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-                                                            
-                                                            <label  > เนื้อที่ดิน (งาน) <span class="required" style="color:red"> *</span>
-                                                            </label>
-                                                                <div >
-                                                                    <input type="text" name="land_ngan[1]" value="<?php echo @$notice[0]->land_ngan; ?>" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
-                                                                </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-                                                            
-                                                            <label  > เนื้อที่ดิน (วา) <span class="required" style="color:red"> *</span>
-                                                            </label>
-                                                                <div >
-                                                                    <input type="text" name="land_wa[1]" value="<?php echo @$notice[0]->land_wa; ?>" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
-                                                                </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                </div>
-                                    </div>
 
                                     <div class="form-group">
                                                 <div class="row">
@@ -570,7 +531,7 @@
                                                             <label  > ประเภทป้าย <span class="required" style="color:red"> *</span>
                                                             </label>
                                                             <div >
-                                                                    <select class="form-control" type="text" id="type_tax">
+                                                                    <select class="form-control" type="text" name="banner_type[2]">
                                                                             <option>มีอักษรไทยล้วน</option>
                                                                             <option>มีอักษรไทยปนอักษรต่างประเทศหรือเครื่องหมาย</option>
                                                                             <option>ป้ายที่ไม่มีอักษรไทย</option>
@@ -600,7 +561,7 @@
                                                             <label  > จำนวนภาษีที่ประเมิน <span class="required" style="color:red"> *</span>
                                                             </label>
                                                             <div>
-                                                                <input type="text" name="notice_estimate[2]" placeholder="0.00"id="id_tax" class="form-control col-md-7 col-xs-12">
+                                                                <input type="text" name="notice_estimate[2]" placeholder="0"class="form-control col-md-7 col-xs-12">
                                                             </div>
                                                         </div>
                                                         
@@ -610,7 +571,7 @@
                                                                 <label  > ประจำปีภาษี <span class="required" style="color:red"> *</span>
                                                                 </label>
                                                                     <div >
-                                                                        <input type="text" placeholder="ปีงบประมาณ" id="id_tax" class="form-control col-md-7 col-xs-12" >
+                                                                        <input type="text" name="tax_year[2]" placeholder="ปีงบประมาณ" class="form-control col-md-7 col-xs-12" >
                                                                     </div>
                                                             </div>
                                                         </div>
