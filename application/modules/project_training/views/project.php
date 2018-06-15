@@ -10,6 +10,8 @@
 
     <div class="clearfix"></div>
 
+
+    
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -17,34 +19,10 @@
               <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus"></i>เพิ่มแผนงาน</button>
             </div>
             <div style="margin:20px 0;"></div>
-            <table id="tg" class="easyui-treegrid" title="&emsp;บริหารแผนงาน / โครงการ" style="width:100%;" data-options="
-                  
-                  rownumbers: false,
-                  animate: true,
-                  collapsible: false,
-                  fitColumns: true,
-                  url: '<?php echo base_url('project_training/getProjectJson') ?>',
-                  method: 'get',
-                  idField: 'id',
-                  treeField: 'name',
-                  onContextMenu: onContextMenu
-                ">
-              <thead>
-                <tr>
-                  <th data-options="field:'name',width:50">&nbsp;&nbsp;แผนงาน / โครงการ </th>                      
-                  <th data-options="field:'budget',width:30,align:'right'">งบประมาณ</th>
-                  <th data-options="field:'tools',width:20,align:'right'">&nbsp;</th>
-                </tr>
-              </thead>
+            <table id="tg" class="easyui-treegrid" title="&emsp;บริหารแผนงาน / โครงการ" style="width:100%;">
             </table>
+           
             <br>
-            <!-- <div id="mm" class="easyui-menu" style="width:120px;">
-              <div data-options="iconCls:'icon-add'">เพิ่ม</div>
-              <div data-options="iconCls:'icon-remove'">ลบ</div>
-              <div data-options="iconCls:'icon-edit'">แก้ไข</div>
-              
-            </div> -->
-            
         </div>
       </div>
     </div>

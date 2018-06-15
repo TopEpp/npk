@@ -139,31 +139,22 @@ class Receive_model extends CI_Model
 
 
         $this->db->where($condition);
-        $this->db->limit($param['page_size'], $param['start']);
-        $this->db->order_by($param['column'], $param['dir']);
+		$this->db->limit($param['page_size'], $param['start']);
+		$this->db->order_by($param['column'], $param['dir']);
+ 
+		$query = $this->db->get('tbl_individual');
+		$data = array();
+		if($query->num_rows() > 0){
 
-        $query = $this->db->get('tbl_individual');
-        $data = array();
-        if ($query->num_rows() > 0) {
-
-            $this->db->where($condition);
-            $this->db->limit($param['page_size'], $param['start']);
-            $this->db->order_by($param['column'], $param['dir']);
-
-            $query = $this->db->get('tbl_individual');
-            $data = array();
-            if ($query->num_rows() > 0) {
-
-                foreach ($query->result_array() as $key => $row) {
-                    $data[] = $row;
-                }
-            }
-
-            $count_condition = $this->db->from('tbl_individual')->where($condition)->count_all_results();
-            $count = $this->db->from('tbl_individual')->count_all_results();
-            $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
-            return $result;
-        }
+			foreach($query->result_array() as $key =>  $row){
+                $data[] = $row;
+			}
+		}
+ 
+		$count_condition = $this->db->from('tbl_individual')->where($condition)->count_all_results();
+		$count = $this->db->from('tbl_individual')->count_all_results();
+		$result = array('count'=>$count,'count_condition'=>$count_condition,'data'=>$data,'error_message'=>'');
+		return $result;
 
 
     // public function updateOtherTax($input)

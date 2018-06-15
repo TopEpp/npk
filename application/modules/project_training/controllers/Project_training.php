@@ -166,7 +166,7 @@ class Project_training extends MY_Controller
             <button onClick='edit_prj(".$value->prj_id.")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
             <button onClick='del_prj(".$value->prj_id.",".'"1"'.")'  id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
             $data['rows'][$data['total']+$key]['_parentId'] = $value->prj_parent;
-            $data['rows'][$data['total']+$key]['iconCls'] = 'icon-ok';
+            // $data['rows'][$data['total']+$key]['iconCls'] = 'icon-ok';
              
         }
     

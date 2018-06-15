@@ -386,7 +386,6 @@ class Receive extends MY_Controller
             $filter[] = $value['search']['value'];
         }
         $param['filter'] = $filter;
-
         $results = $this->Receive_model->getRecieveTaxAjax($param);
 
         $data['draw'] = $param['draw'];
@@ -394,7 +393,6 @@ class Receive extends MY_Controller
         $data['recordsFiltered'] = $results['count_condition'];
         $data['data'] = $results['data'];
         $data['error'] = $results['error_message'];
-
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
     //import users to table indevidual form data house 
