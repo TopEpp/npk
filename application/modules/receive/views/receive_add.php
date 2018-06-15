@@ -134,7 +134,7 @@
 
                                       <div class="col-md-4 col-sm-6 col-xs-12">
                                               <div class="form-group" style="margin-bottom: 0px;">
-                                                <label for="middle-name" > ชื่อกิจการ/ร้านค้า
+                                                <label for="middle-name" > ชื่อสถานประกอบการค้าหรือกิจการอื่น
                                                 </label>
                                                 <div >
                                                     <input type="text" name="noice_name_operation[0]" placeholder="" class="form-control col-md-7 col-xs-12">
@@ -389,7 +389,7 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                 <div class="form-group" style="margin-bottom: 0px;">
                                                     
-                                                    <label  > ชำระภาษีบำรุงท้องที่ ประจำปี  <span class="required" style="color:red"> *</span>
+                                                    <label  > ชำระภาษีบำรุงท้องที่ปี  <span class="required" style="color:red"> *</span>
                                                     </label>
                                                         <div >
                                                             <div class="col-md-5 col-sm-6 col-xs-12" style="padding-left: 0px;">
@@ -505,7 +505,7 @@
                                                         <div class="col-md-4 col-sm-6 col-xs-12" >
                                                                 <div class="form-group">
                                                                     
-                                                                    <label  > ชื่อกิจการ/ร้านค้า <span class="required" style="color:red"> *</span>
+                                                                    <label  > ชื่อสถานประกอบการค้าหรือกิจการอื่น <span class="required" style="color:red"> *</span>
                                                                     </label>
                                                                         <div >
                                                                             <input type="text" name="noice_name_operation[2]" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12" >
