@@ -39,37 +39,63 @@ class Receive extends MY_Controller
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
 
         $data['tax_notice'] = $this->Receive_model->read_receive($id);
-        //import smartwizard
-        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
-        //import input mark
-        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
-
 
         $this->setView('receive_add', $data);
         $this->publish();
     }
 
-        //add or edit individual to db
-    public function receive_taxadd_save($id = '')
+    public function receive_notice($id = '')
     {
-            // check data individual tpye
+        $data = array();
+
+        if (!empty($id)) {
+            $data['notice'] = $this->Receive_model->getNoticeAll($id);
+
+        }
+        $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('receive_edit', $data);
+        $this->publish();
+
+    }
+
+
+        //add or edit notice to db
+    public function receive_notice_save($id = '')
+    {
+            // check data noice tpye
 
         $data = array();
-        $check_num = $this->input->post('individual_id');
+        $check_num = $this->input->post('notice_number');
         foreach ($check_num as $key => $value) {
-            if (!empty($this->input->post('individual_id')[$key])) {
-                    // $data['individual_type'] = $key + 1;
-                $data['individual_number'] = $this->input->post('individual_number')[$key];
+            if (!empty($this->input->post('notice_number')[$key])) {
+                $data['tax_id'] = $key + 8;
+                $data['individual_id'] = $this->input->post('individual_id')[$key];
+                $data['tax_year'] = $this->input->post('tax_year')[$key];
                 $data['notice_date'] = $this->input->post('notice_date')[$key];
                 $data['notice_reception'] = $this->input->post('notice_reception')[$key];
                 $data['notice_number'] = $this->input->post('notice_number')[$key];
                 $data['notice_no'] = $this->input->post('notice_no')[$key];
                 $data['notice_deed'] = $this->input->post('notice_deed')[$key];
+                $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
                 $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
                 $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
-    
-    
-                    //insert data individual
+                // $data['notice_address_subdistrict'] = $this->input->post('notice_address_subdistrict')[$key];
+                // $data['notice_asset'] = $this->input->post('notice_asset')[$key];
+                $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];
+                $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];
+                $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];
+                // $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
+                // $data['land_rai'] = $this->input->post('land_rai')[$key];
+                // $data['land_ngan'] = $this->input->post('land_ngan')[$key];
+                // $data['land_wa'] = $this->input->post('land_wa')[$key];
+                // $data['land_tax'] = $this->input->post('land_tax')[$key];
+                // $data['banner_type'] = $this->input->post('banner_type')[$key];
+                // $data['banner_width'] = $this->input->post('banner_width')[$key];
+                // $data['banner_heigth'] = $this->input->post('banner_heigth')[$key];
+                // $data['banner_amount'] = $this->input->post('banner_amount')[$key];
+
+
+                // $status = $this->Receive_model->insertNotice($data);
                 if (!empty($id)) {
                     $status = $this->Receive_model->insertNotice($data, $id);
                 } else {
@@ -215,7 +241,7 @@ class Receive extends MY_Controller
         $data['province'] = $query->result();
 
 
-        
+
         $this->template->stylesheet->add('assets/plugins/select2/dist/css/select2.css');
         $this->template->javascript->add('assets/plugins/select2/dist/js/select2.js');
 
@@ -345,7 +371,8 @@ class Receive extends MY_Controller
 
     }
 
-    public function getAjaxReceiveTax(){
+    public function getAjaxReceiveTax()
+    {
         $order_index = $this->input->get('order[0][column]');
         $param['page_size'] = $this->input->get('length');
         $param['start'] = $this->input->get('start');
@@ -353,15 +380,15 @@ class Receive extends MY_Controller
         $param['keyword'] = trim($this->input->get('search[value]'));
         $param['column'] = $this->input->get("columns[{$order_index}][data]");
         $param['dir'] = $this->input->get('order[0][dir]');
- 
+
         $results = $this->Receive_model->getRecieveTaxAjax($param);
- 
+
         $data['draw'] = $param['draw'];
         $data['recordsTotal'] = $results['count'];
         $data['recordsFiltered'] = $results['count_condition'];
         $data['data'] = $results['data'];
         $data['error'] = $results['error_message'];
- 
+
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
     //import users to table indevidual form data house 

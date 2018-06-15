@@ -28,10 +28,29 @@ class Receive_model extends CI_Model
         return $query->result_array();
     }
 
-    public function insertNotice($data)
+    ////////////// Tax_Notice //////////////
+    public function getNoticeAll($id = '')
     {
-        return $this->db->insert('tax_notice', $data);
+        if (!empty($id)) {
+            $this->db->where('individual_id', $id);
+        }
+        $query = $this->db->get('tax_notice');
+        return $query->result();
     }
+
+    public function insertNotice($data, $id = '')
+    {
+        if (!empty($id)) {
+            $this->db->where('individual_id', $id);
+            return $this->db->update('tax_notice', $data);
+        }
+        return $this->db->insert('tax_notice', $data);
+
+    }
+    
+
+    ///////////////////////////////////////////////////
+
 
     public function insertDataImport($data)
     {
@@ -97,33 +116,34 @@ class Receive_model extends CI_Model
             ->update('tax_receive', $input);
     }
 
-    public function getRecieveTaxAjax($param){
+    public function getRecieveTaxAjax($param)
+    {
         $keyword = $param['keyword'];
-		$this->db->select('*');
- 
-		$condition = "1=1";
-		if(!empty($keyword)){
+        $this->db->select('*');
+
+        $condition = "1=1";
+        if (!empty($keyword)) {
             // $condition .= " and (individual_number like '%{$keyword}%' or  individual_firstname '%{$keyword}%')";
             $condition .= " and (individual_number like '%{$keyword}%')";
-		}
- 
-		$this->db->where($condition);
-		$this->db->limit($param['page_size'], $param['start']);
-		$this->db->order_by($param['column'], $param['dir']);
- 
-		$query = $this->db->get('tbl_individual');
-		$data = array();
-		if($query->num_rows() > 0){
+        }
 
-			foreach($query->result_array() as $key =>  $row){
+        $this->db->where($condition);
+        $this->db->limit($param['page_size'], $param['start']);
+        $this->db->order_by($param['column'], $param['dir']);
+
+        $query = $this->db->get('tbl_individual');
+        $data = array();
+        if ($query->num_rows() > 0) {
+
+            foreach ($query->result_array() as $key => $row) {
                 $data[] = $row;
-			}
-		}
- 
-		$count_condition = $this->db->from('tbl_individual')->where($condition)->count_all_results();
-		$count = $this->db->from('tbl_individual')->count_all_results();
-		$result = array('count'=>$count,'count_condition'=>$count_condition,'data'=>$data,'error_message'=>'');
-		return $result;
+            }
+        }
+
+        $count_condition = $this->db->from('tbl_individual')->where($condition)->count_all_results();
+        $count = $this->db->from('tbl_individual')->count_all_results();
+        $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
+        return $result;
     }
 
 
