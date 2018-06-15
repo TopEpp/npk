@@ -82,7 +82,7 @@
                         <thead>
                           <tr>
                             <th style="width: 30px;">ลำดับ</th>
-                            <th style="width: 30px;">รหัสประเมิน</th>
+                            <th style="width: 30px;">รหัสประเมิน/ปี</th>
                             <th style="width: 100px;">เลขประจำตัวผู้เสียภาษี</th>
                             <th>ชื่อผู้เสียภาษี</th>
                             <th style="width: 100px;">ประเภทผู้เสียภาษี</th>
@@ -97,7 +97,7 @@
                                     
                                     <tr>
                                         <td align="center"><?php echo $key + 1; ?></td>
-                                        <td  align="center"><?php echo $value['notice_id'] ?></td>
+                                        <td  align="center"><?php echo $value['notice_id'] ?>/<?php echo $value['tax_year'] ?></td>
                                         <td  align="center"><?php echo $value['individual_number'] ?></td>
                                         <td> <?php echo $value['individual_prename'] ?><?php echo $value['individual_firstname'] ?><?php echo $value['individual_lastname'] ?> </td>
                                         <td> <?php echo $value['tax_type_name'] ?></td>

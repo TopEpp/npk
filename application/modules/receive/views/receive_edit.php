@@ -124,14 +124,17 @@
                                                 <span class="required" style="color:red">*</span>
                                                 </label>
                                                 <div >
-                                                    <select class="form-control" name="noice_type_operation" type="text" >
-                                                        <option value="" >เลือก</option>
-                                                        <option value="ตึก">ตึก</option>
-                                                        <option value="โรงเรือน">โรงเรือน</option>
-                                                        <option value="โรง">โรง</option>
-                                                        <option value="ตึกแถว">ตึกแถว</option>
-                                                        <option value="โรงเรือนแถว">โรงเรือนแถว</option>
-                                                        <option value="แพ">แพ</option>
+                                                    <select class="form-control" name="noice_type_operation[0]">
+
+                                                        <?php foreach ($operation as $value) : ?>
+
+                                                            <?php if ($notice[0]->noice_type_operation == $value->noice_operation_id) : ?>
+                                                                <option  selected value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
+                                                            <?php else : ?>   
+                                                                <option   value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
+                                                            <?php endif; ?>
+
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -212,16 +215,17 @@
                                                             <label  > ประจำปีภาษี
                                                             <span class="required" style="color:red">*</span>
                                                             </label>
-                                                            <!-- //query year form db -->
-                                                            <?php $query = $this->db->query("select * from tbl_year");
-                                                            $years = $query->result();
-                                                            ?>
-                                                            <!-- //end query year form db -->
-                                                            <select class="form-control" name="tax_year[0]" type="text" >
-                                                                <?php foreach ($years as $key => $value) { ?>
-                                                                    <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
-                                                                    <?php 
-                                                                } ?>
+                                                            <select class="form-control" name="tax_year[0]">
+
+                                                                <?php foreach ($years as $value) : ?>
+
+                                                                    <?php if ($notice[0]->tax_year == $value->year_id) : ?>
+                                                                        <option  selected value="<?php echo $value->year_id ?>"><?php echo $value->year_label ?></option>
+                                                                    <?php else : ?>   
+                                                                        <option   value="<?php echo $value->year_id ?>"><?php echo $value->year_label ?></option>
+                                                                    <?php endif; ?>
+
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         <div >
                                                     </div>
@@ -546,45 +550,6 @@
                                                         </div>
                                                 </div>
 
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-                                                            
-                                                            <label  > เนื้อที่ดิน (ไร่) <span class="required" style="color:red"> *</span>
-                                                            </label>
-                                                                <div >
-                                                                    <input type="text" name="land_rai[1]" value="<?php echo @$notice[0]->land_rai; ?>" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
-                                                                </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-                                                            
-                                                            <label  > เนื้อที่ดิน (งาน) <span class="required" style="color:red"> *</span>
-                                                            </label>
-                                                                <div >
-                                                                    <input type="text" name="land_ngan[1]" value="<?php echo @$notice[0]->land_ngan; ?>" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
-                                                                </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-                                                            
-                                                            <label  > เนื้อที่ดิน (วา) <span class="required" style="color:red"> *</span>
-                                                            </label>
-                                                                <div >
-                                                                    <input type="text" name="land_wa[1]" value="<?php echo @$notice[0]->land_wa; ?>" placeholder=""id="id_tax" class="form-control col-md-7 col-xs-12">
-                                                                </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                </div>
-                                            </div>
 
                                             <div class="form-group">
                                                 <div class="row">
@@ -668,7 +633,7 @@
                           <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3 text-center">
                               <button type="submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                               </button>
-                              <button onclick="window.location.replace('<?php echo site_url('receive/receive_tax'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                              <button onclick="window.location.replace('<?php echo site_url('receive/receive_dashborad'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                               </button>
                           </div>
                       </div>   

@@ -40,6 +40,13 @@ class Receive extends MY_Controller
 
         $data['tax_notice'] = $this->Receive_model->read_receive($id);
 
+        $query = $this->db->query("SELECT * FROM tbl_operation");
+        $data['operation'] = $query->result();
+
+        $query = $this->db->query("SELECT * FROM tbl_year");
+        $data['years'] = $query->result();
+
+
         $this->setView('receive_add', $data);
         $this->publish();
     }
@@ -52,6 +59,13 @@ class Receive extends MY_Controller
             $data['notice'] = $this->Receive_model->getNoticeAll($id);
 
         }
+
+        $query = $this->db->query("SELECT * FROM tbl_operation");
+        $data['operation'] = $query->result();
+
+        $query = $this->db->query("SELECT * FROM tbl_year");
+        $data['years'] = $query->result();
+
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_edit', $data);
         $this->publish();
@@ -71,6 +85,7 @@ class Receive extends MY_Controller
                 $data['tax_id'] = $key + 8;
                 $data['individual_id'] = $this->input->post('individual_id')[$key];
                 $data['tax_year'] = $this->input->post('tax_year')[$key];
+                $data['tax_local_year'] = $this->input->post('tax_local_year')[$key];
                 $data['notice_date'] = $this->input->post('notice_date')[$key];
                 $data['notice_reception'] = $this->input->post('notice_reception')[$key];
                 $data['notice_number'] = $this->input->post('notice_number')[$key];
@@ -85,10 +100,10 @@ class Receive extends MY_Controller
                 $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];
                 $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];
                 // $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
-                // $data['land_rai'] = $this->input->post('land_rai')[$key];
-                // $data['land_ngan'] = $this->input->post('land_ngan')[$key];
-                // $data['land_wa'] = $this->input->post('land_wa')[$key];
-                // $data['land_tax'] = $this->input->post('land_tax')[$key];
+                $data['land_rai'] = $this->input->post('land_rai')[$key];
+                $data['land_ngan'] = $this->input->post('land_ngan')[$key];
+                $data['land_wa'] = $this->input->post('land_wa')[$key];
+                $data['land_tax'] = $this->input->post('land_tax')[$key];
                 // $data['banner_type'] = $this->input->post('banner_type')[$key];
                 // $data['banner_width'] = $this->input->post('banner_width')[$key];
                 // $data['banner_heigth'] = $this->input->post('banner_heigth')[$key];

@@ -122,14 +122,12 @@
                                             <span class="required" style="color:red">*</span>
                                             </label>
                                               <div >
-                                                <select class="form-control" name="noice_type_operation[0]" type="text" >
-                                                    <option value="ตึก">ตึก</option>
-                                                    <option value="โรงเรือน">โรงเรือน</option>
-                                                    <option value="โรง">โรง</option>
-                                                    <option value="ตึกแถว">ตึกแถว</option>
-                                                    <option value="โรงเรือนแถว">โรงเรือนแถว</option>
-                                                    <option value="แพ">แพ</option>
-                                                </select>
+                                                    <select class="form-control" name="noice_type_operation[0]">
+                                                        <?php foreach ($operation as $value) : ?>
+                                                                <option value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+
                                               </div>
                                           </div>
                                       </div>
@@ -209,11 +207,6 @@
                                                         <label  > ประจำปีภาษี
                                                         <span class="required" style="color:red">*</span>
                                                         </label>
-                                                        <!-- //query year form db -->
-                                                        <?php $query = $this->db->query("select * from tbl_year");
-                                                        $years = $query->result();
-                                                        ?>
-                                                        <!-- //end query year form db -->
                                                         <select class="form-control" name="tax_year[0]" >
                                                             <?php foreach ($years as $key => $value) { ?>
                                                                 <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
@@ -532,9 +525,9 @@
                                                             </label>
                                                             <div >
                                                                     <select class="form-control" type="text" name="banner_type[2]">
-                                                                            <option>มีอักษรไทยล้วน</option>
-                                                                            <option>มีอักษรไทยปนอักษรต่างประเทศหรือเครื่องหมาย</option>
-                                                                            <option>ป้ายที่ไม่มีอักษรไทย</option>
+                                                                            <option value="1">มีอักษรไทยล้วน</option>
+                                                                            <option value="2">มีอักษรไทยปนอักษรต่างประเทศหรือเครื่องหมาย</option>
+                                                                            <option value="3">ป้ายที่ไม่มีอักษรไทย</option>
                                                                     </select>
                                                             </div>
                                                             </div>
@@ -567,13 +560,22 @@
                                                         
                                                         <div class="col-md-2 col-sm-6 col-xs-12">
                                                             <div class="form-group">
-                                                                
-                                                                <label  > ประจำปีภาษี <span class="required" style="color:red"> *</span>
-                                                                </label>
-                                                                    <div >
-                                                                        <input type="text" name="tax_year[2]" placeholder="ปีงบประมาณ" class="form-control col-md-7 col-xs-12" >
-                                                                    </div>
-                                                            </div>
+                                                                    <label  > ประจำปีภาษี
+                                                                        <span class="required" style="color:red">*</span>
+                                                                    </label>
+                                                                        <!-- //query year form db -->
+                                                                        <?php $query = $this->db->query("select * from tbl_year");
+                                                                        $years = $query->result();
+                                                                        ?>
+                                                                        <!-- //end query year form db -->
+                                                                        <select class="form-control" name="tax_year[2]" >
+                                                                            <?php foreach ($years as $key => $value) { ?>
+                                                                                <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
+                                                                                <?php 
+                                                                            } ?>
+                                                                        </select>
+                                                            <div >
+
                                                         </div>
                                                 </div>
                                     </div>
