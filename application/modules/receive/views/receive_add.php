@@ -270,7 +270,7 @@
                                             <label for="middle-name" class="" for="name"> เลขที่รับ<span class="required" style="color:red"> *</span>
                                             </label>
                                             <div >
-                                                <input type="text" name="notice_number[1]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                <input type="text" name="[1]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
                                             </div>
                                             </div>
                                         </div>
