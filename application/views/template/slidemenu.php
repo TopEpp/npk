@@ -12,16 +12,19 @@
           <!-- menu profile quick info -->
           <br>
           <!-- //query year form db -->
-          <?php  $query = $this->db->query("select * from tbl_year");
-                  $years = $query->result();
+          <?php $query = $this->db->query("select * from tbl_year");
+          $years = $query->result();
           ?>
+
+          <?php $sidemenu = $this->db->select('*')->order_by('app_sort', 'ASC')->get('usrm_application')->result_array(); ?>
           <!-- //end query year form db -->
 
           <div class="profile clearfix" style="margin-left: 5px;">
             <select class="selectpicker">
               <?php foreach ($years as $key => $value) { ?>
-                <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label?></option>
-              <?php } ?>
+                <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
+              <?php 
+            } ?>
             </select>
           </div>
           <br>
@@ -34,82 +37,51 @@
                 <li> 
                     <a href="<?php echo site_url('main/dashborad'); ?>"> <i class="fa fa-home"></i> หน้าหลัก</a>
                 </li>
-                <li> 
-                    <a href="<?php echo site_url('project_training/project'); ?>"> <i class="fa fa-sitemap"></i> ระบบบริหารโครงการ</a>
-                </li>
 
-                <li>
-                  <a>
-                    <i class="fa fa-database"></i> ระบบบัญชีรายรับ
-                    <span class="fa fa-chevron-down"></span>
-                  </a>
-                  <ul class="nav child_menu">
-                    <li>
-                      <a href="<?php echo site_url('receive/receive_tax'); ?>">ข้อมูลผู้เสียภาษี</a>
-                    </li>
-                    <li>
-                      <a href="<?php echo site_url('receive/receive_dashborad'); ?>">ข้อมูลการประเมินรายรับ</a>
-                    </li>
-                    <li>
-                      <a href="<?php echo site_url('receive/receive_save'); ?>">ข้อมูลบันทึกรายรับ</a>
-                    </li>
-                    <li>
-                      <a href="<?php echo site_url('receive/other_tax'); ?>">ข้อมูลบันทึกรายรับภาษีอื่น</a>
-                    </li>
-                    <li>
-                      <a href="<?php echo site_url('#'); ?>">ข้อมูลบันทึกรายรับนอกงบประมาณ</a>
-                    </li>
-                    <!-- <li>
-                      <a href="<?php echo site_url('#'); ?>">ข้อมูลการประมาณการรายรับ</a>
-                    </li>
-                    <li>
-                      <a href="<?php echo site_url('#'); ?>">นำเข้าข้อมูล</a>
-                    </li> -->
-                  </ul>
-                </li>
+              <?php foreach ($sidemenu as $key => $value) : ?>
 
-                <li> 
-                  <a>
-                    <i class="fa fa-table"></i> ระบบบัญชีรายจ่าย
-                    <span class="fa fa-chevron-down"></span>
-                  </a>
-                    <ul class="nav child_menu">
-                      <li>
-                        <a href="<?php echo site_url('expenditure/expenditure_prj'); ?>">บัญชีรายจ่าย</a>
-                      </li> 
-                      <li>
-                        <a  href="<?php echo site_url('#'); ?>"></i> ระบบรายจ่ายนอกงบประมาน</a>
-                      </li>
-                    </ul>
-                </li>
+                  <?php if ($value['app_parent_id'] == 0 && $value['app_link'] != null) : ?>
+                    <?php foreach ($_SESSION['user_permission'] as $key => $login_per) : ?>
+                      <?php if ($value['app_id'] == $login_per['app_id']) : ?>
+                        <li>
+                            <a href="<?php echo site_url($value['app_link']); ?>"> <i class="<?php echo $value['app_icon'] ?>"></i> <?php echo $value['app_name'] ?></a>
+                        </li>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
 
-                <li>
-                  <a>
-                    <i class="fa fa-line-chart"></i> รายงาน
-                    <span class="fa fa-chevron-down"></span>
-                  </a>
-                  <ul class="nav child_menu">
+                  <?php elseif ($value['app_parent_id'] == 0 && $value['app_link'] == null) : ?>
+                    <?php foreach ($_SESSION['user_permission'] as $key => $login_per) : ?>
+                      <?php if ($value['app_id'] == $login_per['app_id']) : ?>
+
                     <li>
-                      <a>ยุทธศาสตร์</a>
+                      <a>
+                        <i class="<?php echo $value['app_icon'] ?>"></i> <?php echo $value['app_name'] ?>
+                        <span class="fa fa-chevron-down"></span>
+                      </a>
+                      <ul class="nav child_menu">
+                        <?php foreach ($sidemenu as $key => $value2) : ?>
+
+                          <?php foreach ($_SESSION['user_permission'] as $key => $value3) : ?>
+
+                            <?php if ($value2['app_id'] == $value3['app_id'] && $value2['app_parent_id'] == $value['app_id']) : ?>
+                              <li>
+                                <a href="<?php echo site_url($value2['app_link']); ?>"><?php echo $value2['app_name'] ?></a>
+                              </li>
+                            <?php endif; ?>
+
+                          <?php endforeach; ?>
+
+                        <?php endforeach; ?>
+                      </ul>
                     </li>
-                    <li>
-                      <a href="<?php echo site_url('report/report_rec'); ?>">บัญชีรายรับ</a>
-                    </li>
-                    <li>
-                      <a href="<?php echo site_url('report/report_pay'); ?>">บัญชีรายจ่าย</a>
-                    </li>
-                    <li>
-                      <a href="<?php echo site_url('report/report_debt'); ?>">ลูกหนี้ค้างชำระ</a>
-                    </li>
-                  </ul>
-                </li>
-                
-                <li>
-                  <a href="<?php echo site_url('usm'); ?>">
-                    <i class="fa fa-users"></i>บัญชีผู้ใช้งาน
-                  </a>
-                </li>
-                
+
+                  <?php endif; ?>
+                <?php endforeach; ?>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+
+
+
               </ul>
             </div>
 
