@@ -15,7 +15,13 @@ class Project_training extends MY_Controller
         $data = array();
         $this->config->set_item('title', 'ระบบบริหารโครงการ - เทศบาลตำบลหนองป่าครั่ง');
 
+        //get state prj 
+        $data['state'] = $this->project_model->getState();
+
         $this->template->javascript->add('assets/modules/project_training/index.js');
+
+        $this->template->stylesheet->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.css');
+        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.js');
         
         $this->setView('project', $data);
         $this->publish();
@@ -79,6 +85,14 @@ class Project_training extends MY_Controller
                 $data[$value['name']] = $value['value'];
             }
             $data['prj_create'] = date('Y-m-d H:i:s');
+
+            //check state prj
+            $state = $this->project_model->getState();
+            if ($state == 1){
+                $data['prj_new'] = '1';
+                $data['state'] = '1';
+            }
+
             $status = $this->project_model->insertPrj($data);
         }
         else{
@@ -171,6 +185,13 @@ class Project_training extends MY_Controller
         }
     
         $this->json_publish($data);
+    }
+
+    //update state 
+    public function updateState(){
+        $status = $this->project_model->updateState($this->input->post('data'));
+        $this->json_publish($status);
+       
     }
 
 
