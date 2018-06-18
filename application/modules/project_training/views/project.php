@@ -15,8 +15,14 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
+
             <div class="nav navbar-right panel_toolbox">
               <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus"></i>เพิ่มแผนงาน</button>
+            </div>
+            <div class="nav navbar-right panel_toolbox">
+              <label>
+                <input type="checkbox" class="js-switch" id="state"  <?php echo ($state == 1)? 'checked':''; ?>/> ยืนยัน &nbsp;
+              </label>
             </div>
             <div style="margin:20px 0;"></div>
             <table id="tg" class="easyui-treegrid" title="&emsp;บริหารแผนงาน / โครงการ" style="width:100%;">
@@ -25,6 +31,9 @@
             <br>
         </div>
       </div>
+
+     
+      
     </div>
 </div>
 

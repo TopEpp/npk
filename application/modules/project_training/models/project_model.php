@@ -79,4 +79,18 @@ class project_model extends CI_Model
         
     }
 
+    public function getState(){
+        $this->db->select('state');
+        return $this->db->get('tbl_project')->row()->state;
+    }
+
+    public function updateState($state){
+        if ($state == 'false'){     
+            return $this->db->query("UPDATE tbl_project SET state = '1'");
+        }else{
+            return  $this->db->query("UPDATE tbl_project SET state = '0'");
+        }
+      
+    }
+
 }
