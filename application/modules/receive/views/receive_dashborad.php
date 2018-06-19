@@ -81,7 +81,8 @@
                     <table id="myTable" class="display" style="width:100%">                        
                         <thead>
                           <tr>
-                            <th style="width: 30px;">รหัสประเมิน</th>
+                            <th style="width: 30px;">ลำดับ</th>
+                            <th style="width: 30px;">รหัสประเมิน/ปี</th>
                             <th style="width: 100px;">เลขประจำตัวผู้เสียภาษี</th>
                             <th>ชื่อผู้เสียภาษี</th>
                             <th style="width: 100px;">ประเภทผู้เสียภาษี</th>
@@ -92,19 +93,20 @@
                         </thead>
                         <tbody>
                                 <?php if (!empty($notice)) {
-                                  foreach ($notice as $value) : ?>
+                                  foreach ($notice as $key => $value) : ?>
                                     
                                     <tr>
-                                        <td  align="center"><?php echo $value['notice_id'] ?></td>
+                                        <td align="center"><?php echo $key + 1; ?></td>
+                                        <td  align="center"><?php echo $value['notice_id'] ?>/<?php echo $value['tax_year'] ?></td>
                                         <td  align="center"><?php echo $value['individual_number'] ?></td>
-                                        <td> <?php echo $value['individual_prename'] ?><?php echo $value['individual_firstname'] ?>&nbsp;&nbsp;&nbsp;<?php echo $value['individual_lastname'] ?> </td>
+                                        <td> <?php echo $value['individual_prename'] ?><?php echo $value['individual_firstname'] ?><?php echo $value['individual_lastname'] ?> </td>
                                         <td> <?php echo $value['tax_type_name'] ?></td>
                                         <td> <?php echo $value['tax_name'] ?></td>
                                         <td align="right"> <?php echo number_format($value['notice_estimate'], 2) ?></td>
                                         <td>
                                             <center>
                                                 <div class="btn-group ">
-                                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_add/') ?>'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข">
+                                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_notice/') . '/' . $value['individual_id'] ?>'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข">
                                                         <i class="glyphicon glyphicon-edit"></i>
                                                     </button>
                                                     <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">

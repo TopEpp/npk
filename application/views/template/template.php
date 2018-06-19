@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION['user_id'])) {
+  redirect('login');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -96,22 +102,15 @@
     <?php echo js_asset('../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.th.min.js'); ?>
     <!-- datatable -->
     <?php echo js_asset('../plugins/datatables/1.10.16/js/jquery.dataTables.min.js'); ?>
-    <!-- //import smartwizard -->
-    <?php echo js_asset('../plugins/gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'); ?>
-    <!-- import input mark -->
-    <?php echo js_asset('../plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js'); ?>
+
+    <!-- datatable -->
+    <?php echo js_asset('../js/datagrid-filter.js'); ?>
+    <!-- datatable -->
+    <?php echo js_asset('../js/treegrid-dnd.js'); ?>
 
     
     <?php echo $this->template->javascript; ?>
 
-    <!-- Chart -->
-    <?php echo js_asset('../modules/main/js/chart.js'); ?>
-    <!-- Chart (report )-->
-    <?php echo js_asset('../modules/report/js/chart.js'); ?>
-    <!-- Chart (report_pay )-->
-    <?php echo js_asset('../modules/report/js/chart_pay.js'); ?>
-    <!-- Chart (chart_debt )-->
-    <?php echo js_asset('../modules/report/js/chart_debt.js'); ?>
 
 
     <!-- datatable -->

@@ -12,23 +12,36 @@
 
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel"style="height: 580px;">
+              <div class="x_panel"style="height: 650px;">
                   <div class="clearfix"></div>
                   <br />
                   <br>
                   <br>
                   <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax" >เลขรับ
+                        </label>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <input type="text" id="id_tax" class="form-control col-md-7 col-xs-12" placeholder="">
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax" >เลขประจำตัวผู้เสียภาษี
                         </label>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
                           <input type="text" id="id_tax" class="form-control col-md-7 col-xs-12" placeholder="4371239640692">
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                      </div>
+                      <br>
+                      <div class="col-md-12 col-sm-6 col-xs-12 text-center" >
                             <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#detail"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
                             <button onclick="window.location.replace('<?php echo site_url('receive/receive_save'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i>&nbsp;ยกเลิก</button>
+                          <hr>
                           </div>
-                      </div>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
                       <br>
 
                       <div class="collapse" id="detail">
@@ -59,6 +72,7 @@
                                   <thead>
                                     <tr>
                                       <th>หมวดรายได้</th>
+                                      <th>เลขรับ/ปีภาษี</th>
                                       <th>รายละเอียดภาษี</th>
                                       <th>จำนวนค่าภาษี</th>
                                       <th>เงินเพิ่ม</th>
@@ -70,6 +84,7 @@
                                   <tbody>
                                     <tr>
                                       <td>ภาษีป้าย</td>
+                                      <td></td>
                                       <td>มีอักษรไทยล้วน จำนวน 1 ป้าย</td>  
                                       <td align="right">1,600.00</td>
                                       <td align="right">0.00</td>
@@ -94,6 +109,7 @@
 
                                     <tr>
                                       <td>ภาษีโรงเรือนและที่ดิน</td>
+                                      <td></td>
                                       <td>ประเภทตึกแถว 1 หลัง 3 ห้อง</td>  
                                       <td align="right">2,000.00</td>
                                       <td align="right">0.00</td>
@@ -118,6 +134,7 @@
 
                                     <tr>
                                       <td>ภาษีบำรุงท้องที่</td>
+                                      <td></td>
                                       <td>เนื้อที่ดิน 1 ไร่ 4 งาน 400 ตาราวา</td>  
                                       <td align="right">3,400.00</td>
                                       <td align="right">0.00</td>
