@@ -100,6 +100,7 @@ class Receive extends MY_Controller
                 $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];
                 $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];
                 // $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
+
                 $data['land_rai'] = $this->input->post('land_rai')[$key];
                 $data['land_ngan'] = $this->input->post('land_ngan')[$key];
                 $data['land_wa'] = $this->input->post('land_wa')[$key];
@@ -119,7 +120,7 @@ class Receive extends MY_Controller
 
             }
         }
-        redirect(base_url('receive/receive_dashborad'));
+        redirect(base_url('Receive/receive_dashborad'));
 
 
     }

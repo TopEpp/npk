@@ -453,18 +453,16 @@
                                                         <input type='date' name="notice_date[2]" class="form-control" />
                                                     </div>
                                             </div>
-
-                                            <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
-                                                <div class="form-group" style="margin-bottom: 0px;">
-                                                    
-                                                    <label for="middle-name" class="" for="name"> เลขที่รับ
-                                                        <span class="required" style="color:red"> *</span>
-                                                    </label>
-                                                    <div >
-                                                        <input type="text" name="notice_number[2]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
-                                                    </div>
-                                                </div>
+                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                            <div class="form-group" style="margin-bottom: 0px;">
+                                            
+                                            <label for="middle-name" class="" for="name"> เลขที่รับ<span class="required" style="color:red"> *</span>
+                                            </label>
+                                            <div >
+                                                <input type="text" name="notice_number[2]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
                                             </div>
+                                            </div>
+                                        </div>
 
                                             <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                                     <div class="form-group" style="margin-bottom: 0px;">
@@ -514,22 +512,22 @@
                                                         </div>
                                                 </div>
                                     </div>
+                                    
 
 
                                     <div class="form-group">
-                                                <div class="row">
-                                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="form-group">
-                                                            
-                                                            <label  > ประเภทป้าย <span class="required" style="color:red"> *</span>
-                                                            </label>
-                                                            <div >
-                                                                    <select class="form-control" type="text" name="banner_type[2]">
-                                                                            <option value="1">มีอักษรไทยล้วน</option>
-                                                                            <option value="2">มีอักษรไทยปนอักษรต่างประเทศหรือเครื่องหมาย</option>
-                                                                            <option value="3">ป้ายที่ไม่มีอักษรไทย</option>
-                                                                    </select>
-                                                            </div>
+                                            <div class="row">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">                                                                
+                                                                <label  > ประเภทป้าย <span class="required" style="color:red"> *</span>
+                                                                </label>
+                                                                <div >
+                                                                        <select class="form-control" type="text" name="banner_type[2]">
+                                                                                <option value="1">มีอักษรไทยล้วน</option>
+                                                                                <option value="2">มีอักษรไทยปนอักษรต่างประเทศหรือเครื่องหมาย</option>
+                                                                                <option value="3">ป้ายที่ไม่มีอักษรไทย</option>
+                                                                        </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         
@@ -563,41 +561,38 @@
                                                                     <label  > ประจำปีภาษี
                                                                         <span class="required" style="color:red">*</span>
                                                                     </label>
-                                                                        <!-- //query year form db -->
-                                                                        <?php $query = $this->db->query("select * from tbl_year");
-                                                                        $years = $query->result();
-                                                                        ?>
-                                                                        <!-- //end query year form db -->
-                                                                        <select class="form-control" name="tax_year[2]" >
-                                                                            <?php foreach ($years as $key => $value) { ?>
-                                                                                <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
-                                                                                <?php 
-                                                                            } ?>
-                                                                        </select>
+                                                                    <select class="form-control" name="tax_year[0]" >
+                                                                        <?php foreach ($years as $key => $value) { ?>
+                                                                            <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
+                                                                            <?php 
+                                                                        } ?>
+                                                                    </select>
+                                                                      
                                                             <div >
 
                                                         </div>
-                                                </div>
+                                            </div>
                                     </div>
 
-                                    <!-- <div class="form-group">
-                                                <div class="row">
-                                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label  > อัพโหลดรูปป้าย
-                                                            </label>
-
-                                                            <div>
-                                                            <button class="btn btn-success" onclick="$('#pf').click(); return false"><i class="fa fa-upload"></i> อัปโหลด</button> <input type='file' id='pf' style='display:none'>
-
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        
+                                    <div class="form-group">
+                                                <div class="col-md-4 col-sm-6 col-xs-12">         
+                                                <div class="form-group">
+                                                    <label>อัปโหลดรูปภาพ</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <span class="btn btn-success btn-file">
+                                                            อัปโหลด <input type="file" id="imgInp">
+                                                            </span>
+                                                        </span>
+                                                        <input type="text" class="form-control" readonly>
+                                                    </div>
+                                                    <img id='img-upload'/>
+                                                        </div>              
                                                 </div>
-                                    </div> -->
 
-                             
+                                    </div>
+
+
                               <br/>
                           </div>
                         </div>
@@ -634,3 +629,70 @@
 </div>
 
 
+<style>
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+}
+</style>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script>
+$(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+		    
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+		    
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) alert(log);
+		    }
+	    
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#imgInp").change(function(){
+		    readURL(this);
+		}); 	
+	});
+</script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
