@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Created by PhpStorm.
@@ -37,10 +37,10 @@ class Usm_model extends CI_Model
         $new = $row;
         $new->last = true;
         $new->type = 'user';
-        $new->parentId = 'org_'.$row->org_id;
+        $new->parentId = 'org_' . $row->org_id;
         $new->iconCls = 'icon-user';
-        list($y,$m,$d)=explode('-',$row->date_of_birth);
-        $new->date_of_birth = "{$d}/{$m}/".($y+543);
+        list($y, $m, $d) = explode('-', $row->date_of_birth);
+        $new->date_of_birth = "{$d}/{$m}/" . ($y + 543);
         $new->id = 'user_' . $row->user_id;
         $new->title = $row->prename_th . "" . $row->user_firstname . " " . $row->user_lastname;
         return $new;
@@ -61,9 +61,9 @@ class Usm_model extends CI_Model
             $new = $row;
             $new->last = true;
             $new->type = 'user';
-            $new->parentId = 'org_'.$org;
-            list($y,$m,$d)=explode('-',$row->date_of_birth);
-            $new->date_of_birth = "{$d}/{$m}/".($y+543);
+            $new->parentId = 'org_' . $org;
+            list($y, $m, $d) = explode('-', $row->date_of_birth);
+            $new->date_of_birth = "{$d}/{$m}/" . ($y + 543);
             $new->iconCls = 'icon-user';
             $new->id = 'user_' . $row->user_id;
             $new->title = $row->prename_th . "" . $row->user_firstname . " " . $row->user_lastname;
@@ -79,13 +79,13 @@ class Usm_model extends CI_Model
             ->select('*')
             ->from('usrm_org')
             ->where('org_parent_id', $parent)
-            ->order_by('org_sort','asc')
+            ->order_by('org_sort', 'asc')
             ->get();
         foreach ($query->result() as $row) {
             $new = new stdClass();
             $new = $row;
             $new->type = 'org';
-            $new->parentId = 'org_'.$row->org_parent_id;
+            $new->parentId = 'org_' . $row->org_parent_id;
             $new->id = 'org_' . $row->org_id;
             $new->title = $row->org_title;
             $new->iconCls = 'icon-org';
@@ -95,9 +95,9 @@ class Usm_model extends CI_Model
                 $new->last = true;
                 $new->children = $this->userByOrg($row->org_id);
             } else {
-                $users=$this->userByOrg($row->org_id);
-                if($users){
-                    $new->children =array_merge($new->children,$users);
+                $users = $this->userByOrg($row->org_id);
+                if ($users) {
+                    $new->children = array_merge($new->children, $users);
                 }
 
                 $new->last = false;
@@ -115,7 +115,7 @@ class Usm_model extends CI_Model
     function create_org($data)
     {
         unset($data['org_id']);
-         $data['org_sort']= $this->orgMax($data['org_parent_id']);
+        $data['org_sort'] = $this->orgMax($data['org_parent_id']);
         if ($this->db->insert('usrm_org', $data)) {
             $new = (object)$data;
             $new->org_id = $this->db->insert_id();
@@ -170,8 +170,8 @@ class Usm_model extends CI_Model
         $this->db->set('user_firstname', @$data['user_firstname']);
         $this->db->set('user_lastname', @$data['user_lastname']);
         $this->db->set('user_gender', @$data['user_gender']);
-        list($d,$m,$y)=explode('/',$data['date_of_birth']);
-        $data['date_of_birth']= ($y-543)."-{$m}-{$d}";
+        list($d, $m, $y) = explode('/', $data['date_of_birth']);
+        $data['date_of_birth'] = ($y - 543) . "-{$m}-{$d}";
         $this->db->set('date_of_birth', @$data['date_of_birth']);
         $this->db->set('user_position', @$data['user_position']);
         $this->db->set('tel_no', @$data['tel_no']);
@@ -185,17 +185,17 @@ class Usm_model extends CI_Model
             $this->db->set('update_datetime', date('Y-m-d H:i:s'));
             $this->db->where('user_id', $data['user_id']);
             $this->db->update('usrm_user');
-            $user_id=$data['user_id'];
+            $user_id = $data['user_id'];
         } else {
             $this->db->set('user_id', $data['user_id']);
             $this->db->set('insert_user_id', '');
             $this->db->set('insert_org_id', '');
             $this->db->set('insert_datetime', date('Y-m-d H:i:s'));
             $this->db->insert('usrm_user');
-            $user_id=$this->db->insert_id();
+            $user_id = $this->db->insert_id();
         }
 
-        if ($this->db->trans_status() === FALSE) {
+        if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
             return $this->_error('บันทึกข้อมูลไม่สำเร็จกรุณาลองใหม่อีกครัง');
         } else {
@@ -212,8 +212,8 @@ class Usm_model extends CI_Model
                 $this->db->insert_batch('usrm_permission', $insert);
             }
             $this->db->trans_commit();
-            $user=$this->userById($user_id);
-            return $this->_success('บันทึกข้อมูลเรียบร้อย',$user);
+            $user = $this->userById($user_id);
+            return $this->_success('บันทึกข้อมูลเรียบร้อย', $user);
         }
     }
 
@@ -306,17 +306,17 @@ class Usm_model extends CI_Model
     {
         return $this->application(0, $user);
     }
-    function  move($data){
+    function move($data)
+    {
 
         $this->db->trans_begin();
-        if($data['from_type']==$data['to_type']){
-            if($data['from_type']=='org'&&$data['action']=='append'){//update org org_parent_id
+        if ($data['from_type'] == $data['to_type']) {
+            if ($data['from_type'] == 'org' && $data['action'] == 'append') {//update org org_parent_id
                 $this->db->set('org_parent_id', $data['to_id'])
                     ->where('org_id', $data['from_id'])
                     ->update('usrm_org');
-            }
-            elseif($data['from_type']=='org'){//update org org_parent_id and order
-                if($data['from_parent']!=$data['to_parent']){
+            } elseif ($data['from_type'] == 'org') {//update org org_parent_id and order
+                if ($data['from_parent'] != $data['to_parent']) {
                     $this->db
                         ->set('org_parent_id', $data['to_parent'])
                        // ->set('org_order',$order)
@@ -324,42 +324,56 @@ class Usm_model extends CI_Model
                         ->update('usrm_org');
                 }
             }
-        }
-        elseif($data['from_type']=="user"&&$data['to_type']=="org")
-        {//update user org_id
+        } elseif ($data['from_type'] == "user" && $data['to_type'] == "org") {//update user org_id
             $this->db->set('org_id', $data['to_id'])
                 ->where('user_id', $data['from_id'])
                 ->update('usrm_user');
         }
-        if(is_array($data['org_ar'])){
-            foreach ($data['org_ar'] as $org){
-                $this->db->set('org_sort',$org['order'])->where('org_id',$org['id'])->update('usrm_org');
+        if (is_array($data['org_ar'])) {
+            foreach ($data['org_ar'] as $org) {
+                $this->db->set('org_sort', $org['order'])->where('org_id', $org['id'])->update('usrm_org');
             }
         }
-        if(is_array($data['user_ar'])){
-            foreach ($data['user_ar'] as $user){
+        if (is_array($data['user_ar'])) {
+            foreach ($data['user_ar'] as $user) {
 
             }
         }
-        if ($this->db->trans_status() === FALSE) {
+        if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
             return $this->_error('บันทึกข้อมูลไม่สำเร็จ');
-        }else{
-                $this->db->trans_commit();
-                return $this->_success('บันทึกข้อมูลเรียบร้อย');
+        } else {
+            $this->db->trans_commit();
+            return $this->_success('บันทึกข้อมูลเรียบร้อย');
         }
     }
-    function orgMax($id){
-        $result= $this->db->select('*')
+    function orgMax($id)
+    {
+        $result = $this->db->select('*')
             ->from('usrm_org')
-            ->where('org_parent_id',$id)
+            ->where('org_parent_id', $id)
             ->order_by('org_sort')
             ->get();
-        if($result){
-            $row=$result->row();
-            return $row->org_sort+1;
+        if ($result) {
+            $row = $result->row();
+            return $row->org_sort + 1;
         }
         return 0;
+    }
+
+    function checklogin($input)
+    {
+        return $this->db
+            ->select('user_id,pid,user_firstname,user_lastname')
+            ->where('pid', $input['pid'])
+            ->where('passcode', $input['passcode'])
+            ->get('usrm_user')
+            ->result_array();
+    }
+
+    function get_permission($id)
+    {
+        return $this->db->where('user_id', $id)->get('usrm_permission')->result_array();
     }
 
 }

@@ -10,6 +10,7 @@ class project_model extends CI_Model
         if (!empty($id)){
             $this->db->where('prj_id',$id);
         }
+        $this->db->where('prj_active','1');
         $query = $this->db->get('tbl_project');
         return $query->result();
     }
@@ -46,8 +47,13 @@ class project_model extends CI_Model
 
     public function delPrj($id,$state){
         if (!empty($state)){
+            $data['prj_owner_update'] = $_SESSION['user_id'] ;
+            $data['prj_active'] = '0';
             $this->db->where('prj_id',$id);
-            return $this->db->delete('tbl_project');
+            $this->db->update('tbl_project',$data);
+            //clear data log is n't active 
+            $this->db->where('state', '0');
+            return $this->db->delete('tbl_project_log');
         }else{
             $this->db->where('project_id',$id);
             return $this->db->delete('tbl_project_manage');
@@ -81,7 +87,7 @@ class project_model extends CI_Model
 
     public function getState(){
         $this->db->select('state');
-        return $this->db->get('tbl_project')->row()->state;
+        return @$this->db->get('tbl_project')->row()->state;
     }
 
     public function updateState($state){
@@ -91,6 +97,10 @@ class project_model extends CI_Model
             return  $this->db->query("UPDATE tbl_project SET state = '0'");
         }
       
+    }
+
+    public function getUser(){
+        return $this->db->get('usrm_user')->result();
     }
 
 }

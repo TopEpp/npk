@@ -17,7 +17,7 @@ class Project_training extends MY_Controller
 
         //get state prj 
         $data['state'] = $this->project_model->getState();
-
+        $data['user'] = $this->project_model->getUser();
         $this->template->javascript->add('assets/modules/project_training/index.js');
 
         $this->template->stylesheet->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.css');
@@ -85,7 +85,7 @@ class Project_training extends MY_Controller
                 $data[$value['name']] = $value['value'];
             }
             $data['prj_create'] = date('Y-m-d H:i:s');
-
+            $data['prj_owner_update'] = $_SESSION['user_id'] ;
             //check state prj
             $state = $this->project_model->getState();
             if ($state == 1){
@@ -100,6 +100,8 @@ class Project_training extends MY_Controller
             foreach ($tmp as $key => $value) {
                 $data[$value['name']] = $value['value'];
             }
+            //update owner edit
+            $data['prj_owner_update'] = $_SESSION['user_id'] ;
             $status = $this->project_model->insertPrj($data,$id);
         }
        
@@ -111,6 +113,7 @@ class Project_training extends MY_Controller
     //delete prj 
     public function delPrj($id,$state = ''){
         $this->project_model->delPrj($id,$state);
+
         redirect('project_training/project');
     }
 

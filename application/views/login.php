@@ -55,7 +55,7 @@
     <body>
         <div id="wrapper">
             <div class="login" style="background-color: inherit">
-                <form action="<?php echo site_url('main/dashborad'); ?>" method="post" class="form-signin" autocomplete="off">
+                <form action="<?php echo site_url('usm/checklogin'); ?>" method="post" class="form-signin" autocomplete="off">
 
                     <input type="hidden" name="" value="" />
 

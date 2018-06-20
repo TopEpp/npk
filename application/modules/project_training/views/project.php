@@ -189,9 +189,16 @@
             <label>งบประมาณ</label> 
             <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุงบประมาณ" type="text">
           </div>
+
           <div class="form-group">
-            <label>ผู้ที่รับผิดชอบ</label> 
-            <input class="form-control" id="prj_owner"  name="prj_owner" placeholder="ระบุผู้ที่รับผิดชอบ" type="text">
+            <label>ผู้ที่รับผิดชอบ</label>
+            <select id="prj_owner"  name="prj_owner" class="select2_single form-control" tabindex="1">
+              <option disabled>เลือก</option>
+              <?php foreach ($user as $key => $value) { ?>
+                <option value="<?= $value->user_id?>"><?= $value->user_firstname; ?></option>
+              <?php } ?>
+            </select>
+            
           </div>
           <div class="form-group">
             <label>สถานะโครงการ</label>
