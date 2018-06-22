@@ -1,8 +1,9 @@
 $(function () {
 
+
     //grid tree
     $('#tg').treegrid({
-        url: domain + 'project_training/getProjectJson',
+        url: domain + 'receive/getOutsideJson',
         rownumbers: false,
         animate: false,
         collapsible: false,
@@ -10,14 +11,35 @@ $(function () {
         idField: 'id',
         treeField: 'name',
         onContextMenu: onContextMenu,
-        columns:[[
-            {title:'แผนงาน',field:'name',width:65},
-            {field:'budget',title:'งบประมาณ',width:15,align:'right'},
-            {field:'tools',title:'&nbsp;',width:20,align:'right'},
-            // {field:'end',title:'End Date',width:80}
-        ]],
-        onLoadSuccess: function(row){
-            // $(this).treegrid('enableDnd', row?row.id:null);
+        columns: [
+            [{
+                    title: 'แผนงาน',
+                    field: 'name',
+                    width: 50
+                },
+                {
+                    field: 'account_id',
+                    title: 'รหัสบัญชี',
+                    width: 30,
+                    align: 'right'
+                },
+                {
+                    field: 'budget',
+                    title: 'จำนวนเงิน',
+                    width: 30,
+                    align: 'right'
+                },
+                {
+                    field: 'tools',
+                    title: '&nbsp;',
+                    width: 20,
+                    align: 'right'
+                },
+                // {field:'end',title:'End Date',width:80}
+            ]
+        ],
+        onLoadSuccess: function (row) {
+            $(this).treegrid('enableDnd', row ? row.id : null);
         }
 
 
@@ -37,6 +59,41 @@ $(function () {
             type: 'label',
         }
     ]);
+
+
+    // project state
+    $('input.js-switch').change(function () {
+        if ($(this).is(':checked')) {
+
+            $.ajax({
+                method: "POST",
+                url: domain + 'project_training/updateState',
+                data: {
+                    data: false
+                },
+                success: function (response) {
+                    // you will get response from your php page (what you echo or print)                 
+
+                },
+            })
+
+        } else {
+
+            $.ajax({
+                method: "POST",
+                url: domain + 'project_training/updateState',
+                data: {
+                    data: true
+                },
+                success: function (response) {
+                    // you will get response from your php page (what you echo or print)                 
+                    // console.log(response)
+                },
+            })
+
+        }
+
+    });
 
 
     //add plan data

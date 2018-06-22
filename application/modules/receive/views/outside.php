@@ -19,8 +19,10 @@
             <div class="nav navbar-right panel_toolbox">
               <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus"></i> เพิ่มรายการ</button>
             </div>
+            <div class="nav navbar-right panel_toolbox">
+            </div>
             <div style="margin:20px 0;"></div>
-            <table id="tg" class="easyui-treegrid" title="&emsp;รายรับนอกงบประมาณ" style="width:100%;">
+            <table id="tg" class="easyui-treegrid" title="&emsp;รายการรายรับนอกงบประมาณ" style="width:100%;">
             </table>
            
             <br>
@@ -42,7 +44,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">เพิ่มรายรับนอกงบประมาณ</h4>
+        <h4 class="modal-title" id="myModalLabel2">รายรับนอกงบประมาณ</h4>
       </div>
       <div class="modal-body clearfix">
         <form class="form-horizontal form-label-left" id="form_plan">
@@ -51,7 +53,7 @@
         <input  id="hidden_edit"  name="hidden_edit"  value="false" type="hidden"> 
           <div class="form-group">
             <label>รายการ</label>
-            <input class="form-control" id="project_title"  name="project_title" placeholder="ระบุรายการ" type="text">
+            <input class="form-control" id="outside_title"  name="outside_title" placeholder="ระบุรายการ" type="text">
           </div>
         </form>
       </div>
@@ -82,7 +84,7 @@
         <input  id="hidden_edit_detail"  name="hidden_edit_detail"  type="hidden">
           <div class="form-group">
             <label>งบ</label>
-            <select id="project_select"  name="project_select" class="select2_single form-control" tabindex="1">
+            <select id="outside_select"  name="outside_select" class="select2_single form-control" tabindex="1">
               <option disabled>เลือก</option>
               <option value="1">งบบุคลากร</option>
               <option value="2">งบดำเนินงาน</option>
@@ -120,7 +122,7 @@
           <input  id="hidden_edit_cost"  name="hidden_edit_cost"  type="hidden">
           <div class="form-group">
             <label>รายจ่าย</label>
-            <select class="select2_group form-control" id="project_cost" name="project_cost">
+            <select class="select2_group form-control" id="outside_cost" name="outside_cost">
               <optgroup label="งบบุคลากร">
                 <option value="1">เงินเดือน (ฝ่ายการเมือง)</option>
                 <option value="2">เงินเดือน (ฝ่ายประจำ)</option>
@@ -165,7 +167,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">เพิ่มรายรับนอกงบประมาณ <span id="project_year"></span></h4>
+        <h4 class="modal-title" id="myModalLabel2">เพิ่มรายการ <span id="outside_year"></span></h4>
       </div>
       <div class="modal-body clearfix">
         <!-- //check edit form -->
@@ -177,28 +179,21 @@
           <input  id="prj_parent"  name="prj_parent"  type="hidden"> 
           <input  id="prj_year"  name="prj_year"  type="hidden"> 
           <div class="form-group">
-            <label>รายการ</label> 
-            <input class="form-control" id="prj_name"  name="prj_name" placeholder="ระบุรายการ" type="text">
+            <label>ชื่อรายการ</label> 
+            <input class="form-control" id="prj_name"  name="prj_name" placeholder="ระบุชื่อรายการ" type="text">
           </div>
-          <!-- <div class="form-group">
-            <label>รหัสบัญชี</label> 
-            <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุรหัสบัญชี" type="text">
-          </div>
- -->
           <div class="form-group">
-            <label>จำนวนเงินที่รับ</label> 
-            <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุจำนวนเงินที่รับ" type="text">
+            <label>รหัสบัญชี</label> 
+            <input class="form-control" id="prj_name"  name="prj_name" placeholder="ระบุรหัสบัญชี" type="text">
           </div>
 
           <div class="form-group">
-            <label>ผู้ที่รับผิดชอบ</label>
-            <select id="prj_owner"  name="prj_owner" class="select2_single form-control" tabindex="1">
-              <option disabled>เลือก</option>
-              <?php foreach ($user as $key => $value) { ?>
-                <option value="<?= $value->user_id?>"><?= $value->user_firstname; ?></option>
-              <?php } ?>
-            </select>
-            
+            <label>จำนวนเงินรับ</label> 
+            <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุจำนวนเงินที่รับ" type="text">
+          </div>
+          <div class="form-group">
+            <label>ผู้ที่รับผิดชอบ</label> 
+            <input class="form-control" id="prj_owner"  name="prj_owner" placeholder="ระบุผู้ที่รับผิดชอบ" type="text">
           </div>
 
         </form>
@@ -240,6 +235,8 @@
   </div>
 </div>
 <!-- end modal -->
+
+
 
 
 

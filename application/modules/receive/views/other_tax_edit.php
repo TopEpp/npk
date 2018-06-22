@@ -28,17 +28,17 @@
                                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                                     <select id="colorselector" name="tax_id" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
                                                                         <optgroup label="หมวดภาษีจัดสรร">
-                                                                            <?php foreach ($tax_allocate as $key => $value) { ?>
+                                                                            <?php foreach ($tax_allocate as $value) : ?>
 
-                                                                                <?php if ($other_tax[0]['receive_amount'] == $key['tax_id']) : ?>
-                                                                                    <option selected value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
-                                                                                <?php else : ?>  
-                                                                                    <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php if ($tax_allocate[0]->tax_id == $value->tax_name) : ?>
+                                                                                    <option  selected value="<?php echo $value->tax_id ?>"><?php echo $value->tax_name ?></option>
+                                                                                <?php else : ?>
+                                                                                    <option   value="<?php echo $value->tax_id ?>"><?php echo $value->tax_name ?></option>
                                                                                 <?php endif; ?>
-                                                                            <?php 
-                                                                        } ?>
+
+                                                                            <?php endforeach; ?>
                                                                         </optgroup>
-                                                                        <optgroup label="หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต">
+                                                                        <!-- <optgroup label="หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต">
                                                                             <?php foreach ($tax_fine as $key => $value) { ?>
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php 
@@ -67,7 +67,7 @@
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php 
                                                                             } ?>
-                                                                        </optgroup>
+                                                                        </optgroup> -->
                                                                     </select>
                                                                 </div>
                                                 </div>
