@@ -106,7 +106,7 @@
                                                         <span class="required" style="color:red">*</span>
                                                         </label>
                                                         <div >
-                                                            <input type="text" name="notice_deed[0]" placeholder="เลขที่โฉนด" class="form-control col-md-7 col-xs-12" >
+                                                            <input type="text" name="land_deed_number[0]" placeholder="เลขที่โฉนด" class="form-control col-md-7 col-xs-12" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,7 +276,7 @@
                                                 </label>
                                                 <div >
 
-                                                    <input type="text" name="notice_deed[1]" placeholder="เลขที่โฉนด" class="form-control col-md-7 col-xs-12" >
+                                                    <input type="text" name="land_deed_number[1]" placeholder="เลขที่โฉนด" class="form-control col-md-7 col-xs-12" >
                                                 </div>
                                             </div>
                                         </div>

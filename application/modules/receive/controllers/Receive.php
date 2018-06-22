@@ -126,7 +126,7 @@ class Receive extends MY_Controller
                 }
 
                 if ($key == 0 || $key == 1) {
-                    $data['notice_deed'] = $this->input->post('notice_deed')[$key];                                 ///2 == 0 1
+                    $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];                                 ///2 == 0 1
                 }
 
                 if ($key == 0 || $key == 2) {
