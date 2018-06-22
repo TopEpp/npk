@@ -1,8 +1,9 @@
 $(function () {
 
+
     //grid tree
     $('#tg').treegrid({
-        url: domain + 'project_training/getProjectJson',
+        url: domain + 'receive/getOutsideJson',
         rownumbers: false,
         animate: false,
         collapsible: false,
@@ -17,13 +18,14 @@ $(function () {
                     width: 50
                 },
                 {
-                    title: 'รหัสบัญชี',
                     field: 'account_id',
-                    width: 20
+                    title: 'รหัสบัญชี',
+                    width: 30,
+                    align: 'right'
                 },
                 {
                     field: 'budget',
-                    title: 'งบประมาณ',
+                    title: 'จำนวนเงิน',
                     width: 30,
                     align: 'right'
                 },
@@ -57,6 +59,41 @@ $(function () {
             type: 'label',
         }
     ]);
+
+
+    // project state
+    $('input.js-switch').change(function () {
+        if ($(this).is(':checked')) {
+
+            $.ajax({
+                method: "POST",
+                url: domain + 'project_training/updateState',
+                data: {
+                    data: false
+                },
+                success: function (response) {
+                    // you will get response from your php page (what you echo or print)                 
+
+                },
+            })
+
+        } else {
+
+            $.ajax({
+                method: "POST",
+                url: domain + 'project_training/updateState',
+                data: {
+                    data: true
+                },
+                success: function (response) {
+                    // you will get response from your php page (what you echo or print)                 
+                    // console.log(response)
+                },
+            })
+
+        }
+
+    });
 
 
     //add plan data

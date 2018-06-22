@@ -367,6 +367,7 @@ class Usm_model extends CI_Model
             ->select('user_id,pid,user_firstname,user_lastname')
             ->where('pid', $input['pid'])
             ->where('passcode', $input['passcode'])
+            ->where('active_status', 'Active')
             ->get('usrm_user')
             ->result_array();
     }
