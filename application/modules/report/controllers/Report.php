@@ -35,5 +35,36 @@ class Report extends MY_Controller
         $this->publish();
     }
 
+    public function report_projectManage(){
+        $this->config->set_item('title', 'รายงานยุทธศาสตร์ - เทศบาลตำบลหนองป่าครั่ง');
+        $data = array();
+        $this->load->model('project_training/project_model');
+        $data['project'] = $this->project_model->getProject();
+        $prj = array();
+        foreach ($data['project'] as $key => $value) {
+            $prj[$value->project_id] = $value;   
+        }
+ 
+        // var_dump($prj[0]);die();
+        $data['project'] = $this->project_model->getTreeProjectManage($prj);
+       
+        $this->template->javascript->add('assets/modules/report/js/chart_project_manage.js');
+        $this->setView('report_project_manage', $data);
+        $this->publish();
+
+    }
+
+    public function getAjaxProjectManage(){
+        $this->load->model('project_training/project_model');
+        $data = array();
+        $project= $this->project_model->getProject();
+        foreach ($project as $key => $value) {
+            if (empty($value->project_parent)){
+                $data[] = $value;
+            }
+        }
+        $this->json_publish($data);
+    }
+
 
 }

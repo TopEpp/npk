@@ -12,13 +12,13 @@ $(function(){
         treeField:'name',
         onContextMenu: onContextMenu,
         columns:[[
-            {title:'แผนงาน',field:'name',width:50},
-            {field:'budget',title:'งบประมาณ',width:30,align:'right'},
+            {title:'แผนงาน',field:'name',width:65},
+            {field:'budget',title:'งบประมาณ',width:15,align:'right'},
             {field:'tools',title:'&nbsp;',width:20,align:'right'},
             // {field:'end',title:'End Date',width:80}
         ]],
         onLoadSuccess: function(row){
-            $(this).treegrid('enableDnd', row?row.id:null);
+            // $(this).treegrid('enableDnd', row?row.id:null);
         }
         
       

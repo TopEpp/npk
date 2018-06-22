@@ -131,7 +131,7 @@ class Project_training extends MY_Controller
        
         foreach ($values as $key => $value) {
             $data['rows'][$key]['id'] = $value->project_id;
-            $data['rows'][$key]['budget'] = '';
+            $data['rows'][$key]['budget'] = number_format($value->prj_budget);
             $data['rows'][$key]['name'] = $value->project_title;
 
             switch ($value->project_level) {
