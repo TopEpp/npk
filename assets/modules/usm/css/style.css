@@ -5544,8 +5544,8 @@
 }
 
 .selected {
-  color: #73879C;
-  font-weight: bold;
+  /*color: #73879C;*/
+  /*font-weight: bold;*/
 }
 
 .datagrid-header-row,
