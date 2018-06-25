@@ -36,7 +36,7 @@ if ($chk == false) {
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="type_tax">ประเภทผู้เสียภาษี
                       </label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                        <select class="form-control" type="text" id="type_tax">
+                        <select class="form-control selectpicker" type="text" id="type_tax">
                           <option value="">เลือก</option>
                           <option value="1">บุคคลธรรมดา</option>
                           <option value="2">นิติบุคคล</option>
@@ -47,13 +47,13 @@ if ($chk == false) {
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี
                       </label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                          <input type="text" name="number_tax" id="number_tax" placeholder="เลขประจำตัว 10 หลัก หรือ 13 หลัก" class="form-control col-md-4 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                          <input type="text" name="number_tax" id="number_tax" placeholder="เลขประจำตัว 10 หรือ 13 หลัก" class="form-control col-md-4 col-xs-12" data-inputmask="'mask': '9999999999999'">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">ชื่อผู้เสียภาษี</label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" id="name_tax" placeholder="สมชาย ใจดี" class="form-control col-md-7 col-xs-12">
+                        <input type="text" id="name_tax" placeholder="ระบุชื่อผู้เสียภาษี" class="form-control col-md-7 col-xs-12">
                       </div>
                     </div>
   

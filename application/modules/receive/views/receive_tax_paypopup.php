@@ -10,57 +10,52 @@
         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
             <br>
             <div class="form-group">
-                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">เลขที่ใบเสร็จ
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12 center" for="id_tax">เลขที่ใบเสร็จ
                     </label>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
                             <input type="text" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12">
                         </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">เล่มที่ใบเสร็จ
+                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เล่มที่ใบเสร็จ
                     </label>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
                             <input type="text" placeholder="" id="id_tax" class="form-control col-md-7 col-xs-12">
                         </div>
             </div>
             <div class="form-group" style="margin-bottom: 0px;">
-                <label for="second" class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">วันที่ชำระ
+                <label for="second" class="control-label col-md-3 col-sm-3 col-xs-12" for="id_tax">วันที่ชำระ
                 </label>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class='input-group date col-md-12 col-xs-12' id='inputdatepicker'>
                             <input type='text' class="form-control datepicker" />
                         </div>                        
                     </div>
+                <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินที่ต้องการชำระ
+                </label>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <input type="text" placeholder="0.00" id="id_tax" class="form-control col-md-7 col-xs-12">
+                    </div>
+
             </div>
 
-            
-             <div class="form-group">
-                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินที่ต้องการชำระ
-                    </label>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <input type="text" placeholder="0.00" id="id_tax" class="form-control col-md-7 col-xs-12">
-                        </div>
-            </div>
-
+        
             <div class="form-group">
-                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">เงินเพิ่ม
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_tax">เงินเพิ่ม
                     </label>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
                             <input type="text" id="id_tax" value="0.00" class="form-control col-md-7 col-xs-12">
                         </div>
-            </div>
-
-            <div class="form-group">
-                    <label class="control-label col-md-5 col-sm-3 col-xs-12" for="id_tax">รวม
+                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">รวม
                     </label>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
                             <input type="text" id="id_tax" value="0.00" class="form-control col-md-7 col-xs-12">
                         </div>
+
             </div>
+
 
             <br>
             <div class="x_content">
-                <table class="table table-bordered">
+                <table class="table table-striped" style="margin-bottom: 0px;">
                     <thead>
                         <tr>
                             <th>ครั้งที่</th>
@@ -75,15 +70,15 @@
                     </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td style="text-align: center;">29/04/2560</td>
-                                <td></td>
-                                <td></td>
-                                <td>ภาษีบำรุงท้องที่</td>
-                                <td style="text-align: right;">2,000.00</td>
-                                <td style="text-align: right;">0.00</td>
-                                <td style="text-align: right;">2,000.00</td>
                             </tr>
+                            <th>ยอดรวม</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tbody>
                 </table>
             </div>
