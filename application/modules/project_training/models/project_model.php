@@ -12,6 +12,7 @@ class project_model extends CI_Model
         if (!empty($id)){
             $this->db->where('project_id',$id);
         }
+        $this->db->where('project_year',$this->session->userdata('year'));
         $query = $this->db->get('tbl_project_manage');
         return $query->result();
     }
@@ -20,6 +21,7 @@ class project_model extends CI_Model
         if (!empty($id)) {
             $this->db->where('prj_id', $id);
         }
+        $this->db->where('prj_year',$this->session->userdata('year'));
         $this->db->where('prj_active','1');
         $query = $this->db->get('tbl_project');
         return $query->result();
@@ -27,8 +29,6 @@ class project_model extends CI_Model
 
     public function insertProject($data)
     {
-    
-       
          //check  last id project and prj
         $last_id_project = $this->db->select('project_id')
             ->order_by('project_id', 'desc')
@@ -186,7 +186,7 @@ class project_model extends CI_Model
                 $ul .= '<tbody>';
                 $ul .= '<tr><td><b>'.$value->project_title.'</b></td>
                         <td align="right">'.number_format($value->prj_budget).'</td>
-                        <td></td></tr>';
+                        <td></td><td></td></tr>';
                 $ul .= $this->getTreeChildProject($value->project_id);
                 $ul .= '</tbody>';
             }
@@ -205,9 +205,9 @@ class project_model extends CI_Model
         foreach ($query->result() as $key => $row) {
            
             $ul .= '<tr>';
-            if ($row->project_level == 3){
+            if (@$row->project_level == 3){
                 $ul .= "<td>{$tab}".$this->data_budget[$row->project_title]."</td>";
-            }else  if ($row->project_level == 4){
+            }else  if (@$row->project_level == 4){
                 $ul .= "<td>{$tab}".$this->data_cost[$row->project_title]."</td>";
             }else{
                 $ul .= "<td>{$tab}".$row->project_title."</td>";
@@ -215,13 +215,21 @@ class project_model extends CI_Model
            
             $ul .= "<td align='right'>".number_format($row->prj_budget)."</td>";
             $ul .= "<td></td>";
+            $ul .= "<td></td>";
             $ul .= '</tr>';
 
            
-            $this->getTreeChildProject($row->project_id,$ul,$tab);
+            $this->getTreeChildProject(@$row->project_id,$ul,$tab);
         }
           
          return $ul;
+    }
+
+    //sum budget project_manage
+    public function getSumProject(){
+        $year = $this->session->userdata('year');;
+        $query = $this->db->query('select sum(prj_budget) as budget from tbl_project_manage where project_parent is null and project_year = '.$year);
+        return $query->row()->budget;
     }
 
 }
