@@ -129,9 +129,9 @@
                                     <th>ยอดรวมทั้งหมด</th>
                                     <th></th>
                                     <!-- <th></th> -->
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th style="text-align: right;"><?php echo number_format($receive_tax_pay[0]['notice_estimate'], 2) ?></th>
+                                    <th style="text-align: right;"><?php echo number_format($receive_tax_pay[0]['tax_interest'], 2) ?></th>
+                                    <th style="text-align: right;"><?php echo number_format($receive_tax_pay[0]['tax_amount'], 2) ?></th>
                                     <th style="text-align: right;"><?php echo number_format($receive_tax_pay[0]['notice_estimate'] - $receive_tax_pay[0]['tax_amount'], 2) ?></td>                                        </th>
                                     <th></th>
                                   <tbody>

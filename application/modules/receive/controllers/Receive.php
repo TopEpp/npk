@@ -894,7 +894,7 @@ class Receive extends MY_Controller
         $input['receive_date'] = "{$y}/{$m}/{$d}";
         // print_r($input);
         $this->Receive_model->recieve_tax_add($input);
-        redirect('receive/receive_tax_pay/' . $input['notice_id']);
+        redirect('receive/receive_tax_pay_add/' . $input['notice_id']);
     }
 
 
