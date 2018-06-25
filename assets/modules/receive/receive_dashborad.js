@@ -60,11 +60,7 @@ $(function () {
                 "className": "text-right",
             },
             {
-<<<<<<< HEAD
                 data: 'notice_id',
-=======
-                data: 'individual_id',
->>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                 render: function (data, type, row) {
                     var btn =
                         '<div class="btn-group ">' +
@@ -113,10 +109,4 @@ $(function () {
         table.columns(4).search($('#tax_type_id').val()).draw();
     });
 
-
-
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
