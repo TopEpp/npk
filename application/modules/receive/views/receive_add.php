@@ -595,15 +595,8 @@
                                             </div>
                                             
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-6 col-xs-12">
-                                                <div class="form-group">
-                                                    <div id="targetDiv3"></div>
-                                                </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                                     <div class="form-group">
                                                         <label>อัปโหลดรูปภาพ</label>
@@ -618,7 +611,17 @@
                                                         <img id='img-upload'/>
                                                     </div>
                                                 </div>
-                                    </div> -->
+                                    </div>
+                                    
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                                <div class="form-group">
+                                                    <div id="targetDiv3"></div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                 </div>
 
                               <br/>
                           </div>
@@ -1065,27 +1068,7 @@ $(document).ready( function() {
               '<hr/>'+
               '<br>'+
               '<h2 class="StepTitle">ภาษีป้าย </h2>'+
-                                '<div class="row">'+
-                                         '<div class="col-md-2 col-sm-12 col-xs-12">'+
-                                            '<div class="form-group" >'+
-                                                  '<label for="middle-name" class="" for="name"> เลขที่รับ</label>'+
-                                                  '<span class="required" style="color:red"> *</span>'+
-                                                  '<div>'+
-                                                      '<input type="text" id="XYZ-input" name="XYZ-value" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md7 col-sx-12">'+
-                                                  '</div>'+
-                                           ' </div>'+
-                                         ' </div>'+
-
-                                        '<div class="col-md-2 col-sm-6 col-xs-12">'+
-                                          '<div class="form-group" >'+
-                                            '<label  > เลขที่โฉนด</label>'+
-                                            '<span class="required" style="color:red"> *</span>'+
-                                            '<div >'+
-                                                '<input type="text" id="XYZ-input" name="XYZ-value" placeholder="เลขที่โฉนด" id="id_tax" class="form-control col-md-7 col-xs-12" >'+
-                                            '</div>'+
-                                          '</div>'+
-                                        '</div>'+
-                            '</div>'+
+                                
                       ' </div>';
                       
               // loop and create n groups

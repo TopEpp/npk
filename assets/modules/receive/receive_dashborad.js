@@ -46,6 +46,13 @@ $(function () {
                 data: 'individual_number',
                 "className": "text-center",
             },
+            // {
+            //     data: null,
+            //     render: function (data, type, row) {
+
+            //         return row.individual_prename + " " + row.individual_fullname;
+            //     },
+            // },
             {
                 data: 'individual_fullname',
             },
