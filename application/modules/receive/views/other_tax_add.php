@@ -73,7 +73,7 @@
                                                         </label>
                                                     <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <div class='input-group date col-md-12 col-xs-12' id='inputdatepicker'>
-                                                            <input type='date' name="receive_date" value="" class="form-control" />
+                                                            <input type='text' name="receive_date" value="" class="form-control datepicker" />
                                                         </div>                        
                                                     </div>
                                                 </div>

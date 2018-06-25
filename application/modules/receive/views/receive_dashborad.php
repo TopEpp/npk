@@ -14,111 +14,78 @@
                       </div>
                   </div>
             </section>
-          
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel" style="top: 10px;">
                   <div class="collapse" id="search" class="x_content">
-                      <br />
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                            <div class="form-group">
-                              <label class="control-label col-md-4 col-sm-3 col-xs-12" for="type_tax">ประเภทผู้เสียภาษี
-                              </label>
-                              <div class="col-md-4 col-sm-6 col-xs-12">
-                                <select class="form-control" type="text" id="type_tax">
-                                  <option>บุคคลธรรมดา</option>
-                                  <option>นิติบุคคล</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี
-                              </label>
-                              <div class="col-md-4 col-sm-6 col-xs-12">
-                                <input type="text" id="id_tax" placeholder="1048174650120" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'" >
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">ชื่อผู้เสียภาษี</label>
-                              <div class="col-md-4 col-sm-6 col-xs-12">
-                                <input type="text" id="name_tax" placeholder="สมชาย ใจดี" class="form-control col-md-7 col-xs-12">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="control-label col-md-4 col-sm-3 col-xs-12" for="income_tax">หมวดรายได้
-                              </label>
-                              <div class="col-md-4 col-sm-6 col-xs-12">
-                                <select id="first-disabled" class="form-control">
-                                <optgroup label = "หมวดภาษีอากร">
-                                    <option>ภาษีโรงเรือนและที่ดิน</option>
-                                    <option>ภาษีบำรุงท้องที่</option>
-                                    <option>ภาษีป้าย</option>
-                                </optgroup>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              
-                              <div class="col-md-5 col-sm-6 col-xs-12">
-                                
-                            </div>
-                            
-                            <div class="form-group">
-                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
-                                <br>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
-                                <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
-                              </div>
-                            </div>
-                          <div class="ln_solid"></div>
-                      </form>
-                  </div>
+                    <br />
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
+                      <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="type_tax">ประเภทผู้เสียภาษี
+                        </label>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <select class="form-control selectpicker" type="text" id="type_tax">
+                            <option value="">เลือก</option>
+                            <option value="1">บุคคลธรรมดา</option>
+                            <option value="2">นิติบุคคล</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี
+                        </label>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <input type="text" name="number_tax" id="number_tax" placeholder="เลขประจำตัว 10 หรือ 13 หลัก" class="form-control col-md-4 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">ชื่อผู้เสียภาษี</label>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <input type="text" id="name_tax" placeholder="ระบุชื่อผู้เสียภาษี" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                              <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tax_type_id">หมวดรายได้
+                              </label>
+                              <div class="col-md-4 col-sm-6 col-xs-12">
+                                <select class="form-control selectpicker" type="text" id="tax_type_id">
+                                        <option value="">เลือก</option>
+                                        <option value="ภาษีโรงเรือนและที่ดิน">ภาษีโรงเรือนและที่ดิน</option>
+                                        <option value="ภาษีบำรุงท้องที่">ภาษีบำรุงท้องที่</option>
+                                        <option value="ภาษีป้าย">ภาษีป้าย</option>
+                                </select>
+                              </div>
+                            </div>
+    
+                      <div class="ln_solid"></div>
+                    </form>
+                    
+                    <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
+                            <br>
+                            <button type="submit" id="search_receive" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
+                            <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
+                          </div>
+                    </div>
                 </div>
 
-
                  <div class="x_content">
-                    <table id="myTable" class="display" style="width:100%">                        
+                    <table id="tax_table" class="table" width="100%">
                         <thead>
                           <tr>
-                            <th style="width: 30px;">ลำดับ</th>
-                            <th style="width: 30px;">รหัสประเมิน/ปี</th>
-                            <th style="width: 100px;">เลขประจำตัวผู้เสียภาษี</th>
-                            <th>ชื่อผู้เสียภาษี</th>
-                            <th style="width: 100px;">ประเภทผู้เสียภาษี</th>
-                            <th style="width: 100px;">หมวดรายได้</th>
-                            <th>จำนวนเงินที่ประเมิน (บาท)</th>
-                            <th style="width: 120px;">เครื่องมือ</th>
+                            <th width="5%">ลำดับ</th>
+                            <th width="10%">รหัสประเมิน/ปี</th>
+                            <th width="15%">เลขประจำตัวผู้เสียภาษี</th>
+                            <th width="20%">ชื่อผู้เสียภาษี</th>
+                            <th width="15%">ประเภทผู้เสียภาษี</th>
+                            <th width="10%">หมวดรายได้</th>
+                            <th width="10%">จำนวนเงินที่ประเมิน (บาท)</th>
+                            <th width="20%">เครื่องมือ</th>
                           </tr>
                         </thead>
                         <tbody>
-                                <?php if (!empty($notice)) {
-                                  foreach ($notice as $key => $value) : ?>
-                                    
-                                    <tr>
-                                        <td align="center"><?php echo $key + 1; ?></td>
-                                        <td  align="center"><?php echo $value['notice_id'] ?>/<?php echo $value['tax_year'] ?></td>
-                                        <td  align="center"><?php echo $value['individual_number'] ?></td>
-                                        <td> <?php echo $value['individual_prename'] ?><?php echo $value['individual_firstname'] ?><?php echo $value['individual_lastname'] ?> </td>
-                                        <td> <?php echo $value['tax_type_name'] ?></td>
-                                        <td> <?php echo $value['tax_name'] ?></td>
-                                        <td align="right"> <?php echo number_format($value['notice_estimate'], 2) ?></td>
-                                        <td>
-                                            <center>
-                                                <div class="btn-group ">
-                                                    <button type="button" onclick="window.location.href='<?php echo base_url('receive/receive_notice/') . '/' . $value['individual_id'] ?>'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข">
-                                                        <i class="glyphicon glyphicon-edit"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">
-                                                        <i class="glyphicon glyphicon-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </center>       
-                                        </td>
-                                    </tr>
 
-                                <?php endforeach;
-                              } ?>
                         <tbody>
                       </table>
                   </div>
@@ -127,15 +94,36 @@
                   </div>
                 </div>
 
+
+
               </div>
             </div>
 </div>
-
-        <!-- Modal Popup -->
-          
+                <!-- Modal Popup -->          
           <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <?php $this->load->view('receive/del_popup.php'); ?>
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="delmodal">การแจ้งเตือน!</h4>
+                      </div>
+                      
+                      
+                      <div class="modal-body">
+                              <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                      </div>
+
+                      <div class="modal-footer">
+                          <button type="button" id="btn-del"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                          </button>
+
+                          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
+                          </button>
+                      </div>
+                  </div>
+              </div>
             </div>
           </div>
 
@@ -143,9 +131,7 @@
 
 <style>
 th{
-  text-align: center;
+text-align: center;
 }
+.dataTables_filter, .dataTables_info { display: none; }
 </style>
-        
-
-

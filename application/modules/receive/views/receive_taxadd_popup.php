@@ -74,7 +74,7 @@ if ($chk == false) {
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                           <div class="form-group">
                                                 <label >คำนำหน้าชื่อ</label>
-                                                <select name="individual_prename[0]" class="form-control" type="text" id="type_tax">
+                                                <select name="individual_prename[0]" class="form-control " type="text" id="type_tax">
                                                   <option selected disabled>เลือก</option>
                                                     <?php foreach ($prename as $key => $value) {
                                                       $prename = '';
@@ -693,7 +693,7 @@ if ($chk == false) {
                                     <span class="required" style="color:red">* </span>เลขประจำตัวผู้เสียภาษี
                                   </label>
                                   <div class="col-md-4 col-sm-6 col-xs-12">
-                                      <input name="individual_number[0]" type="text" placeholder="เลขประจำตัว 13 หลัก" id="id_tax_tab1" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                                      <input name="individual_number[0]" type="text" placeholder="เลขประจำตัว 10 หลัก หรือ 13 หลัก" id="id_tax_tab1" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
                                   </div>
                               </div>
                               <hr/>
@@ -709,7 +709,7 @@ if ($chk == false) {
                                   <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="form-group">
                                           <label >คำนำหน้าชื่อ</label>
-                                          <select name="individual_prename[0]" class="form-control" type="text" id="type_tax">
+                                          <select name="individual_prename[0]" class="form-control " type="text" id="type_tax">
                                             <option selected disabled>เลือก</option>
                                               <?php foreach ($prename as $key => $value) { ?>
                                                 <option value="<?php echo $value->prename_th; ?>"><?php echo $value->prename_th; ?></option>
@@ -723,7 +723,7 @@ if ($chk == false) {
                                       <label for="middle-name" class="" for="name">ชื่อ
                                       </label>
                                       <div >
-                                          <input type="text" placeholder="ภาษาไทย" id="name_tax" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
+                                          <input type="text" placeholder="ระบุชื่อ ภาษาไทย" id="name_tax" name="individual_firstname[0]" class="form-control col-md-7 col-xs-12">
                                       </div>
                                                 
                                     </div>
@@ -733,7 +733,7 @@ if ($chk == false) {
                                       <label for="middle-name" for="last_name">นามสกุล
                                       </label>
                                       <div >
-                                          <input type="text" placeholder="ภาษาไทย" id="name_tax" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
+                                          <input type="text" placeholder="ระบุนามสกุล ภาษาไทย" id="name_tax" name="individual_lastname[0]" class="form-control col-md-7 col-xs-12">
                                       </div>
                                         
                                     </div>
@@ -948,7 +948,7 @@ if ($chk == false) {
                                     <span class="required" style="color:red">* </span>เลขประจำตัวผู้เสียภาษี
                                   </label>
                                   <div class="col-md-4 col-sm-6 col-xs-12">
-                                      <input type="text" placeholder="เลขประจำตัว 13 หลัก" id="id_tax_tab2" name="individual_number[1]" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                                      <input type="text" placeholder="เลขประจำตัว 10 หลัก หรือ 13 หลัก" id="id_tax_tab2" name="individual_number[1]" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '9999999999999'">
                                   </div>
                               </div>
                               <hr/>
@@ -967,7 +967,7 @@ if ($chk == false) {
                                     <label for="middle-name" for="name_company">ชื่อบริษัท
                                       </label>
                                       <div >
-                                          <input type="text" placeholder="ภาษาไทย" id="name_tax" name="individual_firstname[1]" class="form-control col-md-7 col-xs-12">
+                                          <input type="text" placeholder="ระบุชื่อ ภาษาไทยหรือภาษาอังกฤษ" id="name_tax" name="individual_firstname[1]" class="form-control col-md-7 col-xs-12">
                                       </div>
                                   </div>
                                 
