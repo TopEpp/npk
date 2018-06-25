@@ -22,7 +22,7 @@
     </div>
 
 <script type="text/javascript">
-    var domain='<?php  echo base_url(); ?>/';
+    var domain='<?php echo base_url(); ?>/';
 </script>
 <script type="text/javascript">
  setTimeout(function(){
