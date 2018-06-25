@@ -17,11 +17,6 @@ $(function () {
                     width: 50
                 },
                 {
-                    title: 'รหัสบัญชี',
-                    field: 'account_id',
-                    width: 20
-                },
-                {
                     field: 'budget',
                     title: 'งบประมาณ',
                     width: 30,
@@ -179,36 +174,40 @@ $(function () {
     });
 
 
-     // project state
-     $('input.js-switch').change(function(){
+    // project state
+    $('input.js-switch').change(function () {
         if ($(this).is(':checked')) {
 
             $.ajax({
                 method: "POST",
-                url: domain+'project_training/updateState',
-                data: {data:false},
+                url: domain + 'project_training/updateState',
+                data: {
+                    data: false
+                },
                 success: function (response) {
                     // you will get response from your php page (what you echo or print)                 
-         
-                 },
+
+                },
             })
-          
+
         } else {
-            
+
             $.ajax({
                 method: "POST",
-                url: domain+'project_training/updateState',
-                data: {data:true},
+                url: domain + 'project_training/updateState',
+                data: {
+                    data: true
+                },
                 success: function (response) {
                     // you will get response from your php page (what you echo or print)                 
                     // console.log(response)
-                 },
+                },
             })
-           
+
         }
-       
+
     });
-    
+
 
 });
 
