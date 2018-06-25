@@ -17,9 +17,10 @@ $(function () {
                     width: 50
                 },
                 {
-                    title: 'รหัสบัญชี',
-                    field: 'account_id',
-                    width: 20
+                    field: 'no',
+                    title: 'เลขบัญชี',
+                    width: 20,
+                    align: 'right'
                 },
                 {
                     field: 'budget',

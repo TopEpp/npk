@@ -1,6 +1,5 @@
 $(function () {
 
-
     //grid tree
     $('#tg').treegrid({
         url: domain + 'receive/getOutsideJson',
@@ -13,19 +12,18 @@ $(function () {
         onContextMenu: onContextMenu,
         columns: [
             [{
-                    title: 'แผนงาน',
+                    title: 'รายการ',
                     field: 'name',
                     width: 50
                 },
                 {
-                    field: 'account_id',
                     title: 'รหัสบัญชี',
-                    width: 30,
-                    align: 'right'
+                    field: 'account_id',
+                    width: 20
                 },
                 {
                     field: 'budget',
-                    title: 'จำนวนเงิน',
+                    title: 'งบประมาณ',
                     width: 30,
                     align: 'right'
                 },
@@ -61,53 +59,18 @@ $(function () {
     ]);
 
 
-    // project state
-    $('input.js-switch').change(function () {
-        if ($(this).is(':checked')) {
-
-            $.ajax({
-                method: "POST",
-                url: domain + 'project_training/updateState',
-                data: {
-                    data: false
-                },
-                success: function (response) {
-                    // you will get response from your php page (what you echo or print)                 
-
-                },
-            })
-
-        } else {
-
-            $.ajax({
-                method: "POST",
-                url: domain + 'project_training/updateState',
-                data: {
-                    data: true
-                },
-                success: function (response) {
-                    // you will get response from your php page (what you echo or print)                 
-                    // console.log(response)
-                },
-            })
-
-        }
-
-    });
-
-
     //add plan data
     $('#btn-submit-plans').click(function () {
 
-        if ($('#project_title').val() == '') {
+        if ($('#outside_title').val() == '') {
             return false;
         }
-        var data = $('#project_title').val();
+        var data = $('#outside_title').val();
         var id = $('#hidden_id').val();
         var edit = $('#hidden_edit').val();
         $.ajax({
             method: "POST",
-            url: domain + 'project_training/insertProjectPlan',
+            url: domain + 'receive/insertOutsidePlan',
             data: {
                 data: data,
                 id: id,
@@ -124,16 +87,16 @@ $(function () {
     //add plan data
     $('#btn-submit-plan').click(function () {
 
-        if ($('#project_select').val() == '') {
+        if ($('#outside_select').val() == '') {
             return false;
         }
-        var data = $('#project_select').val();
+        var data = $('#outside_select').val();
         var id = $('#hidden_id_detail').val();
         var level = $('#hidden_level').val();
         var edit = $('#hidden_edit_detail').val();
         $.ajax({
             method: "POST",
-            url: domain + 'project_training/insertProjectPlan',
+            url: domain + 'receive/insertOutsidePlan',
             data: {
                 data: data,
                 id: id,
@@ -152,17 +115,17 @@ $(function () {
     //add plan data
     $('#btn-submit-cost').click(function () {
 
-        if ($('#project_cost').val() == '') {
+        if ($('#outside_cost').val() == '') {
             return false;
         }
-        var data = $('#project_cost').val();
+        var data = $('#outside_cost').val();
         var id = $('#hidden_id_cost').val();
         var level = $('#hidden_lv').val();
         var edit = $('#hidden_edit_cost').val();
 
         $.ajax({
             method: "POST",
-            url: domain + 'project_training/insertProjectPlan',
+            url: domain + 'receive/insertOutsidePlan',
             data: {
                 data: data,
                 id: id,
@@ -180,18 +143,18 @@ $(function () {
 
 
     //add prj data to controller
-    $('#btn-submit-prj').click(function () {
+    $('#btn-submit-out').click(function () {
 
-        if ($('#prj_name').val() == '') {
+        if ($('#out_name').val() == '') {
             return false;
         }
-        var data = $('#form_prj').serializeArray();
-        var edit = $('#hidden_prj_edit').val();
-        var id = $('#hidden_prj_id').val();
+        var data = $('#form_out').serializeArray();
+        var edit = $('#hidden_out_edit').val();
+        var id = $('#hidden_out_id').val();
 
         $.ajax({
             method: "POST",
-            url: domain + 'project_training/insertProject',
+            url: domain + 'receive/insertOutside',
             data: {
                 data: data,
                 edit: edit,
@@ -199,7 +162,7 @@ $(function () {
             }
         }).done(function (msg) {
             if (msg) {
-                $('.creat_prj').modal('hide');
+                $('.creat_out').modal('hide');
                 $('#tg').treegrid('reload');
             }
 
@@ -212,7 +175,7 @@ $(function () {
     $('#btn-del').click(function () {
         var id = $('#del_id').val();
         var state = $('#del_state').val();
-        window.location.href = domain + 'project_training/delPrj/' + id + '/' + state;
+        window.location.href = domain + 'receive/delOut/' + id + '/' + state;
     });
 
 });
@@ -220,33 +183,33 @@ $(function () {
 
 
 // create project
-function project_add_plan(id, value) {
+function outside_add_plan(id, value) {
     $('#hidden_edit').val(false);
     if (value != null) {
         $('#hidden_edit').val(true);
-        $('#project_title').val(value);
+        $('#outside_title').val(value);
     }
 
     $('#hidden_id').val(id);
     $('.create_plan').modal();
 }
 
-function project_add(id, value) {
+function outside_add(id, value) {
     $('#hidden_edit_detail').val(false);
     if (value != null) {
         $('#hidden_edit_detail').val(true);
-        $('#project_select').val(value);
+        $('#outside_select').val(value);
     }
     $('#hidden_id_detail').val(id);
     $('.create_plan_detail').modal();
 }
 
-function project_add_cost(id, value) {
+function outside_add_cost(id, value) {
 
     $('#hidden_edit_cost').val(false);
     if (value != null) {
         $('#hidden_edit_cost').val(true);
-        $('#project_cost').val(value);
+        $('#outside_cost').val(value);
     }
     $('#hidden_id_cost').val(id);
     $('.create_plan_cost').modal();
@@ -254,7 +217,7 @@ function project_add_cost(id, value) {
 }
 
 //prj create detail
-function add_prj(value) {
+function add_out(value) {
 
     //clear data
     $("input[type='text']").val('');
@@ -262,55 +225,55 @@ function add_prj(value) {
 
 
     var year = $('.selectpicker').val();
-    $('#project_year').text(parseInt(year) + 543);
-    $('#hidden_prj_edit').val(false);
-    $('#prj_year').val(year);
-    $('#prj_parent').val(value);
-    $('.creat_prj').modal();
+    $('#outside_year').text(parseInt(year) + 543);
+    $('#hidden_out_edit').val(false);
+    $('#out_year').val(year);
+    $('#out_parent').val(value);
+    $('.creat_out').modal();
 }
 //edit prj
-function edit_prj(value) {
+function edit_out(value) {
     //clear radio
     $(".flat").parents('div').removeClass('checked');
 
     var year = $('.selectpicker').val();
-    $('#project_year').text(parseInt(year) + 543);
-    $('#hidden_prj_edit').val(true);
-    $('#prj_year').val(year);
+    $('#outside_year').text(parseInt(year) + 543);
+    $('#hidden_out_edit').val(true);
+    $('#out_year').val(year);
     $.ajax({
         method: "POST",
-        url: domain + 'project_training/getPrj',
+        url: domain + 'receive/getOut',
         data: {
             data: value
         }
     }).success(function (msg) {
-        $('#hidden_prj_id').val(msg[0]['prj_id']);
-        $('#prj_name').val(msg[0]['prj_name']);
-        $('#prj_budget').val(msg[0]['prj_budget']);
-        $('#prj_owner').val(msg[0]['prj_owner']);
-        $('#prj_parent').val(msg[0]['prj_parent']);
+        $('#hidden_out_id').val(msg[0]['out_id']);
+        $('#out_name').val(msg[0]['out_name']);
+        $('#out_budget').val(msg[0]['out_budget']);
+        $('#out_owner').val(msg[0]['out_owner']);
+        $('#out_parent').val(msg[0]['out_parent']);
 
-        $("input[name='prj_status']").each(function (index) {
-            if ($(this).val() == msg[0]['prj_status']) {
-                $('#prj_status' + index).prop("checked", true);
-                $('#prj_status' + index).parents('div').addClass('checked');
+        $("input[name='out_status']").each(function (index) {
+            if ($(this).val() == msg[0]['out_status']) {
+                $('#out_status' + index).prop("checked", true);
+                $('#out_status' + index).parents('div').addClass('checked');
             }
         });
-        $("input[name='prj_type']").each(function (index) {
-            if ($(this).val() == msg[0]['prj_type']) {
-                $('#prj_type' + index).prop("checked", true);
-                $('#prj_type' + index).parents('div').addClass('checked');
+        $("input[name='out_type']").each(function (index) {
+            if ($(this).val() == msg[0]['out_type']) {
+                $('#out_type' + index).prop("checked", true);
+                $('#out_type' + index).parents('div').addClass('checked');
             }
         });
 
-        $('.creat_prj').modal();
+        $('.creat_out').modal();
 
     })
 }
 
 //del all project or prj
-function del_prj(value, state = '') {
+function del_out(value, state = '') {
     $('#del_id').val(value);
     $('#del_state').val(state);
-    $('.del_prj').modal();
+    $('.del_out').modal();
 }

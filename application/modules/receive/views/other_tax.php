@@ -73,57 +73,57 @@
 
                 </div>
 
-                 <div class="x_content">
-                    <table id="myTable" class="display" style="width:100%">                        
-                        <thead>
-                            <tr>
-                                <th style="width: 30px;">ลำดับ</th>
-                                <th>วันที่รับ</th>
-                                <th>หมวดรายได้</th>
-                                <th>จำนวนเงินที่รับ (บาท)</th>
-                                <th style="width: 120px;">เครื่องมือ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            foreach ($tax_receive as $key => $value) { ?>
-                                  <tr>
-                                    <td align="center"><?php echo $key + 1; ?></td>
-                                    <td align="center"><?php echo $value->receive_date; ?></td>                                    <td><?php echo $value->tax_name ?></td>   
-                                    <td align="right"><?php echo number_format($value->receive_amount, 2); ?></td>                        
-                                    <td>
-                                      <center>
-                                          <div class="btn-group ">
-                                              <button type="button" onclick="window.location.href='<?php echo base_url('receive/other_tax_edit/') . '/' . $value->receive_id; ?>'" id="edit-receive" class="btn btn-success btn-sm" title="แก้ไข">
-                                                  <i class="glyphicon glyphicon-edit"></i>
-                                              </button>
-                                              <button type="button" id="btn_delete" class="btn btn-danger btn-sm" data-id="<?php echo $value->receive_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">
-                                                  <i class="glyphicon glyphicon-trash"></i>
-                                              </button>
-                                          </div>
-                                      </center>               
-                                    </td>
-                                  </tr>
-                                <?php 
-                              } ?>
-                                
-                        <tbody>
-                      </table>
-                  </div>
+                      <div class="x_content">
+                        <table id="tax_table" class="table" width="100%">
+                            <thead>
+                              <tr>
+                                      <th style="width: 30px;">ลำดับ</th>
+                                      <th>วันที่รับ</th>
+                                      <th>หมวดรายได้</th>
+                                      <th>จำนวนเงินที่รับ (บาท)</th>
+                                      <th style="width: 120px;">เครื่องมือ</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                          
 
-                    </div>
+                            <tbody>
+                        </table>
+                      </div>
                   </div>
                 </div>
+              </div>
+
 
               </div>
             </div>
 </div>
 
-        <!-- Modal Popup -->
-          
+                <!-- Modal Popup -->          
           <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <?php $this->load->view('receive/del_popup.php'); ?>
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="delmodal">การแจ้งเตือน!</h4>
+                      </div>
+                      
+                      
+                      <div class="modal-body">
+                              <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                      </div>
+
+                      <div class="modal-footer">
+                          <button type="button" id="btn-del"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                          </button>
+
+                          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
+                          </button>
+                      </div>
+                  </div>
+              </div>
             </div>
           </div>
 
@@ -131,8 +131,9 @@
 
 <style>
 th{
-  text-align: center;
+text-align: center;
 }
+.dataTables_filter, .dataTables_info { display: none; }
 </style>
         
 
