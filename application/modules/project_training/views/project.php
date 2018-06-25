@@ -1,7 +1,7 @@
 <div class="right_col" role="main">
     <div class="page-title">
       <div class="title_left">
-        <h3>ระบบรายรับนอกงบประมาณ</h3>
+        <h3>ระบบบริหารโครงการ</h3>
       </div>
     </div>
 
@@ -17,10 +17,15 @@
         <div class="x_panel">
 
             <div class="nav navbar-right panel_toolbox">
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus"></i> เพิ่มรายการ</button>
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus"></i>เพิ่มแผนงาน</button>
+            </div>
+            <div class="nav navbar-right panel_toolbox">
+              <label>
+                <input type="checkbox" class="js-switch" id="state"  <?php echo ($state == 1)? 'checked':''; ?>/> ยืนยัน &nbsp;
+              </label>
             </div>
             <div style="margin:20px 0;"></div>
-            <table id="tg" class="easyui-treegrid" title="&emsp;รายรับนอกงบประมาณ" style="width:100%;">
+            <table id="tg" class="easyui-treegrid" title="&emsp;บริหารแผนงาน / โครงการ" style="width:100%;">
             </table>
            
             <br>
@@ -42,7 +47,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">เพิ่มรายรับนอกงบประมาณ</h4>
+        <h4 class="modal-title" id="myModalLabel2">บริหารโครงการ</h4>
       </div>
       <div class="modal-body clearfix">
         <form class="form-horizontal form-label-left" id="form_plan">
@@ -50,8 +55,8 @@
         <input  id="hidden_id"  name="hidden_id"  type="hidden">
         <input  id="hidden_edit"  name="hidden_edit"  value="false" type="hidden"> 
           <div class="form-group">
-            <label>รายการ</label>
-            <input class="form-control" id="project_title"  name="project_title" placeholder="ระบุรายการ" type="text">
+            <label>แผนงาน</label>
+            <input class="form-control" id="project_title"  name="project_title" placeholder="ระบุแผนงาน" type="text">
           </div>
         </form>
       </div>
@@ -159,13 +164,13 @@
 
 
 <div class="modal fade creat_prj" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">เพิ่มรายรับนอกงบประมาณ <span id="project_year"></span></h4>
+        <h4 class="modal-title" id="myModalLabel2">โครงการ ปีงบประมาณ <span id="project_year"></span></h4>
       </div>
       <div class="modal-body clearfix">
         <!-- //check edit form -->
@@ -177,17 +182,12 @@
           <input  id="prj_parent"  name="prj_parent"  type="hidden"> 
           <input  id="prj_year"  name="prj_year"  type="hidden"> 
           <div class="form-group">
-            <label>รายการ</label> 
-            <input class="form-control" id="prj_name"  name="prj_name" placeholder="ระบุรายการ" type="text">
+            <label>ชื่อโครงการ</label> 
+            <input class="form-control" id="prj_name"  name="prj_name" placeholder="ระบุชื่อโครงการ" type="text">
           </div>
-          <!-- <div class="form-group">
-            <label>รหัสบัญชี</label> 
-            <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุรหัสบัญชี" type="text">
-          </div>
- -->
           <div class="form-group">
-            <label>จำนวนเงินที่รับ</label> 
-            <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุจำนวนเงินที่รับ" type="text">
+            <label>งบประมาณ</label> 
+            <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุงบประมาณ" type="text">
           </div>
 
           <div class="form-group">
@@ -200,7 +200,24 @@
             </select>
             
           </div>
+          <div class="form-group">
+            <label>สถานะโครงการ</label>
+              <p>
+                <input type="radio" class="flat" name="prj_status" id="prj_status0" value="0" /> ยังไม่ได้ดำเนินการ &nbsp;
+                <input type="radio" class="flat" name="prj_status" id="prj_status1" value="1" /> อยู่ระหว่างดำเนินการ &nbsp;
+                <input type="radio" class="flat" name="prj_status" id="prj_status2" value="2" /> ดำเนินการเสร็จสิ้น &nbsp;
+                <input type="radio" class="flat" name="prj_status" id="prj_status3" value="3" /> ยกเลิก &nbsp;
+              </p>
+          </div>
 
+          <div class="form-group">
+            <label>ประเภทโครงการ</label>
+              <p>
+                <input type="radio" class="flat" name="prj_type" id="prj_type0" value="0" /> ใหม่ &nbsp;
+                <input type="radio" class="flat" name="prj_type" id="prj_type1" value="1" /> ต่อเนื่อง &nbsp;
+               
+              </p>
+          </div>
         </form>
       </div>
       <div class="modal-footer">

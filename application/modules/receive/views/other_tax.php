@@ -89,12 +89,13 @@
                             foreach ($tax_receive as $key => $value) { ?>
                                   <tr>
                                     <td align="center"><?php echo $key + 1; ?></td>
-                                    <td align="center"><?php echo $value->receive_date; ?></td>                                    <td><?php echo $value->tax_name ?></td>   
+                                    <td align="center"><?php echo date("d/m/Y", strtotime($value->receive_date)); ?></td>
+                                    <td><?php echo $value->tax_name ?></td>   
                                     <td align="right"><?php echo number_format($value->receive_amount, 2); ?></td>                        
                                     <td>
                                       <center>
                                           <div class="btn-group ">
-                                              <button type="button" onclick="window.location.href='<?php echo base_url('receive/other_tax_edit/') . '/' . $value->receive_id; ?>'" id="edit-receive" class="btn btn-success btn-sm" title="แก้ไข">
+                                              <button type="button" onclick="window.location.href='<?php echo base_url('receive/other_tax_update/') . '/' . $value->receive_id; ?>'" id="edit-receive" class="btn btn-success btn-sm" title="แก้ไข">
                                                   <i class="glyphicon glyphicon-edit"></i>
                                               </button>
                                               <button type="button" id="btn_delete" class="btn btn-danger btn-sm" data-id="<?php echo $value->receive_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">

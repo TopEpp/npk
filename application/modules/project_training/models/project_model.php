@@ -15,44 +15,41 @@ class project_model extends CI_Model
         $query = $this->db->get('tbl_project_manage');
         return $query->result();
     }
-    public function getPrj($id = '')
-    {
-        if (!empty($id)) {
-            $this->db->where('prj_id', $id);
+    public function getPrj($id = ''){
+        if (!empty($id)){
+            $this->db->where('prj_id',$id);
         }
         $this->db->where('prj_active','1');
         $query = $this->db->get('tbl_project');
         return $query->result();
     }
 
-    public function insertProject($data)
-    {
+    public function insertProject($data){
     
        
          //check  last id project and prj
-        $last_id_project = $this->db->select('project_id')
-            ->order_by('project_id', 'desc')
-            ->limit(1)->get('tbl_project_manage')->row('project_id');
-        $last_id_prj = $this->db->select('prj_id')
-            ->order_by('prj_id', 'desc')
-            ->limit(1)->get('tbl_project')->row('prj_id');
+        $last_id_project =   $this->db->select('project_id')
+                            ->order_by('project_id','desc')
+                            ->limit(1)->get('tbl_project_manage')->row('project_id');
+        $last_id_prj =   $this->db->select('prj_id')
+                        ->order_by('prj_id','desc')
+                        ->limit(1)->get('tbl_project')->row('prj_id');
 
-        if ($last_id_project > $last_id_prj) {
-            $data['project_id'] = $last_id_project + 1;
-            return $this->db->insert('tbl_project_manage', $data);
-        } else {
-            $data['project_id'] = $last_id_prj + 1;
-            return $this->db->insert('tbl_project_manage', $data);
+        if ($last_id_project > $last_id_prj ){
+            $data['project_id'] = $last_id_project+1;
+            return $this->db->insert('tbl_project_manage',$data);
+        }else{
+            $data['project_id'] = $last_id_prj+1;
+            return $this->db->insert('tbl_project_manage',$data);
         }
     }
 
-    public function editProject($id, $data)
-    {
-        if (!empty($id)) {
-            $this->db->where('project_id', $id);
-            return $this->db->update('tbl_project_manage', $data);
+    public function editProject($id,$data){
+        if (!empty($id)){
+            $this->db->where('project_id',$id);
+            return $this->db->update('tbl_project_manage',$data);
         }
-
+    
     }
 
 
@@ -77,7 +74,7 @@ class project_model extends CI_Model
             $this->db->where('project_id',$id);
             return $this->db->delete('tbl_project_manage');
         }
-
+       
     }
 
     public function insertPrj($data,$id = ''){
@@ -114,20 +111,18 @@ class project_model extends CI_Model
         
     }
 
-    public function getState()
-    {
+    public function getState(){
         $this->db->select('state');
         return @$this->db->get('tbl_project')->row()->state;
     }
 
-    public function updateState($state)
-    {
-        if ($state == 'false') {
+    public function updateState($state){
+        if ($state == 'false'){     
             return $this->db->query("UPDATE tbl_project SET state = '1'");
-        } else {
-            return $this->db->query("UPDATE tbl_project SET state = '0'");
+        }else{
+            return  $this->db->query("UPDATE tbl_project SET state = '0'");
         }
-
+      
     }
 
     public function getUser(){
