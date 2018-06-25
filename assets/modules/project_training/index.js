@@ -17,11 +17,6 @@ $(function () {
                     width: 50
                 },
                 {
-                    title: 'รหัสบัญชี',
-                    field: 'account_id',
-                    width: 20
-                },
-                {
                     field: 'budget',
                     title: 'งบประมาณ',
                     width: 30,
@@ -37,7 +32,7 @@ $(function () {
             ]
         ],
         onLoadSuccess: function (row) {
-            $(this).treegrid('enableDnd', row ? row.id : null);
+            // $(this).treegrid('enableDnd', row ? row.id : null);
         }
 
 

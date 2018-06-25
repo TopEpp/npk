@@ -1,29 +1,27 @@
-$(document).ready(function(){
-	$.ajax({
-		url: domain+'report/getAjaxProjectManage',
-		method: "GET",
-		success: function(data) {
-			var title = [];
-			var value = [];
+$(document).ready(function () {
+    $.ajax({
+        url: domain + 'report/getAjaxProjectManage',
+        method: "GET",
+        success: function (data) {
+            var title = [];
+            var value = [];
 
-			for(var i in data) {
-				title.push(data[i].project_title);
-				value.push(data[i].prj_budget);
-			}
+            for (var i in data) {
+                title.push(data[i].project_title);
+                value.push(data[i].prj_budget);
+            }
 
-			var chartdata = {
-				labels: title,
-				datasets : [
-					{
-                        label: 'รายงานบริหารโครงการ',
-                        backgroundColor: "#26B99A",
-						// backgroundColor: 'rgba(200, 200, 200, 0.75)',
-						// borderColor: 'rgba(200, 200, 200, 0.75)',
-						// hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-						// hoverBorderColor: 'rgba(200, 200, 200, 1)',
-						data: value
-					}
-				]
+            var chartdata = {
+                labels: title,
+                datasets: [{
+                    label: 'รายงานบริหารโครงการ',
+                    backgroundColor: "#26B99A",
+                    // backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                    // borderColor: 'rgba(200, 200, 200, 0.75)',
+                    // hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                    // hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                    data: value
+                }]
             };
 
             var ctx = document.getElementById("report_project_manage").getContext('2d');
@@ -52,8 +50,8 @@ $(document).ready(function(){
                 }
             });
 
-		}
-	});
+        }
+    });
 });
 
 
