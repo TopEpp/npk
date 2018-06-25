@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 class Receive_model extends CI_Model
 {
@@ -47,14 +47,7 @@ class Receive_model extends CI_Model
         return $this->db->insert('tax_notice', $data);
 
     }
-
-    public function del_notice($id)
-    {
-        $this->db->where('individual_id', $id);
-        return $this->db->delete('tax_notice');
-    }
-
-
+    
 
     ///////////////////////////////////////////////////
 
@@ -63,14 +56,14 @@ class Receive_model extends CI_Model
     {
         return $this->db->insert('tbl_individual', $data);
     }
-
+ 
      //get individual all
     public function getIndividualAll()
     {
         $query = $this->db->get('tbl_individual');
         return $query->result();
     }
-
+ 
      //insert data individual
     public function insertIndividual($data, $id = '')
     {
@@ -99,13 +92,12 @@ class Receive_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
+ 
      //other_tax_add
     public function insertOtherTax($input)
     {
         $this->db->insert('tax_receive', $input);
     }
-
 
     //other_tax_update
 
@@ -132,6 +124,7 @@ class Receive_model extends CI_Model
         return $this->db->delete('tax_receive');
     }
 
+<<<<<<< HEAD
 
 
     ////outside///
@@ -214,6 +207,8 @@ class Receive_model extends CI_Model
 
 
 ///// Ajax ////////
+=======
+>>>>>>> Dev-Branch
     public function getRecieveTaxAjax($param)
     {
         $keyword = $param['keyword'];
@@ -254,60 +249,25 @@ class Receive_model extends CI_Model
         $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
         return $result;
 
-    }
 
-    public function getRecieveDashboradAjax($param)
-    {
-        $keyword = $param['keyword'];
-        $this->db->select('*');
+    // public function updateOtherTax($input)
+    // {
+    //     $this->db->where('receive_id', $input['receive_id']);
+    //     $this->db->update('tax_receive', $input);
+    // }
 
-        $condition = "1=1";
-
-        if (!empty($param['filter'])) {
-            $filter = $param['filter'];
-            if (!empty($filter[1])) {
-                $this->db->like('individual_type', $filter[1]);
-            }
-            if (!empty($filter[2])) {
-                $this->db->like('individual_number', $filter[2]);
-            }
-            if (!empty($filter[3])) {
-                $this->db->like('individual_fullname', $filter[3]);
-            }
-            if (!empty($filter[4])) {
-                $this->db->like('tax_name', $filter[4]);
-            }
+    // public function read_OtherTax_update($id)
+    // {
+    //     $this->db->where('receive_id', $id);
+    //     $this->db->get('tax_receive');
+    // }
 
 
-        }
 
 
-        $this->db->where($condition);
-        $this->db->limit($param['page_size'], $param['start']);
-        $this->db->order_by($param['column'], $param['dir']);
-
-        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
-        $this->db->from('tax_notice');
-        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
-        $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
-        $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
-
-        $query = $this->db->get();
-        $data = array();
-        if ($query->num_rows() > 0) {
-
-            foreach ($query->result_array() as $key => $row) {
-                $row['notice_estimate'] = number_format($row['notice_estimate'], 2);
-                $data[] = $row;
-            }
-        }
-
-        $count_condition = $this->db->from('tax_notice')->where($condition)->count_all_results();
-        $count = $this->db->from('tax_notice')->count_all_results();
-        $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
-        return $result;
 
     }
+<<<<<<< HEAD
 
     public function getAjaxOtherTaxAjax($param)
     {
@@ -367,3 +327,6 @@ class Receive_model extends CI_Model
     }
 
 }
+=======
+}
+>>>>>>> Dev-Branch
