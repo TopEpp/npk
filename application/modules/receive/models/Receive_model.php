@@ -334,12 +334,16 @@ class Receive_model extends CI_Model
         $this->db->where($condition);
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
+        // SELECT * FROM tax_receive WHERE tax_id != 8 and tax_id != 9 and tax_id != 10
 
         $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*');
+        // $this->db->where('tax_id!= 8 and tax_id != 9 and tax_id != 10');
         $this->db->from('tax_receive');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left');
-
+        $this->db->where('tbl_tax.tax_id!= 8');
+        $this->db->where('tbl_tax.tax_id!= 9');
+        $this->db->where('tbl_tax.tax_id!= 10');
         $query = $this->db->get();
 
         $data = array();
