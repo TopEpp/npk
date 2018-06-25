@@ -18,7 +18,7 @@ class Project_training extends MY_Controller
 
         //get state prj 
         $data['state'] = $this->project_model->getState();
-
+        $data['user'] = $this->project_model->getUser();
         $this->template->javascript->add('assets/modules/project_training/index.js');
 
         $this->template->stylesheet->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.css');
@@ -84,7 +84,7 @@ class Project_training extends MY_Controller
                 $data[$value['name']] = $value['value'];
             }
             $data['prj_create'] = date('Y-m-d H:i:s');
-
+            $data['prj_owner_update'] = $_SESSION['user_id'] ;
             //check state prj
             $state = $this->project_model->getState();
             if ($state == 1) {
@@ -98,7 +98,9 @@ class Project_training extends MY_Controller
             foreach ($tmp as $key => $value) {
                 $data[$value['name']] = $value['value'];
             }
-            $status = $this->project_model->insertPrj($data, $id);
+            //update owner edit
+            $data['prj_owner_update'] = $_SESSION['user_id'] ;
+            $status = $this->project_model->insertPrj($data,$id);
         }
 
 
@@ -107,9 +109,9 @@ class Project_training extends MY_Controller
     }
 
     //delete prj 
-    public function delPrj($id, $state = '')
-    {
-        $this->project_model->delPrj($id, $state);
+    public function delPrj($id,$state = ''){
+        $this->project_model->delPrj($id,$state);
+
         redirect('project_training/project');
     }
 
@@ -128,38 +130,39 @@ class Project_training extends MY_Controller
 
         foreach ($values as $key => $value) {
             $data['rows'][$key]['id'] = $value->project_id;
-            $data['rows'][$key]['budget'] = '';
+            $data['rows'][$key]['budget'] = number_format($value->prj_budget);
             $data['rows'][$key]['name'] = $value->project_title;
 
             switch ($value->project_level) {
                 case '1':
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='add_prj(" . $value->project_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add_plan(" . $value->project_id . "," . '"' . $value->project_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button  onClick='del_prj(" . $value->project_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='project_add_plan(".$value->project_id.")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add_plan(".$value->project_id.",".'"'.$value->project_title.'"'.")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_prj(".$value->project_id.")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+
                     break;
                 case '2':
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='add_prj(" . $value->project_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add_plan(" . $value->project_id . "," . '"' . $value->project_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button  onClick='del_prj(" . $value->project_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='project_add(".$value->project_id.")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add_plan(".$value->project_id.",".'"'.$value->project_title.'"'.")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_prj(".$value->project_id.")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
                     break;
                 case '3':
                     $data['rows'][$key]['name'] = $data_budget[$value->project_title];
 
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='project_add_cost(" . $value->project_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add(" . $value->project_id . "," . '"' . $value->project_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button  onClick='del_prj(" . $value->project_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='project_add_cost(".$value->project_id.")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add(".$value->project_id.",".'"'.$value->project_title.'"'.")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_prj(".$value->project_id.")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
                     break;
 
                 default:
                     $data['rows'][$key]['name'] = $data_cost[$value->project_title];
 
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='add_prj(" . $value->project_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add_cost(" . $value->project_id . "," . '"' . $value->project_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button onClick='del_prj(" . $value->project_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='add_prj(".$value->project_id.")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add_cost(".$value->project_id.",".'"'.$value->project_title.'"'.")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button onClick='del_prj(".$value->project_id.")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
 
                     break;
             }
