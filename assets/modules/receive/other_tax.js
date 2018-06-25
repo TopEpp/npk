@@ -1,5 +1,5 @@
 $(function () {
-    // //load id to modal
+    //load id to modal
     $('#delmodal').on('show.bs.modal', function (e) {
         var data = $(e.relatedTarget).data();
         $(this).find('#btn-del').attr('del', data.id);
@@ -10,8 +10,9 @@ $(function () {
         e.preventDefault();
 
         var id = $(this).attr('del');
-        window.location.replace(domain + 'receive/' + 'receive_notice_delete' + '/' + id);
+        window.location.replace(domain + 'receive/' + 'receive_other_delete' + '/' + id);
     });
+
 
     var table = $('#tax_table').DataTable({
         pageLength: 25,
@@ -19,7 +20,7 @@ $(function () {
         processing: true,
         lengthChange: false,
         ajax: {
-            url: domain + 'receive/getAjaxReceivedashborad',
+            url: domain + 'receive/getAjaxOtherTax',
         },
         "columnDefs": [{
             "name": "",
@@ -31,7 +32,7 @@ $(function () {
             [1, 'DESC']
         ],
         'columns': [{
-                data: 'notice_id',
+                data: 'receive_id',
                 "className": "text-center",
                 render: function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
@@ -39,41 +40,32 @@ $(function () {
 
             },
             {
-                data: 'notice_id',
+                data: 'receive_date',
                 "className": "text-center",
             },
+
             {
-                data: 'individual_number',
-                "className": "text-center",
+                data: 'tax_name'
             },
             {
-                data: 'individual_fullname',
-            },
-            {
-                data: 'tax_type_name',
-            },
-            {
-                data: 'tax_name',
-            },
-            {
-                data: 'notice_estimate',
+                data: 'receive_amount',
                 "className": "text-right",
             },
             {
-                data: 'notice_id',
+                data: 'receive_id',
                 render: function (data, type, row) {
                     var btn =
                         '<div class="btn-group ">' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข"><i class="glyphicon glyphicon-edit"></i></button>' +
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/other_tax_edit/' + '' + data + '\'" id="edit-receive" class="btn btn-success btn-sm" title="แก้ไข"><i class="glyphicon glyphicon-edit"></i></button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ"><i class="glyphicon glyphicon-trash"></i></button>'
                     '</div>';
                     return btn;
                 },
                 "className": "text-center",
                 orderable: false
-            },
+            }
         ],
-        // "bSort": false,
+        // "bSort" : false,
         "bLengthChange": false,
         "bFilter": true,
         "responsive": true,
@@ -99,16 +91,14 @@ $(function () {
         }
 
 
+
     });
 
-    //search data
+    //search data 
     $('#search_receive').click(function () {
         table.columns(1).search($('#type_tax').val()).draw();
         table.columns(2).search($('#number_tax').val()).draw();
         table.columns(3).search($('#name_tax').val()).draw();
-        table.columns(4).search($('#tax_type_id').val()).draw();
     });
-
-
 
 });

@@ -16,6 +16,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/logo.png" type="image/x-icon">
     <link rel="icon" href="<?php echo base_url(); ?>assets/images/logo.png" type="image/x-icon">
     <link rel="import" href="<?php echo base_url(); ?>assets/fonts/gl-font-2/gl-cschatthai-font.html">
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
     <!-- <title><?php echo $title . ' - ' . $subtitle ?></title> -->
     <title><?php echo $this->template->title->default($this->config->item('title')); ?></title>

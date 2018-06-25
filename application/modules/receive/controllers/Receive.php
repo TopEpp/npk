@@ -12,7 +12,7 @@ class Receive extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Receive_model');
-        $this->load->model('outside_model');
+        $this->load->model('Outside_model');
 
     }
     public function receive_dashborad()
@@ -178,23 +178,8 @@ class Receive extends MY_Controller
     public function other_tax()
     {
         $data = array();
-
-        $query = $this->Receive_model->getOtherTaxAll();
-
-        if (!empty($query)) {
-            foreach ($query as $key => $value) {
-                $date = explode('-', $value->receive_date);
-                $value->receive_date = $date[2] . '/' . $date[1] . '/' . ($date[0] + 543);
-            }
-        }
-
-      // var_dump($query);
-
-
-        $data['tax_receive'] = $query;
-
-
         $this->config->set_item('title', 'รายการข้อมูลรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
+        $this->template->javascript->add('assets/modules/receive/other_tax.js');
         $this->setView('other_tax', $data);
         $this->publish();
     }
@@ -211,27 +196,27 @@ class Receive extends MY_Controller
         redirect(base_url('Receive/other_tax'));
     }
 
-    public function updateOtherTax()
-    {
-        $input = $this->input->post();
-
-
-        $this->Receive_model->updateOtherTax($input);
-        redirect(base_url('Receive/other_tax'));
-    }
 
     public function other_tax_edit($id = '')
     {
         $data = array();
-
-        if (!empty($id)) {
-            $data['other_tax'] = $this->Receive_model->read_OtherTax_update($id);
-
-        }
+        $data['other_tax'] = $this->Receive_model->read_OtherTax_update($id);
 
 
         $tax_allocate = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '2' ORDER BY tax_name");
-        $data['tax_allocate'] = $tax_allocate->result();
+        $tax_fine = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '3' ORDER BY tax_name");
+        $tax_asset = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '4' ORDER BY tax_name");
+        $tax_health = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '5' ORDER BY tax_name");
+        $tax_miscellaneous = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '6' ORDER BY tax_name");
+        $tax_subsidy = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '7' ORDER BY tax_name");
+
+
+        $data['tax_allocate'] = $tax_allocate->result_array();
+        $data['tax_fine'] = $tax_fine->result_array();
+        $data['tax_asset'] = $tax_asset->result_array();
+        $data['tax_health'] = $tax_health->result_array();
+        $data['tax_miscellaneous'] = $tax_miscellaneous->result_array();
+        $data['tax_subsidy'] = $tax_subsidy->result_array();
 
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('other_tax_edit', $data);
@@ -264,6 +249,29 @@ class Receive extends MY_Controller
 
 
     }
+
+    //update other_tax
+    public function update_other_tax()
+    {
+        $input = $this->input->post();
+        $date = explode('/', $input['receive_date']);
+        $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
+
+        $this->Receive_model->updateOtherTax($input);
+        redirect(base_url('receive/other_tax'));
+    }
+
+
+    //delete other_tax
+    public function receive_other_delete($id)
+    {
+        $this->Receive_model->del_other($id);
+        redirect(base_url('receive/other_tax'));
+
+    }
+    
+
+    
 
 
     //form individual
@@ -400,11 +408,14 @@ class Receive extends MY_Controller
             $individual_number = $this->input->post('individual_number');
         }
   
-      // print_r($this->input->post());
+    // print_r($this->input->post());
         $query = $this->Receive_model->receive_tax_pay($notice_number, $individual_number);
 
         $data = array();
         $data['receive_tax_pay'] = $query;
+        
+    //import input mark
+        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_tax_pay', $data);
         $this->publish();
@@ -647,31 +658,24 @@ class Receive extends MY_Controller
 
     public function outside()
     {
+
         $data = array();
         $this->config->set_item('title', 'ระบบรายรับนอกงบประมาณ - เทศบาลตำบลหนองป่าครั่ง');
-
-        //get state prj
-        $data['state'] = $this->outside_model->getState();
-
         $this->template->javascript->add('assets/modules/receive/outside.js');
-
-        $this->template->stylesheet->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.css');
-        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.js');
-
         $this->setView('outside', $data);
         $this->publish();
     }
 
     // //get prj
-    public function getPrj()
+    public function getOut()
     {
         $data = $this->input->post('data');
-        $status = $this->outside_model->getPrj($data);
+        $status = $this->Outside_model->getOut($data);
         $this->json_publish($status);
     }
 
     // //insert project manage
-    public function insertProjectPlan()
+    public function insertOutsidePlan()
     {
 
         $data = array();
@@ -695,11 +699,11 @@ class Receive extends MY_Controller
 
             $data['outside_title'] = $this->input->post('data');
 
-            $status = $this->outside_model->insertProject($data);
+            $status = $this->Outside_model->insertOutside($data);
         } else {
 
             $data['outside_title'] = $this->input->post('data');
-            $status = $this->outside_model->editProject($id, $data);
+            $status = $this->Outside_model->editOutside($id, $data);
         }
 
 
@@ -707,7 +711,7 @@ class Receive extends MY_Controller
     }
 
     // //insert prj
-    public function insertProject()
+    public function insertOutside()
     {
         $data = array();
         $tmp = $this->input->post('data');
@@ -719,20 +723,12 @@ class Receive extends MY_Controller
             }
             $data['out_create'] = date('Y-m-d H:i:s');
 
-            //check state prj
-            $state = $this->outside_model->getState();
-            if ($state == 1) {
-                $data['out_new'] = '1';
-                $data['state'] = '1';
-            }
-
-            $status = $this->outside_model->insertPrj($data);
         } else {
 
             foreach ($tmp as $key => $value) {
                 $data[$value['name']] = $value['value'];
             }
-            $status = $this->outside_model->insertPrj($data, $id);
+            $status = $this->Outside_model->insertOut($data, $id);
         }
 
 
@@ -741,9 +737,9 @@ class Receive extends MY_Controller
     }
 
     // //delete prj
-    public function delPrj($id, $state = '')
+    public function delOut($id, $state = '')
     {
-        $this->outside_model->delPrj($id, $state);
+        $this->Outside_model->delOut($id, $state);
         redirect('receive/outside');
     }
 
@@ -757,7 +753,7 @@ class Receive extends MY_Controller
             '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
             'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง'
         ];
-        $values = $this->outside_model->getProject();
+        $values = $this->Outside_model->getOutside();
         $data['total'] = count($values);
 
         foreach ($values as $key => $value) {
@@ -768,32 +764,32 @@ class Receive extends MY_Controller
             switch ($value->outside_level) {
                 case '1':
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='add_prj(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button  onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='add_out(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='outside_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
                     break;
                 case '2':
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='project_add(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button  onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='outside_add(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='outside_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
                     break;
                 case '3':
                     $data['rows'][$key]['name'] = $data_budget[$value->outside_title];
 
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='project_add_cost(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button  onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='outside_add_cost(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='outside_add(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
                     break;
 
                 default:
                     $data['rows'][$key]['name'] = $data_cost[$value->outside_title];
 
                     $data['rows'][$key]['tools'] = "
-                    <button  onClick='add_prj(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-                    <button  onClick='project_add_cost(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-                    <button onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    <button  onClick='add_out(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='outside_add_cost(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
 
                     break;
             }
@@ -804,15 +800,15 @@ class Receive extends MY_Controller
 
         }
 
-        $prj = $this->outside_model->getPrj();
-        foreach ($prj as $key => $value) {
+        $out = $this->Outside_model->getOut();
+        foreach ($out as $key => $value) {
             $data['rows'][$data['total'] + $key]['id'] = $value->out_id;
             $data['rows'][$data['total'] + $key]['budget'] = number_format($value->out_budget);
             $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->out_name . '</p>';
             $data['rows'][$data['total'] + $key]['tools'] = "
-            <button  onClick='add_prj(" . $value->out_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-            <button onClick='edit_prj(" . $value->out_id . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-            <button onClick='del_prj(" . $value->out_id . "," . '"1"' . ")'  id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+            <button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+            <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+            <button onClick='del_out(" . $value->out_id . "," . '"1"' . ")'  id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
             $data['rows'][$data['total'] + $key]['_parentId'] = $value->out_parent;
             // $data['rows'][$data['total']+$key]['iconCls'] = 'icon-ok';
 
@@ -820,15 +816,6 @@ class Receive extends MY_Controller
 
         $this->json_publish($data);
     }
-
-    // update state
-    public function updateState()
-    {
-        $status = $this->outside_model->updateState($this->input->post('data'));
-        $this->json_publish($status);
-
-    }
-
 
     public function getAjaxReceivedashborad()
     {
@@ -853,6 +840,61 @@ class Receive extends MY_Controller
         $data['data'] = $results['data'];
         $data['error'] = $results['error_message'];
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
+    public function getAjaxOtherTax()
+    {
+        $order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+      //check filter data
+        $filter = array();
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[] = $value['search']['value'];
+        }
+        $param['filter'] = $filter;
+        $results = $this->Receive_model->getAjaxOtherTaxAjax($param);
+
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
+    function receive_tax_pay_add()
+    {
+        $id = $this->uri->segment(3);
+        $query = $this->Receive_model->get_notic_one($id);
+        $query2 = $this->Receive_model->get_receive_notice($id);
+        foreach ($query2 as $key => $value) {
+            list($y, $m, $d) = explode('-', $value['receive_date']);
+            $query2[$key]['receive_date'] = "{$d}/{$m}/" . ($y + 543);
+        }
+        // print_r($query);
+
+        $data = array();
+        $data['tax_notice'] = $query;
+        $data['tax_receive'] = $query2;
+        $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('receive_tax_pay_add', $data);
+        $this->publish();
+    }
+
+    function recieve_tax_add()
+    {
+        $input = $this->input->post();
+        list($d, $m, $y) = explode('/', $input['receive_date']);
+        $y = $y - 543;
+        $input['receive_date'] = "{$y}/{$m}/{$d}";
+        // print_r($input);
+        $this->Receive_model->recieve_tax_add($input);
+        redirect('receive/receive_tax_pay/' . $input['notice_id']);
     }
 
 

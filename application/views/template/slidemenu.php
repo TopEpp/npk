@@ -7,7 +7,8 @@
             </a>
           </div>
 
-          
+          <div class="clearfix"></div>
+
 
           <!-- menu profile quick info -->
           <br>
