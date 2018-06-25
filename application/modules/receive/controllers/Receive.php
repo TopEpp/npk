@@ -12,7 +12,11 @@ class Receive extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Receive_model');
+<<<<<<< HEAD
         $this->load->model('Outside_model');
+=======
+        $this->load->model('outside_model');
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
 
     }
     public function receive_dashborad()
@@ -178,6 +182,25 @@ class Receive extends MY_Controller
     public function other_tax()
     {
         $data = array();
+<<<<<<< HEAD
+=======
+
+        $query = $this->Receive_model->getOtherTaxAll();
+
+        if (!empty($query)) {
+            foreach ($query as $key => $value) {
+                $date = explode('-', $value->receive_date);
+                $value->receive_date = $date[2] . '/' . $date[1] . '/' . ($date[0] + 543);
+            }
+        }
+
+      // var_dump($query);
+
+
+        $data['tax_receive'] = $query;
+
+
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         $this->config->set_item('title', 'รายการข้อมูลรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/other_tax.js');
         $this->setView('other_tax', $data);
@@ -196,10 +219,22 @@ class Receive extends MY_Controller
         redirect(base_url('Receive/other_tax'));
     }
 
+<<<<<<< HEAD
+=======
+    public function updateOtherTax()
+    {
+        $input = $this->input->post();
+
+
+        $this->Receive_model->updateOtherTax($input);
+        redirect(base_url('Receive/other_tax'));
+    }
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
 
     public function other_tax_edit($id = '')
     {
         $data = array();
+<<<<<<< HEAD
         $data['other_tax'] = $this->Receive_model->read_OtherTax_update($id);
 
 
@@ -217,6 +252,17 @@ class Receive extends MY_Controller
         $data['tax_health'] = $tax_health->result_array();
         $data['tax_miscellaneous'] = $tax_miscellaneous->result_array();
         $data['tax_subsidy'] = $tax_subsidy->result_array();
+=======
+
+        if (!empty($id)) {
+            $data['other_tax'] = $this->Receive_model->read_OtherTax_update($id);
+
+        }
+
+
+        $tax_allocate = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '2' ORDER BY tax_name");
+        $data['tax_allocate'] = $tax_allocate->result();
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
 
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('other_tax_edit', $data);
@@ -257,6 +303,7 @@ class Receive extends MY_Controller
         $date = explode('/', $input['receive_date']);
         $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
 
+<<<<<<< HEAD
         $this->Receive_model->updateOtherTax($input);
         redirect(base_url('receive/other_tax'));
     }
@@ -274,6 +321,8 @@ class Receive extends MY_Controller
     
 
 
+=======
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
     //form individual
     public function receive_taxadd_popup($id = '')
     {
@@ -408,14 +457,21 @@ class Receive extends MY_Controller
             $individual_number = $this->input->post('individual_number');
         }
   
+<<<<<<< HEAD
     // print_r($this->input->post());
+=======
+      // print_r($this->input->post());
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         $query = $this->Receive_model->receive_tax_pay($notice_number, $individual_number);
 
         $data = array();
         $data['receive_tax_pay'] = $query;
+<<<<<<< HEAD
         
     //import input mark
         $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
+=======
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_tax_pay', $data);
         $this->publish();
@@ -658,24 +714,49 @@ class Receive extends MY_Controller
 
     public function outside()
     {
+<<<<<<< HEAD
 
         $data = array();
         $this->config->set_item('title', 'ระบบรายรับนอกงบประมาณ - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/outside.js');
+=======
+        $data = array();
+        $this->config->set_item('title', 'ระบบรายรับนอกงบประมาณ - เทศบาลตำบลหนองป่าครั่ง');
+
+        //get state prj
+        $data['state'] = $this->outside_model->getState();
+
+        $this->template->javascript->add('assets/modules/receive/outside.js');
+
+        $this->template->stylesheet->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.css');
+        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.js');
+
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         $this->setView('outside', $data);
         $this->publish();
     }
 
     // //get prj
+<<<<<<< HEAD
     public function getOut()
     {
         $data = $this->input->post('data');
         $status = $this->Outside_model->getOut($data);
+=======
+    public function getPrj()
+    {
+        $data = $this->input->post('data');
+        $status = $this->outside_model->getPrj($data);
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         $this->json_publish($status);
     }
 
     // //insert project manage
+<<<<<<< HEAD
     public function insertOutsidePlan()
+=======
+    public function insertProjectPlan()
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
     {
 
         $data = array();
@@ -699,11 +780,19 @@ class Receive extends MY_Controller
 
             $data['outside_title'] = $this->input->post('data');
 
+<<<<<<< HEAD
             $status = $this->Outside_model->insertOutside($data);
         } else {
 
             $data['outside_title'] = $this->input->post('data');
             $status = $this->Outside_model->editOutside($id, $data);
+=======
+            $status = $this->outside_model->insertProject($data);
+        } else {
+
+            $data['outside_title'] = $this->input->post('data');
+            $status = $this->outside_model->editProject($id, $data);
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         }
 
 
@@ -711,7 +800,11 @@ class Receive extends MY_Controller
     }
 
     // //insert prj
+<<<<<<< HEAD
     public function insertOutside()
+=======
+    public function insertProject()
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
     {
         $data = array();
         $tmp = $this->input->post('data');
@@ -723,12 +816,27 @@ class Receive extends MY_Controller
             }
             $data['out_create'] = date('Y-m-d H:i:s');
 
+<<<<<<< HEAD
+=======
+            //check state prj
+            $state = $this->outside_model->getState();
+            if ($state == 1) {
+                $data['out_new'] = '1';
+                $data['state'] = '1';
+            }
+
+            $status = $this->outside_model->insertPrj($data);
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         } else {
 
             foreach ($tmp as $key => $value) {
                 $data[$value['name']] = $value['value'];
             }
+<<<<<<< HEAD
             $status = $this->Outside_model->insertOut($data, $id);
+=======
+            $status = $this->outside_model->insertPrj($data, $id);
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         }
 
 
@@ -737,9 +845,15 @@ class Receive extends MY_Controller
     }
 
     // //delete prj
+<<<<<<< HEAD
     public function delOut($id, $state = '')
     {
         $this->Outside_model->delOut($id, $state);
+=======
+    public function delPrj($id, $state = '')
+    {
+        $this->outside_model->delPrj($id, $state);
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         redirect('receive/outside');
     }
 
@@ -753,7 +867,11 @@ class Receive extends MY_Controller
             '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
             'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง'
         ];
+<<<<<<< HEAD
         $values = $this->Outside_model->getOutside();
+=======
+        $values = $this->outside_model->getProject();
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
         $data['total'] = count($values);
 
         foreach ($values as $key => $value) {
@@ -764,6 +882,7 @@ class Receive extends MY_Controller
             switch ($value->outside_level) {
                 case '1':
                     $data['rows'][$key]['tools'] = "
+<<<<<<< HEAD
                     <button  onClick='add_out(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
                     <button  onClick='outside_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
                     <button  onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
@@ -773,23 +892,46 @@ class Receive extends MY_Controller
                     <button  onClick='outside_add(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
                     <button  onClick='outside_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
                     <button  onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+=======
+                    <button  onClick='add_prj(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+                    break;
+                case '2':
+                    $data['rows'][$key]['tools'] = "
+                    <button  onClick='project_add(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add_plan(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                     break;
                 case '3':
                     $data['rows'][$key]['name'] = $data_budget[$value->outside_title];
 
                     $data['rows'][$key]['tools'] = "
+<<<<<<< HEAD
                     <button  onClick='outside_add_cost(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
                     <button  onClick='outside_add(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
                     <button  onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+=======
+                    <button  onClick='project_add_cost(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button  onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                     break;
 
                 default:
                     $data['rows'][$key]['name'] = $data_cost[$value->outside_title];
 
                     $data['rows'][$key]['tools'] = "
+<<<<<<< HEAD
                     <button  onClick='add_out(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
                     <button  onClick='outside_add_cost(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
                     <button onClick='del_out(" . $value->outside_id . ")' id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+=======
+                    <button  onClick='add_prj(" . $value->outside_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+                    <button  onClick='project_add_cost(" . $value->outside_id . "," . '"' . $value->outside_title . '"' . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+                    <button onClick='del_prj(" . $value->outside_id . ")' id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
 
                     break;
             }
@@ -800,15 +942,26 @@ class Receive extends MY_Controller
 
         }
 
+<<<<<<< HEAD
         $out = $this->Outside_model->getOut();
         foreach ($out as $key => $value) {
+=======
+        $prj = $this->outside_model->getPrj();
+        foreach ($prj as $key => $value) {
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
             $data['rows'][$data['total'] + $key]['id'] = $value->out_id;
             $data['rows'][$data['total'] + $key]['budget'] = number_format($value->out_budget);
             $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->out_name . '</p>';
             $data['rows'][$data['total'] + $key]['tools'] = "
+<<<<<<< HEAD
             <button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
             <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
             <button onClick='del_out(" . $value->out_id . "," . '"1"' . ")'  id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+=======
+            <button  onClick='add_prj(" . $value->out_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+            <button onClick='edit_prj(" . $value->out_id . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
+            <button onClick='del_prj(" . $value->out_id . "," . '"1"' . ")'  id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
             $data['rows'][$data['total'] + $key]['_parentId'] = $value->out_parent;
             // $data['rows'][$data['total']+$key]['iconCls'] = 'icon-ok';
 
@@ -817,6 +970,7 @@ class Receive extends MY_Controller
         $this->json_publish($data);
     }
 
+<<<<<<< HEAD
     public function getAjaxReceivedashborad()
     {
         $order_index = $this->input->get('order[0][column]');
@@ -843,6 +997,18 @@ class Receive extends MY_Controller
     }
 
     public function getAjaxOtherTax()
+=======
+    // update state
+    public function updateState()
+    {
+        $status = $this->outside_model->updateState($this->input->post('data'));
+        $this->json_publish($status);
+
+    }
+
+
+    public function getAjaxReceivedashborad()
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
     {
         $order_index = $this->input->get('order[0][column]');
         $param['page_size'] = $this->input->get('length');
@@ -857,7 +1023,11 @@ class Receive extends MY_Controller
             $filter[] = $value['search']['value'];
         }
         $param['filter'] = $filter;
+<<<<<<< HEAD
         $results = $this->Receive_model->getAjaxOtherTaxAjax($param);
+=======
+        $results = $this->Receive_model->getRecieveDashboradAjax($param);
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
 
         $data['draw'] = $param['draw'];
         $data['recordsTotal'] = $results['count'];
@@ -866,6 +1036,7 @@ class Receive extends MY_Controller
         $data['error'] = $results['error_message'];
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
+<<<<<<< HEAD
 
     function receive_tax_pay_add()
     {
@@ -896,6 +1067,8 @@ class Receive extends MY_Controller
         $this->Receive_model->recieve_tax_add($input);
         redirect('receive/receive_tax_pay/' . $input['notice_id']);
     }
+=======
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
 
 
 

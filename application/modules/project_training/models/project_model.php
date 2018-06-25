@@ -101,4 +101,48 @@ class project_model extends CI_Model
 
     }
 
+    public function getUser(){
+        return $this->db->get('usrm_user')->result();
+    }
+
+
+    //updatee budget data project or prj
+    public function updateBudget($id = '' ,$parent = ''){
+      
+        //sum budget data
+        if (!empty($parent)){
+            $id = $parent;
+            $query = $this->db->query('SELECT SUM(T2.prj_budget) as num FROM tbl_project_manage T2 WHERE T2.project_parent = '.$id);
+        }else{
+            $query = $this->db->query("SELECT SUM(T2.prj_budget) as num FROM tbl_project T2 WHERE prj_active = '1' and T2.prj_parent = ".$id);
+        }
+      
+        $data['prj_budget'] = @$query->row()->num;
+
+        //update budget to prj_id
+        //find prj or project
+        $query = $this->db->query('SELECT prj_id  FROM tbl_project  WHERE prj_id = '.$id);
+        if ($query->num_rows() > 0){
+            $this->db->where('prj_id',$id);
+            $this->db->update('tbl_project',$data);
+             //get parent id
+            $parent = $this->getPrj($id);
+            if (!empty($parent[0]->prj_parent))
+                $this->updateBudget($parent[0]->prj_parent);
+            else 
+                return false;
+        }else{ //update budget to project
+            $this->db->where('project_id',$id);
+            $this->db->update('tbl_project_manage',$data);
+             //get parent id
+            $parent = $this->getProject($id);
+            if (!empty($parent[0]->project_parent))
+                $this->updateBudget('',$parent[0]->project_parent);
+            else 
+                return false;
+
+        }
+
+    }
+
 }

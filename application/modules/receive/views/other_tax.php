@@ -73,6 +73,7 @@
 
                 </div>
 
+<<<<<<< HEAD
                       <div class="x_content">
                         <table id="tax_table" class="table" width="100%">
                             <thead>
@@ -86,6 +87,45 @@
                             </thead>
                             <tbody>
                           
+=======
+                 <div class="x_content">
+                    <table id="myTable" class="display" style="width:100%">                        
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">ลำดับ</th>
+                                <th>วันที่รับ</th>
+                                <th>หมวดรายได้</th>
+                                <th>จำนวนเงินที่รับ (บาท)</th>
+                                <th style="width: 120px;">เครื่องมือ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            foreach ($tax_receive as $key => $value) { ?>
+                                  <tr>
+                                    <td align="center"><?php echo $key + 1; ?></td>
+                                    <td align="center"><?php echo $value->receive_date; ?></td>                                    <td><?php echo $value->tax_name ?></td>   
+                                    <td align="right"><?php echo number_format($value->receive_amount, 2); ?></td>                        
+                                    <td>
+                                      <center>
+                                          <div class="btn-group ">
+                                              <button type="button" onclick="window.location.href='<?php echo base_url('receive/other_tax_edit/') . '/' . $value->receive_id; ?>'" id="edit-receive" class="btn btn-success btn-sm" title="แก้ไข">
+                                                  <i class="glyphicon glyphicon-edit"></i>
+                                              </button>
+                                              <button type="button" id="btn_delete" class="btn btn-danger btn-sm" data-id="<?php echo $value->receive_id; ?>" data-toggle="modal" data-target="#delmodal" title="ลบ">
+                                                  <i class="glyphicon glyphicon-trash"></i>
+                                              </button>
+                                          </div>
+                                      </center>               
+                                    </td>
+                                  </tr>
+                                <?php 
+                              } ?>
+                                
+                        <tbody>
+                      </table>
+                  </div>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
 
                             <tbody>
                         </table>

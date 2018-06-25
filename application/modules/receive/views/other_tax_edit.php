@@ -30,16 +30,26 @@
                                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                                     <select id="colorselector" name="tax_id" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
                                                                         <optgroup label="หมวดภาษีจัดสรร">
+<<<<<<< HEAD:application/modules/receive/views/other_tax_edit.php
                                                                             <?php foreach ($tax_allocate as $key) : ?>
 
                                                                                 <?php if ($other_tax[0]['tax_id'] == $key['tax_id']) : ?>
                                                                                     <option  selected value="<?php echo $key['tax_id'] ?>"><?php echo $key['tax_name'] ?></option>
                                                                                 <?php else : ?>   
                                                                                     <option  value="<?php echo $key['tax_id'] ?>"><?php echo $key['tax_name'] ?></option>
+=======
+                                                                            <?php foreach ($tax_allocate as $value) : ?>
+
+                                                                                <?php if ($tax_allocate[0]->tax_id == $value->tax_name) : ?>
+                                                                                    <option  selected value="<?php echo $value->tax_id ?>"><?php echo $value->tax_name ?></option>
+                                                                                <?php else : ?>
+                                                                                    <option   value="<?php echo $value->tax_id ?>"><?php echo $value->tax_name ?></option>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art":application/modules/receive/views/other_tax_edit.php
                                                                                 <?php endif; ?>
 
                                                                             <?php endforeach; ?>
                                                                         </optgroup>
+<<<<<<< HEAD:application/modules/receive/views/other_tax_edit.php
                                                                         <optgroup label="หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต">
                                                                             <?php foreach ($tax_fine as $key) : ?>
 
@@ -50,6 +60,13 @@
                                                                                 <?php endif; ?>
 
                                                                             <?php endforeach; ?>
+=======
+                                                                        <!-- <optgroup label="หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต">
+                                                                            <?php foreach ($tax_fine as $key => $value) { ?>
+                                                                                <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php 
+                                                                            } ?>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art":application/modules/receive/views/other_tax_edit.php
                                                                         </optgroup>
                                                                         <optgroup label="หมวดรายได้จากทรัพย์สิน">
                                                                             <?php foreach ($tax_asset as $key) : ?>
@@ -86,6 +103,7 @@
                                                                         
                                                                         </optgroup>
                                                                         <optgroup label="หมวดเงินอุดหนุน">
+<<<<<<< HEAD:application/modules/receive/views/other_tax_edit.php
                                                                             <?php foreach ($tax_subsidy as $key) : ?>
 
                                                                                 <?php if ($other_tax[0]['tax_id'] == $key['tax_id']) : ?>
@@ -96,6 +114,13 @@
 
                                                                             <?php endforeach; ?>
                                                                         </optgroup> 
+=======
+                                                                            <?php foreach ($tax_subsidy as $key => $value) { ?>
+                                                                                <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php 
+                                                                            } ?>
+                                                                        </optgroup> -->
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art":application/modules/receive/views/other_tax_edit.php
                                                                     </select>
                                                                 </div>
                                                 </div>

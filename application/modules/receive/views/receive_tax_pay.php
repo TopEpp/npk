@@ -20,7 +20,10 @@
                   <form id="demo-form2" method="post" action="<?php echo base_url('receive/receive_tax_pay'); ?>" data-parsley-validate class="form-horizontal form-label-left">
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax" >เลขที่รับ
+<<<<<<< HEAD
                           <span class="required" style="color:red"> *</span>
+=======
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <input type="text" id="id_tax" name="notice_number" class="form-control col-md-7 col-xs-12" placeholder="ระบุเลขที่รับ">
@@ -31,7 +34,11 @@
                           <span class="required" style="color:red"> *</span>
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
+<<<<<<< HEAD
                             <input type="text" id="id_tax" name="individual_number" class="form-control col-md-7 col-xs-12" placeholder="ระบุเลขประจำตัว 10 หลัก หรือ 13 หลัก" >
+=======
+                            <input type="text" id="id_tax" name="individual_number" class="form-control col-md-7 col-xs-12" placeholder="ระบุเลขประจำตัว 10 หลัก หรือ 13 หลัก">
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                         </div>
                       </div>
                       <br>
@@ -45,6 +52,10 @@
                       <br>
                       <br>
                       <br>
+<<<<<<< HEAD
+=======
+                      <!-- <?php print_r($receive_tax_pay); ?> -->
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                       <?php if (!empty($receive_tax_pay)) : ?>
 
                       <div >
@@ -80,7 +91,11 @@
                                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">รายการที่ต้องชำระ
                                 </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
+<<<<<<< HEAD
                                   <p class="form-control-static">1 </p>
+=======
+                                  <p class="form-control-static">??</p>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                               </div>
                           </div>
 
@@ -92,7 +107,11 @@
                                     <tr>
                                       <th style="text-align: center;">หมวดรายได้</th>
                                       <th style="text-align: center;width: 86px;">เลขรับ/ปีภาษี</th>
+<<<<<<< HEAD
                                       <!-- <th style="text-align: center;">รายละเอียดภาษี</th> -->
+=======
+                                      <th style="text-align: center;">รายละเอียดภาษี</th>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                                       <th style="text-align: center;">จำนวนค่าภาษี</th>
                                       <th style="text-align: center;">เงินเพิ่ม</th>
                                       <th style="text-align: center;">ชำระแล้ว</th>
@@ -105,6 +124,7 @@
                                       <tr>
                                         <td><?php echo $receive_tax_pay[0]['tax_name'] ?></td>
                                         <td align="center"><?php echo $receive_tax_pay[0]['notice_number'] ?>/<?php echo $receive_tax_pay[0]['tax_year'] + 543 ?></td>
+<<<<<<< HEAD
                                         <!-- <td></td> -->
                                         <td align="right"><?php echo number_format($receive_tax_pay[0]['notice_estimate'], 2) ?></td>
                                         <td align="right"><?php echo number_format($receive_tax_pay[0]['tax_interest'], 2) ?></td>
@@ -116,6 +136,19 @@
                                                   <?php if (($receive_tax_pay[0]['notice_estimate'] - $receive_tax_pay[0]['tax_amount']) > 0) : ?>
                                                     <a title="จ่าย" class="btn btn-success btn-sm" href="receive_tax_pay_add/<?php echo $receive_tax_pay[0]['notice_id'] ?>"><i class="fa fa-paypal"></i></a>
                                                   <?php endif; ?>
+=======
+                                        <td>??</td>
+                                        <td align="right"><?php echo $receive_tax_pay[0]['notice_estimate'] ?></td>
+                                        <td align="right">??</td>
+                                        <td align="right">??</td>
+                                        <td align="right">??</td>
+                                        <td>
+                                          <center>
+                                              <div class="btn-group ">
+                                                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addmodal" title="จ่าย">
+                                                      <i class="fa fa-paypal"></i>
+                                                  </button>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                                                   <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal"title="ลบ">
                                                       <i class="glyphicon glyphicon-trash"></i>
                                                   </button>
@@ -128,11 +161,19 @@
 
                                     <th>ยอดรวมทั้งหมด</th>
                                     <th></th>
+<<<<<<< HEAD
                                     <!-- <th></th> -->
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th style="text-align: right;"><?php echo number_format($receive_tax_pay[0]['notice_estimate'] - $receive_tax_pay[0]['tax_amount'], 2) ?></td>                                        </th>
+=======
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th style="text-align: right;">??</th>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                                     <th></th>
                                   <tbody>
                                 </table>

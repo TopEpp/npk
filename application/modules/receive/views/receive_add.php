@@ -221,6 +221,7 @@
                                       </div>
                                     </div>
 
+<<<<<<< HEAD
                                     <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
                                                 <div class="form-group">
@@ -229,6 +230,8 @@
                                         </div>
                                     </div>
 
+=======
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                               <br/>
 
                           </div>
@@ -436,6 +439,10 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                               <br/>
 
                           </div>
@@ -473,6 +480,7 @@
                                                     </div>
                                             </div>
                                             <div class="col-md-4 col-sm-6 col-xs-12">
+<<<<<<< HEAD
                                                 <div class="form-group" style="margin-bottom: 0px;">
                                                     <label for="middle-name" class="" for="name"> เลขที่รับ<span class="required" style="color:red"> *</span>
                                                     </label>
@@ -480,6 +488,15 @@
                                                         <input type="text" name="notice_number[2]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
                                                     </div>
                                                 </div>
+=======
+                                            <div class="form-group" style="margin-bottom: 0px;">
+
+                                            <label for="middle-name" class="" for="name"> เลขที่รับ<span class="required" style="color:red"> *</span>
+                                            </label>
+                                            <div >
+                                                <input type="text" name="notice_number[2]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                            </div>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                                             </div>
 
                                             <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
@@ -595,10 +612,28 @@
                                             </div>
                                             
                                     </div>
+<<<<<<< HEAD
                                     <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
                                                 <div class="form-group">
                                                     <div id="targetDiv3"></div>
+=======
+
+                                    <div class="form-group">
+                                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                                <div class="form-group">
+                                                    <label>อัปโหลดรูปภาพ</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <span class="btn btn-success btn-file">
+                                                            อัปโหลด <input type="file" id="imgInp">
+                                                            </span>
+                                                        </span>
+                                                        <input type="text" class="form-control" readonly>
+                                                    </div>
+                                                    <img id='img-upload'/>
+                                                        </div>
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
                                                 </div>
                                         </div>
                                     </div>
@@ -723,6 +758,7 @@ $(document).ready( function() {
 </script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<<<<<<< HEAD
 
 <script>
   $(function(){
@@ -1106,3 +1142,5 @@ $(document).ready( function() {
 
 
 </script>
+=======
+>>>>>>> parent of a53cca5... Revert "Merge branch 'Dev-Branch' into Dev-art"
