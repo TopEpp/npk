@@ -30,17 +30,27 @@
                                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                                     <select id="colorselector" name="tax_id" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
                                                                         <optgroup label="หมวดภาษีจัดสรร">
+<<<<<<< HEAD:application/modules/receive/views/other_tax_edit.php
                                                                             <?php foreach ($tax_allocate as $key) : ?>
 
                                                                                 <?php if ($other_tax[0]['tax_id'] == $key['tax_id']) : ?>
                                                                                     <option  selected value="<?php echo $key['tax_id'] ?>"><?php echo $key['tax_name'] ?></option>
                                                                                 <?php else : ?>   
                                                                                     <option  value="<?php echo $key['tax_id'] ?>"><?php echo $key['tax_name'] ?></option>
-                                                                                <?php endif; ?>
+=======
+                                                                            <?php foreach ($tax_allocate as $key => $value) { ?>
 
-                                                                            <?php endforeach; ?>
+                                                                                <?php if ($other_tax[0]['receive_amount'] == $key['tax_id']) : ?>
+                                                                                    <option selected value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php else : ?>  
+                                                                                    <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+>>>>>>> Dev-Branch:application/modules/receive/views/other_tax_update.php
+                                                                                <?php endif; ?>
+                                                                            <?php 
+                                                                        } ?>
                                                                         </optgroup>
                                                                         <optgroup label="หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต">
+<<<<<<< HEAD:application/modules/receive/views/other_tax_edit.php
                                                                             <?php foreach ($tax_fine as $key) : ?>
 
                                                                                 <?php if ($other_tax[0]['tax_id'] == $key['tax_id']) : ?>
@@ -50,6 +60,12 @@
                                                                                 <?php endif; ?>
 
                                                                             <?php endforeach; ?>
+=======
+                                                                            <?php foreach ($tax_fine as $key => $value) { ?>
+                                                                                <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php 
+                                                                            } ?>
+>>>>>>> Dev-Branch:application/modules/receive/views/other_tax_update.php
                                                                         </optgroup>
                                                                         <optgroup label="หมวดรายได้จากทรัพย์สิน">
                                                                             <?php foreach ($tax_asset as $key) : ?>
@@ -86,6 +102,7 @@
                                                                         
                                                                         </optgroup>
                                                                         <optgroup label="หมวดเงินอุดหนุน">
+<<<<<<< HEAD:application/modules/receive/views/other_tax_edit.php
                                                                             <?php foreach ($tax_subsidy as $key) : ?>
 
                                                                                 <?php if ($other_tax[0]['tax_id'] == $key['tax_id']) : ?>
@@ -96,6 +113,13 @@
 
                                                                             <?php endforeach; ?>
                                                                         </optgroup> 
+=======
+                                                                            <?php foreach ($tax_subsidy as $key => $value) { ?>
+                                                                                <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
+                                                                                <?php 
+                                                                            } ?>
+                                                                        </optgroup>
+>>>>>>> Dev-Branch:application/modules/receive/views/other_tax_update.php
                                                                     </select>
                                                                 </div>
                                                 </div>
