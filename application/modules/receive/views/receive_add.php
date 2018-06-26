@@ -214,7 +214,7 @@
                                                                 <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
                                                                 <?php
 
-																																																														} ?>
+                                                            } ?>
                                                         </select>
                                                     <div >
                                                 </div>
@@ -409,7 +409,7 @@
                                                                             <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
                                                                         <?php
 
-																																																																						} ?>
+                                                                    } ?>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-2 col-sm-6 col-xs-12" align="center"><label>ถึง</label></div>
@@ -419,7 +419,7 @@
                                                                             <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
                                                                             <?php
 
-																																																																										} ?>
+                                                                        } ?>
                                                                     </select>
                                                             </div>
                                                         </div>
@@ -546,7 +546,7 @@
                                                                             <option value="<?= $value->banner_id ?>"><?= $value->banner_name ?></option>
                                                                             <?php
 
-																																																																										} ?>
+                                                                        } ?>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -587,7 +587,7 @@
                                                                             <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
                                                                             <?php
 
-																																																																										} ?>
+                                                                        } ?>
                                                                     </select>
 
                                                             <div >
@@ -873,7 +873,7 @@ $(document).ready( function() {
                                                                 '<option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>'+
                                                                 '<?php
 
-																																																															} ?>'+
+                                                            } ?>'+
                                                     '</select>'+
                             '                </div>'+
                             '              </div>'+
@@ -883,7 +883,7 @@ $(document).ready( function() {
                       
               // loop and create n groups
               var groups;
-              for ( var i = 0; i < n ; i++ ) {
+              for ( var i = 1; i < n ; i++ ) {
                     // get copy of template
                     var tmp = group;
                     // modify copy to make ID's unique
@@ -1024,7 +1024,7 @@ $(document).ready( function() {
                                                                             '<option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>'+
                                                                         '<?php
 
-																																																																							} ?>'+
+                                                                    } ?>'+
                                                                ' </select>'+
                                                             '</div>'+
                                                             '<div class="col-md-2 col-sm-6 col-xs-12" align="center"><label>ถึง</label></div>'+
@@ -1034,7 +1034,7 @@ $(document).ready( function() {
                                                                             '<option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>'+
                                                                            ' <?php
 
-																																																																											} ?>'+
+                                                                        } ?>'+
                                                                     '</select>'+
                                                             '</div>'+
                                                 '<div >'+
@@ -1047,7 +1047,7 @@ $(document).ready( function() {
                       
               // loop and create n groups
               var groups;
-              for ( var i = 0; i < n ; i++ ) {
+              for ( var i = 1; i < n ; i++ ) {
                     // get copy of template
                     var tmp = group;
                     // modify copy to make ID's unique
@@ -1132,7 +1132,7 @@ $(document).ready( function() {
                                                                             '<option value="<?= $value->banner_id ?>"><?= $value->banner_name ?></option>'+
                                                                             '<?php
 
-																																																																											} ?>'+
+                                                                        } ?>'+
                                                                 '</select>'+
 													'</div>'+
 											'</div>'+
@@ -1182,7 +1182,7 @@ $(document).ready( function() {
 																			'<option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>'+
 																		'<?php
 
-																	} ?>'+
+                } ?>'+
 																'</select>'+
 															'</div>'+
 													'</div>'+
@@ -1212,7 +1212,7 @@ $(document).ready( function() {
                       
               // loop and create n groups
               var groups;
-              for ( var i = 0; i < n ; i++ ) {
+              for ( var i = 1; i < n ; i++ ) {
                     // get copy of template
                     var tmp = group;
                     // modify copy to make ID's unique

@@ -1,10 +1,5 @@
 <?php
-
-use function GuzzleHttp\Promise\each;
-
 defined('BASEPATH') or exit('No direct script access allowed');
-ini_set('max_execution_time', 0);
-ini_set('memory_limit', '2048M');
 
 class Receive extends MY_Controller
 {
@@ -402,8 +397,8 @@ class Receive extends MY_Controller
     {
         $notice_number = '';
         $individual_number = '';
-
-        if (!empty($this->input->post())) {
+        $input = $this->input->post();
+        if (!empty($input)) {
             $notice_number = $this->input->post('notice_number');
             $individual_number = $this->input->post('individual_number');
         }
