@@ -41,7 +41,7 @@ class Receive_model extends CI_Model
     public function insertNotice($data, $id = '')
     {
         if (!empty($id)) {
-            $this->db->where('individual_id', $id);
+            $this->db->where('notice_id', $id);
             return $this->db->update('tax_notice', $data);
         }
         return $this->db->insert('tax_notice', $data);
@@ -50,7 +50,7 @@ class Receive_model extends CI_Model
 
     public function del_notice($id)
     {
-        $this->db->where('individual_id', $id);
+        $this->db->where('notice_id', $id);
         return $this->db->delete('tax_notice');
     }
 
@@ -298,6 +298,7 @@ class Receive_model extends CI_Model
 
             foreach ($query->result_array() as $key => $row) {
                 $row['notice_estimate'] = number_format($row['notice_estimate'], 2);
+                $row['tax_year'] = (date("Y") + 542);
                 $data[] = $row;
             }
         }

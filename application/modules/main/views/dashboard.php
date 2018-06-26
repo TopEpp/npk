@@ -6,7 +6,7 @@
           <div class="row tile_count">
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-shirtsinbulk"></i> ยุทธศาสตร์</span>
-              <div class="count">50,235</div>
+              <div class="count"><?= number_format($sum_project_training);?></div>
               <span class="count_bottom"> (บาท)</span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">

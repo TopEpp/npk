@@ -14,12 +14,12 @@ $(function () {
             [{
                     title: 'แผนงาน',
                     field: 'name',
-                    width: 50
+                    width: 65
                 },
                 {
                     field: 'budget',
                     title: 'งบประมาณ',
-                    width: 30,
+                    width: 15,
                     align: 'right'
                 },
                 {
@@ -32,7 +32,7 @@ $(function () {
             ]
         ],
         onLoadSuccess: function (row) {
-            $(this).treegrid('enableDnd', row ? row.id : null);
+            // $(this).treegrid('enableDnd', row ? row.id : null);
         }
 
 

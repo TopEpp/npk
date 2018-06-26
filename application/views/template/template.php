@@ -169,7 +169,21 @@ if (!isset($_SESSION['user_id'])) {
 			if (node) {
 				$('#tg').treegrid('expand', node.id);
 			}
-		}
+    }
+    
+    //change year
+    function changeYear(val){
+      $.ajax({
+          method: "POST",
+          url: domain+'main/updateYear',
+          data: {year:val.value},
+          success: function (data) {
+            if (data.success)
+              window.location.reload(true); 
+            },
+      })
+    
+    }
 </script>
 
   </body>

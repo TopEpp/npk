@@ -39,7 +39,11 @@ $(function () {
 
             },
             {
-                data: 'notice_id',
+                data: null,
+                render: function (data, type, row) {
+
+                    return row.notice_id + "/" + row.tax_year;
+                },
                 "className": "text-center",
             },
             {

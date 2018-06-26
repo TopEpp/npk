@@ -21,9 +21,9 @@
           <!-- //end query year form db -->
 
           <div class="profile clearfix" style="margin-left: 5px;">
-            <select class="selectpicker">
+            <select onchange="changeYear(this)" class="selectpicker">
               <?php foreach ($years as $key => $value) { ?>
-                <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
+                <option <?php echo ($this->session->userdata('year') == $value->year_id)?'selected':'';?> value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
               <?php 
             } ?>
             </select>

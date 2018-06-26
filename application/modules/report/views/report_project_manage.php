@@ -44,6 +44,7 @@
                           <th>แผนงาน</th>
                           <!-- <th>ประมาณการรายรับ</th> -->
                           <th>งบประมาณ</th>
+                          <th>งบรายจ่าย</th>
                           <th><i class="fa fa-plus"</i>  <i class="fa fa-minus"</i>  </th>
                         </tr>
                       </thead>

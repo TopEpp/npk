@@ -59,6 +59,8 @@ class Project_training extends MY_Controller
                 $data['project_level'] = $hidden_level;
             }
 
+            $data['project_year'] =  $this->session->userdata('year');
+
             $data['project_title'] = $this->input->post('data');
 
             $status = $this->project_model->insertProject($data);
@@ -91,7 +93,7 @@ class Project_training extends MY_Controller
                 $data['prj_new'] = '1';
                 $data['state'] = '1';
             }
-
+            $data['prj_year'] =  $this->session->userdata('year');
             $status = $this->project_model->insertPrj($data);
         } else {
 
