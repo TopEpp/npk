@@ -165,10 +165,6 @@
                                   } ?> 
                                   </tr>
 
-                                  <tr>
-                                    <td align="center"><b>รวมรายรับ</b></td>
-                                    <td align="right"><b></b></td>
-                                  </tr>
                                 
                                   <tr>
                                     <td><b>หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต</b></td>
@@ -302,11 +298,6 @@
                                   </tr>
 
                                   <tr>
-                                    <td align="center"><b>รวมรายรับ</b></td>
-                                    <td align="right"><b></b></td>
-                                  </tr>
-
-                                  <tr>
                                     <td><b>หมวดรายได้จากทรัพย์สิน</b></td>
                                     <td></td>
                                   </tr>
@@ -327,11 +318,6 @@
                                     <td align="right"><?php echo number_format($value->sum_amount, 2); ?></td> 
                                     <?php 
                                   } ?> 
-                                  </tr>
-
-                                  <tr>
-                                    <td align="center"><b>รวมรายรับ</b></td>
-                                    <td align="right"><b></b></td>
                                   </tr>
 
                                   <tr>
@@ -366,10 +352,6 @@
                                   } ?> 
                                   </tr>
 
-                                  <tr>
-                                    <td align="center"><b>รวมรายรับ</b></td>
-                                    <td align="right"><b></b></td>
-                                  </tr>
                       </tbody>
 
      
