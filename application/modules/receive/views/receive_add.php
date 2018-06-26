@@ -1188,8 +1188,7 @@ $(document).ready( function() {
 													'</div>'+
 												'</div>'+
 
-
-											'<div class="form-group">'+
+										'<div class="row">'+
                                                 '<div class="col-md-4 col-sm-6 col-xs-12">'+
                                                     '<div class="form-group">'+
                                                         '<label>อัปโหลดรูปภาพ</label>'+
@@ -1203,9 +1202,8 @@ $(document).ready( function() {
                                                             '</div>'+
                                                         '<img id="img-upload"/>'+
                                                     '</div>'+
-                                                '</div>'+
                                     		'</div>'+
-
+										'</div>'+
 												
 												
 
