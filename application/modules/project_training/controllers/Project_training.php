@@ -181,7 +181,9 @@ class Project_training extends MY_Controller
             $data['rows'][$data['total'] + $key]['budget'] = number_format($value->prj_budget);
             $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->prj_name . '</p>';
             $data['rows'][$data['total'] + $key]['tools'] = "
+            <button onClick='pay_prj(" . $value->prj_id . ")' id='project_edit' class='btn btn-default' type='button'><i class='fa fa-paypal'></i></button>
             <button  onClick='add_prj(" . $value->prj_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
+           
             <button onClick='edit_prj(" . $value->prj_id . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
             <button onClick='del_prj(" . $value->prj_id . "," . '"1"' . ")'  id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
             $data['rows'][$data['total'] + $key]['_parentId'] = $value->prj_parent;
@@ -198,6 +200,15 @@ class Project_training extends MY_Controller
         $status = $this->project_model->updateState($this->input->post('data'));
         $this->json_publish($status);
 
+    }
+
+    public function prjAdd($id){
+        $this->config->set_item('title', 'ระบบบริหารโครงการ - เทศบาลตำบลหนองป่าครั่ง');
+        $data['user'] = $this->project_model->getUser();
+        // $this->template->javascript->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.js');
+
+        $this->setView('prj', $data);
+        $this->publish();
     }
 
 

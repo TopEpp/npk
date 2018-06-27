@@ -48,7 +48,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">บริหารโครงการ</h4>
+        <h4 class="modal-title" id="myModalLabel2">แผนงาน/งาน</h4>
       </div>
       <div class="modal-body clearfix">
         <form class="form-horizontal form-label-left" id="form_plan">
@@ -56,7 +56,7 @@
         <input  id="hidden_id"  name="hidden_id"  type="hidden">
         <input  id="hidden_edit"  name="hidden_edit"  value="false" type="hidden"> 
           <div class="form-group">
-            <label>แผนงาน</label>
+            <label>แผนงาน/งาน</label>
             <input class="form-control" id="project_title"  name="project_title" placeholder="ระบุแผนงาน" type="text">
           </div>
         </form>
@@ -78,7 +78,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">บริหารโครงการ</h4>
+        <h4 class="modal-title" id="myModalLabel2">งบ</h4>
       </div>
       <div class="modal-body clearfix">
         <form class="form-horizontal form-label-left" id="form_plan_name">
@@ -116,7 +116,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">บริหารโครงการ</h4>
+        <h4 class="modal-title" id="myModalLabel2">หมวด/ลักษณะ</h4>
       </div>
       <div class="modal-body clearfix">
         <form class="form-horizontal form-label-left" id="form_plan_name">
