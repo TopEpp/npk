@@ -7,8 +7,7 @@ class budget_year
 
     public function check_year()
     {
-        $ci = &get_instance();
-
+    	$ci = &get_instance();
         $year =  $ci->session->userdata('year');
   
         if ( empty($year) ){

@@ -12,7 +12,12 @@ class Main extends MY_Controller
 
     public function dashborad()
     {
-  
+
+        $year =  $this->session->userdata('year');
+        if ( empty($year) ){
+                $this->session->set_userdata('year', date('Y'));
+        }
+
         $data = array();
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
 
