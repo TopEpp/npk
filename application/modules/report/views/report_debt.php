@@ -24,17 +24,57 @@
                 
               <div class="col-md-1 col-sm-6 col-xs-12">
               </div>
-              
-              <div class="col-md-9 col-sm-12 col-xs-12">
+              <div class="conteiner-fluid ">
+                     <div class="row x_content">
+                     <div class="col-sm-6">
+                    <table class="table table-bordered jambo_table">
+                        <thead>
+                        <tr>
+                            <th>ชื่อภาษี</th>
+                           <th>จำนวนเงิน</th>
+                           <th>เงินเพิ่ม</th>    
+                           <th>รวม</th>    
+                        </tr>
+                    </thead>
+                      <tbody>
+                        <tr>
+                        <tr>
+                                <td align="center">1</td>
+                                <td align="center">2</td>
+                                <td align="center">3</td>
+                                <td align="right">3,000.00</td>
+                                
+                            </tr>
+                        </tr>
+                          <tr>
+                                <td align="center">1</td>
+                                <td align="center">2</td>
+                                <td align="center">3</td>
+                                <td align="right">3,000.00</td>
+                                
+                            </tr>
+                        </tr>
+
+
+
+
+
+                    </table>
+                </div>  
+                    <div class="col-sm-6"></div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                   <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
                   <canvas id="chart_debt"></canvas>
               </div>
+
+                 </div>
+                    </div>
 
               <div class="col-md-1 col-sm-6 col-xs-12">
               </div>
               
               
-
+               
 
                <div class="x_content">
                  <br>
@@ -49,6 +89,7 @@
                                 <th colspan="2" style="text-align: center;">ภาษีป้าย</th>
                                 <th style="width: 127px; vertical-align: middle;" rowspan="2" data-defaultsign="nospan">รวม</th>
                             </tr>
+                       
                             <tr>
                               <th>จำนวนเงิน</th>
                               <th >เงินเพิ่ม</th>
