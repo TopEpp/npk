@@ -56,100 +56,116 @@
                                                 </div>
                                         </div>
                                         <hr>
-                                        <div class="form-group">
+                                        <h2 class="StepTitle">ภาษีโรงเรือนและที่ดิน </h2>
                                             <div class="row">
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="form-group" style="margin-bottom: 0px;">
-                                                                    <label >วันที่ประเมิน</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                    <label >วันที่ประเมิน ภ.ร.ด. 2</label>
                                                                     <span class="required" style="color:red">*</span>
-                                                                    <input type='text' name="notice_date[0]" value="<?php echo @$notice[0]->notice_date; ?>" class="form-control datepicker" />
+                                                                    <input type='text' name="notice_date_p2[0]" value="<?php echo @$notice[0]->notice_date_p2; ?>" id="notice_date_p2" class="form-control datepicker" />
                                                             </div>
                                                     </div>
 
-                                                    <div class="col-md-2 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <div class="form-group">
 
-                                                            <label for="middle-name" class="" for="name"> เลขที่รับแบบ</label>
+                                                            <label> เลขที่รับ ภ.ร.ด. 2</label>
                                                             <span class="required" style="color:red">*</span>
                                                             <div>
-                                                                <input type="text" name="notice_reception[0]" value="<?php echo @$notice[0]->notice_reception; ?>" placeholder="เลขที่รับแบบ" id="name_tax" class="form-control col-md7 col-sx-12">
+                                                                <input type="text" name="notice_number_p2[0]" value="<?php echo @$notice[0]->notice_number_p2; ?>" placeholder="ระบุเลขที่ ภ.ร.ด. 2" id="notice_number_p2" class="form-control col-md7 col-sx-12">
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-2 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-
-                                                            <label for="middle-name" class="" for="name"> เลขที่รับ
-                                                            <span class="required" style="color:red">*</span>
-                                                            </label>
-                                                                <div >
-                                                                    <input type="text" name="notice_number[0]" value="<?php echo @$notice[0]->notice_number; ?>" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                    <div class="col-md-3 col-sm-6 col-sx-12">
+                                                        <div class="form-group">
+                                                                <label>รหัสประเมิน</label>
+                                                                <span class="required" style="color:red">*</span>
+                                                                <div>
+                                                                    <input type="text" name="notice_number_id[0]" value="<?php echo @$notice[0]->notice_number_id; ?>" placeholder="ระบุรหัสประเมิน" id="notice_number_id" class="form-control col-md7 col-sx-12">
                                                                 </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-2 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-
-                                                            <label for="middle-name" > เล่มที่รับ
-                                                            <span class="required" style="color:red">*</span>
-                                                            </label>
-                                                            <div >
-                                                                <input type="text" name="notice_no[0]" value="<?php echo @$notice[0]->notice_no; ?>" placeholder="เล่มที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-2 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-
-                                                            <label  > เลขที่โฉนด
-                                                            <span class="required" style="color:red">*</span>
-                                                            </label>
-                                                            <div >
-                                                                <input type="text" name="land_deed_number[0]" value="<?php echo @$notice[0]->land_deed_number; ?>" placeholder="เลขที่โฉนด" id="id_tax" class="form-control col-md-7 col-xs-12" >
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                             </div>
 
-                                        </div>
-
-                                        <div class="row">
-                                        <div class="col-md-4 col-sm-6 col-xs-12">
-                                            <div class="form-group">
-
-                                                <label  > ประกอบกิจการ
-                                                <span class="required" style="color:red">*</span>
-                                                </label>
-                                                <div >
-                                                    <select class="form-control" name="noice_type_operation[0]">
-
-                                                        <?php foreach ($operation as $value) : ?>
-
-                                                            <?php if ($notice[0]->noice_type_operation == $value->noice_operation_id) : ?>
-                                                                <option  selected value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
-                                                            <?php else : ?>
-                                                                <option   value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
-                                                            <?php endif; ?>
-
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <div class="form-group">
+                                                                        <label > วันที่ประเมิน ภ.ร.ด. 8</label>
+                                                                        <span class="required" style="color:red">*</span>
+                                                                        <input type='text' name="notice_date_p8[0]" value="<?php echo @$notice[0]->notice_date_p8; ?>" id="notice_date_p8" class="form-control datepicker" />
+                                                        </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
-                                                    <label for="middle-name" > ชื่อสถานประกอบการค้าหรือกิจการอื่น
-                                                    </label>
-                                                    <div >
-                                                        <input type="text" name="noice_name_operation[0]" value="<?php echo @$notice[0]->noice_name_operation; ?>" placeholder="" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+
+                                                                <label for="middle-name" class="" for="name"> เลขที่รับ ภ.ร.ด. 8
+                                                                <span class="required" style="color:red">*</span>
+                                                                </label>
+                                                                    <div >
+                                                                        <input type="text" name="notice_number_p8[0]" value="<?php echo @$notice[0]->notice_number_p8; ?>" placeholder="ระบุเลขที่ ภ.ร.ด. 8" id="notice_number_p8" class="form-control col-md-7 col-xs-12">
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <div class="form-group" >
+
+                                                                <label for="middle-name" > เล่มที่รับ ภ.ร.ด. 8
+                                                                <span class="required" style="color:red">*</span>
+                                                                </label>
+                                                                <div >
+                                                                    <input type="text" name="notice_no[0]" value="<?php echo @$notice[0]->notice_no; ?>" placeholder="ระบุเล่มที่ ภ.ร.ด. 8" id="notice_no" class="form-control col-md-7 col-xs-12">
+                                                                </div>
+                                                            </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+
+                                                                <label  > เลขที่โฉนด
+                                                                </label>
+                                                                <div >
+                                                                    <input type="text" name="land_deed_number[0]" value="<?php echo @$notice[0]->land_deed_number; ?>" placeholder="ระบุเลขที่โฉนด" id="land_deed_number" class="form-control col-md-7 col-xs-12" >
+                                                                </div>
+                                                            </div>
+                                                </div>
+
+                                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+
+                                                        <label  > ประกอบกิจการ
+                                                        </label>
+                                                        <div >
+                                                                <select class="form-control" name="noice_type_operation[0]">
+                                                                    <?php foreach ($operation as $value) : ?>
+
+                                                                        <?php if ($notice[0]->noice_type_operation == $value->noice_operation_id) : ?>
+                                                                            <option  selected value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
+                                                                        <?php else : ?>
+                                                                            <option   value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
+                                                                        <?php endif; ?>
+
+                                                                    <?php endforeach; ?>
+                                                                </select>
+
+                                                        </div>
                                                     </div>
                                                 </div>
-                                        </div>
 
+                                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="form-group" >
+                                                            <label for="middle-name" > ชื่อสถานประกอบการค้าหรือกิจการอื่น
+                                                            </label>
+                                                            <div >
+                                                                <input type="text" name="noice_name_operation[0]"  value="<?php echo @$notice[0]->noice_name_operation; ?>" placeholder="ระบุชื่อสถานประกอบการค้าหรือกิจการอื่น" id="noice_name_operation" class="form-control col-md-7 col-xs-12">
+                                                            </div>
+                                                        </div>
+                                                </div>
                                         </div>
 
                                         <div class="row">
@@ -158,18 +174,18 @@
                                                     <label  > เลขที่
                                                     </label>
                                                     <div >
-                                                        <input type="text" name="notice_address_number[0]" value="<?php echo @$notice[0]->notice_address_number; ?>" placeholder="ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" id="id_tax" class="form-control col-md-7 col-xs-12" >
+                                                        <input type="text" name="notice_address_number[0]" value="<?php echo @$notice[0]->notice_address_number; ?>" placeholder="ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" id="notice_address_number" class="form-control col-md-7 col-xs-12" >
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                    <div class="form-group" style="margin-bottom: 0px;">
+                                                    <div class="form-group" >
 
                                                         <label> หมู่ที่
                                                         </label>
                                                         <div >
-                                                            <input type="text" name="notice_address_moo[0]" value="<?php echo @$notice[0]->notice_address_moo; ?>" placeholder="หมู่ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                            <input type="text" name="notice_address_moo[0]" value="<?php echo @$notice[0]->notice_address_moo; ?>" placeholder="หมู่ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" id="notice_address_moo" class="form-control col-md-7 col-xs-12">
                                                         </div>
                                                     </div>
                                             </div>
@@ -180,7 +196,7 @@
                                                     <label  > ตำบล
                                                     </label>
                                                     <div >
-                                                        <input type="text" name="notice_address_moo[0]" value="หนองป่าครั่ง" disabled id="id_tax" class="form-control col-md-7 col-xs-12" >
+                                                        <input type="text" name="notice_address_subdistrict[0]" value="หนองป่าครั่ง" disabled  id="notice_address_subdistrict" class="form-control col-md-7 col-xs-12" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -188,13 +204,13 @@
 
                                         <div class="row">
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                    <div class="form-group" style="margin-bottom: 0px;">
+                                                    <div class="form-group">
 
                                                         <label for="middle-name" > ค่ารายปี
                                                         <span class="required" style="color:red">*</span>
                                                         </label>
                                                         <div >
-                                                            <input type="text" name="notice_annual_fee[0]" value="<?php echo @$notice[0]->notice_annual_fee; ?>" placeholder="0" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                            <input type="text" name="notice_annual_fee[0]" value="<?php echo @$notice[0]->notice_annual_fee; ?>" placeholder="ระบุค่ารายปี"  id="notice_annual_fee" class="form-control col-md-7 col-xs-12">
                                                         </div>
                                                     </div>
                                             </div>
@@ -205,7 +221,7 @@
                                                             <span class="required" style="color:red">*</span>
                                                             </label>
                                                             <div >
-                                                                <input type="text" name="notice_estimate[0]" value="<?php echo @$notice[0]->notice_estimate; ?>" placeholder="0" id="id_tax" class="form-control col-md-7 col-xs-12" >
+                                                                <input type="text" name="notice_estimate[0]" value="<?php echo @$notice[0]->notice_estimate; ?>" placeholder="ระบุจำนวนเงินที่ประเมิน" id="notice_estimate" class="form-control col-md-7 col-xs-12" >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -215,6 +231,7 @@
                                                             <label  > ประจำปีภาษี
                                                             <span class="required" style="color:red">*</span>
                                                             </label>
+                                                               
                                                             <select class="form-control" name="tax_year[0]">
 
                                                                 <?php foreach ($years as $value) : ?>

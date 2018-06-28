@@ -56,95 +56,110 @@
                                     </div>
                                     <hr>
                                     <h2 class="StepTitle">ภาษีโรงเรือนและที่ดิน </h2>
-                                    <div class="form-group">
+                                    
                                         <div class="row">
-                                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" style="margin-bottom: 0px;">
-                                                                <label >วันที่ประเมิน</label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <div class="form-group">
+                                                                <label >วันที่ประเมิน ภ.ร.ด. 2</label>
                                                                 <span class="required" style="color:red">*</span>
-                                                                <input type='text' name="notice_date[0]" class="form-control datepicker" />
+                                                                <input type='text' name="notice_date_p2[0]" id="notice_date_p2" class="form-control datepicker" />
                                                         </div>
                                                 </div>
 
-                                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
 
-                                                        <label for="middle-name" class="" for="name"> เลขที่รับแบบ</label>
+                                                        <label> เลขที่รับ ภ.ร.ด. 2</label>
                                                         <span class="required" style="color:red">*</span>
                                                         <div>
-                                                            <input type="text" name="notice_reception[0]" placeholder="เลขที่รับแบบ" class="form-control col-md7 col-sx-12">
+                                                            <input type="text" name="notice_number_p2[0]" placeholder="ระบุเลขที่ ภ.ร.ด. 2" id="notice_number_p2" class="form-control col-md7 col-sx-12">
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <div class="form-group" style="margin-bottom: 0px;">
-
-                                                        <label for="middle-name" class="" for="name"> เลขที่รับ
-                                                        <span class="required" style="color:red">*</span>
-                                                        </label>
-                                                            <div >
-                                                                <input type="text" name="notice_number[0]" placeholder="เลขที่รับ" class="form-control col-md-7 col-xs-12">
+                                                <div class="col-md-3 col-sm-6 col-sx-12">
+                                                    <div class="form-group">
+                                                            <label>รหัสประเมิน</label>
+                                                            <span class="required" style="color:red">*</span>
+                                                            <div>
+                                                                <input type="text" name="notice_number_id[0]" placeholder="ระบุรหัสประเมิน" id="notice_number_id" class="form-control col-md7 col-sx-12">
                                                             </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <div class="form-group" style="margin-bottom: 0px;">
-
-                                                        <label for="middle-name" > เล่มที่รับ
-                                                        <span class="required" style="color:red">*</span>
-                                                        </label>
-                                                        <div >
-                                                            <input type="text" name="notice_no[0]" placeholder="เล่มที่รับ" class="form-control col-md-7 col-xs-12">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <div class="form-group" style="margin-bottom: 0px;">
-
-                                                        <label  > เลขที่โฉนด
-                                                        <span class="required" style="color:red">*</span>
-                                                        </label>
-                                                        <div >
-                                                            <input type="text" name="land_deed_number[0]" placeholder="เลขที่โฉนด" class="form-control col-md-7 col-xs-12" >
-                                                        </div>
                                                     </div>
                                                 </div>
                                         </div>
 
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <div class="form-group">
+                                                                <label > วันที่ประเมิน ภ.ร.ด. 8</label>
+                                                                <span class="required" style="color:red">*</span>
+                                                                <input type='text' name="notice_date_p8[0]" id="notice_date_p8" class="form-control datepicker" />
+                                                </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+
+                                                        <label for="middle-name" class="" for="name"> เลขที่รับ ภ.ร.ด. 8
+                                                        <span class="required" style="color:red">*</span>
+                                                        </label>
+                                                            <div >
+                                                                <input type="text" name="notice_number_p8[0]" placeholder="ระบุเลขที่ ภ.ร.ด. 8" id="notice_number_p8" class="form-control col-md-7 col-xs-12">
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <div class="form-group" >
+
+                                                        <label for="middle-name" > เล่มที่รับ ภ.ร.ด. 8
+                                                        <span class="required" style="color:red">*</span>
+                                                        </label>
+                                                        <div >
+                                                            <input type="text" name="notice_no[0]" placeholder="ระบุเล่มที่ ภ.ร.ด. 8" id="notice_no" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                    </div>
+                                        </div>
+
                                     </div>
 
-                                    <div class="row">
-                                      <div class="col-md-4 col-sm-6 col-xs-12">
-                                          <div class="form-group">
+                                <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
 
-                                            <label  > ประกอบกิจการ
-                                            <span class="required" style="color:red">*</span>
-                                            </label>
-                                              <div >
-                                                    <select class="form-control" name="noice_type_operation[0]">
-                                                        <?php foreach ($operation as $value) : ?>
-                                                                <option value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                        <label  > เลขที่โฉนด
+                                                        </label>
+                                                        <div >
+                                                            <input type="text" name="land_deed_number[0]" placeholder="ระบุเลขที่โฉนด" id="land_deed_number" class="form-control col-md-7 col-xs-12" >
+                                                        </div>
+                                                    </div>
+                                        </div>
 
-                                              </div>
-                                          </div>
-                                      </div>
+                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                            <div class="form-group">
 
-                                      <div class="col-md-4 col-sm-6 col-xs-12">
-                                              <div class="form-group" style="margin-bottom: 0px;">
-                                                <label for="middle-name" > ชื่อสถานประกอบการค้าหรือกิจการอื่น
+                                                <label  > ประกอบกิจการ
                                                 </label>
                                                 <div >
-                                                    <input type="text" name="noice_name_operation[0]" placeholder="" class="form-control col-md-7 col-xs-12">
+                                                        <select class="form-control" name="noice_type_operation[0]">
+                                                            <?php foreach ($operation as $value) : ?>
+                                                                    <option value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+
                                                 </div>
                                             </div>
-                                      </div>
+                                        </div>
 
-                                    </div>
+                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                <div class="form-group" >
+                                                    <label for="middle-name" > ชื่อสถานประกอบการค้าหรือกิจการอื่น
+                                                    </label>
+                                                    <div >
+                                                        <input type="text" name="noice_name_operation[0]" placeholder="ระบุชื่อสถานประกอบการค้าหรือกิจการอื่น" id="noice_name_operation" class="form-control col-md-7 col-xs-12">
+                                                    </div>
+                                                </div>
+                                        </div>
+                                </div>
 
                                     <div class="row">
                                         <div class="col-md-4 col-sm-6 col-xs-12">
@@ -152,18 +167,18 @@
                                                 <label  > เลขที่
                                                 </label>
                                                 <div >
-                                                    <input type="text" name="notice_address_number[0]" placeholder="ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" class="form-control col-md-7 col-xs-12" >
+                                                    <input type="text" name="notice_address_number[0]" placeholder="ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" id="notice_address_number" class="form-control col-md-7 col-xs-12" >
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="form-group" >
 
                                                     <label> หมู่ที่
                                                     </label>
                                                     <div >
-                                                        <input type="text" name="notice_address_moo[0]" placeholder="หมู่ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" class="form-control col-md-7 col-xs-12">
+                                                        <input type="text" name="notice_address_moo[0]" placeholder="หมู่ที่อยู่โรงเรือน/สิ่งปลูกสร้าง" id="notice_address_moo" class="form-control col-md-7 col-xs-12">
                                                     </div>
                                                 </div>
                                         </div>
@@ -174,7 +189,7 @@
                                                 <label  > ตำบล
                                                 </label>
                                                 <div >
-                                                    <input type="text" name="notice_address_subdistrict[0]" value="หนองป่าครั่ง" disabled  class="form-control col-md-7 col-xs-12" >
+                                                    <input type="text" name="notice_address_subdistrict[0]" value="หนองป่าครั่ง" disabled  id="notice_address_subdistrict" class="form-control col-md-7 col-xs-12" >
                                                 </div>
                                             </div>
                                         </div>
@@ -182,13 +197,13 @@
 
                                     <div class="row">
                                         <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="form-group">
 
                                                     <label for="middle-name" > ค่ารายปี
                                                     <span class="required" style="color:red">*</span>
                                                     </label>
                                                     <div >
-                                                        <input type="text" name="notice_annual_fee[0]" placeholder="0"  class="form-control col-md-7 col-xs-12">
+                                                        <input type="text" name="notice_annual_fee[0]" placeholder="ระบุค่ารายปี"  id="notice_annual_fee" class="form-control col-md-7 col-xs-12">
                                                     </div>
                                                 </div>
                                         </div>
@@ -199,7 +214,7 @@
                                                         <span class="required" style="color:red">*</span>
                                                         </label>
                                                         <div >
-                                                            <input type="text" name="notice_estimate[0]" placeholder="0" class="form-control col-md-7 col-xs-12" >
+                                                            <input type="text" name="notice_estimate[0]" placeholder="ระบุจำนวนเงินที่ประเมิน" id="notice_estimate" class="form-control col-md-7 col-xs-12" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,60 +272,60 @@
                                     </div>
                                     <hr>
 									<h2 class="StepTitle">ภาษีบำรุงท้องที่ </h2>
-                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <div class="form-group" >
 
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
-
-                                                        <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                        <input type='text' name="notice_date[1]" class="form-control datepicker" />
-                                                </div>
-                                        </div>
-
-                                        <div class="col-md-2 col-sm-6 col-xs-12">
-                                            <div class="form-group" style="margin-bottom: 0px;">
-
-                                            <label for="middle-name" class="" for="name"> เลขที่รับ<span class="required" style="color:red"> *</span>
-                                            </label>
-                                            <div >
-                                                <input type="text" name="notice_number[1]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                            <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
+                                                            <input type='text' name="notice_date[1]" class="form-control datepicker" />
+                                                    </div>
                                             </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-2 col-sm-6 col-xs-12">
-                                            <div class="form-group" style="margin-bottom: 0px;">
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <div class="form-group" >
 
-                                                <label  > เลขที่โฉนด<span class="required" style="color:red"> *</span>
+                                                <label for="middle-name" class="" for="name"> เลขที่สำรวจ บ.ภ.ท. 5<span class="required" style="color:red"> *</span>
                                                 </label>
                                                 <div >
+                                                    <input type="text" name="notice_number[1]" placeholder="ระบุเลขเลขที่สำรวจ บ.ภ.ท. 5" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                                </div>
+                                            </div>
 
-                                                    <input type="text" name="land_deed_number[1]" placeholder="เลขที่โฉนด" class="form-control col-md-7 col-xs-12" >
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <div class="form-group" >
+
+                                                            <label >วันที่สำรวจ บ.ภ.ท. 5<span class="required" style="color:red"> *</span></label>
+                                                            <input type='text' name="notice_date[1]" class="form-control datepicker" />
+                                                    </div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <div class="form-group" >
+
+                                                    <label  > เลขที่โฉนด
+                                                    </label>
+                                                    <div >
+
+                                                        <input type="text" name="land_deed_number[1]" placeholder="เลขที่โฉนด" class="form-control col-md-7 col-xs-12" >
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
-                                                    <label  > เลขที่ตั้งที่ดิน
+                                                <div class="form-group" >
+                                                    <label  > จุดสังเกตุ
                                                     </label>
                                                     <div >
-                                                        <input type="text" name="notice_address_number[1]" placeholder="ที่อยู่ที่ตั้งที่ดิน" class="form-control col-md-7 col-xs-12" >
+                                                        <input type="text" name="notice_address_number[1]" placeholder="ระบุจุดสังเกตุ" class="form-control col-md-7 col-xs-12" >
                                                     </div>
                                                 </div>
                                             </div>
 
 
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="form-group" >
 
                                                 <label for="middle-name" class="" for="name"> หมู่ที่
                                                 </label>
@@ -321,7 +336,7 @@
                                             </div>
 
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="form-group" >
 
                                                     <label  > ตำบล
                                                     </label>
@@ -332,12 +347,11 @@
                                             </div>
 
                                         </div>
-                                    </div>
 
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="form-group" >
 
                                                     <label  > เนื้อที่ดิน (ไร่) <span class="required" style="color:red"> *</span>
                                                     </label>
@@ -348,7 +362,7 @@
                                             </div>
 
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="form-group" >
 
                                                     <label  > เนื้อที่ดิน (งาน) <span class="required" style="color:red"> *</span>
                                                     </label>
@@ -359,7 +373,7 @@
                                             </div>
 
                                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                                <div class="form-group" style="margin-bottom: 0px;">
+                                                <div class="form-group" >
 
                                                     <label  > เนื้อที่ดิน (วา) <span class="required" style="color:red"> *</span>
                                                     </label>
@@ -475,10 +489,10 @@
                                             </div>
                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                 <div class="form-group" style="margin-bottom: 0px;">
-                                                    <label for="middle-name" class="" for="name"> เลขที่รับ<span class="required" style="color:red"> *</span>
+                                                    <label for="middle-name" class="" for="name"> เลขที่รับ ภ.ป.1<span class="required" style="color:red"> *</span>
                                                     </label>
                                                     <div >
-                                                        <input type="text" name="notice_number[2]" placeholder="เลขที่รับ" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                        <input type="text" name="notice_number[2]" placeholder="ระบุเลขที่รับ ภ.ป.1" id="name_tax" class="form-control col-md-7 col-xs-12">
                                                     </div>
                                                 </div>
                                             </div>
@@ -486,11 +500,11 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
                                                     <div class="form-group" style="margin-bottom: 0px;">
 
-                                                        <label for="middle-name" class="" for="name"> เลขที่อยู่ที่ตั้งป้าย
+                                                        <label for="middle-name" class="" for="name"> จุดสังเกตุ
 
                                                         </label>
                                                         <div >
-                                                            <input type="text" name="notice_address_number[2]" placeholder="อยู่ที่ตั้งป้าย" id="name_tax" class="form-control col-md-7 col-xs-12">
+                                                            <input type="text" name="notice_address_number[2]" placeholder="ระบุจุดสังเกตุ" id="name_tax" class="form-control col-md-7 col-xs-12">
                                                         </div>
                                                     </div>
                                             </div>
@@ -499,15 +513,6 @@
 
                                     <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
-
-                                                            <label > หมู่ที่
-                                                            </label>
-                                                            <div >
-                                                                <input type="text" name="notice_address_moo[2]" placeholder="หมู่ที่อยู่ติดตั้งป้าย"id="id_tax" class="form-control col-md-7 col-xs-12">
-                                                            </div>
-                                                        </div>
-
                                                         <div class="col-md-4 col-sm-6 col-xs-12" >
                                                                 <div class="form-group">
 
@@ -529,12 +534,27 @@
                                                                         </div>
                                                                 </div>
                                                         </div>
+
+                                                        <div class="col-md-4 col-sm-6 col-xs-12" >
+                                                                <div class="form-group">
+
+                                                                    <label  > ประจำปีภาษี <span class="required" style="color:red"> *</span>
+                                                                    </label>
+                                                                    <select class="form-control" name="tax_year[2]" >
+                                                                        <?php foreach ($years as $key => $value) { ?>
+                                                                            <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
+                                                                            <?php
+
+                                                                        } ?>
+                                                                    </select>
+                                                                </div>
+                                                        </div>
+                                                        
                                                 </div>
                                     </div>
 
 
 
-                                    <div class="form-group">
                                             <div class="row">
                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
@@ -568,7 +588,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-2 col-sm-6 col-xs-12">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
 
                                                             <label  > จำนวนภาษีที่ประเมิน <span class="required" style="color:red"> *</span>
                                                             </label>
@@ -577,29 +597,12 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-2 col-sm-6 col-xs-12">
-                                                            <div class="form-group">
-                                                                    <label  > ประจำปีภาษี
-                                                                        <span class="required" style="color:red">*</span>
-                                                                    </label>
-                                                                    <select class="form-control" name="tax_year[2]" >
-                                                                        <?php foreach ($years as $key => $value) { ?>
-                                                                            <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
-                                                                            <?php
-
-                                                                        } ?>
-                                                                    </select>
-
-                                                            <div >
-
+                                                        
                                                         </div>
                                             </div>
                                             
-                                    </div>
 
-                                    <div class="form-group">
-                                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                                    <div class="form-group">
+                                                <div class="col-md-4 col-sm-6 col-xs-12" style="padding-left: 0px;">
                                                         <label>อัปโหลดรูปภาพ</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-btn">
@@ -610,9 +613,7 @@
                                                                 <input type="text" class="form-control" readonly>
                                                             </div>
                                                         <img id='img-upload'/>
-                                                    </div>
                                                 </div>
-                                    </div>
 
 									<div class="form-group">
 										<div class="col-md-12 col-sm-6 col-xs-12">
@@ -744,7 +745,7 @@ $(document).ready( function() {
                                                   '<label for="middle-name" class="" for="name"> เลขที่รับแบบ</label>'+
                                                   '<span class="required" style="color:red"> *</span>'+
                                                   '<div>'+
-                                                      '<input type="text" id="XYZ-input" name="XYZ-value" placeholder="เลขที่รับแบบ" id="name_tax" class="form-control col-md7 col-sx-12">'+
+                                                      '<input type="text" name="notice_date_p2[0]" placeholder="เลขที่รับแบบ" id="name_tax" class="form-control col-md7 col-sx-12">'+
                                                   '</div>'+
                                            ' </div>'+
                                          ' </div>'+
