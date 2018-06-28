@@ -110,6 +110,12 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo js_asset('../js/treegrid-dnd.js'); ?>
 
     
+
+    <?php echo js_asset('../js/jquery.number.min.js'); ?>
+    <?php echo js_asset('../js/jquery.maskedinput.min.js'); ?>
+    <?php echo js_asset('../js/jquery.setformat.js'); ?>
+    <?php echo js_asset('../js/main.js'); ?>
+    
     <?php echo $this->template->javascript; ?>
 
 

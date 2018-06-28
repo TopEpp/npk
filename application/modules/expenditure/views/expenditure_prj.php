@@ -15,7 +15,7 @@
               <div class="x_panel">
                 <div class="x_title">
                       <div class="col-xs-12 text-right">
-                          <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#paymodal" title="เบิกจ่าย"><i class="fa fa-paypal"></i>
+                          <button type="button" class="btn btn-success"  onclick="window.location.href='<?php echo base_url('expenditure/search_prj');?>'" title="เบิกจ่าย"><i class="fa fa-paypal"></i>
                           </button>
                       </div>
                   <div class="clearfix"></div>
