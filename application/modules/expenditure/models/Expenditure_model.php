@@ -34,4 +34,6 @@ class expenditure_model extends CI_Model
 	function saveExpenditure($input){
 		$this->db->insert('tbl_expenses',$input);
 	}
+
+	
 }

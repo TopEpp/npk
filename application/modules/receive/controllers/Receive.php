@@ -93,28 +93,37 @@ class Receive extends MY_Controller
     // check data noice tpye
 
         $data = array();
-        $check_num = $this->input->post('notice_number');
+        $check_num = $this->input->post('notice_number_p2');
         foreach ($check_num as $key => $value) {
-            if (!empty($this->input->post('notice_number')[$key])) {
+            if (!empty($this->input->post('notice_number_p2')[$key])) {
                 $data['tax_id'] = $key + 8;
                 $data['individual_id'] = $this->input->post('individual_id')[$key];
                 $data['tax_year'] = $this->input->post('tax_year')[$key];
+
 
                 if ($key == 1) {
                     $data['tax_local_year'] = $this->input->post('tax_local_year')[$key];                           ///0  /2 ==1
                     $data['land_rai'] = $this->input->post('land_rai')[$key];                                       ///0  /2 ==1
                     $data['land_ngan'] = $this->input->post('land_ngan')[$key];                                     ///0  /2 ==1
                     $data['land_wa'] = $this->input->post('land_wa')[$key];                                         ///0  /2 ==1
-                    $data['land_tax'] = $this->input->post('land_tax')[$key];                                       ///0  /2 ==1
+                    $data['land_tax'] = $this->input->post('land_tax')[$key];
+                    $data['banner_type'] = $this->input->post('banner_type')[$key];
+                    $data['banner_width'] = $this->input->post('banner_width')[$key];
+                    $data['banner_heigth'] = $this->input->post('banner_heigth')[$key];
+                                      ///0  /2 ==1
 
                 }
 
-                $date = explode('/', $this->input->post('notice_date')[$key]);
-                $data['notice_date'] = ($date[2] - 543) . $date[1] . $date[0];
+                $date = explode('/', $this->input->post('notice_date_p2')[$key]);
+                $data['notice_date_p2'] = ($date[2] - 543) . $date[1] . $date[0];
+
+                $date = explode('/', $this->input->post('notice_date_p8')[$key]);
+                $data['notice_date_p8'] = ($date[2] - 543) . $date[1] . $date[0];
+
 
 
                 if ($key == 0) {
-                    $data['notice_reception'] = $this->input->post('notice_reception')[$key];                       ///1 /2 ==0
+                    $data['notice_number_id'] = $this->input->post('notice_number_id')[$key];                       ///1 /2 ==0
                     $data['notice_no'] = $this->input->post('notice_no')[$key];                                     ///1 /2 ==0
                     $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];                     ///1 /2 ==0
                     $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];               ///1 /2 ==0
@@ -128,11 +137,9 @@ class Receive extends MY_Controller
                     $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];               ///1 ==0 2
                 }
 
-                $data['banner_type'] = $this->input->post('banner_type')[$key];
-                $data['banner_width'] = $this->input->post('banner_width')[$key];
-                $data['banner_heigth'] = $this->input->post('banner_heigth')[$key];
 
-                $data['notice_number'] = $this->input->post('notice_number')[$key];
+                $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
+                $data['notice_number_p8'] = $this->input->post('notice_number_p8')[$key];
                 $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
                 $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
                 $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
@@ -147,7 +154,8 @@ class Receive extends MY_Controller
 
             }
         }
-        redirect(base_url('receive/receive_dashborad'));
+        print_r($data);        
+        // redirect(base_url('receive/receive_dashborad'));
 
 
     }

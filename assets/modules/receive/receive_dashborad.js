@@ -42,7 +42,7 @@ $(function () {
                 data: null,
                 render: function (data, type, row) {
 
-                    return row.notice_id + "/" + row.tax_year;
+                    return row.notice_number_id + "/" + row.tax_year;
                 },
                 "className": "text-center",
             },
