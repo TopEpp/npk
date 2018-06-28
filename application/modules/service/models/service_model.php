@@ -100,4 +100,19 @@ class service_model extends CI_Model
 		}
 	}
 
+	function duplicate_estimate($year){
+        $this->db->select('*');
+        $this->db->from('tax_notice');
+        $this->db->where('tax_year',$year);
+        $query = $this->db->get();
+        foreach ($query->result_array() as $key => $value) {
+        	$data_insert = $value;
+        	unset($data_insert['notice_id']);
+
+        	$data_insert['tax_year'] = $year+1;
+
+        	$this->db->insert('tax_notice',$data_insert);
+        }
+    }
+
 }
