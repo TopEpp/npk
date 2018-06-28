@@ -14,6 +14,10 @@ class Service extends MY_Controller
     function duplicate_project($year){
         $this->service_model->duplicate_project($year);
     }
+
+    function duplicate_estimate($year){
+    	$this->service_model->duplicate_estimate($year);
+    }
 }
 
     
