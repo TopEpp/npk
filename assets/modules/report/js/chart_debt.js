@@ -1,6 +1,6 @@
 var ctx = document.getElementById("chart_debt").getContext('2d');
 var myChart1 = new Chart(ctx, {
-    type: 'bar',
+    type: 'pie',
     data: {
         labels: ["ภาษีโรงเรือนและที่ดิน", "ภาษีบำรุงท้องที่", "ภาษีป้าย"],
         datasets: [{
@@ -30,11 +30,33 @@ var myChart1 = new Chart(ctx, {
         }
     }
 });
+//  google.charts.load("current", {packages:["corechart"]});
+//       google.charts.setOnLoadCallback(drawChart);
+// function drawChart() {
+//         var data = google.visualization.arrayToDataTable([
+//           ['Task', 'Hours per Day'],
+//           ['ภาษีโรงเรือนและที่ดิน',     3],
+//           ['ภาษีบำรุงท้องที่',      1],
+//           ['ภาษีป้าย',  1],
+      
+//         ]);
+
+//         var options = {
+//           title: 'รวมค้างชำระ',
+//           is3D: true,
+//         };
+
+//         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+//         chart.draw(data, options);
+//       }
+
 
 document.getElementById("chart_download").addEventListener("click", function () {
-    var url_base64 = document.getElementById("chart_debt").toDataURL("image/jpg");
+    var chart = new google.visualization.PieChart(document.getElementById('chart_debt'));
     this.href = url_base64;
 });
+
+
 
 
 function number_format(number, decimals, dec_point, thousands_sep) {
