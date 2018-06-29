@@ -1132,23 +1132,27 @@ $(document).ready( function() {
 												'</div>'+
 
 											'<div class="col-md-3 col-sm-6 col-xs-12">'+
-													'<div class="form-group" >'+
-														'<label  > ประเภทป้าย</label>'+
-																'<span class="required" style="color:red"> *</span>'+
-															'<div >'+
-																'<select class="form-control" name="banner_type" type="text" >'+
-                                                                        '<?php foreach ($banner as $key => $value) { ?>'+
-                                                                            '<option value="<?= $value->banner_id ?>"><?= $value->banner_name ?></option>'+
-                                                                            '<?php
-
-                                                                        } ?>'+
-                                                                '</select>'+
-													'</div>'+
+                                            '<div class="form-group" >'+
+                                            '</div>'+
 											'</div>'+
 											
 
 										' </div>'+
 
+                                            '<div class="col-md-3 col-sm-6 col-xs-12" style="padding-left: 0px;">'+
+													'<div class="form-group" >'+
+														'<label  > ประเภทป้าย</label>'+
+														'<span class="required" style="color:red"> *</span>'+
+															'<div >'+
+                                                            '<select class="form-control" name="banner_type" type="text" >'+
+                                                                        '<?php foreach ($banner as $key => $value) { ?>'+
+                                                                            '<option value="<?= $value->banner_id ?>"><?= $value->banner_name ?></option>'+
+                                                                            '<?php
+
+                                                                        } ?>'+
+                                                                '</select>'+																'</div>'+
+													'</div>'+
+												'</div>'+
                                         
 
 											'<div class="col-md-3 col-sm-6 col-xs-12">'+
