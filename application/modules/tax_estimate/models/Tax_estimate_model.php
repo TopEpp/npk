@@ -9,7 +9,7 @@ class Tax_estimate_model extends CI_Model
 		$this->db->select('tbl_tax.*,tbl_tax_estimate.tax_estimate');
 		$this->db->from('tbl_tax');
 		$this->db->join('tbl_tax_estimate',"tbl_tax_estimate.tax_id = tbl_tax.tax_id and tbl_tax_estimate.year_id = '{$year}' ",'left');
-		$this->db->where('tax_type_input','0');
+		// $this->db->where('tax_type_input','0');
 		$this->db->where('tax_parent_id',$parent);
 		$query = $this->db->get();
 		foreach ($query->result() as $key => $value) {
