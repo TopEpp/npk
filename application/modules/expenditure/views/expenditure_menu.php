@@ -12,7 +12,7 @@
                                 <div class="panel">
                                     <div class=" panel-body " style="padding-left: 25px;padding-right: 30px;padding-top: 20px;padding-bottom: 20px;">
                                         <div class="btn-group col-md-3">
-                                            <a href="<?php echo (base_url('receive/receive_save')) ?>">
+                                            <a href="<?php echo (base_url('expenditure/expenditure_prj')) ?>">
                                                 <button type="button" class="btn btn-nav" style="height: 110px; width:270px;" >
                                                     <i class="fas fa-dollar-sign"></i>
                                                     <h4>รายจ่ายในงบประมาณ</h4>
