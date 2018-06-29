@@ -1,7 +1,9 @@
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <div class="right_col" role="main">
         <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
-                      <h3>รายงานบัญชีรายรับ</h3>
+                      <h3>รายงานลูกหนี้ค้างชำระ</h3>
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
@@ -29,42 +31,53 @@
                      <div class="col-sm-6">
                     <table class="table table-bordered jambo_table">
                         <thead>
-                        <tr>
-                            <th>ชื่อภาษี</th>
-                           <th>จำนวนเงิน</th>
-                           <th>เงินเพิ่ม</th>    
-                           <th>รวม</th>    
-                        </tr>
-                    </thead>
+                       <tr>
+
+                        <td align="center">ชื่อภาษี</td>
+                        <td align="center">จำนวนเงิน</td>
+                        <td align="center">เงินเพิ่ม</td>
+                        <td align="center">รวม</td>
+                      
+                       </tr>
+
+                      </thead>
                       <tbody>
-                        <tr>
-                        <tr>
-                                <td align="center">1</td>
-                                <td align="center">2</td>
-                                <td align="center">3</td>
-                                <td align="right">3,000.00</td>
-                                
-                            </tr>
-                        </tr>
-                          <tr>
-                                <td align="center">1</td>
-                                <td align="center">2</td>
-                                <td align="center">3</td>
-                                <td align="right">3,000.00</td>
-                                
-                            </tr>
-                        </tr>
 
+                    <tr>
+                        <?php foreach ($parentTax as $key => $value) { 
+                              foreach ($parentTax1 as $key => $value1) {
+                     
+                            if ($value->tax_name == $value1->tax_name )  {
+                               $tax = $value->notice_estimate - $value1->receive_amount;
+          
+                        ?>
 
+                        <td style="width: 23%; text-align="center"><?php echo  $value->tax_name;?></td>
+                        <td style="width: 12%; text-align="right"><?php  echo number_format ($tax,2);?></td>
+                        <!-- <td style="width: 12%; text-align="right"><?php  echo number_format ($value1->interest,2);?></td>
+                        <td style="width: 12%; text-align="right"><?php  echo number_format (($tax+$value1->interest),2);?></td> -->
+                     
+        
 
+                      </tbody> 
+                    
+                         <?php } } } ?>
+                   <tr> 
+                        <th>รวม</th>
+                       
+                    </tr>
 
+                   
 
+                       
                     </table>
                 </div>  
                     <div class="col-sm-6"></div>
                     <div class="col-md-6 col-sm-12 col-xs-12">
                   <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
-                  <canvas id="chart_debt"></canvas>
+                    <div >
+                    <canvas id="chart_debt"></canvas>
+                    </div>
               </div>
 
                  </div>
@@ -73,30 +86,29 @@
               <div class="col-md-1 col-sm-6 col-xs-12">
               </div>
               
-              
-               
-
                <div class="x_content">
                  <br>
                     <table class="table table-bordered jambo_table">
                         <thead>
+                        <tr> 
+                            <th colspan="10" >หมวดรายได้ </th>
+                                <tr>
+                                    <th style="width: 5%; vertical-align: middle;" rowspan="2" data-defaultsign="nospan" >ลำดับ</th>
+                                    <th style="width: 15%; vertical-align: middle;" rowspan="2" data-defaultsign="nospan">เลขประจำตัวผู้เสียภาษี</th>
+                                    <th style=" width: 20%; vertical-align: middle;" rowspan="2" data-defaultsign="nospan">ชื่อ - สกุล</th>
+                                    <th colspan="2" style="text-align: center;">ภาษีโรงเรือนและที่ดิน</th>
+                                    <th colspan="2" style="text-align: center;">ภาษีบำรุงท้องที่</th>
+                                    <th colspan="2" style="text-align: center;">ภาษีป้าย</th>
+                                    <th style="width: 12%; vertical-align: middle;" rowspan="2" data-defaultsign="nospan">รวม</th>
+                                </tr>
+                       </tr>
                             <tr>
-                                <th style="width: 54px; vertical-align: middle;" rowspan="2" data-defaultsign="nospan" >ลำดับ</th>
-                                <th style="width: 219px; vertical-align: middle;" rowspan="2" data-defaultsign="nospan">เลขประจำตัวผู้เสียภาษี</th>
-                                <th style="vertical-align: middle;" rowspan="2" data-defaultsign="nospan">ชื่อ - สกุล</th>
-                                <th colspan="2" style="text-align: center;">ภาษีโรงเรือนและที่ดิน</th>
-                                <th colspan="2" style="text-align: center;">ภาษีบำรุงท้องที่</th>
-                                <th colspan="2" style="text-align: center;">ภาษีป้าย</th>
-                                <th style="width: 127px; vertical-align: middle;" rowspan="2" data-defaultsign="nospan">รวม</th>
-                            </tr>
-                       
-                            <tr>
-                              <th>จำนวนเงิน</th>
-                              <th >เงินเพิ่ม</th>
-                              <th >จำนวนเงิน</th>
-                              <th >เงินเพิ่ม</th>
-                              <th >จำนวนเงิน</th>
-                              <th >เงินเพิ่ม</th>
+                              <th style="width: 7%;">จำนวนเงิน</th>
+                              <th style="width: 7%;">เงินเพิ่ม</th>
+                              <th style="width: 7%;">จำนวนเงิน</th>
+                              <th style="width: 7%;">เงินเพิ่ม</th>
+                              <th style="width: 7%;">จำนวนเงิน</th>
+                              <th style="width: 7%;">เงินเพิ่ม</th>
                           </tr>
                         </thead>
                         <tbody>
