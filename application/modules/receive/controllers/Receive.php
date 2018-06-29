@@ -10,6 +10,15 @@ class Receive extends MY_Controller
         $this->load->model('Outside_model');
 
     }
+
+    public function receive_menu()
+    {
+        $data = array();
+        $this->config->set_item('title', 'บันทึกรายรับ - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('receive_menu', $data);
+        $this->publish();
+    }
+
     public function receive_dashborad()
     {
         $data = array();
