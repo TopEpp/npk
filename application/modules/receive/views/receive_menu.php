@@ -7,7 +7,7 @@
             </section>
             <br>
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="panel">
                                     <div class=" panel-body " style="padding-left: 25px;padding-right: 30px;padding-top: 20px;padding-bottom: 20px;">
