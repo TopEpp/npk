@@ -248,10 +248,13 @@ function project_add_cost(id, value) {
 }
 
 //prj create detail
-function add_prj(value) {
+function add_prj(parent,value) {
+  
+    if (value == undefined)
+        value = '0';
 
     //clear data
-    window.location = domain+'project_training/prjAdd/'+value;  
+    window.location = domain+'project_training/prjAdd/'+parent+'/'+value;  
     // $("input[type='text']").val('');
     // $(".flat").parents('div').removeClass('checked');
 

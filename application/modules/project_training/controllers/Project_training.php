@@ -182,8 +182,7 @@ class Project_training extends MY_Controller
             $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->prj_name . '</p>';
             $data['rows'][$data['total'] + $key]['tools'] = "
             <button onClick='pay_prj(" . $value->prj_id . ")' id='project_edit' class='btn btn-default' type='button'><i class='fa fa-paypal'></i></button>
-            <button  onClick='add_prj(" . $value->prj_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-           
+            <button  onClick='add_prj(". $value->prj_parent ."," . $value->prj_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
             <button onClick='edit_prj(" . $value->prj_id . ")' id='project_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
             <button onClick='del_prj(" . $value->prj_id . "," . '"1"' . ")'  id='project_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
             $data['rows'][$data['total'] + $key]['_parentId'] = $value->prj_parent;
@@ -202,13 +201,52 @@ class Project_training extends MY_Controller
 
     }
 
-    public function prjAdd($id){
+    public function prjAdd($parent,$id){
+        $data_budget = ['', 'งบบุคลากร', 'งบดำเนินงาน', 'งบลงทุน', 'งบเงินอุดหนุน', 'งบกลาง'];
+        $data_cost = [
+            '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
+            'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง'
+        ];
+
         $this->config->set_item('title', 'ระบบบริหารโครงการ - เทศบาลตำบลหนองป่าครั่ง');
+        
+        $data['prj_tree'] = $this->project_model->getTitleTree($parent);
+        $num = 0;
+        foreach ( $data['prj_tree'] as $key => $value) {
+            if ($num == 0)
+                $data['prj_tree'][$key] = $data_cost[$data['prj_tree'][$key]];
+            if ($num == 1)
+                $data['prj_tree'][$key] = $data_budget[$data['prj_tree'][$key]];
+            $num++;
+        }
+
+        $data['prj_tree'] = array_reverse( $data['prj_tree']);
+        $data['prj_tree'] = implode("/",$data['prj_tree']);
         $data['user'] = $this->project_model->getUser();
-        // $this->template->javascript->add('assets/plugins/gentelella-master/vendors/switchery/dist/switchery.js');
+        $data['prj'] = $this->project_model->getPrj();
+
+        // $this->project_model->getPrjRespon();
+
+        $this->template->stylesheet->add('assets/plugins/gentelella-master/vendors/nprogress/nprogress.css');
+        $this->template->stylesheet->add('assets/plugins/gentelella-master/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css');
+        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js');
+
+        // <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        // <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        $this->template->stylesheet->add('assets/plugins/select2/dist/css/select2.css');
+
+        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js');
+        // <script src=".."></script>
+        $this->template->javascript->add('assets/plugins/select2/dist/js/select2.js');
+        $this->template->javascript->add('assets/modules/project_training/prj_add.js');
 
         $this->setView('prj', $data);
         $this->publish();
+    }
+
+    public function getPrjRespon(){
+        $data = array();
+        $this->project_model->getPrjRespon();
     }
 
 
