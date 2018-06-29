@@ -20,7 +20,7 @@
                   <form id="demo-form2" method="post" action="<?php echo base_url('receive/receive_tax_pay'); ?>" data-parsley-validate class="form-horizontal form-label-left">
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax" >เลขที่รับ
-                          <span class="required" style="color:red"> *</span>
+                         
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <input type="text" id="id_tax" name="notice_number" class="form-control col-md-7 col-xs-12" placeholder="ระบุเลขที่รับ">
@@ -28,7 +28,7 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax" >เลขประจำตัวผู้เสียภาษี
-                          <span class="required" style="color:red"> *</span>
+                          
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <input type="text" id="id_tax" name="individual_number" class="form-control col-md-7 col-xs-12" placeholder="ระบุเลขประจำตัว 10 หลัก หรือ 13 หลัก" >
