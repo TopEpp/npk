@@ -47,6 +47,22 @@ class Report_model extends CI_Model
         
               }
 
+              public  function getrec()
+
+              {
+                 $this->db->select('tax_name');
+                 $this->db->from('tbl_tax');              
+                $query = $this->db->get();
+                return  $query->result();
+
+
+        
+              }
+
+
+
+              
+
 
 
 

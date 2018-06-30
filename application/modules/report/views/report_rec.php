@@ -65,14 +65,25 @@
                         <tr>
                           <th>รายการ</th>
                           <th>รายรับจริง</th>
-                          <!-- <th><i class="fa fa-plus"</i>  <i class="fa fa-minus"</i>  </th> -->
+
                         </tr>
+
                       </thead>
                       <tbody>
-                          
+                          <tr>
+                            <td>55</td>
+                          </tr>
+                           <?php  
+                          foreach ($getrec as $key => $value) { 
+                        ?>
+                          <tr>
+                         <td style="width: 23%; text-align:center; font-weight:700"><?php echo $value->tax_name;?></td>
+                         </tr>
+
+                      <?php }?>
                       </tbody>
 
-     
+        
                   </table>
                 </div>
                     

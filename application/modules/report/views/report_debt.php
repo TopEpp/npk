@@ -44,27 +44,48 @@
                       <tbody>
 
                     <tr>
-                        <?php foreach ($parentTax as $key => $value) { 
+                        <?php 
+                              $test = 0;
+                              $test2 = 0;
+                              $test3 = 0;
+
+                              foreach ($parentTax as $key => $value) { 
                               foreach ($parentTax1 as $key => $value1) {
-                     
-                            if ($value->tax_name == $value1->tax_name )  {
-                               $tax = $value->notice_estimate - $value1->receive_amount;
+                              
+
+                           
+                      if ($value->tax_name == $value1->tax_name )  {
+                                $tax = $value->notice_estimate - $value1->receive_amount;
+                   
           
                         ?>
 
-                        <td style="width: 23%; text-align="center"><?php echo  $value->tax_name;?></td>
-                        <td style="width: 12%; text-align="right"><?php  echo number_format ($tax,2);?></td>
-                        <!-- <td style="width: 12%; text-align="right"><?php  echo number_format ($value1->interest,2);?></td>
-                        <td style="width: 12%; text-align="right"><?php  echo number_format (($tax+$value1->interest),2);?></td> -->
-                     
+                        <td style="width: 23%; text-align:center"><?php echo $value->tax_name;?></td>
+                       <td style="width: 12%; text-align:right"><?php  echo number_format($tax,2);?></td> 
+                        <td style="width: 12%; text-align:right"><?php  echo number_format ($value1->interest,2);?></td> 
+                      <td style="width: 12%; text-align:right"><?php  echo number_format (($tax+$value1->interest),2);?></td>
+                        
         
+                  </tr>
+                   <?php
+                              $test = $test + ($tax+$value1->interest);
+                              $test2 = $test2 + $value1->interest;
+                              $test3 = $test3 + $tax;
+                          }
+                          
+                          }
+                      
+                          } 
 
+
+                        ?>
                       </tbody> 
-                    
-                         <?php } } } ?>
+                        
                    <tr> 
-                        <th>รวม</th>
-                       
+                        <th style="width: 23%; text-align:center">รวม</th>
+                        <th style="width: 12%; text-align:right"><?php echo number_format($test3,2); ?></th>
+                        <th style="width: 12%; text-align:right"><?php echo number_format($test2,2); ?></th>
+                        <th style="width: 12%; text-align:right"><?php echo number_format($test,2); ?></th>
                     </tr>
 
                    

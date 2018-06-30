@@ -17,6 +17,7 @@ class Report extends MY_Controller
         $data['report'] = $this->Report_model->getReport_rec_All();
 
         $this->config->set_item('title', 'รายงานรายรับ - เทศบาลตำบลหนองป่าครั่ง');
+         $data['getrec'] = $this->Report_model->getrec();
         $this->template->javascript->add('assets/modules/report/js/chart.js');
         $this->setView('report_rec', $data);
         $this->publish();
