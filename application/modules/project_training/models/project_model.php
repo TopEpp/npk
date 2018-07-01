@@ -240,4 +240,20 @@ class project_model extends CI_Model
         return $query->row()->budget;
     }
 
+    //get tree prj title
+    public function getTitleTree($parent = '',&$data = array()){
+        $this->db->select('*');
+        $this->db->where('project_id',$parent);
+        $this->db->from('tbl_project_manage');
+        $query = $this->db->get();
+        foreach ($query->result() as $key => $value) {
+      
+            $data[$value->project_id] = $value->project_title;
+            $this->getTitleTree($value->project_parent,$data);
+        } 
+        return $data;
+    }
+    
+
+
 }

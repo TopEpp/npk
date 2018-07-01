@@ -248,19 +248,27 @@ function project_add_cost(id, value) {
 }
 
 //prj create detail
-function add_prj(value) {
+function add_prj(parent,value) {
+  
+    if (value == undefined)
+        value = '0';
 
     //clear data
-    $("input[type='text']").val('');
-    $(".flat").parents('div').removeClass('checked');
+    window.location = domain+'project_training/prjAdd/'+parent+'/'+value;  
+    // $("input[type='text']").val('');
+    // $(".flat").parents('div').removeClass('checked');
 
 
-    var year = $('.selectpicker').val();
-    $('#project_year').text(parseInt(year) + 543);
-    $('#hidden_prj_edit').val(false);
-    $('#prj_year').val(year);
-    $('#prj_parent').val(value);
-    $('.creat_prj').modal();
+    // var year = $('.selectpicker').val();
+    // $('#project_year').text(parseInt(year) + 543);
+    // $('#hidden_prj_edit').val(false);
+    // $('#prj_year').val(year);
+    // $('#prj_parent').val(value);
+    // $('.creat_prj').modal();
+}
+
+function pay_prj(value){
+    window.location = domain+'expenditure/expenditure_form/'+value;  
 }
 //edit prj
 function edit_prj(value) {

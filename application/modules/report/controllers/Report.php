@@ -35,12 +35,20 @@ class Report extends MY_Controller
     public function report_debt()
     {
         $data = array();
-        $this->config->set_item('title', 'รายงานลูกหนี้ - เทศบาลตำบลหนองป่าครั่ง');
 
+        $this->load->database();
+        $this->load->model('Report_model');
+        $data['parentTax'] = $this->Report_model->getparentTax();
+        $data['parentTax1'] = $this->Report_model->getparentTax1();
+        $this->config->set_item('title', 'รายงานลูกหนี้ - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/report/js/chart_debt.js');
         $this->setView('report_debt', $data);
         $this->publish();
+
+   
     }
+   
+
 
     public function report_projectManage()
     {
