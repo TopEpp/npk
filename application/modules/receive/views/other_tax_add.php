@@ -22,6 +22,22 @@
                                 <?php echo form_open('Receive/insert_other_tax') ?>
                                         <div class="form-horizontal form-label-left">
                                                 <div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
+                                                        เลขที่ใบเสร็จ <span class="required" style="color:red">*</span>
+                                                    </label>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <input type="text" name="receipt_no" value="" placeholder="ระบุเลขที่ใบเสร็จ" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
+                                                        เล่มที่ใบเสร็จ <span class="required" style="color:red">*</span>
+                                                    </label>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <input type="text" name="receipt_number" value="" placeholder="ระบุเล่มที่ใบเสร็จ" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
                                                             <label class="control-label col-md-4 col-sm-3 col-xs-12" for="first">
                                                                 หมวดรายได้ <span class="required" style="color:red">*</span> 
                                                             </label>

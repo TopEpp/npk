@@ -15,7 +15,7 @@ $(function () {
 
 
   var table = $('#tax_table').DataTable({
-    pageLength: 25,
+    pageLength: 100,
     serverSide: true,
     processing: true,
     lengthChange: false,
@@ -59,9 +59,9 @@ $(function () {
         render: function (data, type, row) {
           var btn =
             '<div class="btn-group ">' +
-            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_add/' + '' + data + '\'"id="" class="btn btn-success btn-sm" title="เพิ่มการประเมินรายรับ"><i class="fa fa-plus-square"></i></button>' +
-            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_taxadd_popup/' + '' + data + '\'" id="edit-individual" class="btn btn-success btn-sm" title="แก้ไข"><i class="glyphicon glyphicon-edit"></i></button>' +
-            '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ"><i class="glyphicon glyphicon-trash"></i></button>'
+            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_add/' + '' + data + '\'"id="" class="btn btn-success btn-sm" style="width: 47px;" title="เพิ่มการประเมินรายรับ" >เพิ่ม</button>' +
+            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_taxadd_popup/' + '' + data + '\'" id="edit-individual" class="btn btn-warning btn-sm" style="width: 47px;" title="แก้ไข" >แก้ไข</button>' +
+            '<button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>'
           '</div>';
           return btn;
         },

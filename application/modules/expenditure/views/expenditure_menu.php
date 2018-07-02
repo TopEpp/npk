@@ -6,44 +6,38 @@
                   </div>
             </section>
             <br>
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="row">
-                                <div class="panel">
-                                    <div class=" panel-body " style="padding-left: 25px;padding-right: 30px;padding-top: 20px;padding-bottom: 20px;">
-                                        <div class="btn-group col-md-3">
-                                            <a href="<?php echo (base_url('expenditure/expenditure_prj')) ?>">
-                                                <button type="button" class="btn btn-nav" style="height: 110px; width:270px;" >
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                    <h4>รายจ่ายในงบประมาณ</h4>
-                                                </button>
-                                                </a>
-                                        </div>
-                                        
-                                        <div class="col-md-1">
-                                        </div>
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="panel">
+                                            <br>
+                                            <br>
+                                                <div class="col-md-6 col-sm-12 col-centered">
+                                                    <a href="<?php echo (base_url('expenditure/expenditure_prj')) ?>">
+                                                        <button type="button" class="btn btn-nav" style="height: 110px; width:270px;" >
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                            <h4>รายจ่ายในงบประมาณ</h4>
+                                                        </button>
+                                                        </a>
+                                                </div>
 
-                                        <div class="btn-group col-md-3">
-                                            <a href="<?php echo (base_url('receive/receive_save')) ?>">
-                                                <button type="button" class="btn btn-nav" style="height: 110px; width:270px;">
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                    <h4>รายจ่ายนอกงบประมาณ</h4>
-                                                </button>
-                                            </a>
+                                                <div class="col-md-6 col-sm-12 col-centered">
+                                                    <a href="<?php echo (base_url('receive/receive_save')) ?>">
+                                                        <button type="button" class="btn btn-nav" style="height: 110px; width:270px;">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                            <h4>รายจ่ายนอกงบประมาณ</h4>
+                                                        </button>
+                                                    </a>
+                                                </div>
                                         </div>
-                                        
-                                        <div class="col-md-1">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                </div>
-            </div>
+                                    </div> 
 </div>
 
 <style>
+/* centered columns styles */
+
+.col-centered {
+    display:inline-block;
+    text-align: center;
+}
 
 .site-title {margin-top: 80px;margin-bottom: 20px; font-weight: 300;}
 .panel {
@@ -158,3 +152,4 @@
         );
     });
 </script>
+

@@ -102,12 +102,23 @@ class Receive extends MY_Controller
     // check data noice tpye
 
         $data = array();
-        $check_num = $this->input->post('notice_number_p2');
+        $check_num = $this->input->post('notice_number');
         foreach ($check_num as $key => $value) {
-            if (!empty($this->input->post('notice_number_p2')[$key])) {
+            if (!empty($this->input->post('notice_number')[$key])) {
                 $data['tax_id'] = $key + 8;
                 $data['individual_id'] = $this->input->post('individual_id')[$key];
                 $data['tax_year'] = $this->input->post('tax_year')[$key];
+
+                $date = explode('/', $this->input->post('notice_date')[$key]);
+                $data['notice_date'] = ($date[2] - 543) . $date[1] . $date[0];
+
+                $value = str_replace(',', '', $this->input->post('notice_estimate')[$key]);
+                $data['notice_estimate'] = $value;
+
+                $data['notice_address_subdistrict'] = 50011300;
+                $data['notice_number'] = $this->input->post('notice_number')[$key];
+
+
 
 
                 if ($key == 1) {
@@ -116,44 +127,59 @@ class Receive extends MY_Controller
                     $data['land_ngan'] = $this->input->post('land_ngan')[$key];                                     ///0  /2 ==1
                     $data['land_wa'] = $this->input->post('land_wa')[$key];                                         ///0  /2 ==1
                     $data['land_tax'] = $this->input->post('land_tax')[$key];
+                    $date = explode('/', $this->input->post('notice_date_p5')[$key]);
+                    $data['notice_date_p5'] = ($date[2] - 543) . $date[1] . $date[0];
+                    $data['land_amount'] = $this->input->post('land_amount')[$key];
+                    $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
+                    $data['notice_mark'] = $this->input->post('notice_mark')[$key];
+
+
+                }
+
+                if ($key == 0) {
+                    $date = explode('/', $this->input->post('notice_date_p2')[$key]);
+                    $data['notice_date_p2'] = ($date[2] - 543) . $date[1] . $date[0];
+
+
+                    $data['notice_amount'] = $this->input->post('notice_amount')[$key];
+
+                    $data['notice_no'] = $this->input->post('notice_no')[$key];
+
+                    $value = str_replace(',', '', $this->input->post('notice_annual_fee')[$key]);                    ///1 /2 ==0
+                    $data['notice_annual_fee'] = $value;   
+                                      ///1 /2 ==0
+                    $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];               ///1 /2 ==0
+                    $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
+                    $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
+                    $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
+
+
+                }
+
+                if ($key == 2) {
                     $data['banner_type'] = $this->input->post('banner_type')[$key];
                     $data['banner_width'] = $this->input->post('banner_width')[$key];
                     $data['banner_heigth'] = $this->input->post('banner_heigth')[$key];
-                                      ///0  /2 ==1
-
-                }
-
-                $date = explode('/', $this->input->post('notice_date_p2')[$key]);
-                $data['notice_date_p2'] = ($date[2] - 543) . $date[1] . $date[0];
-
-                $date = explode('/', $this->input->post('notice_date_p8')[$key]);
-                $data['notice_date_p8'] = ($date[2] - 543) . $date[1] . $date[0];
+                    $data['notice_mark'] = $this->input->post('notice_mark')[$key];
+                    $data['banner_amount'] = $this->input->post('banner_amount')[$key];
 
 
-
-                if ($key == 0) {
-                    $data['notice_number_id'] = $this->input->post('notice_number_id')[$key];                       ///1 /2 ==0
-                    $data['notice_no'] = $this->input->post('notice_no')[$key];                                     ///1 /2 ==0
-                    $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];                     ///1 /2 ==0
-                    $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];               ///1 /2 ==0
                 }
 
                 if ($key == 0 || $key == 1) {
-                    $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];                                 ///2 == 0 1
+                    $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
+                    
+                     
+                                                  ///2 == 0 1
                 }
 
                 if ($key == 0 || $key == 2) {
                     $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];               ///1 ==0 2
+
                 }
 
 
-                $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
-                $data['notice_number_p8'] = $this->input->post('notice_number_p8')[$key];
-                $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
-                $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
-                $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
-                $data['notice_address_subdistrict'] = 50011300;
-        // $data['banner_amount'] = $this->input->post('banner_amount')[$key];
+
 
                 if (!empty($id)) {
                     $status = $this->Receive_model->insertNotice($data, $id);
@@ -163,11 +189,13 @@ class Receive extends MY_Controller
 
             }
         }
-        print_r($data);        
-        // redirect(base_url('receive/receive_dashborad'));
+        // print_r($data);        
+        redirect(base_url('receive/receive_dashborad'));
 
 
     }
+
+
 
     public function receive_tax()
     {

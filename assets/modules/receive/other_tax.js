@@ -56,8 +56,8 @@ $(function () {
                 render: function (data, type, row) {
                     var btn =
                         '<div class="btn-group ">' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/other_tax_edit/' + '' + data + '\'" id="edit-receive" class="btn btn-success btn-sm" title="แก้ไข"><i class="glyphicon glyphicon-edit"></i></button>' +
-                        '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ"><i class="glyphicon glyphicon-trash"></i></button>'
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/other_tax_edit/' + '' + data + '\'" id="edit-receive" class="btn btn-warning btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
+                        '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
                     '</div>';
                     return btn;
                 },

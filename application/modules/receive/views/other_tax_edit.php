@@ -21,11 +21,27 @@
                                 <?php echo form_open('Receive/update_other_tax') ?>
                                         <div class="form-horizontal form-label-left">
                                                 <input type="hidden" name="receive_id"  value="<?php echo $other_tax[0]['receive_id'] ?>">
-
+                                                
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
+                                                        เลขที่ใบเสร็จ <span class="required" style="color:red">*</span>
+                                                    </label>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <input type="text" name="receipt_no" value="<?php echo $other_tax[0]['receipt_no'] ?>" placeholder="ระบุเลขที่ใบเสร็จ" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-3 col-xs-12">
+                                                        เล่มที่ใบเสร็จ <span class="required" style="color:red">*</span>
+                                                    </label>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <input type="text" name="receipt_number" value="<?php echo $other_tax[0]['receipt_number'] ?>" placeholder="ระบุเล่มที่ใบเสร็จ" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                </div>
 
                                                 <div class="form-group">
                                                             <label class="control-label col-md-4 col-sm-3 col-xs-12" for="first">
-                                                                <span class="required" style="color:red">*</span> หมวดรายได้
+                                                            หมวดรายได้ <span class="required" style="color:red">*</span> 
                                                             </label>
                                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                                     <select id="colorselector" name="tax_id" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
@@ -102,7 +118,7 @@
 
                                                 <div class="form-group" style="margin-bottom: 0px;">
                                                         <label for="second" class="control-label col-md-4 col-sm-3 col-xs-12" for="">
-                                                            <span class="required" style="color:red">*</span> วันที่รับ
+                                                        วันที่รับ <span class="required" style="color:red">*</span> 
                                                         </label>
                                                     <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <div class='input-group date col-md-12 col-xs-12' id='inputdatepicker'>
@@ -114,7 +130,7 @@
 
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        <span class="required" style="color:red">*</span> จำนวนภาษี
+                                                    จำนวนภาษี <span class="required" style="color:red">*</span> 
                                                     </label>
                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <input type="text" name="receive_amount" value="<?php echo $other_tax[0]['receive_amount'] ?>" placeholder="0.00" class="form-control col-md-7 col-xs-12">
