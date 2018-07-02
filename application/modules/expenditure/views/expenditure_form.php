@@ -21,47 +21,59 @@
                       <div id="step-1">
                               <div class="form-group">
                                   <div class="row">
-                                          <div class="col-md-4 col-sm-6 col-xs-12">
-                                                  <div class="form-group" style="margin-bottom: 0px;">
-                                                          <label>วันที่เบิกจ่าย</label>
-                                                          <span class="required" style="color:red">*</span>
-                                                          <input type="text" name="expenses_date" value="<?php echo date('Y-m-d')?>" class="form-control datepicker">
-                                                  </div>
+                                      <div class="col-md-4 col-sm-6 col-xs-12">
+                                          <div class="form-group" >
+                                              <label>วันที่จัดทำ</label>
+                                              <span class="required" style="color:red">*</span>
+                                              <input type="text" name="expenses_date" value="<?php echo date('Y-m-d')?>" class="form-control datepicker">
                                           </div>
+                                      </div>
+                                      <div class="col-md-12 ">
+                                          <div class="form-group" style="margin-bottom: 0px;">
+                                            <table class="table table-bordered jambo_table">
+                                              <tr>
+                                                <th>รายการ</th>
+                                                <th>จำนวนเงิน</th>
+                                              </tr>
+                                              <tbody>
+                                                <tr>
+                                                  <td>มูลค่าสินค้า/บริการ</td>
+                                                  <td><input type="text" name="expenses_amount" value="" placeholder="" id="expenses_amount" class="form-control col-md-7 col-xs-12 numeric"></td>
+                                                </tr>
+                                                <tr>
+                                                  <td><span style="text-decoration: underline;">บวก</span> ภาษีมูลค่าเพิ่ม</td>
+                                                  <td><input type="text" name="expenses_amount_vat" value="" placeholder="" id="expenses_amount_vat" class="form-control col-md-7 col-xs-12 numeric"></td>
+                                                </tr>
+                                                <tr>
+                                                  <td>จำนวนเงินที่ขอเบิกทั้งสิ้น</td>
+                                                  <td><input type="text" name="expenses_amount_disburse" value="" placeholder="" id="expenses_amount_disburse" class="form-control col-md-7 col-xs-12 numeric"></td>
+                                                </tr>
+                                                <tr>
+                                                  <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย</td>
+                                                  <td><input type="text" name="expenses_amount_tax" value="" placeholder="" id="expenses_amount_tax" class="form-control col-md-7 col-xs-12 numeric"></td>
+                                                </tr>
+                                                <tr>
+                                                  <td>ค่าปรับ</td>
+                                                  <td><input type="text" name="expenses_amount_fine" value="" placeholder="" id="expenses_amount_fine" class="form-control col-md-7 col-xs-12 numeric"></td>
+                                                </tr>
+                                                <tr>
+                                                  <td>จำนวนเงินที่จ่ายสุทธิ</td>
+                                                  <td><input type="text" name="expenses_amount_result" value="" placeholder="" id="expenses_amount_result" class="form-control col-md-7 col-xs-12 numeric"></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-12 ">
+                                          <div class="form-group" style="margin-bottom: 0px;">
 
-                                          <div class="col-md-4 col-sm-6 col-xs-12">
-                                              <div class="form-group" style="margin-bottom: 0px;">
-
-                                                  <label for="middle-name" class=""> เลขที่เช็ค / ฎีกา</label>
-                                                  
-                                                  <div>
-                                                      <input type="text" name="expenses_number" value="" placeholder="" id="name_tax" class="form-control col-md7 col-sx-12">
-                                                  </div>
+                                              <label for="middle-name"> รายละเอียด
+                                              </label>
+                                              <div>
+                                                 <textarea class="form-control" name="expenses_detail"></textarea>
                                               </div>
                                           </div>
-
-                                          <div class="col-md-4 col-sm-6 col-xs-12">
-                                              <div class="form-group" style="margin-bottom: 0px;">
-
-                                                  <label for="middle-name" class=""> จำนวนเงินที่เบิกจ่าย
-                                                  <span class="required" style="color:red">*</span>
-                                                  </label>
-                                                      <div>
-                                                          <input type="text" name="expenses_amount" value="" placeholder="" id="name_tax" class="form-control col-md-7 col-xs-12 numeric">
-                                                      </div>
-                                              </div>
-                                          </div>
-
-                                          <div class="col-md-12 ">
-                                              <div class="form-group" style="margin-bottom: 0px;">
-
-                                                  <label for="middle-name"> รายละเอียด
-                                                  </label>
-                                                  <div>
-                                                     <textarea class="form-control" name="expenses_detail"></textarea>
-                                                  </div>
-                                              </div>
-                                          </div>
+                                      </div>
                                   </div>
                               </div>
                           <br>
@@ -83,7 +95,6 @@
           <thead>
             <tr>
               <th>วันที่</th>
-              <th>เลขที่เช็ค / ฎีกา</th>
               <th>ผู้เบิกจ่าย</th>
               <th>รายละเอียด</th>
               <th>จำนวนเงิน</th>
@@ -94,7 +105,6 @@
           <?php foreach ($expenses as $key => $value) { ?>
             <tr>
               <td><?php echo $value->expenses_date?></td>
-              <td><?php echo $value->expenses_number?></td>
               <td><?php echo $value->expenses_user?></td>
               <td><?php echo $value->expenses_detail?></td>
               <td><?php echo $value->expenses_amount?></td>

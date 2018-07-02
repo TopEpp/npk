@@ -62,6 +62,7 @@ class Expenditure extends MY_Controller
         $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id);
 
         $data['project_id'] = $project_id;
+        $this->template->javascript->add('assets/modules/expenditure/form.js');
         $this->setView('expenditure_form', $data);
         $this->publish();
     }

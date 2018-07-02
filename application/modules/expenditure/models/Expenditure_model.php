@@ -32,6 +32,13 @@ class expenditure_model extends CI_Model
 	}
 
 	function saveExpenditure($input){
+		$input['expenses_date'] = $this->mydate->date_thai2eng($input['expenses_date'],-543);
+		$input['expenses_amount'] = str_replace(',', '', $input['expenses_amount']);
+		$input['expenses_amount_vat'] = str_replace(',', '', $input['expenses_amount_vat']);
+		$input['expenses_amount_disburse'] = str_replace(',', '', $input['expenses_amount_disburse']);
+		$input['expenses_amount_tax'] = str_replace(',', '', $input['expenses_amount_tax']);
+		$input['expenses_amount_fine'] = str_replace(',', '', $input['expenses_amount_fine']);
+		$input['expenses_amount_result'] = str_replace(',', '', $input['expenses_amount_result']);
 		$this->db->insert('tbl_expenses',$input);
 	}
 
