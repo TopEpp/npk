@@ -17,7 +17,7 @@ class Tax_estimate_model extends CI_Model
 
 			$this->getTax($value->tax_id);
 		}
-
+		
 		return $this->_dataTax;
 	}
 

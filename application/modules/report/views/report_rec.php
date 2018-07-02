@@ -43,36 +43,92 @@
                       
                       </h5> 
                   </div>
+                  <div class="container-fluid">
+                      <div class="row-container">
+                        <div class="col-sm-6">
+                          <h1></h1>
+                      </div> 
 
-              <div class="col-md-1 col-sm-6 col-xs-12">
-              </div>
-              
-              <div class="col-md-10 col-sm-12 col-xs-12">
+                  <div class="col-sm-6"></div> 
+                             <div class="col-md-6 col-sm-12 col-xs-12">
                   <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
-                  <canvas id="report_receive"></canvas>
+                    <div >
+                    <canvas id="report_receive"></canvas>
+                    </div>
               </div>
 
-              <div class="col-md-1 col-sm-6 col-xs-12">
-              </div>
-              
-              
+                       </div>
+                       </div>    
 
+            
+              
+        
 
                <div class="x_content">
                  <br>
                  <table class="table table-bordered jambo_table">
                       <thead>
                         <tr>
-                          <th>รายการ</th>
-                          <th>รายรับจริง</th>
-                          <!-- <th><i class="fa fa-plus"</i>  <i class="fa fa-minus"</i>  </th> -->
+                          <th style="width:25%">รายการ</th>
+                          <th style="width:25%">ประมานการรายรับ</th>
+                          <th style="width:25%">รายรับจริง</th>
+                          <th style="width:25%">+สูง -ต่ำ</th>
                         </tr>
+
                       </thead>
                       <tbody>
+                        <?php foreach ($getrec[0] as $key => $title) { ?>
+
+                          <tr>
+                            <td style="width: 23%; font-weight:700"> <?php  echo $title->tax_name; ?></td>
+                            <td></td>
+                          </tr>
+
+                           <?php  
+
+                             $test = 0;
+                              $test2 = 0;
+                              $test3 = 0;
+                          foreach ($getrec[$title->tax_id] as $key => $title2) {
+
+                            $tax1 = $title2->tax_name;
+
+
+                          foreach ($getTax1[$title->tax_id] as $key => $title3) {
+
+                            $tax2 = $title2->tax_name;
+
+
+                            if ($tax1 == $tax2) {
+
+                              $tax = $title3->tax_estimate - $title2->receive_amount;
+
+
+                             ?>
+                             
+                      
+
+                          <tr>
+                         <td><?php echo $title2->tax_name;?></td>              
+                         <td style="text-align:right"><?php echo number_format ($title3->tax_estimate,2);?></td> 
+                         <td style="text-align:right"><?php echo number_format ($title2->receive_amount,2);?></td>      
+                         <td style="text-align:right"><?php echo number_format ($tax,2);?></td>     
+                                   
+                         </tr>
+
+
+                      <?php }
+                            }
+                            }
+                            }
                           
+                            
+                          
+
+                      ?>
                       </tbody>
 
-     
+        
                   </table>
                 </div>
                     

@@ -78,7 +78,9 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'npk',
+
+	'database' => 'jigsaw_npk',
+
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => false,
