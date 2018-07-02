@@ -35,9 +35,14 @@
               </tbody>
             </table>
 
-      <div style="text-align: right;">
-        <button type="submit" class="btn btn-primary">บันทึก</button>
-      </div>
+              <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3 text-center">
+                    <button type="submit" value="Submit" class="btn btn-primary">บันทึก
+                    </button>
+                    <button onclick="window.location.replace('<?php echo site_url('main/dashborad'); ?>');" type="button" class="btn btn-warning">ยกเลิก
+                    </button>
+              </div>
+          
+    
     </from>
     </div>
 
