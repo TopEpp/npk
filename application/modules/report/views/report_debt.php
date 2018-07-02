@@ -50,17 +50,24 @@
                               $test3 = 0;
 
                               foreach ($parentTax as $key => $value) { 
-                              foreach ($parentTax1 as $key => $value1) {
+
+                                $tax1 = $value->tax_name;
+
                               
 
+                              foreach ($parentTax1 as $key => $value1) {
+                              
+                                $tax2 = $value1->tax_name;
+                              
                            
-                      if ($value->tax_name == $value1->tax_name )  {
+                      if ($tax1 == $tax2)  {
                                 $tax = $value->notice_estimate - $value1->receive_amount;
-                   
-          
+                     
+
+                              
                         ?>
 
-                        <td style="width: 23%; text-align:center"><?php echo $value->tax_name;?></td>
+                        <td style="width: 23%; text-align:center"><?php echo $tax1; ?></td>
                        <td style="width: 12%; text-align:right"><?php  echo number_format($tax,2);?></td> 
                         <td style="width: 12%; text-align:right"><?php  echo number_format ($value1->interest,2);?></td> 
                       <td style="width: 12%; text-align:right"><?php  echo number_format (($tax+$value1->interest),2);?></td>
@@ -71,6 +78,9 @@
                               $test = $test + ($tax+$value1->interest);
                               $test2 = $test2 + $value1->interest;
                               $test3 = $test3 + $tax;
+
+
+                    
                           }
                           
                           }
