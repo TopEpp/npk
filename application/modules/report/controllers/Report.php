@@ -13,17 +13,13 @@ class Report extends MY_Controller
     public function report_rec()
     {
         $data = array();
-
-        $data['report'] = $this->Report_model->getReport_rec_All();
-        $this->config->set_item('title', 'รายงานรายรับ - เทศบาลตำบลหนองป่าครั่ง');
         $data['getrec'] = $this->Report_model->getrec();
-        $data['getTax1'] = $this->Report_model->getTax1(); 
+
+        $this->config->set_item('title', 'รายงานรายรับ - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/report/js/chart.js');
         $this->setView('report_rec', $data);
         $this->publish();
         
-        // echo '<pre>';
-        // print_r( $data['getTax1'] );
     }
 
 

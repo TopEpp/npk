@@ -1,12 +1,52 @@
+var labels=new Array();
+var data1=new Array();
+var data2=new Array();
+var labels2=[];
+$(function(){
+    labels_chart = $('#labels_chart').val();
+    labels_chart = labels_chart.split('||');
+
+    var datasets1 = $('#datasets1').val();
+    datasets1 = datasets1.split('||');
+
+    var datasets2 = $('#datasets2').val();
+    datasets2 = datasets2.split('||');
+
+
+    $.each( labels_chart, function( key, value ) {
+      labels.push(value);
+    });
+
+    $.each( datasets1, function( key, value ) {
+      data1.push( parseFloat(value) ) ;
+    });
+
+    $.each( datasets2, function( key, value ) {
+      data2.push( parseFloat(value) );
+    });
+
+    console.log(labels);
+    console.log(data1);
+    console.log(data2);
+
+    labels2 = ["หมวดภาษีอากร", "หมวดภาษีจัดสรร", "หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต", "หมวดรายได้และทรัพย์สิน", "หมวดรายได้สาธารณูปโภคและสาธารณสุขฯ", "หมวดรายได้เบ็ดเตล็ด", "หมวดเงินอุดหนุน"];
+    
+});
+
 var ctx = document.getElementById("report_receive").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["หมวดภาษีอากร", "หมวดค่าภาษีจัดสรร", "หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต", "หมวดรายได้จากทรัพย์สิน", "หมวดรายได้สาธารณูปโภคและสาธารณสุขฯ", "หมวดรายได้เบ็ดเตล็ด", "หมวดเงินอุดหนุน"],
+        labels: ["หมวดภาษีอากร", "หมวดภาษีจัดสรร", "หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต", "หมวดรายได้และทรัพย์สิน", "หมวดรายได้สาธารณูปโภคและสาธารณสุขฯ", "หมวดรายได้เบ็ดเตล็ด", "หมวดเงินอุดหนุน"],
         datasets: [{
-            label: 'รายรับจริง',
-            data: [229310.00, 931025.00, 532678.00, 763235.95, 292943.00, 300000.00, 101404.01],
+            label: 'ประมานการรายรับ ',
+            data: [2013050, 3263180, 0, 0, 0, 0, 0],
             backgroundColor: "#26B99A",
+        },
+        {
+            label: 'รายรับจริง',
+            data: [65546, 219000, 21000, 0, 0, 0, 0],
+            backgroundColor: "#008080",
         }]
     },
     options: {
