@@ -48,7 +48,7 @@
                                             <br>
                                                 <div class="col-md-6 col-sm-12 col-xs-12 col-centered">
                                                     <a href="<?php echo (base_url('receive/other_tax')) ?>">
-                                                        <button type="button" class="btn btn-nav" style="height: 110px; width:270px;">
+                                                        <button type="button" class="btn btn-nav-one" style="height: 110px; width:270px;">
                                                             <i class="fas fa-hand-holding-usd"></i>
                                                             <h4>หมวดรายรับอื่น</h4>
                                                         </button>
@@ -57,7 +57,7 @@
 
                                                 <div class="col-md-6 col-sm-12 col-xs-12 col-centered">
                                                     <a href="<?php echo (base_url('receive/outside')) ?>">
-                                                        <button type="button" class="btn btn-nav" style="height: 110px; width:270px;">
+                                                        <button type="button" class="btn btn-nav-one" style="height: 110px; width:270px;">
                                                             <i class="fas fa-hand-holding-usd"></i>
                                                             <h4>รายรับนอกงบประมาณ</h4>
                                                         </button>
@@ -110,7 +110,8 @@
 
 .btn-nav {
     text-align: center;
-    background-color: #ECF0F1;
+    background-color: #1ABC9C;
+    color: white;
     border: 0px solid #8E44AD;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -118,13 +119,30 @@
     margin-bottom: 40px;
 }
 .btn-nav:hover {
+    background-color: #2A3F54;
+    color: white;
+    
+    -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+    box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+}
+.btn-nav-one{
+    text-align: center;
+    background-color: #2A3F54;
+    color: white;
+    border: 0px solid #8E44AD;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    margin-bottom: 40px;
+}
+.btn-nav-one:hover {
     background-color: #1ABC9C;
     color: white;
     
     -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
     box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
-
 }
 
 
@@ -163,6 +181,14 @@
     padding-top: 16px;
 	font-size: 40px;
 }
+.btn-nav-one .fas {
+    padding-top: 16px;
+	font-size: 40px;
+}
+
+.btn-nav.active p {
+    margin-bottom: 8px;
+}
 .btn-nav.active p {
     margin-bottom: 8px;
 }
@@ -173,6 +199,21 @@
     $(document).ready(function(){
 
         $('.btn-nav').hover(
+            // trigger when mouse hover
+            function(){
+                $(this).animate({
+                    marginTop: "-=1%",
+                },200);
+            },
+
+            // trigger when mouse out
+            function(){
+                $(this).animate({
+                    marginTop: "0%"
+                },200);
+            }
+        );
+        $('.btn-nav-one').hover(
             // trigger when mouse hover
             function(){
                 $(this).animate({
