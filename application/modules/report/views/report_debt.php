@@ -20,7 +20,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel" style="top: 10px;">
                     <div class="col-xs-12 ">
-                          <h5 class="inline text-right">ข้อมูล ณ วันที่ 11 พฤษภาคม 2561</h5> 
+                          <h5 class="inline text-right">ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'),543,'S')?></h5> 
                     </div>
 
                 
@@ -32,75 +32,36 @@
                     <table class="table table-bordered jambo_table">
                         <thead>
                        <tr>
-
                         <td align="center">ชื่อภาษี</td>
                         <td align="center">จำนวนเงิน</td>
                         <td align="center">เงินเพิ่ม</td>
                         <td align="center">รวม</td>
-                      
                        </tr>
-
                       </thead>
                       <tbody>
+                      <?php $sum1=$sum2=$sum3=0;
+                           foreach ($taxDebt as $key => $value) {
+                            $sum1 += (@$value->notice_estimate-@$value->receive_amount);
+                            $sum2 += (@$value->interest);
+                            $sum3 += (@$value->notice_estimate-@$value->receive_amount+@$interest);
+                         ?>
+                        <tr>
+                          <td><?php echo $value->tax_name?></td>
+                          <td style="text-align: right;"><?php echo number_format(@$value->notice_estimate-@$value->receive_amount,2) ?></td>
+                          <td style="text-align: right;"><?php echo number_format(@$value->interest,2) ?></td>
+                          <td style="text-align: right;"><?php echo number_format(@$value->notice_estimate-@$value->receive_amount+@$interest,2) ?></td>
 
-                    <tr>
-                        <?php 
-                              $test = 0;
-                              $test2 = 0;
-                              $test3 = 0;
-
-                              foreach ($parentTax as $key => $value) { 
-
-                                $tax1 = $value->tax_name;
-
-                              
-
-                              foreach ($parentTax1 as $key => $value1) {
-                              
-                                $tax2 = $value1->tax_name;
-                              
-                           
-                      if ($tax1 == $tax2)  {
-                                $tax = $value->notice_estimate - $value1->receive_amount;
-                     
-
-                              
-                        ?>
-
-                        <td style="width: 23%; text-align:center"><?php echo $tax1; ?></td>
-                       <td style="width: 12%; text-align:right"><?php  echo number_format($tax,2);?></td> 
-                        <td style="width: 12%; text-align:right"><?php  echo number_format ($value1->interest,2);?></td> 
-                      <td style="width: 12%; text-align:right"><?php  echo number_format (($tax+$value1->interest),2);?></td>
-                        
-        
-                  </tr>
-                   <?php
-                              $test = $test + ($tax+$value1->interest);
-                              $test2 = $test2 + $value1->interest;
-                              $test3 = $test3 + $tax;
-
-
-                    
-                          }
-                          
-                          }
-                      
-                          } 
-
-
-                        ?>
-                      </tbody> 
-                        
-                   <tr> 
-                        <th style="width: 23%; text-align:center">รวม</th>
-                        <th style="width: 12%; text-align:right"><?php echo number_format($test3,2); ?></th>
-                        <th style="width: 12%; text-align:right"><?php echo number_format($test2,2); ?></th>
-                        <th style="width: 12%; text-align:right"><?php echo number_format($test,2); ?></th>
-                    </tr>
-
-                   
-
-                       
+                        </tr>
+                      <?php } ?>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td align="center">รวม</td>
+                          <td align="right"><?php echo  number_format($sum1,2); ?></td>
+                          <td align="right"><?php echo  number_format($sum2,2); ?></td>
+                          <td align="right"><?php echo  number_format($sum3,2); ?></td>
+                        </tr>
+                      </tfoot>
                     </table>
                 </div>  
                     <div class="col-sm-6"></div>
@@ -143,139 +104,46 @@
                           </tr>
                         </thead>
                         <tbody>
+                            <?php $int =1 ;
+                              $sum1 = $sum2 = $sum3 = $sum4 = $sum5 = $sum6 =0;
+                              foreach ($person as $key => $value) {
+                                $sum1 += (@$value[8]['notice_estimate']-@$value[8]['receive_amount']);
+                                $sum2 += (@$value[8]['interest']);
+
+                                $sum3 += (@$value[9]['notice_estimate']-@$value[9]['receive_amount']);
+                                $sum4 += (@$value[9]['interest']);
+
+                                $sum5 += (@$value[10]['notice_estimate']-@$value[10]['receive_amount']);
+                                $sum6 += (@$value[10]['interest']);
+
+
+                            ?>
                             <tr>
-                                <td align="center">1</td>
-                                <td align="center">8396269419703</td>
-                                <td>สมบูรณ์ เอื้ออัชฌาสัย</td>
-                                <td align="right">3,000.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">3200.00</td>
+                                <td align="center"><?php echo $int++;?></td>
+                                <td align="center"><?php echo $value['idcard']?></td>
+                                <td><?php echo $value['name']?></td>
+                                <td align="right"><?php echo number_format(@$value[8]['notice_estimate']-@$value[8]['receive_amount'],2)?></td>
+                                <td align="right"><?php echo number_format(@$value[8]['interest'],2)?></td>
+                                <td align="right"><?php echo number_format(@$value[9]['notice_estimate']-@$value[9]['receive_amount'],2)?></td>
+                                <td align="right"><?php echo number_format(@$value[9]['interest'],2)?></td>
+                                <td align="right"><?php echo number_format(@$value[10]['notice_estimate']-@$value[10]['receive_amount'],2)?></td>
+                                <td align="right"><?php echo number_format(@$value[10]['interest'],2)?></td>
+                                <td align="right"><?php echo number_format( (@$value[8]['notice_estimate']-@$value[8]['receive_amount']) + (@$value[9]['notice_estimate']-@$value[9]['receive_amount']) + (@$value[10]['notice_estimate']-@$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'],2)?></td>
                             </tr>
-                            <tr>
-                                <td align="center">2</td>
-                                <td align="center">1756043006342</td>
-                                <td>ชูศักดิ์  เกียรติเฉลิมคุณ</td>
-                                <td align="right">3,000.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">100.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">3100.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">3</td>
-                                <td align="center">7872035432812</td>
-                                <td>ดำรงค์  ปคุณวานิช</td>
-                                <td align="right">4,600.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">4800.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">4</td>
-                                <td align="center">3899846161597</td>
-                                <td>นุปกรณ์ หาญภูวดล</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">5</td>
-                                <td align="center">1853922756311</td>
-                                <td>สมหวัง จตุรงค์ล้ำเลิศ</td>
-                                <td align="right">2,200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">2,200.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">6</td>
-                                <td align="center">4010791379607</td>
-                                <td>พงษ์ศัก คงมา</td>
-                                <td align="right">6,200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">6,400.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">7</td>
-                                <td align="center">3899846161597</td>
-                                <td>พรมภิราช พันธุ์ยุลา</td>
-                                <td align="right">2,200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">2,200.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">8</td>
-                                <td align="center">1347035378265</td>
-                                <td>เพชร ยินดีรัมย์</td>
-                                <td align="right">2,200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">2,200.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">9</td>
-                                <td align="center">9585701591998</td>
-                                <td>บจ.ตวงศิริโฮลดิ้ง จำกัด</td>
-                                <td align="right">2,200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">2,200.00</td>
-                            </tr>
-                            <tr>
-                                <td align="center">10</td>
-                                <td align="center">4475486542975</td>
-                                <td>บจ.ห้างทองอรุณชัย จำกัด</td>
-                                <td align="right">2,200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">200.00</td>
-                                <td align="right">0.00</td>
-                                <td align="right">2,200.00</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td align="right"><b>27,800.00</b></td>
-                                <td align="right"><b>0.00</b></td>
-                                <td align="right"><b>300.00</b></td>
-                                <td align="right"><b>0.00</b></td>
-                                <td align="right"><b>16,000.00</b></td>
-                                <td align="right"><b>0.00</b></td>
-                                <td align="right"><b>28,700.00</b></td>
-                            </tr>
+                            <?php } ?>
                         </tbody>
+                        <tfoot>
+                          <tr>
+                            <td align="center" colspan="3">รวม</td>
+                            <td align="right"><?php echo number_format($sum1,2) ?></td>
+                            <td align="right"><?php echo number_format($sum2,2) ?></td>
+                            <td align="right"><?php echo number_format($sum3,2) ?></td>
+                            <td align="right"><?php echo number_format($sum4,2) ?></td>
+                            <td align="right"><?php echo number_format($sum5,2) ?></td>
+                            <td align="right"><?php echo number_format($sum6,2) ?></td>
+                            <td align="right"><?php echo number_format($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6,2) ?></td>
+                          </tr>
+                        </tfoot>
                   </table>
                 </div>
                     

@@ -43,6 +43,7 @@
                               </thead>
                               <tbody>
                            <?php $labels_chart = $datasets1 = $datasets2 = '';
+                                $sum1 = $sum2 = 0;
                                 foreach ($getrec[0] as $key => $title) { 
                                 $diff = $sum[$title->tax_id]->tax_estimate-$sum[$title->tax_id]->receive_amount;
                                 $color = '';
@@ -54,6 +55,9 @@
                                 $datasets1 .= $sum[$title->tax_id]->tax_estimate.'||';
                                 $datasets2 .= $sum[$title->tax_id]->receive_amount.'||';
 
+
+                                $sum1 += (@$sum[$title->tax_id]->tax_estimate);
+                                $sum2 += (@$sum[$title->tax_id]->receive_amount);
                                 ?>
 
                               <tr>
@@ -67,6 +71,14 @@
                            $datasets1= substr($datasets1, 0,-2);
                            $datasets2= substr($datasets2, 0,-2); ?>
                             </tbody>
+                            <tfoot>
+                              <tr>
+                                <td align="center">รวม</td>
+                                <td align="right"><?php echo number_format($sum1,2); ?></td>
+                                <td align="right"><?php echo number_format($sum2,2); ?></td>
+                                <td align="right"><?php echo number_format($sum1-$sum2,2); ?></td>
+                              </tr>
+                            </tfoot>
                             </table>
                             <input type="hidden" id="labels_chart" value="<?php echo $labels_chart;?>">
                             <input type="hidden" id="datasets1" value="<?php echo $datasets1;?>">
@@ -128,13 +140,16 @@
 
                       <?php }
                             }
-                          
-                            
-                          
-
                       ?>
                       </tbody>
-
+                      <tfoot>
+                        <tr>
+                          <td align="center">รวม</td>
+                          <td align="right"><?php echo number_format($sum1,2); ?></td>
+                          <td align="right"><?php echo number_format($sum2,2); ?></td>
+                          <td align="right"><?php echo number_format($sum1-$sum2,2); ?></td>
+                        </tr>
+                      </tfoot>
         
                   </table>
                 </div>
