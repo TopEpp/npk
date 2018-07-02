@@ -27,6 +27,8 @@ class Expenditure extends MY_Controller
 
         // $this->load->view('template/template', $data);
         $data = array();
+        $year = $this->session->userdata('year');
+        $data['expenditure'] = $this->expenditure_model->getExpenditure($year);
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('expenditure_prj', $data);
         $this->publish();
