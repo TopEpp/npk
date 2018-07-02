@@ -14,7 +14,7 @@ $(function () {
     });
 
     var table = $('#tax_table').DataTable({
-        pageLength: 25,
+        pageLength: 100,
         serverSide: true,
         processing: true,
         lengthChange: false,
@@ -41,10 +41,14 @@ $(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-
-                    return row.notice_number_id + "/" + row.tax_year;
+                    return row.notice_number + "/" + row.tax_year;
+                    // return row.tax_year;
                 },
                 "className": "text-center",
+            },
+            {
+                data: 'notice_estimate',
+                "className": "text-right",
             },
             {
                 data: 'individual_number',
@@ -61,22 +65,20 @@ $(function () {
                 data: 'individual_fullname',
             },
             {
-                data: 'tax_type_name',
-            },
-            {
                 data: 'tax_name',
             },
-            {
-                data: 'notice_estimate',
-                "className": "text-right",
-            },
+            // {
+            //     data: 'tax_amount',
+            // },
+
             {
                 data: 'notice_id',
                 render: function (data, type, row) {
                     var btn =
                         '<div class="btn-group ">' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข"><i class="glyphicon glyphicon-edit"></i></button>' +
-                        '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ"><i class="glyphicon glyphicon-trash"></i></button>'
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
+                        '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
                     '</div>';
                     return btn;
                 },

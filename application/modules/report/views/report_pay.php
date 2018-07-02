@@ -191,42 +191,7 @@
                             <td>&emsp;&emsp;&emsp;- โครงการวิเคราะห์นโยบายและแผน</td>
                             <td align="right"><?php echo number_format(10000, 2); ?></td>               
                           </tr>
-                          <tr>
-                            <td>&emsp;&emsp;&emsp;- โครงการจัดทำงบประมาณ</td>
-                            <td align="right"><?php echo number_format(10000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;&emsp;- โครงการวิจัยและประเมินผล</td>
-                            <td align="right"><?php echo number_format(10000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;<b>แผนงานอ่างเก็บน้ำสวนสาธารณะ</b></td>
-                            <td align="right"><?php echo number_format(50000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;&emsp;- โครงการวิจัยและประเมินผล</td>
-                            <td align="right"><?php echo number_format(10000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;&emsp;- โครงการจัดทำงบประมาณ</td>
-                            <td align="right"><?php echo number_format(10000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;&emsp;- โครงการวิจัยและประเมินผล</td>
-                            <td align="right"><?php echo number_format(10000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;<b>แผนงานจัดการขยะมูลฝอยแบบบูรณาการสามระบบ</b></td>
-                            <td align="right"><?php echo number_format(50000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;<b>แผนงานการบริหารทรัพยากรบุคคล</b></td>
-                            <td align="right"><?php echo number_format(50000, 2); ?></td>               
-                          </tr>
-                          <tr>
-                            <td>&emsp;&emsp;<b>แผนงานอุโมงค์ลดโลกร้อน</b></td>
-                            <td align="right"><?php echo number_format(50000, 2); ?></td>               
-                          </tr>
+                          
                         </tbody>
                       </table>
                     </div>

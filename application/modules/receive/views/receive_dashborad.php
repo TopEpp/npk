@@ -5,11 +5,11 @@
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                            <button type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
+                            <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
                             </button>
-                            <button onclick="window.location.replace('');" type="button" class="btn btn-success" title="ทำซ้ำข้อมูล"><i class="glyphicon glyphicon-duplicate"></i> ทำซ้ำข้อมูล
+                            <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="ทำซ้ำข้อมูล"><i class="glyphicon glyphicon-duplicate"></i> ทำซ้ำข้อมูล
                             </button>
-                            <button onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
+                            <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
                             </button>
                       </div>
                   </div>
@@ -75,12 +75,12 @@
                         <thead>
                           <tr>
                             <th width="5%">ลำดับ</th>
-                            <th width="10%">รหัสประเมิน/ปี</th>
+                            <th width="10%">เลขที่รับ/ปี</th>
+                            <th width="10%">จำนวนเงินที่ประเมิน (บาท)</th>
                             <th width="15%">เลขประจำตัวผู้เสียภาษี</th>
                             <th width="20%">ชื่อผู้เสียภาษี</th>
-                            <th width="15%">ประเภทผู้เสียภาษี</th>
                             <th width="10%">หมวดรายได้</th>
-                            <th width="10%">จำนวนเงินที่ประเมิน (บาท)</th>
+                            <!-- <th width="10%">จำนวนเงินที่ชำระ (บาท)</th> -->
                             <th width="20%">เครื่องมือ</th>
                           </tr>
                         </thead>

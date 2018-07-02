@@ -8,13 +8,13 @@
    <div class="x_content">
      <div class="x_panel">
      <br>
-     <div class="">
+     
      <form method="post" action="<?php echo base_url('Tax_estimate/saveEstimate') ?>">
           <table class="table table-bordered jambo_table">
               <thead>
                 <tr>
                   <th width="80%">หมวดรายได้</th>
-                  <th>ประมาณการ</th>
+                  <th>ประมาการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,11 +35,10 @@
               </tbody>
             </table>
 
-            <div style="text-align: right;">
-              <button type="submit" class="btn btn-default">บันทึก</button>
-            </div>
+      <div style="text-align: right;">
+        <button type="submit" class="btn btn-primary">บันทึก</button>
+      </div>
     </from>
-    
     </div>
 
     </div>
