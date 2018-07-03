@@ -14,18 +14,18 @@ $(function () {
             [{
                     title: 'แผนงาน',
                     field: 'name',
-                    width: 65
+                    width: 60
                 },
                 {
                     field: 'budget',
-                    title: 'งบประมาณ',
+                    title: 'กรอบงบประมาณ (บาท)',
                     width: 15,
                     align: 'right'
                 },
                 {
                     field: 'tools',
                     title: '&nbsp;',
-                    width: 20,
+                    width: 25,
                     align: 'right'
                 },
                 // {field:'end',title:'End Date',width:80}
@@ -254,7 +254,7 @@ function add_prj(parent,value) {
         value = '0';
 
     //clear data
-    window.location = domain+'project_training/prjAdd/'+parent+'/'+value;  
+    window.location = domain+'project_training/prjAdd/'+parent+'/'+value; 
     // $("input[type='text']").val('');
     // $(".flat").parents('div').removeClass('checked');
 
@@ -271,43 +271,49 @@ function pay_prj(value){
     window.location = domain+'expenditure/expenditure_form/'+value;  
 }
 //edit prj
-function edit_prj(value) {
+function edit_prj(parent,value) {
+
+    if (value == undefined)
+    value = '0';
+
+    //clear data
+    window.location = domain+'project_training/prjAdd/'+parent+'/'+value+'/edit'; 
     //clear radio
-    $(".flat").parents('div').removeClass('checked');
+    // $(".flat").parents('div').removeClass('checked');
 
-    var year = $('.selectpicker').val();
-    $('#project_year').text(parseInt(year) + 543);
-    $('#hidden_prj_edit').val(true);
-    $('#prj_year').val(year);
-    $.ajax({
-        method: "POST",
-        url: domain + 'project_training/getPrj',
-        data: {
-            data: value
-        }
-    }).success(function (msg) {
-        $('#hidden_prj_id').val(msg[0]['prj_id']);
-        $('#prj_name').val(msg[0]['prj_name']);
-        $('#prj_budget').val(msg[0]['prj_budget']);
-        $('#prj_owner').val(msg[0]['prj_owner']);
-        $('#prj_parent').val(msg[0]['prj_parent']);
+    // var year = $('.selectpicker').val();
+    // $('#project_year').text(parseInt(year) + 543);
+    // $('#hidden_prj_edit').val(true);
+    // $('#prj_year').val(year);
+    // $.ajax({
+    //     method: "POST",
+    //     url: domain + 'project_training/getPrj',
+    //     data: {
+    //         data: value
+    //     }
+    // }).success(function (msg) {
+    //     $('#hidden_prj_id').val(msg[0]['prj_id']);
+    //     $('#prj_name').val(msg[0]['prj_name']);
+    //     $('#prj_budget').val(msg[0]['prj_budget']);
+    //     $('#prj_owner').val(msg[0]['prj_owner']);
+    //     $('#prj_parent').val(msg[0]['prj_parent']);
 
-        $("input[name='prj_status']").each(function (index) {
-            if ($(this).val() == msg[0]['prj_status']) {
-                $('#prj_status' + index).prop("checked", true);
-                $('#prj_status' + index).parents('div').addClass('checked');
-            }
-        });
-        $("input[name='prj_type']").each(function (index) {
-            if ($(this).val() == msg[0]['prj_type']) {
-                $('#prj_type' + index).prop("checked", true);
-                $('#prj_type' + index).parents('div').addClass('checked');
-            }
-        });
+    //     $("input[name='prj_status']").each(function (index) {
+    //         if ($(this).val() == msg[0]['prj_status']) {
+    //             $('#prj_status' + index).prop("checked", true);
+    //             $('#prj_status' + index).parents('div').addClass('checked');
+    //         }
+    //     });
+    //     $("input[name='prj_type']").each(function (index) {
+    //         if ($(this).val() == msg[0]['prj_type']) {
+    //             $('#prj_type' + index).prop("checked", true);
+    //             $('#prj_type' + index).parents('div').addClass('checked');
+    //         }
+    //     });
 
-        $('.creat_prj').modal();
+    //     $('.creat_prj').modal();
 
-    })
+    // })
 }
 
 //del all project or prj
