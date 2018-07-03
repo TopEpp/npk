@@ -36,12 +36,13 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td align="center">29/04/2560</td>
-                          <td align="center">56030011132010000017</td>
-                          <td>แผนงานอุโมงค์ลดโลกร้อน</td>  
-                          <td align="right">300,000.00</td>
-                          <td>ไพโรจน์ สุริยะ</td>
+                      <?php foreach ($expenditure as $key => $value) {?>
+                         <tr>
+                          <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date,543,'S')?></td>
+                          <td align="center"><?php echo $value->expenses_number;?></td>
+                          <td><?php echo $value->prj_name;?></td>  
+                          <td align="right"><?php echo number_format($value->expenses_amount_result,2); ?></td>
+                          <td></td>
                           <td>
                             <center>
                                 <div class="btn-group ">
@@ -55,86 +56,8 @@
                             </center>               
                           </td>
                         </tr>
+                      <?php } ?> 
 
-                        <tr>
-                          <td align="center">14/03/2560</td>
-                          <td align="center">46008004635080130550</td>
-                          <td>แผนงานการบริหารทรัพยากรบุคคล</td>  
-                          <td align="right">20,000.00</td>
-                          <td>ไพโรจน์ สุริยะ</td>
-                          <td>
-                            <center>
-                                <div class="btn-group ">
-                                    <button type="button" class="btn btn-success btn-sm" title="แก้ไข">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </div>
-                            </center>               
-                          </td>
-                        </tr>
-                        
-                        <tr>
-                          <td align="center">4/03/2559</td>
-                          <td align="center">18777972531266493433</td>
-                          <td>แผนงานจัดการขยะมูลฝอยแบบบูรณาการสามระบบ</td>  
-                          <td align="right">150,000.00</td>
-                          <td>ไพโรจน์ สุริยะ</td>
-                          <td>
-                            <center>
-                                <div class="btn-group ">
-                                    <button type="button" class="btn btn-success btn-sm" title="แก้ไข">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </div>
-                            </center>               
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td align="center">19/02/2559</td>
-                          <td align="center">23413714512731653114</td>
-                          <td>แผนงานอ่างเก็บน้ำสวนสาธารณะ</td>  
-                          <td align="right">650,000.00</td>
-                          <td>ไพโรจน์ สุริยะ</td>
-                          <td>
-                            <center>
-                                <div class="btn-group ">
-                                    <button type="button" class="btn btn-success btn-sm" title="แก้ไข">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </div>
-                            </center>               
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td align="center">15/02/2558</td>
-                          <td align="center">19082392162368593912</td>
-                          <td>แผนงานส่งเสริมคุณภาพสิ่งแวดล้อม</td>  
-                          <td align="right">50,000.00</td>
-                          <td>ไพโรจน์ สุริยะ</td>
-                          <td>
-                            <center>
-                                <div class="btn-group ">
-                                    <button type="button" class="btn btn-success btn-sm" title="แก้ไข">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </div>
-                            </center>               
-                          </td>
-                        </tr>
                       <tbody>
                     </table>
                 </div>

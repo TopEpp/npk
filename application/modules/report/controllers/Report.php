@@ -13,17 +13,13 @@ class Report extends MY_Controller
     public function report_rec()
     {
         $data = array();
-
-        $data['report'] = $this->Report_model->getReport_rec_All();
-        $this->config->set_item('title', 'รายงานรายรับ - เทศบาลตำบลหนองป่าครั่ง');
         $data['getrec'] = $this->Report_model->getrec();
-        $data['getTax1'] = $this->Report_model->getTax1(); 
+
+        $this->config->set_item('title', 'รายงานรายรับ - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/report/js/chart.js');
         $this->setView('report_rec', $data);
         $this->publish();
         
-        // echo '<pre>';
-        // print_r( $data['getTax1'] );
     }
 
 
@@ -40,17 +36,14 @@ class Report extends MY_Controller
     public function report_debt()
     {
         $data = array();
+        $year =  $this->session->userdata('year');
+        $data['taxDebt'] = $this->Report_model->getTaxDebt($year);
+        $data['person'] = $this->Report_model->getPersonDebt($year);
 
-        $this->load->database();
-        $this->load->model('Report_model');
-        $data['parentTax'] = $this->Report_model->getparentTax();
-        $data['parentTax1'] = $this->Report_model->getparentTax1();
         $this->config->set_item('title', 'รายงานลูกหนี้ - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/report/js/chart_debt.js');
         $this->setView('report_debt', $data);
-        $this->publish();
-
-   
+        $this->publish();   
     }
    
 
@@ -86,6 +79,15 @@ class Report extends MY_Controller
             }
         }
         $this->json_publish($data);
+    }
+
+    function report_person($id){
+        $data = array();
+        $data['data'] = $this->Report_model->getPersonTax($id);
+
+        $this->config->set_item('title', 'ทะเบียนคุมผู้ชำระภาษี');
+        $this->setView('report_person', $data);
+        $this->publish();   
     }
 
 

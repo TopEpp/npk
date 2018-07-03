@@ -42,5 +42,15 @@ class expenditure_model extends CI_Model
 		$this->db->insert('tbl_expenses',$input);
 	}
 
+	function getExpenditure($year){
+		$this->db->select('tbl_expenses.*, tbl_project.prj_name');
+		$this->db->from('tbl_expenses');
+		$this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
+		$this->db->where('prj_year',$year);
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
 	
 }

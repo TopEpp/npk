@@ -240,7 +240,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 			$zipCreate = $ro->getConstant('CREATE');
 
 			if (file_exists($pFilename)) {
-				unlink($pFilename);
+				@unlink($pFilename);
 			}
 			// Try opening the ZIP file
 			if ($objZip->open($pFilename, $zipOverWrite) !== true) {
@@ -374,7 +374,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 			PHPExcel_Calculation::getInstance()->writeDebugLog = $saveDebugLog;
 
 			// Close file
-			if ($objZip->close() === false) {
+			if (@$objZip->close() === false) {
 				throw new Exception("Could not close zip file $pFilename.");
 			}
 

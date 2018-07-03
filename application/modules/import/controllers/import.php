@@ -38,7 +38,7 @@ class import extends MY_Controller{
 		$this->load->model('import_model');
 		$dataTmp = $this->import_model->getTmpWard();
 		echo '<pre>';
-		// print_r($dataTmp);
+		print_r($dataTmp);
 		$this->import_model->importNoticeWard($dataTmp);
 	}
 
