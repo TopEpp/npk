@@ -60,7 +60,7 @@ class Report extends MY_Controller
         }
  
         // var_dump($prj[0]);die();
-        $data['project'] = $this->project_model->getTreeProjectManage($prj);
+        $data['project'] = $this->Report_model->getTreeProjectManage($prj);
 
         $this->template->javascript->add('assets/modules/report/js/chart_project_manage.js');
         $this->setView('report_project_manage', $data);
