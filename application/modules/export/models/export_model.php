@@ -11,7 +11,8 @@ class export_model extends CI_Model
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
-
+         $this->db->where('tax_notice.notice_id');
+        
         $query = $this->db->get();
         return $query->result_array();
       }
