@@ -126,8 +126,14 @@ class Report_model extends CI_Model
         // $this->db->GROUP_BY('tbl_individual.individual_id,tbl_tax.tax_id,tax_notice.tax_year,tax_notice.notice_id');
         // $this->db->having('notice_estimate > receive_amount');
         $query = $this->db->get();
+        $count_tax1 = $count_tax2 = $count_tax3 = 0;
         foreach ($query->result() as $key => $value) {
 
+            $this->db->select('receive_date,receipt_number,SUM(tax_receive.receive_amount) as receive_amount');
+            $this->db->from('tax_receive');
+            $this->db->where('tax_receive.notice_id', $value->notice_id);
+            $query_re = $this->db->get();
+            $row_re = $query_re->row();
 
             @$data['person']['name'] = $value->individual_firstname.' '.$value->individual_lastname;
             @$data['person']['idcard'] = $value->individual_number;
@@ -136,7 +142,36 @@ class Report_model extends CI_Model
             @$data['person']['phone'] = $value->individual_phone;
             @$data['person']['fax'] = '';
 
-            @$data['tax'][$value->tax_year][$value->tax_id][$value->notice_id]['notice_estimate'] = $value->notice_estimate; 
+            if($value->tax_id==8){
+                $count_tax1++;
+                $count_tax = $count_tax1;
+            }else if($value->tax_id==9){
+                $count_tax2++;
+                $count_tax = $count_tax2;
+            }else if($value->tax_id==10){
+                $count_tax3++;
+                $count_tax = $count_tax3;
+            }
+
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['year'] = $value->tax_year;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_number_p2'] = $value->notice_number_p2;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_date_p2'] = $value->notice_date_p2;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_estimate'] = $value->notice_estimate;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_date'] = $value->notice_date;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_number'] = $value->notice_number;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_no'] = $value->notice_no;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_date_p5'] = $value->notice_date_p5;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_annual_fee'] = $value->notice_annual_fee;
+            
+
+            @$data['tax'][$value->tax_id][$count_tax]['tax_receive']['receive_date'] = $row_re->receive_date;
+            @$data['tax'][$value->tax_id][$count_tax]['tax_receive']['receive_amount'] = $row_re->receive_amount;
+            @$data['tax'][$value->tax_id][$count_tax]['tax_receive']['receipt_number'] = $row_re->receipt_number;
+
+            $cc = array($count_tax1,$count_tax2,$count_tax3);
+            $cc = max($cc);
+
+            $data['count_rec'] = $cc;
         }
 
         return $data;
