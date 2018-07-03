@@ -4,6 +4,11 @@ class Report_model extends CI_Model
 
 {
     public $_dataTax;
+    protected $data_budget = ['', 'งบบุคลากร', 'งบดำเนินงาน', 'งบลงทุน', 'งบเงินอุดหนุน', 'งบกลาง'];
+    protected $data_cost = [
+        '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
+        'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง'
+    ];
 
     public function getReport_rec_All()
     {
@@ -175,6 +180,67 @@ class Report_model extends CI_Model
         }
 
         return $data;
+    }
+
+    /// PROJECT ///
+
+    public function getTreeProjectManage($project)
+    {
+        $ul = '';
+        foreach ($project as $key => $value) {
+
+            if (empty($value->project_parent)) {
+                $ul .= '<tbody>';
+                $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
+                        <td align="right">' . number_format($value->prj_budget) . '</td>
+                        <td align="right"></td>
+                        <td align="right"></td>
+                        <td align="right">' . number_format($value->prj_budget) . '</td>
+                        <td align="right"></td>
+                        <td align="right"></td>
+                        <td align="right"></td>
+                        </tr>';
+                $ul .= $this->getTreeChildProject($value->project_id);
+                $ul .= '</tbody>';
+            }
+
+        }
+
+        return $ul;
+    }
+
+    public function getTreeChildProject($parent = '0', &$ul = '', $tab = '')
+    {
+        //tab data
+        $tab = '&emsp;&emsp;' . $tab;
+
+        $this->db->where('project_parent', $parent);
+        $query = $this->db->get('tbl_project_manage');
+        foreach ($query->result() as $key => $row) {
+
+            $ul .= '<tr>';
+            if (@$row->project_level == 3) {
+                $ul .= "<td>{$tab}" . $this->data_budget[$row->project_title] . "</td>";
+            } else if (@$row->project_level == 4) {
+                $ul .= "<td>{$tab}" . $this->data_cost[$row->project_title] . "</td>";
+            } else {
+                $ul .= "<td>{$tab}" . $row->project_title . "</td>";
+            }
+
+            $ul .= "<td align='right'>". number_format($row->prj_budget)."</td>";
+            $ul .= "<td align='right'></td>";
+            $ul .= "<td align='right'></td>";
+            $ul .= "<td align='right'>". number_format($row->prj_budget)."</td>";
+            $ul .= "<td align='right'></td>";
+            $ul .= "<td align='right'></td>";
+            $ul .= "<td align='right'></td>";
+            $ul .= '</tr>';
+
+
+            $this->getTreeChildProject(@$row->project_id, $ul, $tab);
+        }
+
+        return $ul;
     }
 
 }
