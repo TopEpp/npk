@@ -62,6 +62,8 @@ class Report extends MY_Controller
         // var_dump($prj[0]);die();
         $data['project'] = $this->Report_model->getTreeProjectManage($prj);
 
+        // $this->Report_model->updateLogPrj();
+
         $this->template->javascript->add('assets/modules/report/js/chart_project_manage.js');
         $this->setView('report_project_manage', $data);
         $this->publish();
