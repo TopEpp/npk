@@ -52,7 +52,7 @@ class Expenditure extends MY_Controller
         $this->load->view('table_prj', $data);
     }
 
-    function expenditure_form($project_id = '')
+    function expenditure_form($project_id = '',$expenses = '')
     {
         $data = array();
         if ($project_id == '') {
@@ -61,7 +61,8 @@ class Expenditure extends MY_Controller
 
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - บันทึกการเบิกจ่าย');
         $data['prj'] = $this->expenditure_model->getPrjById($project_id);
-        $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id);
+        $data['expenses'] = $this->expenditure_model->getPrjExpenses($expenses);
+
 
         $data['project_id'] = $project_id;
         $this->template->javascript->add('assets/modules/expenditure/form.js');

@@ -1,7 +1,7 @@
 <?php
 class export extends My_Controller {
 
-    public function __construct()
+ public function __construct()
     {
         parent::__construct();
 
@@ -10,40 +10,120 @@ class export extends My_Controller {
         $this->load->library('ExportPdf');
     }
 
-    function test(){
+    function gat1(){
 
-      $content="<table cellspacing='0' cellpadding='0' width='100%'>
-                  <tr><td COLSPAN='8'  ALIGN='center'>TEST</td></tr>
-                  <tr><td COLSPAN='8'  ALIGN='center'>Students Proficient or Above</td></tr>
-                  <tr><td COLSPAN='8'  ALIGN='center'>XXX XXX</td></tr>
-                </table>";
+      $content='<table border="0" style="width:100%;" >
+              <tr> 
+                <td colspan="3" style="text-align: right;" ></td>
+              </tr>
+              <tr> 
+                <td style="width:center;">ภ.ป. ๓ 
+                  <br><br>หนังสือแจ้งการประเมิน<br><br> 
+                      
+                      เรื่อง....................../...................
 
-      $dataExport[]=array('html'=>$content,'border'=>false,'auto'=>true ) ;
+                </td>
+                <td>  </td> 
+                <td style="text-align: right; ">เทศบาลตำบลหนองป่าครั่ง<br><br>อ.เมือง จ.เชียงใหม่ 50000 </td >   
+              </tr>
 
-      $content = '<table class="table table-striped table-bordered" cellspacing="0" cellpadding="0" width="100%" border="1">
-                    <thead>
-                    <tr>
-                        <th>School Year</th>
-                        <th>Target</th>
-                        <th>All Grades Tested</th>
-                        <th class="grade3" >Grade 3</th>
-                        <th class="grade4" >Grade 4</th>
-                        <th class="grade5" >Grade 5</th>
-                        <th class="grade6" >Grade 6</th>
-                        <th class="grade7" >Grade 7</th>
-                        <th class="grade8" >Grade 8</th>
-                        <th class="grade9" >Grade 9</th>
-                        <th class="grade10" >Grade 10</th>
-                        <th class="grade11" >Grade 11</th>
-                        <th class="grade12" >Grade 12</th>
-                        <th># of Exams</th>
-                      </tr>
-                    </thead>
-                    <tbody>';
+              <tr> 
+              <br>
+                <td colspan="3"><br>เรื่อง  แจ้งการประเมินภาษีป้าย <br><br> เรื่อง.........................................</td>
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: right;"><br><br>ตามที่ท่านได้ยื่นแบบแสดงรายการภาษีป้ายไว้ตามแบบ ภ.ป. ๑ เลขรับที่....................../๒๕......................... 
+              </tr>
+              <tr> 
+                <td colspan="3" style="width:10px;"><br>
+                ลงวันที่...........................เดือน..................................................พ.ศ...................................ไว้ นั้น
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: right;"><br>บัดนี้ พนักงานเจ้าหน้าที่ได้ทำการประเมินเสร็จแล้ว เป็นเงินภาษีป้าย....................................................บาท
+              </tr>
+              <tr> 
+                <td colspan="3" style="width:10px;"><br>
+                .......................สตางค์ และเงินเพิ่ม.......................บาท.......................สตางค์ รวมทั้งสิ้นเป็นเงิน......................บาท
+              </tr>
+              <tr> 
+                <td colspan="3" style="width:10px;"><br>
+                .......................สตางค์ โปรดนำเงินจำนวนดังกล่าวไปชำระภายใน ๑๕ วัน นับตั้งแต่วันที่ได้รับหนังสือนี้ 
+                หากพ้น<br><br>กำหนดจะต้องเสียเงินเพิ่มตามกฏหมาย
+              </tr>
+              <tr> 
+                <td></td>
+                <td style="width:10px;"></td>
+                <td style="text-align: center;"><br><br><br><br>  ขอแสดงความนับถือ (อย่างสูง) <br><br><br>................................................................ <br><br> (................................................................) <br><br> พนักงานเจ้าหน้าที่ </td>
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: center;"><br><br><br><br><br><br><br><br>ใบรับ ภ.ป.๓</td>
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: center;"><br><br> ข้าพเจ้า............................................อยู่บ้านเลขที่.......................................ตรอก...................................... <br><br> ซอย...........................................ถนน.................................หมู่ที่...........................ตำบล......................................... <br></td>
+              </tr>
+            </table>';
 
-      $content .='
-                  </tbody>
-              </table>';
+     
+
+
+      $dataExport[]=array('html'=>$content,'border'=>true,'auto'=>true );
+
+      if($this->excel){
+          $this->exportexcel->exportFhtml($dataExport);
+      }else{
+          $this->exportpdf->exportFhtml($dataExport);
+      }
+
+    }
+
+     function gat2(){
+
+      $content='<table border="0" style="width:100%;" >
+              <tr> 
+                <td colspan="3" style="text-align: right;" >26-30-02</td>
+              </tr>
+              <tr> 
+                <td style="width:center;">ภ.ป. ๓ 
+                  <br><br>หนังสือแจ้งการประเมิน 
+                </td>
+                <td> <br>  </td> 
+                <td style="text-align: right; ">........................................<br><br>.................................................... </td >   
+              </tr>
+
+              <tr> 
+                <td colspan="3"><br>เรื่อง  แจ้งการประเมินภาษีป้าย <br><br> เรื่อง.........................................</td>
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: right;"><br><br>ตามที่ท่านได้ยื่นแบบแสดงรายการภาษีป้ายไว้ตามแบบ ภ.ป. ๑ เลขรับที่....................../๒๕......................... 
+              </tr>
+              <tr> 
+                <td colspan="3" style="width:10px;"><br>
+                ลงวันที่...........................เดือน..................................................พ.ศ...................................ไว้ นั้น
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: right;"><br>บัดนี้ พนักงานเจ้าหน้าที่ได้ทำการประเมินเสร็จแล้ว เป็นเงินภาษีป้าย....................................................บาท
+              </tr>
+              <tr> 
+                <td colspan="3" style="width:10px;"><br>
+                .......................สตางค์ และเงินเพิ่ม.......................บาท.......................สตางค์ รวมทั้งสิ้นเป็นเงิน......................บาท
+              </tr>
+              <tr> 
+                <td colspan="3" style="width:10px;"><br>
+                .......................สตางค์ โปรดนำเงินจำนวนดังกล่าวไปชำระภายใน ๑๕ วัน นับตั้งแต่วันที่ได้รับหนังสือนี้ 
+                หากพ้น<br><br>กำหนดจะต้องเสียเงินเพิ่มตามกฏหมาย
+              </tr>
+              <tr> 
+                <td></td>
+                <td style="width:10px;"></td>
+                <td style="text-align: center;"><br><br><br><br>  ขอแสดงความนับถือ (อย่างสูง) <br><br><br>................................................................ <br><br> (................................................................) <br><br> พนักงานเจ้าหน้าที่ </td>
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: center;"><br><br><br><br><br><br><br><br>ใบรับ ภ.ป.๓</td>
+              </tr>
+              <tr> 
+                <td colspan="3" style="text-align: center;"><br><br> ข้าพเจ้า............................................อยู่บ้านเลขที่.......................................ตรอก...................................... <br><br> ซอย...........................................ถนน.................................หมู่ที่...........................ตำบล......................................... <br></td>
+              </tr>
+            </table>';
 
 
       $dataExport[]=array('html'=>$content,'border'=>true,'auto'=>true );

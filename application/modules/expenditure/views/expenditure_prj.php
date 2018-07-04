@@ -46,7 +46,7 @@
                           <td>
                             <center>
                                 <div class="btn-group ">
-                                    <button type="button" class="btn btn-success btn-sm" title="แก้ไข">
+                                    <button type="button" onclick="window.location = '<?php echo base_url('expenditure/expenditure_form').'/'.$value->project_id.'/'.$value->expenses_id;?>'" class="btn btn-success btn-sm" title="แก้ไข">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </button>
                                     <button type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#delmodal" title="ลบ">

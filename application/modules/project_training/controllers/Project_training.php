@@ -271,6 +271,7 @@ class Project_training extends MY_Controller
 
                  $budget_log = $this->project_model->getBudgetLog($prj_id,'1');
             
+                 //merage budget_log and check data edit
                  $sum = 0;
                  foreach ($budget_log as $key => $value) {
                     $sum = ($sum + $value->prj_amount);

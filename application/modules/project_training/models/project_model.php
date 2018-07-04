@@ -276,7 +276,7 @@ class project_model extends CI_Model
     public function getSumProject()
     {
         $year = $this->session->userdata('year');;
-        $query = $this->db->query('select sum(prj_budget) as budget from tbl_project_manage where project_parent is null and project_year = ' . $year);
+        $query = $this->db->query('select sum(prj_budget_sum) as budget from tbl_project_manage where project_parent is null and project_year = ' . $year);
         return $query->row()->budget;
     }
 

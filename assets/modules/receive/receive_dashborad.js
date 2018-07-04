@@ -26,10 +26,10 @@ $(function () {
             "targets": 0
         }, ],
 
-
         "order": [
-            [1, 'DESC']
+            [3, 'asc'],
         ],
+
         'columns': [{
                 data: 'notice_id',
                 "className": "text-center",
@@ -76,8 +76,9 @@ $(function () {
                 render: function (data, type, row) {
                     var btn =
                         '<div class="btn-group ">' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-warning btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
+                        '<button type="button" onclick="window.location.href=\'' + domain + '' + '' + data + '\'" id="" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</button>' +
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
                     '</div>';
                     return btn;
