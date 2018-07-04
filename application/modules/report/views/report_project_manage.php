@@ -26,6 +26,9 @@
               
           
                <div class="x_content">
+                 <div style="text-align: center;">
+                   <h2>สรุปการใช้จ่ายเงินงบประมาณ <?php echo $this->session->userdata('year')+543?></h2>
+                 </div>
                  <br>
                  <table class="table table-bordered jambo_table">
                       <thead>
