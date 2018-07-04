@@ -37,10 +37,10 @@
                           <th colspan="4">ประมาณการงบประมาณ</th>
                         </tr>
                         <tr>
-                          <th>ปี <?php echo $this->session->userdata('year')+543-1?></th>
-                          <th>ปี <?php echo $this->session->userdata('year')+543?></th>
-                          <th>เปลี่ยนแปลง </th>
-                          <th>ยอดต่าง (%) </th>
+                          <th width="10%">ปี <?php echo $this->session->userdata('year')+543-1?></th>
+                          <th width="10%">ปี <?php echo $this->session->userdata('year')+543?></th>
+                          <th width="10%">เปลี่ยนแปลง </th>
+                          <th width="10%">ยอดต่าง (%) </th>
                         </tr>
                       </thead>
                       <?= $project; ?>
