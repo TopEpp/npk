@@ -201,7 +201,7 @@ class Report_model extends CI_Model
                         <td align="right">' . number_format($budget['amount_plus']-$budget['prj_budget'],2) . '</td>
                         <td align="right">' . number_format($budget['prj_amount'],2) . '</td>
                         <td align="right">' . number_format($budget['expenses_amount'],2) . '</td>
-                        <td align="right"></td>
+                        <td align="right">-</td>
                         <td align="right">' . number_format($budget['prj_amount']-$budget['expenses_amount'],2) . '</td>
                         </tr>';
                 $ul .= $this->getTreeChildProject($value->project_id);
@@ -239,7 +239,7 @@ class Report_model extends CI_Model
             $ul .= "<td align='right'>". @number_format($budget['amount_plus']-$budget['prj_budget'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['prj_amount'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['expenses_amount'],2)."</td>";
-            $ul .= "<td align='right'></td>";
+            $ul .= "<td align='right'>-</td>";
             $ul .= "<td align='right'>". @number_format($budget['prj_amount']-$budget['expenses_amount'],2)."</td>";
             $ul .= '</tr>';
 
