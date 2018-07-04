@@ -79,7 +79,7 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => '',
 
-	'database' => 'jigsaw_dla',
+	'database' => 'npk',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

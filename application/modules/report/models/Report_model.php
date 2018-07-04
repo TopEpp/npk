@@ -231,7 +231,7 @@ class Report_model extends CI_Model
 
             $ul .= "<td align='right'>". number_format($budget['prj_budget'])."</td>";
             $ul .= "<td align='right'>". @number_format($budget['amount_minus'])."</td>";
-            $ul .= "<td align='right'>". @number_format($budget['prj_budget']-$budget['amount_plus'])."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['amount_plus']-$budget['prj_budget'])."</td>";
             $ul .= "<td align='right'>". @number_format($budget['prj_amount'])."</td>";
             $ul .= "<td align='right'>". @number_format($budget['expenses_amount'])."</td>";
             $ul .= "<td align='right'></td>";
@@ -246,20 +246,26 @@ class Report_model extends CI_Model
     }
 
     function getRootPrjParent($project_id){
-
+        // $this->db->select();
     }
 
     function getSumBudgetPrj($project_id){
         $budget = array();
-        $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, 
-                            SUM(prj_amount) as prj_amount, 
-                           SUM(case when prj_amount > 0 then prj_amount else 0 end) as amount_plus,
-                           SUM(case when prj_amount < 0 then prj_amount else 0 end) as amount_minus');
+        $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, ');
         $this->db->from('tbl_project');
-        $this->db->join('tbl_prj_budget_log','tbl_prj_budget_log.prj_id = tbl_project.prj_id');
         $this->db->where('tbl_project.prj_parent',$project_id);
         $query_prj = $this->db->get();
         $prj = $query_prj->row();
+
+        $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, 
+                            SUM(prj_amount) as prj_amount, 
+                           SUM(IF(prj_amount > 0 , prj_amount,0)) as amount_plus,
+                           SUM(IF(prj_amount < 0 , prj_amount,0)) as amount_minus');
+        $this->db->from('tbl_project');
+        $this->db->join('tbl_prj_budget_log','tbl_prj_budget_log.prj_id = tbl_project.prj_id','left');
+        $this->db->where('tbl_project.prj_parent',$project_id);
+        $query_prj = $this->db->get();
+        $prj_log = $query_prj->row();
 
         $this->db->select('SUM(expenses_amount_result) as expenses_amount');
         $this->db->from('tbl_expenses');
@@ -269,9 +275,9 @@ class Report_model extends CI_Model
         $exp = $query_exp->row();
 
         $budget['prj_budget'] = $prj->prj_budget;
-        $budget['prj_amount'] = $prj->prj_amount;
-        $budget['amount_plus'] = $prj->amount_plus;
-        $budget['amount_minus'] = $prj->amount_minus;
+        $budget['prj_amount'] = $prj_log->prj_amount;
+        $budget['amount_plus'] = $prj_log->amount_plus;
+        $budget['amount_minus'] = $prj_log->amount_minus;
         $budget['expenses_amount'] = $exp->expenses_amount;
 
         return $budget;
