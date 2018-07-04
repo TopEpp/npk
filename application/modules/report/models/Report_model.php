@@ -192,10 +192,10 @@ class Report_model extends CI_Model
             if (empty($value->project_parent)) {
                 $ul .= '<tbody>';
                 $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
-                        <td align="right">' . number_format($value->prj_budget) . '</td>
+                        <td align="right">' . number_format($value->prj_budget_sum) . '</td>
                         <td align="right"></td>
                         <td align="right"></td>
-                        <td align="right">' . number_format($value->prj_budget) . '</td>
+                        <td align="right">' . number_format($value->prj_budget_sum) . '</td>
                         <td align="right"></td>
                         <td align="right"></td>
                         <td align="right"></td>
@@ -218,6 +218,8 @@ class Report_model extends CI_Model
         $query = $this->db->get('tbl_project_manage');
         foreach ($query->result() as $key => $row) {
 
+            $budget = $this->getSumBudgetPrj($row->project_id);
+
             $ul .= '<tr>';
             if (@$row->project_level == 3) {
                 $ul .= "<td>{$tab}" . $this->data_budget[$row->project_title] . "</td>";
@@ -227,13 +229,13 @@ class Report_model extends CI_Model
                 $ul .= "<td>{$tab}" . $row->project_title . "</td>";
             }
 
-            $ul .= "<td align='right'>". number_format($row->prj_budget)."</td>";
+            $ul .= "<td align='right'>". number_format($budget['prj_budget'])."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['amount_minus'])."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_budget']-$budget['amount_plus'])."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_amount'])."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['expenses_amount'])."</td>";
             $ul .= "<td align='right'></td>";
-            $ul .= "<td align='right'></td>";
-            $ul .= "<td align='right'>". number_format($row->prj_budget)."</td>";
-            $ul .= "<td align='right'></td>";
-            $ul .= "<td align='right'></td>";
-            $ul .= "<td align='right'></td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_amount']-$budget['expenses_amount'])."</td>";
             $ul .= '</tr>';
 
 
@@ -241,6 +243,52 @@ class Report_model extends CI_Model
         }
 
         return $ul;
+    }
+
+    function getRootPrjParent($project_id){
+
+    }
+
+    function getSumBudgetPrj($project_id){
+        $budget = array();
+        $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, 
+                            SUM(prj_amount) as prj_amount, 
+                           SUM(case when prj_amount > 0 then prj_amount else 0 end) as amount_plus,
+                           SUM(case when prj_amount < 0 then prj_amount else 0 end) as amount_minus');
+        $this->db->from('tbl_project');
+        $this->db->join('tbl_prj_budget_log','tbl_prj_budget_log.prj_id = tbl_project.prj_id');
+        $this->db->where('tbl_project.prj_parent',$project_id);
+        $query_prj = $this->db->get();
+        $prj = $query_prj->row();
+
+        $this->db->select('SUM(expenses_amount_result) as expenses_amount');
+        $this->db->from('tbl_expenses');
+        $this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
+        $this->db->where('tbl_project.prj_parent',$project_id);
+        $query_exp = $this->db->get();
+        $exp = $query_exp->row();
+
+        $budget['prj_budget'] = $prj->prj_budget;
+        $budget['prj_amount'] = $prj->prj_amount;
+        $budget['amount_plus'] = $prj->amount_plus;
+        $budget['amount_minus'] = $prj->amount_minus;
+        $budget['expenses_amount'] = $exp->expenses_amount;
+
+        return $budget;
+    }
+
+    function updateLogPrj(){
+        $query = $this->db->get('tbl_project');
+        foreach ($query->result_array() as $key => $value) {
+            $this->db->set('prj_budget_sum',$value['prj_budget']);
+            $this->db->where('prj_id',$value['prj_id']);
+            $this->db->update('tbl_project');
+
+            $this->db->set('prj_amount',$value['prj_budget']);
+            $this->db->set('prj_id',$value['prj_id']);
+            $this->db->set('prj_budget_type',1);
+            $this->db->insert('tbl_prj_budget_log');
+        }
     }
 
 }
