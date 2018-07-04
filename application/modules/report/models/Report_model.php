@@ -190,15 +190,19 @@ class Report_model extends CI_Model
         foreach ($project as $key => $value) {
 
             if (empty($value->project_parent)) {
+
+                $prj_id_array = $this->getAllPrjID($value->project_id);
+                $budget = $this->getSumBudgetPrj($prj_id_array);
+
                 $ul .= '<tbody>';
                 $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
-                        <td align="right">' . number_format($value->prj_budget_sum) . '</td>
+                        <td align="right">' . number_format($budget['prj_budget'],2) . '</td>
+                        <td align="right">' . number_format($budget['amount_minus'],2) . '</td>
+                        <td align="right">' . number_format($budget['amount_plus']-$budget['prj_budget'],2) . '</td>
+                        <td align="right">' . number_format($budget['prj_amount'],2) . '</td>
+                        <td align="right">' . number_format($budget['expenses_amount'],2) . '</td>
                         <td align="right"></td>
-                        <td align="right"></td>
-                        <td align="right">' . number_format($value->prj_budget_sum) . '</td>
-                        <td align="right"></td>
-                        <td align="right"></td>
-                        <td align="right"></td>
+                        <td align="right">' . number_format($budget['prj_amount']-$budget['expenses_amount'],2) . '</td>
                         </tr>';
                 $ul .= $this->getTreeChildProject($value->project_id);
                 $ul .= '</tbody>';
@@ -218,7 +222,8 @@ class Report_model extends CI_Model
         $query = $this->db->get('tbl_project_manage');
         foreach ($query->result() as $key => $row) {
 
-            $budget = $this->getSumBudgetPrj($row->project_id);
+            $prj_id_array = $this->getAllPrjID($row->project_id);
+            $budget = $this->getSumBudgetPrj($prj_id_array);
 
             $ul .= '<tr>';
             if (@$row->project_level == 3) {
@@ -229,13 +234,13 @@ class Report_model extends CI_Model
                 $ul .= "<td>{$tab}" . $row->project_title . "</td>";
             }
 
-            $ul .= "<td align='right'>". number_format($budget['prj_budget'])."</td>";
-            $ul .= "<td align='right'>". @number_format($budget['amount_minus'])."</td>";
-            $ul .= "<td align='right'>". @number_format($budget['amount_plus']-$budget['prj_budget'])."</td>";
-            $ul .= "<td align='right'>". @number_format($budget['prj_amount'])."</td>";
-            $ul .= "<td align='right'>". @number_format($budget['expenses_amount'])."</td>";
+            $ul .= "<td align='right'>". number_format($budget['prj_budget'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['amount_minus'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['amount_plus']-$budget['prj_budget'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_amount'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['expenses_amount'],2)."</td>";
             $ul .= "<td align='right'></td>";
-            $ul .= "<td align='right'>". @number_format($budget['prj_amount']-$budget['expenses_amount'])."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_amount']-$budget['expenses_amount'],2)."</td>";
             $ul .= '</tr>';
 
 
@@ -245,40 +250,87 @@ class Report_model extends CI_Model
         return $ul;
     }
 
-    function getRootPrjParent($project_id){
-        // $this->db->select();
+    function getAllPrjManageID($project_id,&$PrjManage=array()){
+        $PrjManage[] = $project_id;
+        $this->db->select('project_id');
+        $this->db->from('tbl_project_manage');
+        $this->db->where('project_parent',$project_id);
+        $query = $this->db->get();
+        foreach ($query->result() as $key => $value) {
+            $this->getAllPrjManageID($value->project_id,$PrjManage);
+        }
+
+        return $PrjManage;
+    }
+
+    function getPrjParent($project_id,&$prjID=array()){
+        // $prjID[] = $project_id;
+        $this->db->select('prj_id');
+        $this->db->from('tbl_project');
+        $this->db->where('prj_parent',$project_id);
+        $query = $this->db->get();
+        foreach ($query->result() as $key => $value) {
+            $prjID[] = $value->prj_id;
+            $this->getPrjParent($value->prj_id,$prjID);
+        }
+
+        return $prjID;
+    }
+
+    function getAllPrjID($project_id,&$prj_id_array=array()){
+        $manage_id = $this->getAllPrjManageID($project_id);
+        foreach ($manage_id as $key => $value) {
+            $prj_id_array = $this->getPrjParent($value,$prj_id_array);
+        }
+
+        return $prj_id_array;
     }
 
     function getSumBudgetPrj($project_id){
+        // echo '<pre>';
+        // print_r($project_id);
+        // echo '</pre>';
+
         $budget = array();
-        $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, ');
-        $this->db->from('tbl_project');
-        $this->db->where('tbl_project.prj_parent',$project_id);
-        $query_prj = $this->db->get();
-        $prj = $query_prj->row();
+        $budget['prj_budget'] = 0;
+        $budget['prj_amount'] = 0;
+        $budget['amount_plus'] = 0;
+        $budget['amount_minus'] = 0;
+        $budget['expenses_amount'] = 0;
+        if(!empty($project_id)){
+            $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, ');
+            $this->db->from('tbl_project');
+            $this->db->where_in('tbl_project.prj_id ',$project_id);
+            $this->db->where('tbl_project.prj_active','1');
+            $query_prj = $this->db->get();
+            $prj = $query_prj->row();
 
-        $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, 
-                            SUM(prj_amount) as prj_amount, 
-                           SUM(IF(prj_amount > 0 , prj_amount,0)) as amount_plus,
-                           SUM(IF(prj_amount < 0 , prj_amount,0)) as amount_minus');
-        $this->db->from('tbl_project');
-        $this->db->join('tbl_prj_budget_log','tbl_prj_budget_log.prj_id = tbl_project.prj_id','left');
-        $this->db->where('tbl_project.prj_parent',$project_id);
-        $query_prj = $this->db->get();
-        $prj_log = $query_prj->row();
+            $this->db->select(' SUM(tbl_project.prj_budget) as prj_budget, 
+                                SUM(prj_amount) as prj_amount, 
+                               SUM(IF(prj_amount > 0 , prj_amount,0)) as amount_plus,
+                               SUM(IF(prj_amount < 0 , prj_amount,0)) as amount_minus');
+            $this->db->from('tbl_project');
+            $this->db->join('tbl_prj_budget_log','tbl_prj_budget_log.prj_id = tbl_project.prj_id','left');
+            $this->db->where_in('tbl_project.prj_id ',$project_id);
+            $this->db->where('tbl_project.prj_active ','1');
+            $query_prj = $this->db->get();
+            $prj_log = $query_prj->row();
 
-        $this->db->select('SUM(expenses_amount_result) as expenses_amount');
-        $this->db->from('tbl_expenses');
-        $this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
-        $this->db->where('tbl_project.prj_parent',$project_id);
-        $query_exp = $this->db->get();
-        $exp = $query_exp->row();
+            $this->db->select('SUM(expenses_amount_result) as expenses_amount');
+            $this->db->from('tbl_expenses');
+            $this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
+            $this->db->where_in('tbl_project.prj_id ',$project_id);
+            $this->db->where('tbl_project.prj_active ','1');
+            $query_exp = $this->db->get();
+            $exp = $query_exp->row();
 
-        $budget['prj_budget'] = $prj->prj_budget;
-        $budget['prj_amount'] = $prj_log->prj_amount;
-        $budget['amount_plus'] = $prj_log->amount_plus;
-        $budget['amount_minus'] = $prj_log->amount_minus;
-        $budget['expenses_amount'] = $exp->expenses_amount;
+            $budget['prj_budget'] = $prj->prj_budget;
+            $budget['prj_amount'] = $prj_log->prj_amount;
+            $budget['amount_plus'] = $prj_log->amount_plus;
+            $budget['amount_minus'] = $prj_log->amount_minus;
+            $budget['expenses_amount'] = $exp->expenses_amount;
+        }
+        
 
         return $budget;
     }
