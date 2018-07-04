@@ -62,12 +62,27 @@ class Report extends MY_Controller
         // var_dump($prj[0]);die();
         $data['project'] = $this->Report_model->getTreeProjectManage($prj);
 
-        // $this->Report_model->updateLogPrj();
-
         $this->template->javascript->add('assets/modules/report/js/chart_project_manage.js');
         $this->setView('report_project_manage', $data);
         $this->publish();
+    }
 
+    public function report_yeartoyear()
+    {
+        $this->config->set_item('title', 'รายงานยุทธศาสตร์ - เทศบาลตำบลหนองป่าครั่ง');
+        $data = array();
+        $this->load->model('project_training/project_model');
+        $data['project'] = $this->project_model->getProject();
+        $prj = array();
+        foreach ($data['project'] as $key => $value) {
+            $prj[$value->project_id] = $value;
+        }
+ 
+        $data['project'] = $this->Report_model->getTreeYeartoYear($prj);
+
+        // $this->template->javascript->add('assets/modules/report/js/chart_project_manage.js');
+        $this->setView('report_yeartoyear', $data);
+        $this->publish();
     }
 
     public function getAjaxProjectManage()

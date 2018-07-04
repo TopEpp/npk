@@ -216,7 +216,7 @@ class Report_model extends CI_Model
     public function getTreeChildProject($parent = '0', &$ul = '', $tab = '')
     {
         //tab data
-        $tab = '&emsp;&emsp;' . $tab;
+        $tab = '&emsp; ' . $tab;
 
         $this->db->where('project_parent', $parent);
         $query = $this->db->get('tbl_project_manage');
@@ -335,18 +335,123 @@ class Report_model extends CI_Model
         return $budget;
     }
 
-    function updateLogPrj(){
-        $query = $this->db->get('tbl_project');
-        foreach ($query->result_array() as $key => $value) {
-            $this->db->set('prj_budget_sum',$value['prj_budget']);
-            $this->db->where('prj_id',$value['prj_id']);
-            $this->db->update('tbl_project');
+    // function updateLogPrj(){
+    //     $query = $this->db->get('tbl_project');
+    //     foreach ($query->result_array() as $key => $value) {
+    //         $this->db->set('prj_budget_sum',$value['prj_budget']);
+    //         $this->db->where('prj_id',$value['prj_id']);
+    //         $this->db->update('tbl_project');
 
-            $this->db->set('prj_amount',$value['prj_budget']);
-            $this->db->set('prj_id',$value['prj_id']);
-            $this->db->set('prj_budget_type',1);
-            $this->db->insert('tbl_prj_budget_log');
+    //         $this->db->set('prj_amount',$value['prj_budget']);
+    //         $this->db->set('prj_id',$value['prj_id']);
+    //         $this->db->set('prj_budget_type',1);
+    //         $this->db->insert('tbl_prj_budget_log');
+    //     }
+    // }
+
+    function getTreeYeartoYear($project){
+        $ul = '';
+        foreach ($project as $key => $value) {
+
+            if (empty($value->project_parent)) {
+
+                $this->db->select('prj_budget_sum');
+                $this->db->where('project_id',$value->project_ref_id);
+                $query_ref = $this->db->get('tbl_project_manage');
+                $ref = $query_ref->row();
+
+                $ul .= '<tbody>';
+                $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
+                        <td align="right">' . number_format($ref->prj_budget_sum,2) . '</td>
+                        <td align="right">' . number_format($value->prj_budget_sum,2) . '</td>
+                        <td align="right">' . number_format($value->prj_budget_sum-$ref->prj_budget_sum,2) . '</td>
+                        <td align="right">' . number_format(($value->prj_budget_sum-$ref->prj_budget_sum)/$ref->prj_budget_sum*100,2) . ' %</td>
+                        </tr>';
+                $ul .= $this->getTreeChildProjectYear($value->project_id);
+                $ul .= '</tbody>';
+            }
+
         }
+
+        return $ul;
+    }
+
+    public function getTreeChildProjectYear($parent = '0', &$ul = '', $tab = '')
+    {
+        //tab data
+        $tab = '&emsp; ' . $tab;
+
+        $this->db->where('project_parent', $parent);
+        $query = $this->db->get('tbl_project_manage');
+        foreach ($query->result() as $key => $row) {
+
+            $this->db->select('prj_budget_sum');
+            $this->db->where('project_id',$row->project_ref_id);
+            $query_ref = $this->db->get('tbl_project_manage');
+            $ref = $query_ref->row();
+
+            $ul .= '<tr>';
+            if (@$row->project_level == 3) {
+                $ul .= "<td>{$tab}" . $this->data_budget[$row->project_title] . "</td>";
+            } else if (@$row->project_level == 4) {
+                $ul .= "<td>{$tab}" . $this->data_cost[$row->project_title] . "</td>";
+            } else {
+                $ul .= "<td>{$tab}" . $row->project_title . "</td>";
+            }
+
+            $ul .= "<td align='right'>". number_format(@$ref->prj_budget_sum,2)."</td>";
+            $ul .= "<td align='right'>". number_format($row->prj_budget_sum,2)."</td>";
+            $ul .= "<td align='right'>". number_format($row->prj_budget_sum-@$ref->prj_budget_sum,2)."</td>";
+            if(!empty($ref->prj_budget_sum) && @$ref->prj_budget_sum>0){
+                $ul .= "<td align='right'>". number_format( ($row->prj_budget_sum-@$ref->prj_budget_sum)/$ref->prj_budget_sum*100 ,2)." %</td>";
+            }else{
+                $ul .= "<td align='right'> 0%</td>";
+            }
+            
+            $ul .= '</tr>';
+
+
+            $this->getTreeChildProjectYear(@$row->project_id, $ul, $tab);
+
+            $this->getTreeChildPrjYear(@$row->project_id, $ul, $tab);
+        }
+
+        return $ul;
+    }
+
+    public function getTreeChildPrjYear($parent = '0', &$ul = '', $tab = '')
+    {
+        //tab data
+        $tab = '&emsp; ' . $tab;
+
+        $this->db->where('prj_parent', $parent);
+        $this->db->where('prj_active','1');
+        $query = $this->db->get('tbl_project');
+        foreach ($query->result() as $key => $row) {
+
+            $this->db->select('prj_budget_sum');
+            $this->db->where('prj_id',$row->prj_ref_id);
+            $query_ref = $this->db->get('tbl_project');
+            $ref = $query_ref->row();
+
+            $ul .= '<tr>';
+            $ul .= "<td>{$tab}" . $row->prj_name . "</td>";
+            $ul .= "<td align='right'>". number_format(@$ref->prj_budget_sum,2)."</td>";
+            $ul .= "<td align='right'>". number_format($row->prj_budget_sum,2)."</td>";
+            $ul .= "<td align='right'>". number_format($row->prj_budget_sum-@$ref->prj_budget_sum,2)."</td>";
+            if(!empty($ref->prj_budget_sum) && @$ref->prj_budget_sum>0 && $row->prj_budget_sum>0){
+                $ul .= "<td align='right'>". number_format( ($row->prj_budget_sum-@$ref->prj_budget_sum)/$ref->prj_budget_sum*100 ,2)." %</td>";
+            }else{
+                $ul .= "<td align='right'> 0%</td>";
+            }
+            
+            $ul .= '</tr>';
+
+
+            $this->getTreeChildPrjYear(@$row->prj_id, $ul, $tab);
+        }
+
+        return $ul;
     }
 
 }
