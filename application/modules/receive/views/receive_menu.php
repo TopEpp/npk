@@ -43,7 +43,7 @@
                                                 <div class="col-md-4 col-sm-12 col-xs-12 col-centered">
                                                     <a href="<?php echo (base_url('receive/other_tax')) ?>">
                                                         <button type="button" class="btn btn-nav" style="height: 110px; width:270px;">
-                                                        <img src="../assets/plugins/icons/addition.png" width="43" height="43" />
+                                                        <img src="../assets/plugins/icons/document.png" width="43" height="43" />
                                                             <h4>หมวดรายรับอื่น</h4>
                                                         </button>
                                                     </a>
