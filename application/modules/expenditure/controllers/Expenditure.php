@@ -30,6 +30,7 @@ class Expenditure extends MY_Controller
         $year = $this->session->userdata('year');
         $data['expenditure'] = $this->expenditure_model->getExpenditure($year);
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - เทศบาลตำบลหนองป่าครั่ง');
+        $this->template->javascript->add('assets/modules/expenditure/search.js');
         $this->setView('expenditure_prj', $data);
         $this->publish();
     }
@@ -61,7 +62,7 @@ class Expenditure extends MY_Controller
 
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - บันทึกการเบิกจ่าย');
         $data['prj'] = $this->expenditure_model->getPrjById($project_id);
-        print_r($data['prj']);die();
+
         $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id,$expenses);
 
         $data['project_id'] = $project_id;
@@ -78,6 +79,19 @@ class Expenditure extends MY_Controller
         redirect(base_url('expenditure/expenditure_prj'));
 
     }
+
+    public function expenditure_del($id){
+        $this->expenditure_model->expenditure_del($id);
+        redirect(base_url('expenditure/expenditure_prj'));
+    }
+
+    public function saveExpenditureNumber(){
+        $id = $this->input->post('id');
+        $input['expenses_number'] = $this->input->post('expenses_number');
+        $input['expenses_date_disburse'] = $this->input->post('expenses_date_disburse');
+        $result = $this->expenditure_model->saveExpenditureNumber($id,$input);
+		$this->json_publish($result);
+	}
 
 
 

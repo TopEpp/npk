@@ -8,7 +8,7 @@
    <div class="x_content">
      <form method="post" action="<?php echo base_url('expenditure/saveExpenditure')?>" >
         <input type="hidden" name="project_id" value="<?php echo $project_id?>">
-        <input type="hidden" name="expenses_id" value="">
+        <input type="hidden" name="expenses_id" value="<?php echo (!empty($expenses[0]->expenses_id))?$expenses[0]->expenses_id:'';?>">
         <div id="form_tab" class="x_panel">
           <div class="" role="tabpanel" data-example-id="togglable-tabs">
               <!-- <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                               <td>รวม</td>
-                              <td class="text-right">500,000 บาท</td>
+                              <td class="text-right"><?php echo number_format($prj->prj_budget_sum-$prj->amount,2);?> บาท</td>
                             </tr>
                           </tbody>
                         </table>
@@ -46,6 +46,7 @@
                                           <div class="form-group" >
                                               <label>วันที่จัดทำ</label>
                                               <span class="required" style="color:red">*</span>
+                                  
                                               <input type="text" name="expenses_date" value="<?php echo (!empty($expenses[0]->expenses_date))?$expenses[0]->expenses_date:date('Y-m-d');?>" class="form-control datepicker">
                                           </div>
                                       </div>
@@ -137,8 +138,8 @@
               <th>วันที่</th>
               <th>ผู้เบิกจ่าย</th>
               <th>รายละเอียด</th>
-              <th>จำนวนเงิน</th>
-              <th>จัดการ</th>
+              <th>จำนวนเงิน (บาท)</th>
+              <!-- <th>จัดการ</th> -->
             </tr>
           </thead>
           <tbody>
@@ -148,7 +149,7 @@
               <td><?php echo $value->expenses_user?></td>
               <td><?php echo $value->expenses_detail?></td>
               <td><?php echo number_format($value->expenses_amount);?></td>
-              <td><?php ?></td>
+              <!-- <td><?php ?></td> -->
             </tr>
           <?php } ?>
           </tbody>
