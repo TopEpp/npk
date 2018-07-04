@@ -25,12 +25,12 @@
                           <tbody>
                             <tr>
                               <td>งบประมาณ</td>
-                              <td class="text-right">1,000,000 บาท</td>
+                              <td class="text-right"><?php echo number_format($prj->prj_budget_sum,2) ?> บาท</td>
 
                             </tr>
                             <tr>
                               <td>งบเบิกจ่าย</td>
-                              <td class="text-right">500,000 บาท</td>
+                              <td class="text-right"><?php echo number_format($prj->amount,2) ?> บาท</td>
                             </tr>
                             <tr>
                               <td>รวม</td>
@@ -144,11 +144,11 @@
           <tbody>
           <?php foreach ($expenses as $key => $value) { ?>
             <tr>
-              <td><?php echo $value->expenses_date?></td>
+              <td><?php echo $this->mydate->date_eng2thai($value->expenses_date,'','S');?></td>
               <td><?php echo $value->expenses_user?></td>
               <td><?php echo $value->expenses_detail?></td>
-              <td><?php echo $value->expenses_amount?></td>
-              <td><?php echo $value->expenses_date?></td>
+              <td><?php echo number_format($value->expenses_amount);?></td>
+              <td><?php ?></td>
             </tr>
           <?php } ?>
           </tbody>

@@ -14,18 +14,20 @@ class expenditure_model extends CI_Model
 	}
 
 	function getPrjById($project_id){
-		$this->db->select('*');
+		$this->db->select('*,sum(tbl_expenses.expenses_amount) as amount');
 		$this->db->from('tbl_project');
 		$this->db->where('prj_id',$project_id);
+		$this->db->join('tbl_expenses','tbl_expenses.expenses_id = tbl_project.prj_id ');
 		$query = $this->db->get();
 
 		return $query->row();
 	}
 
-	function getPrjExpenses($project_id){
+	function getPrjExpenses($project_id,$expenses_id = ''){
 		$this->db->select('*');
 		$this->db->from('tbl_expenses');
 		$this->db->like('project_id',$project_id);
+		$this->db->where('expenses_id',$expenses_id);
 		$query = $this->db->get();
 
 		return $query->result();

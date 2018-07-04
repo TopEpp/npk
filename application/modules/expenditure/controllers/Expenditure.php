@@ -61,8 +61,8 @@ class Expenditure extends MY_Controller
 
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - บันทึกการเบิกจ่าย');
         $data['prj'] = $this->expenditure_model->getPrjById($project_id);
-        $data['expenses'] = $this->expenditure_model->getPrjExpenses($expenses);
-
+        print_r($data['prj']);die();
+        $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id,$expenses);
 
         $data['project_id'] = $project_id;
         $this->template->javascript->add('assets/modules/expenditure/form.js');

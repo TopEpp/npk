@@ -400,7 +400,7 @@ class Project_training extends MY_Controller
 
         foreach ($values as $key => $value) {
             $data['rows'][$key]['id'] = $value->project_id;
-            $data['rows'][$key]['budget'] = number_format($value->prj_budget_sum);
+            $data['rows'][$key]['budget'] = number_format($value->prj_budget_sum,2);
             $data['rows'][$key]['name'] = $value->project_title;
 
             switch ($value->project_level) {
@@ -446,7 +446,7 @@ class Project_training extends MY_Controller
         $prj = $this->project_model->getPrj();
         foreach ($prj as $key => $value) {
             $data['rows'][$data['total'] + $key]['id'] = $value->prj_id;
-            $data['rows'][$data['total'] + $key]['budget'] = number_format($value->prj_budget_sum);
+            $data['rows'][$data['total'] + $key]['budget'] = number_format($value->prj_budget_sum,2);
             $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->prj_name . '</p>';
             $data['rows'][$data['total'] + $key]['tools'] = "
             <div class='btn-group'><button onClick='pay_prj(" . $value->prj_id . ")' id='project_edit' class='btn btn-default btn-sm' type='button'>จ่าย</button>
