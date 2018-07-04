@@ -82,26 +82,36 @@ class project_model extends CI_Model
 
 
     public function delPrj($id, $state)
-    {
+    {        
         if (!empty($state)) {
             //update  budget all
             $parent = $this->getPrj($id);
-
-            $data['prj_owner_update'] = $_SESSION['user_id'];
-            $data['prj_active'] = '0';
+            $parent = $parent[0]->prj_parent;
+            // $data['prj_owner_update'] = $_SESSION['user_id'];
+            // $data['prj_active'] = '0';
             $this->db->where('prj_id', $id);
-            $this->db->update('tbl_project', $data);
+            $this->db->delete('tbl_project');
 
-
-            $data = $this->updateBudget($parent[0]->prj_parent);
+                $data = $this->updateBudget($parent);
             return true;
             //clear data log is n't active 
             // $this->db->where('state', '0');
             // return $this->db->delete('tbl_project_log');
         } else {
+            $parent = $this->getProject($id);
+            $parent = $parent[0]->project_parent;
+            // $data['prj_owner_update'] = $_SESSION['user_id'];
+            // $data['prj_active'] = '0';
             $this->db->where('project_id', $id);
-            return $this->db->delete('tbl_project_manage');
+            $this->db->delete('tbl_project_manage');
+            if ($parent != '')
+                $data = $this->updateBudget($parent);
+
+            return true;
         }
+
+    }
+    public function delPrjTree($id,$parent=''){
 
     }
 
@@ -336,6 +346,16 @@ class project_model extends CI_Model
         }
         $this->db->where('prj_id',$id);
         return $this->db->get('tbl_prj_budget_log')->result();
+    }
+
+    public function getPrjLog($id){
+        
+        $this->db->select('tbl_project_log.prj_update,usrm_user.user_firstname,usrm_user.user_lastname');
+        $this->db->from('tbl_project_log');
+        $this->db->where('tbl_project_log.prj_id',$id);
+        $this->db->join('usrm_user','usrm_user.user_id = tbl_project_log.prj_owner_update');
+        $query = $this->db->get();
+        return $query->result();
     }
 
 

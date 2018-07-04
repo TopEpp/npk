@@ -255,7 +255,7 @@
                       มติที่ประชุม
                       </label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
-                        <textarea id="message" required="required" class="form-control"  name="approve" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                        <textarea id="message" class="form-control"  name="approve" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                                 data-parsley-validation-threshold="10"><?= @$prj[0]->approve;?></textarea>
                           
                       </div>
@@ -639,11 +639,11 @@
                     </tr>
                     <tr>
                       <td>สร้างเมื่อ</td>
-                      <td> <?= $this->mydate->date_eng2thai($prj[0]->prj_create);?> 13.00 น. (ชื่อ )</td>
+                      <td> <?= $this->mydate->date_eng2thai($prj[0]->prj_create,'','S');?> 13.00 น. (ชื่อ )</td>
                     </tr>
                     <tr>
                       <td>ปรับปรุงข้อมูลล่าสุด</td>
-                      <td><?= $this->mydate->date_eng2thai($prj[0]->prj_update);?> 13.00 น. (ชื่อ )</td>
+                      <td><?= $this->mydate->date_eng2thai($prj[0]->prj_update,'','S');?> 13.00 น. (ชื่อ )</td>
                     </tr>
                     <tr>
                       <td>สถานะโครงการ</td>
@@ -651,23 +651,27 @@
                       <div id="wizard" class="form_wizard wizard_horizontal">
                         <ul class="wizard_steps anchor">
                           <li>
-                            <a href="#step-1" class="selected" isdone="1" rel="1">
+                            <a href="#step-1" class="<?= (empty($expenses))?'selected':'disabled'?>" isdone="1" rel="1">
                               <span class="step_no">1</span>
                               <span class="step_descr">
-                              ยังไม่ได้ดำเนินการ
+                                ยังไม่ได้ดำเนินการ
                               </span>
                             </a>
                           </li>
                           <li>
-                            <a href="#step-2" class="disabled" isdone="0" rel="2">
+                            <a href="#step-2" class="<?= (!empty($expenses))?'selected':'disabled'?>" isdone="0" rel="2">
                               <span class="step_no">2</span>
                               <span class="step_descr">
                               อยู่ระหว่างดำเนินการ
                               </span>
                             </a>
                           </li>
+                          <?php $expenses_sum = 0; ?>
+                            <?php foreach ($expenses as $key => $value) { 
+                                 $expenses_sum = ($expenses_sum + $value->expenses_amount_result);
+                            } ?>
                           <li>
-                            <a href="#step-3" class="disabled" isdone="0" rel="3">
+                            <a href="#step-3" class="<?= (($prj[0]->prj_budget_sum - $expenses_sum) == 0)?'selected':'disabled'?>" isdone="0" rel="3">
                               <span class="step_no">3</span>
                               <span class="step_descr">
                               ดำเนินการเสร็จสิ้น        
@@ -688,26 +692,24 @@
                   <thead>
                     <tr>
                       <th width="10%">วันที่</th>
-                      <th width="50%">รายการ</th>
+                      <th width="50%">รายละเอียด</th>
                       <th width="15%">ผู้ที่เบิกจ่าย</th>
                       <th width="15%">เงินเบิกจ่าย (บาท)</th>
-
-
                     </tr>
                   </thead>
                   <tbody>
+               
+                  <?php foreach ($expenses as $key => $value) { 
+                  ?>
                     <tr>
-                      <td>27 มิ.ย 2561</td>
-                      <td>เงินเดือน</td>
-                      <td>&nbsp;</td>
-                      <td>20,000</td>
+                      <td><?php echo $this->mydate->date_eng2thai($value->expenses_date,543,'S')?></td>
+                      <td><?php echo $value->expenses_detail;?></td>
+                      <td><?php echo $value->user_firstname;?></td>
+                      <td class="text-right"><?php echo number_format($value->expenses_amount_result,2); ?></td>
                     </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                      <td>รวม</td>
-                      <td>&nbsp;</td>
-                      <td>20,000</td>
-                    </tr>
+                  <?php } ?>
+                   
+                   
                   </tbody>
                 </table>  
                 <div class="row">
@@ -720,7 +722,7 @@
                         <div class="x_content">
 
                           <div style="text-align: center; margin-bottom: 17px">
-                            <span class="chart" data-percent="50">
+                            <span class="chart" data-percent="<?= ($expenses_sum*100)/$prj[0]->prj_budget_sum;?>">
                                 <span class="percent"></span>
                             </span>
                           </div>
@@ -737,16 +739,16 @@
                       <tbody>
                         <tr>
                           <td>งบประมาณ</td>
-                          <td class="text-right">1,000,000 บาท</td>
+                          <td class="text-right"><?= number_format($prj[0]->prj_budget_sum,2);?> บาท</td>
 
                         </tr>
                         <tr>
                           <td>งบเบิกจ่าย</td>
-                          <td class="text-right">500,000 บาท</td>
+                          <td class="text-right"><?= number_format($expenses_sum,2);?> บาท</td>
                         </tr>
                         <tr>
                           <td>รวม</td>
-                          <td class="text-right">500,000 บาท</td>
+                          <td class="text-right"><?= number_format($prj[0]->prj_budget_sum - $expenses_sum);?> บาท</td>
                         </tr>
                       </tbody>
                     </table>
@@ -754,21 +756,25 @@
                 </div>
 
 
-                <h4>ปรับปรุงข้อมูลล่าสุด</h4>
+                <h4>ข้อมูลการปรับปรุง</h4>
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th>อัพเดทเมื่อ</th>
                       <th>ผู้ที่อัพเดท</th>
-                      <th>หมายเหตุ</th>
+                      <!-- <th>หมายเหตุ</th> -->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>27 มิ.ย 2561</td>
-                      <td>admin</td>
-                      <td></td>
-                    </tr>
+                    <?php foreach ($prj_log as $key => $value) { ?>
+                      <tr>
+                        <td><?php echo $this->mydate->date_eng2thai($value->prj_update,543,'S')?></td>
+                        <td><?= $value->user_firstname.' '. $value->user_lastname;  ?></td>
+                        <!-- <td></td> -->
+                      </tr>
+                   <?php } ?>
+                   
+
                   </tbody>
                 </table>
 

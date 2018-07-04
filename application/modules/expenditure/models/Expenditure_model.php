@@ -23,11 +23,28 @@ class expenditure_model extends CI_Model
 		return $query->row();
 	}
 
-	function getPrjExpenses($project_id,$expenses_id = ''){
+	function getPrjExpenses($project_id = '',$expenses_id = ''){
 		$this->db->select('*');
 		$this->db->from('tbl_expenses');
 		$this->db->like('project_id',$project_id);
-		$this->db->where('expenses_id',$expenses_id);
+		if (!empty($expenses_id)){
+			$this->db->where('expenses_id',$expenses_id);
+		}
+		
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	function getPrjExpensesByPrj($project_id = '',$expenses_id = ''){
+		$this->db->select('*,usrm_user.user_firstname,usrm_user.user_lastname');
+		$this->db->from('tbl_expenses');
+		$this->db->where('project_id',$project_id);
+		$this->db->join('usrm_user','usrm_user.user_id = tbl_expenses.user_id');
+		if (!empty($expenses_id)){
+			$this->db->where('expenses_id',$expenses_id);
+		}
+		
 		$query = $this->db->get();
 
 		return $query->result();

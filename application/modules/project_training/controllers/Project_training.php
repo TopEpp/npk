@@ -380,7 +380,19 @@ class Project_training extends MY_Controller
 
     //delete prj 
     public function delPrj($id,$state = ''){
-        $this->project_model->delPrj($id,$state);
+        $this->load->model('report/Report_model');
+        if (!empty($state)){
+            $prj_id_array = $this->Report_model->getPrjParent($id);
+        }else{
+            $prj_id_array = $this->Report_model->getAllPrjManageID($id);
+        }
+        
+        foreach ($prj_id_array as $key => $value) {
+            $this->project_model->delPrj($value,$state);
+        }
+   
+        // print_r($prj_id_array);die();
+        
 
         redirect('project_training/project');
     }
@@ -470,6 +482,8 @@ class Project_training extends MY_Controller
     }
 
     public function prjAdd($parent,$id ='0'){
+        $this->load->model('expenditure/expenditure_model');
+
         $data_budget = ['', 'งบบุคลากร', 'งบดำเนินงาน', 'งบลงทุน', 'งบเงินอุดหนุน', 'งบกลาง'];
         $data_cost = [
             '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
@@ -478,6 +492,8 @@ class Project_training extends MY_Controller
 
         $this->config->set_item('title', 'ระบบบริหารโครงการ - เทศบาลตำบลหนองป่าครั่ง');
         
+
+        //get tree prj
         $data['prj_tree'] = $this->project_model->getTitleTree($parent);
         $num = 0;
         foreach ( $data['prj_tree'] as $key => $value) {
@@ -499,23 +515,21 @@ class Project_training extends MY_Controller
                 $num++;
             }
         }
-        // if (!empty($id) && $id != '0'){
-        //     $data['prj_tree'] = $this->project_model->getTitleTree($parent);
-        //     // $data['prj_tree_child'] = $this->project_model->getTitleTreeChild($id);
-        //     // print_r($data['prj_tree_child']);die();
-        // }
-      
+
 
         $data['prj_tree'] = array_reverse( $data['prj_tree']);
         $data['prj_tree'] = implode("/",$data['prj_tree']);
+
 
         $data['prj_all'] = $this->project_model->getPrjArray();
         $data['prj_name'] = $this->project_model->getPrj('',true);
         $data['prj'] = $this->project_model->getPrj($id,false);
 
         $data['budget_log'] = $this->project_model->getBudgetLog($data['prj'][0]->prj_id);
+        $data['expenses'] = $this->expenditure_model->getPrjExpensesByPrj($id);
+        $data['prj_log'] = $this->project_model->getPrjLog($id);
 
-        // print_r($data['prj']);die();
+        // print_r($data['prj_log']);die();
 
         // $this->project_model->getPrjRespon();
 

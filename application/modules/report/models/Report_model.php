@@ -264,13 +264,13 @@ class Report_model extends CI_Model
     }
 
     function getPrjParent($project_id,&$prjID=array()){
-        // $prjID[] = $project_id;
+        $prjID[] = $project_id;
         $this->db->select('prj_id');
         $this->db->from('tbl_project');
         $this->db->where('prj_parent',$project_id);
         $query = $this->db->get();
         foreach ($query->result() as $key => $value) {
-            $prjID[] = $value->prj_id;
+            // $prjID[] = $value->prj_id;
             $this->getPrjParent($value->prj_id,$prjID);
         }
 
