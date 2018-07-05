@@ -69,10 +69,20 @@ class Receive_outside_model extends CI_Model
         }else{
             return $this->db->insert('tbl_outside', $data);
         }
-     
-           
-        
 
+    }
+
+    function getAllOutSideID($out_id,&$OutBudget=array()){
+        $PrjManage[] = $out_id;
+        $this->db->select('out_id');
+        $this->db->from('tbl_outside');
+        $this->db->where('out_parent',$out_id);
+        $query = $this->db->get();
+        foreach ($query->result() as $key => $value) {
+            $this->getAllPrjManageID($value->out_id,$OutBudget);
+        }
+
+        return $PrjManage;
     }
 
 }

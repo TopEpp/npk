@@ -165,6 +165,7 @@ class project_model extends CI_Model
 
     public function setLogBudget($data,$data_id = array(),$type = '',$ref = false){
         if (!empty($data_id['id']) ){
+            $data['prj_budget_status'] = '0';
             $this->db->where('prj_id',$data_id['id']);
             if ($data_id['ref'] != '')
                 $this->db->where('prj_ref_id',$data_id['ref']);
@@ -174,6 +175,12 @@ class project_model extends CI_Model
             $this->db->where('prj_budget_type',$type);
             return $this->db->update('tbl_prj_budget_log',$data);
         }
+        $query = $this->db->query('SELECT prj_budget_id  FROM tbl_prj_budget_log  WHERE prj_id = ' .  $data['prj_id']);
+        if ($query->num_rows() > 0) {
+        }else{
+            $data['prj_budget_status'] = '1';
+        }
+        
         $data['prj_log_date'] = date('Y-m-d');
         $this->db->insert('tbl_prj_budget_log',$data);
         return $this->db->insert_id();
