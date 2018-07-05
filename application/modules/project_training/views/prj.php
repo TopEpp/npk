@@ -183,7 +183,7 @@
                               <div class="x_panel">
                                 <div class="x_content">
                                 <div class="clearfix"></div>
-                                  <table class="table">
+                                  <table class="table prj_select">
                                     <thead>
                                       <tr>
                                         <th width="100%" class="text-left">โครงการที่เลือก</th>
@@ -194,13 +194,13 @@
                                       <?php foreach ($budget_log as $key => $value) {
                                         if ($value->prj_budget_type == 2 && $value->prj_budget_parent != null){
                                       ?>
-                                        <tr data-id="<?php echo $value->prj_id;?>" >
+                                        <tr data-select="<?php echo $value->prj_budget_id;?>" >
                                             <div class="row">
                                               <td class="text-left" style="">
                                                 <span class="col-sm-7"> <?php echo @$prj_all[$value->prj_ref_id]->prj_name;?></span>
                                                 <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount;?>" name="prj_selects[<?php echo $value->prj_ref_id;?>]" type="text"></span>
                                                 <span class="col-sm-1">บาท</span>
-                                                <div class="btn-group col-sm-1"><button onclick=getSelect(<?php echo $value->prj_id;?>) class="btn btn-danger" type="button">ลบ</button></div>
+                                                <div class="btn-group col-sm-1"><button onclick=delSelect(<?php echo $value->prj_budget_id;?>) class="btn btn-danger btn-sm" type="button">ลบ</button></div>
                                               </td>
                                             </div>
                                       
@@ -307,7 +307,7 @@
                     <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                         <button type="submit" class="btn btn-success">ยืนยัน</button>
-                        <button class="btn btn-primary" type="button">ยกเลิก</button>
+                        <button class="btn btn-primary" type="button" onclick="window.location.href ='<?php echo base_url('project_training/project');?>'">ยกเลิก</button>
 
                       </div>
                     </div>
@@ -548,7 +548,7 @@
                       มติที่ประชุม
                       </label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
-                        <textarea id="message" required="required" class="form-control"  name="approve" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                        <textarea id="message" class="form-control"  name="approve" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                                 data-parsley-validation-threshold="10"></textarea>
                           
                       </div>
@@ -639,11 +639,13 @@
                     </tr>
                     <tr>
                       <td>สร้างเมื่อ</td>
-                      <td> <?= $this->mydate->date_eng2thai($prj[0]->prj_create,'','S');?> 13.00 น. (ชื่อ )</td>
+                      <?php $time = explode(' ',$prj[0]->prj_create);?>
+                      <td> <?= $this->mydate->date_eng2thai($prj[0]->prj_create,'','S') .' '.$time[1];?>  น. (<?php echo $user_all[$prj[0]->prj_owner];?>)</td>
                     </tr>
                     <tr>
                       <td>ปรับปรุงข้อมูลล่าสุด</td>
-                      <td><?= $this->mydate->date_eng2thai($prj[0]->prj_update,'','S');?> 13.00 น. (ชื่อ )</td>
+                      <?php $time = explode(' ',$prj[0]->prj_create);?>
+                      <td><?= $this->mydate->date_eng2thai($prj[0]->prj_update,'','S').' '.$time[1];?> น. (<?php echo $user_all[$prj[0]->prj_owner_update];?> )</td>
                     </tr>
                     <tr>
                       <td>สถานะโครงการ</td>

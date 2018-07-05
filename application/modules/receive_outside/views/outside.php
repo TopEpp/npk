@@ -17,7 +17,7 @@
         <div class="x_panel">
 
             <div class="nav navbar-right panel_toolbox">
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus"></i> เพิ่มรายการ</button>
+              <button type="button" class="btn btn-default" onclick="add_out()"></i> เพิ่มรายการ</button>
             </div>
             <div style="margin:20px 0;"></div>
             <table id="tg" class="easyui-treegrid" title="&emsp;รายรับนอกงบประมาณ" style="width:100%;">
@@ -33,37 +33,6 @@
 </div>
 
 <!-- start model form -->
-
-
-<div class="modal fade create_plan" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel2">เพิ่มรายรับนอกงบประมาณ</h4>
-      </div>
-      <div class="modal-body clearfix">
-        <form class="form-horizontal form-label-left" id="form_plan">
-          <!-- hidden value -->
-        <input  id="hidden_id"  name="hidden_id"  type="hidden">
-        <input  id="hidden_edit"  name="hidden_edit"  value="false" type="hidden"> 
-          <div class="form-group">
-            <label>รายการ</label>
-            <input class="form-control" id="outside_title"  name="outside_title" placeholder="ระบุรายการ" type="text">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="btn-submit-plans" class="btn btn-primary">บันทึก</button>
-        <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 
 
 
@@ -89,18 +58,14 @@
             <label>รายการ</label> 
             <input class="form-control" id="out_name"  name="out_name" placeholder="ระบุรายการ" type="text">
           </div>
-          <!-- <div class="form-group">
+          <div class="form-group">
             <label>รหัสบัญชี</label> 
-            <input class="form-control" id="prj_budget"  name="prj_budget" placeholder="ระบุรหัสบัญชี" type="text">
+            <input class="form-control" id="out_code"  name="out_code" placeholder="ระบุรหัสบัญชี" type="text">
           </div>
- -->
+
           <div class="form-group">
             <label>จำนวนเงินที่รับ</label> 
-            <input class="form-control" id="out_budget"  name="out_budget" placeholder="ระบุจำนวนเงินที่รับ" type="text">
-          </div>
-          <div class="form-group">
-            <label>ผู้ที่รับผิดชอบ</label> 
-            <input class="form-control" id="out_owner"  name="out_owner" placeholder="ระบุผู้ที่รับผิดชอบ" type="text">
+            <input class="form-control numeric" id="out_budget"  name="out_budget" placeholder="ระบุจำนวนเงินที่รับ" type="text">
           </div>
 
         </form>

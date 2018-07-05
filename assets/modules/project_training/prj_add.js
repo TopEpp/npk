@@ -165,12 +165,12 @@ function getSelect(tmp ,data){
             console.log(response)
             var html;
             $.each(response, function(i, word) {
-                html += '<tr data-id="'+word['prj_id']+'">';
+                html += '<tr data-select="'+word['prj_id']+'">';
                 html += '<div class="row"><td class="text-left">' ;
                 html += '<span class="col-sm-7">'+word['prj_name']+' งบเหลือจ่าย ' +word['expenses_amount_result']+' บาท'+'</span>';
                 html += '<span class="col-sm-3"><input class="form-control numeric budget_item" name="prj_select['+word['prj_id']+']" type="text"></span>';
                 html += '<span class="col-sm-1">บาท</span>';
-                html += '<div class="btn-group col-sm-1"><button onclick=getSelect('+word['prj_id']+') class="btn btn-danger btn-sm" type="button">ลบ</button></div>';
+                html += '<div class="btn-group col-sm-1"><button onclick=delSelect('+word['prj_id']+') class="btn btn-danger btn-sm" type="button">ลบ</button></div>';
                 html += '</td></div>';
                 html += '</tr>';
               
@@ -191,4 +191,28 @@ function getSelect(tmp ,data){
         },
     })
 }
+
+function delSelect(value){
+
+    $.ajax({
+        method: "POST",
+        url: domain + 'project_training/delPrjConvert',
+        data: {
+            data: value
+        },
+        success: function (response) {
+            $("tr[data-select='" + value + "'] ").remove();
+            $(".table-search tr ").filter(function() {
+                return $(this).attr("data-id") == value;
+            }).css('color','#73879C');
+        
+            updateBudgetConvert();
+        }
+
+    });
+
+  
+    
+}
+
 

@@ -27,9 +27,9 @@
                   <table id="myTable" class="display" style="width:100%">
                       <thead>
                         <tr>
-                          <th>วันที่ชำระ</th>
-                          <th>เลขที่เช็ค / ฎีกา</th>
                           <th>วันที่ลงเช๊ค</th>
+                          <th>เลขที่เช็ค / ฎีกา</th>
+                          <th>วันที่ชำระ</th>
                           <th>แผนงาน / โครงการ</th>
                           <th>จำนวนเงินที่เบิกจ่าย (บาท)</th>
                           <th>ผู้ดำเนินการ</th>
@@ -39,9 +39,9 @@
                       <tbody>
                       <?php foreach ($expenditure as $key => $value) {?>
                          <tr>
-                          <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date,543,'S')?></td>
-                          <td align="center"><?php echo $value->expenses_number;?></td>
                           <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date_disburse,543,'S')?></td>
+                          <td align="center"><?php echo $value->expenses_number;?></td>
+                          <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date,543,'S')?></td>
                           <td><?php echo $value->prj_name;?></td>  
                           <td align="right"><?php echo number_format($value->expenses_amount_result,2); ?></td>
                           <td align="center"><?php echo $value->user_firstname;?></td>

@@ -524,8 +524,11 @@ class Project_training extends MY_Controller
         $data['prj_all'] = $this->project_model->getPrjArray();
         $data['prj_name'] = $this->project_model->getPrj('',true);
         $data['prj'] = $this->project_model->getPrj($id,false);
+        $data['user_all'] = $this->project_model->getUserAll();
 
-        $data['budget_log'] = $this->project_model->getBudgetLog($data['prj'][0]->prj_id);
+        $data['budget_log'] = '';
+        if (!empty($data['prj'][0]->prj_id))
+            $data['budget_log']=  $this->project_model->getBudgetLog($data['prj'][0]->prj_id);
         $data['expenses'] = $this->expenditure_model->getPrjExpensesByPrj($id);
         $data['prj_log'] = $this->project_model->getPrjLog($id);
 
@@ -560,8 +563,8 @@ class Project_training extends MY_Controller
         $data = $this->project_model->searchPrj($val);
         $result = array();
         foreach ($data as $key => $value) {
-            $value->expenses_amount_result = number_format( $value->prj_budget - $value->expenses_amount_result,2);
-            $value->prj_budget = number_format( $value->prj_budget,2);
+            $value->expenses_amount_result = number_format( $value->prj_budget_sum - $value->expenses_amount_result,2);
+            $value->prj_budget = number_format( $value->prj_budget_sum,2);
             
             $result[$key] = $value;
         }
@@ -583,6 +586,12 @@ class Project_training extends MY_Controller
 
         $this->json_publish($result);
 
+    }
+
+    public function delPrjConvert(){
+        $id = $this->input->post('data');
+        $result = $this->project_model->delPrjConvert($id);
+        $this->json_publish($result);
     }
 
 

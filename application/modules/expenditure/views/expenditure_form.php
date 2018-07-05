@@ -102,13 +102,13 @@
                                             </table>
                                           </div>
                                       </div>
-                                      <div class="col-md-12 ">
+                                      <div class="col-md-12 col-sm-12 col-lg-12  ">
                                           <div class="form-group" style="margin-bottom: 0px;">
 
                                               <label for="middle-name"> รายละเอียด
                                               </label>
                                               <div>
-                                                 <textarea class="form-control" name="expenses_detail">
+                                                 <textarea  class="form-control" name="expenses_detail">
                                                  <?php echo (!empty($expenses[0]->expenses_detail))?$expenses[0]->expenses_detail:'';?>
                                                  </textarea>
                                                  

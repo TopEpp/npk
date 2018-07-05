@@ -322,3 +322,4 @@ function del_prj(value, state = '') {
     $('#del_state').val(state);
     $('.del_prj').modal();
 }
+

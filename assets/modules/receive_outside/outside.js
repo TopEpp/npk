@@ -2,7 +2,7 @@ $(function () {
 
     //grid tree
     $('#tg').treegrid({
-        url: domain + 'receive/getOutsideJson',
+        url: domain + 'receive_outside/getOutsideJson',
         rownumbers: false,
         animate: false,
         collapsible: false,
@@ -23,7 +23,7 @@ $(function () {
                 },
                 {
                     field: 'budget',
-                    title: 'งบประมาณ',
+                    title: 'งบประมาณ (บาท)',
                     width: 30,
                     align: 'right'
                 },
@@ -37,7 +37,7 @@ $(function () {
             ]
         ],
         onLoadSuccess: function (row) {
-            $(this).treegrid('enableDnd', row ? row.id : null);
+            // $(this).treegrid('enableDnd', row ? row.id : null);
         }
 
 
@@ -59,91 +59,9 @@ $(function () {
     ]);
 
 
-    //add plan data
-    $('#btn-submit-plans').click(function () {
-
-        if ($('#outside_title').val() == '') {
-            return false;
-        }
-        var data = $('#outside_title').val();
-        var id = $('#hidden_id').val();
-        var edit = $('#hidden_edit').val();
-        $.ajax({
-            method: "POST",
-            url: domain + 'receive/insertOutsidePlan',
-            data: {
-                data: data,
-                id: id,
-                edit: edit
-            }
-        }).done(function (msg) {
-            if (msg) {
-                $('.create_plan').modal('hide');
-                $('#tg').treegrid('reload');
-            }
-        })
-    });
-    //end plan
-    //add plan data
-    $('#btn-submit-plan').click(function () {
-
-        if ($('#outside_select').val() == '') {
-            return false;
-        }
-        var data = $('#outside_select').val();
-        var id = $('#hidden_id_detail').val();
-        var level = $('#hidden_level').val();
-        var edit = $('#hidden_edit_detail').val();
-        $.ajax({
-            method: "POST",
-            url: domain + 'receive/insertOutsidePlan',
-            data: {
-                data: data,
-                id: id,
-                level: level,
-                edit: edit
-            }
-        }).done(function (msg) {
-            if (msg) {
-                $('.create_plan_detail').modal('hide');
-                $('#tg').treegrid('reload');
-            }
-        })
-    });
-    //end plan
-
-    //add plan data
-    $('#btn-submit-cost').click(function () {
-
-        if ($('#outside_cost').val() == '') {
-            return false;
-        }
-        var data = $('#outside_cost').val();
-        var id = $('#hidden_id_cost').val();
-        var level = $('#hidden_lv').val();
-        var edit = $('#hidden_edit_cost').val();
-
-        $.ajax({
-            method: "POST",
-            url: domain + 'receive/insertOutsidePlan',
-            data: {
-                data: data,
-                id: id,
-                level: level,
-                edit: edit
-            }
-        }).done(function (msg) {
-            if (msg) {
-                $('.create_plan_cost').modal('hide');
-                $('#tg').treegrid('reload');
-            }
-        })
-    });
-    //end plan
-
-
     //add prj data to controller
     $('#btn-submit-out').click(function () {
+
 
         if ($('#out_name').val() == '') {
             return false;
@@ -154,7 +72,7 @@ $(function () {
 
         $.ajax({
             method: "POST",
-            url: domain + 'receive/insertOutside',
+            url: domain + 'receive_outside/insertOutside',
             data: {
                 data: data,
                 edit: edit,
@@ -175,7 +93,7 @@ $(function () {
     $('#btn-del').click(function () {
         var id = $('#del_id').val();
         var state = $('#del_state').val();
-        window.location.href = domain + 'receive/delOut/' + id + '/' + state;
+        window.location.href = domain + 'receive_outside/delOut/' + id + '/' + state;
     });
 
 });
@@ -221,7 +139,7 @@ function add_out(value) {
 
     //clear data
     $("input[type='text']").val('');
-    $(".flat").parents('div').removeClass('checked');
+
 
 
     var year = $('.selectpicker').val();
@@ -234,7 +152,7 @@ function add_out(value) {
 //edit prj
 function edit_out(value) {
     //clear radio
-    $(".flat").parents('div').removeClass('checked');
+
 
     var year = $('.selectpicker').val();
     $('#outside_year').text(parseInt(year) + 543);
@@ -242,29 +160,17 @@ function edit_out(value) {
     $('#out_year').val(year);
     $.ajax({
         method: "POST",
-        url: domain + 'receive/getOut',
+        url: domain + 'receive_outside/getOut',
         data: {
             data: value
         }
     }).success(function (msg) {
         $('#hidden_out_id').val(msg[0]['out_id']);
         $('#out_name').val(msg[0]['out_name']);
+        $('#out_code').val(msg[0]['out_code']);
         $('#out_budget').val(msg[0]['out_budget']);
         $('#out_owner').val(msg[0]['out_owner']);
         $('#out_parent').val(msg[0]['out_parent']);
-
-        $("input[name='out_status']").each(function (index) {
-            if ($(this).val() == msg[0]['out_status']) {
-                $('#out_status' + index).prop("checked", true);
-                $('#out_status' + index).parents('div').addClass('checked');
-            }
-        });
-        $("input[name='out_type']").each(function (index) {
-            if ($(this).val() == msg[0]['out_type']) {
-                $('#out_type' + index).prop("checked", true);
-                $('#out_type' + index).parents('div').addClass('checked');
-            }
-        });
 
         $('.creat_out').modal();
 

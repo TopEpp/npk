@@ -111,8 +111,21 @@ class project_model extends CI_Model
         }
 
     }
-    public function delPrjTree($id,$parent=''){
+    public function delPrjConvert($id){
+        $log_budget = $this->getBudgetLogById($id);
+        // print_r($log_budget);die();
+        if (!empty($log_budget)){
+            $budget = $this->getBudget($log_budget->prj_ref_id);
+        
+            $budget_update['prj_budget_sum'] =  $budget->prj_budget_sum + $log_budget->prj_amount;
+            $this->project_model->insertPrj($budget_update,$log_budget->prj_ref_id);
 
+            $this->db->where('prj_budget_id', $id);
+            $this->db->delete('tbl_prj_budget_log');
+        }
+        
+  
+        return true;
     }
 
     public function insertPrj($data, $id = '')
@@ -161,7 +174,7 @@ class project_model extends CI_Model
             $this->db->where('prj_budget_type',$type);
             return $this->db->update('tbl_prj_budget_log',$data);
         }
-
+        $data['prj_log_date'] = date('Y-m-d');
         $this->db->insert('tbl_prj_budget_log',$data);
         return $this->db->insert_id();
 
@@ -348,6 +361,12 @@ class project_model extends CI_Model
         return $this->db->get('tbl_prj_budget_log')->result();
     }
 
+    public function getBudgetLogById($id){
+     
+        $this->db->where('prj_budget_id',$id);
+        return $this->db->get('tbl_prj_budget_log')->row();
+    }
+
     public function getPrjLog($id){
         
         $this->db->select('tbl_project_log.prj_update,usrm_user.user_firstname,usrm_user.user_lastname');
@@ -356,6 +375,17 @@ class project_model extends CI_Model
         $this->db->join('usrm_user','usrm_user.user_id = tbl_project_log.prj_owner_update');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function getUserAll(){
+        $val = $this->db->get('usrm_user')->result();
+        $data = array();
+        foreach ($val as $key => $value) {
+            
+            $data[$value->user_id] = $value->user_firstname .''.$value->user_lastname;
+        }
+        return $data;
+        
     }
 
 

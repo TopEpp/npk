@@ -1,6 +1,6 @@
 <?php 
 
-class Outside_model extends CI_Model
+class Receive_outside_model extends CI_Model
 {
     public function getOutside()
     {
@@ -66,22 +66,12 @@ class Outside_model extends CI_Model
         if (!empty($id)) {
             $this->db->where('out_id', $id);
             return $this->db->update('tbl_outside', $data);
-        }
-       //check  last id outside and out
-        $last_id_outside = $this->db->select('outside_id')
-            ->order_by('outside_id', 'desc')
-            ->limit(1)->get('tbl_outside_manager')->row('outside_id');
-        $last_id_out = $this->db->select('out_id')
-            ->order_by('out_id', 'desc')
-            ->limit(1)->get('tbl_outside')->row('out_id');
-
-        if ($last_id_outside > $last_id_out) {
-            $data['out_id'] = $last_id_outside + 1;
-            return $this->db->insert('tbl_outside', $data);
-        } else {
-            $data['out_id'] = $last_id_out + 1;
+        }else{
             return $this->db->insert('tbl_outside', $data);
         }
+     
+           
+        
 
     }
 
