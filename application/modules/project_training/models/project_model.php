@@ -175,7 +175,7 @@ class project_model extends CI_Model
             $this->db->where('prj_budget_type',$type);
             return $this->db->update('tbl_prj_budget_log',$data);
         }
-        $query = $this->db->query('SELECT prj_budget_id  FROM tbl_prj_budget_log  WHERE prj_id = ' .  $data['prj_id'].' and prj_budget_type = ' . $data['prj_budget_type']);
+        $query = $this->db->query('SELECT prj_budget_id  FROM tbl_prj_budget_log  WHERE prj_id = ' .  $data['prj_id']);
         if ($query->num_rows() > 0) {
         }else{
             $data['prj_budget_status'] = '1';
