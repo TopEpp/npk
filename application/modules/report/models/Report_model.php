@@ -10,6 +10,9 @@ class Report_model extends CI_Model
         'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง'
     ];
 
+    public $filter_date1;
+    public $filter_date2;
+
     public function getReport_rec_All()
     {
         $query = $this->db->get('tax_receive');
@@ -198,11 +201,11 @@ class Report_model extends CI_Model
                 $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
                         <td align="right">' . number_format($budget['prj_budget'],2) . '</td>
                         <td align="right">' . number_format($budget['amount_minus'],2) . '</td>
-                        <td align="right">' . number_format($budget['amount_plus']-$budget['prj_budget'],2) . '</td>
-                        <td align="right">' . number_format($budget['prj_amount'],2) . '</td>
+                        <td align="right">' . number_format($budget['amount_plus'],2) . '</td>
+                        <td align="right">' . number_format($budget['prj_budget']+$budget['prj_amount'],2) . '</td>
                         <td align="right">' . number_format($budget['expenses_amount'],2) . '</td>
                         <td align="right">-</td>
-                        <td align="right">' . number_format($budget['prj_amount']-$budget['expenses_amount'],2) . '</td>
+                        <td align="right">' . number_format($budget['prj_budget']+$budget['prj_amount']-$budget['expenses_amount'],2) . '</td>
                         </tr>';
                 $ul .= $this->getTreeChildProject($value->project_id);
                 $ul .= '</tbody>';
@@ -236,11 +239,11 @@ class Report_model extends CI_Model
 
             $ul .= "<td align='right'>". number_format($budget['prj_budget'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['amount_minus'],2)."</td>";
-            $ul .= "<td align='right'>". @number_format($budget['amount_plus']-$budget['prj_budget'],2)."</td>";
-            $ul .= "<td align='right'>". @number_format($budget['prj_amount'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['amount_plus'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_budget']+$budget['prj_amount'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['expenses_amount'],2)."</td>";
             $ul .= "<td align='right'>-</td>";
-            $ul .= "<td align='right'>". @number_format($budget['prj_amount']-$budget['expenses_amount'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_budget']+$budget['prj_amount']-$budget['expenses_amount'],2)."</td>";
             $ul .= '</tr>';
 
 
@@ -302,6 +305,7 @@ class Report_model extends CI_Model
             $this->db->from('tbl_project');
             $this->db->where_in('tbl_project.prj_id ',$project_id);
             $this->db->where('tbl_project.prj_active','1');
+
             $query_prj = $this->db->get();
             $prj = $query_prj->row();
 
@@ -313,6 +317,11 @@ class Report_model extends CI_Model
             $this->db->join('tbl_prj_budget_log','tbl_prj_budget_log.prj_id = tbl_project.prj_id','left');
             $this->db->where_in('tbl_project.prj_id ',$project_id);
             $this->db->where('tbl_project.prj_active ','1');
+            $this->db->where('tbl_prj_budget_log.prj_budgt_status',0);
+            if($this->filter_date1 && $this->filter_date2){
+                $this->db->where('tbl_prj_budget_log.prj_log_date >=', $this->filter_date1);
+                $this->db->where('tbl_prj_budget_log.prj_log_date <=', $this->filter_date2);
+            }
             $query_prj = $this->db->get();
             $prj_log = $query_prj->row();
 
@@ -321,6 +330,10 @@ class Report_model extends CI_Model
             $this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
             $this->db->where_in('tbl_project.prj_id ',$project_id);
             $this->db->where('tbl_project.prj_active ','1');
+            if($this->filter_date1 && $this->filter_date2){
+                $this->db->where('tbl_expenses.expenses_date >=', $this->filter_date1);
+                $this->db->where('tbl_expenses.expenses_date <=', $this->filter_date2);
+            }
             $query_exp = $this->db->get();
             $exp = $query_exp->row();
 
