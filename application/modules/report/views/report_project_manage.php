@@ -45,7 +45,7 @@
                           <th width="8%">โอนเพิ่ม</th>
                           <th width="8%">รวมถือจ่าย</th>
                           <th width="8%">ใช้ไป</th>
-                          <th width="8%">คาดว่าจะใช้</th>
+                          <!-- <th width="8%">คาดว่าจะใช้</th> -->
                           <th width="8%">คงเหลือ</th>
                         </tr>
                       </thead>
