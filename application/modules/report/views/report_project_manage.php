@@ -6,8 +6,8 @@
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                          <!-- <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
-                          </button> -->
+                          <button type="button" class="btn btn-success" title="กรองข้อมูล" data-toggle="modal" data-target="#modal_filter"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
+                          </button>
                           <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
                           </button>
                           <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
@@ -19,8 +19,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel" style="top: 10px;">
                   <div class="col-xs-12 ">
-                      <h5 class="inline text-right">ข้อมูล ณ วันที่ 
-                        <?php echo $this->mydate->date_eng2thai(date('Y-m-d'),543,'S')?></h5> 
+                      
                   </div>
 
               
@@ -28,6 +27,12 @@
                <div class="x_content">
                  <div style="text-align: center;">
                    <h2>สรุปการใช้จ่ายเงินงบประมาณ <?php echo $this->session->userdata('year')+543?></h2>
+                   <?php if(empty($filter_date1)){?>
+                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'),543,'S')?></h5> 
+                   <?php }else{?>
+                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai($filter_date1,543,'S').' ถึง '.$this->mydate->date_eng2thai($filter_date2,543,'S')?></h5> 
+
+                   <?php }?>
                  </div>
                  <br>
                  <table class="table table-bordered jambo_table">
@@ -40,7 +45,7 @@
                           <th width="8%">โอนเพิ่ม</th>
                           <th width="8%">รวมถือจ่าย</th>
                           <th width="8%">ใช้ไป</th>
-                          <th width="8%">คาดว่าจะใช้</th>
+                          <!-- <th width="8%">คาดว่าจะใช้</th> -->
                           <th width="8%">คงเหลือ</th>
                         </tr>
                       </thead>
@@ -57,7 +62,7 @@
 </div>
 
 <style>
-th{
+.table th{
   text-align: center;
 background-color:#2A3F54;
 color: #FFF;
@@ -66,3 +71,36 @@ color: #FFF;
 
 </style>
 
+
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="modal_filter">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <form method="post" action="<?php echo base_url('report/report_projectManage');?>">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel2">กรองข้อมูล</h4>
+      </div>
+      <div class="modal-body clearfix">
+       <div class="row">
+         <div class="col-md-12">
+           <label>ข้อมูลวันที่</label> 
+           <input type="text" name="filter_date1" value="<?php if(!empty($filter_date1)){ echo $this->mydate->date_db2str($filter_date1,543);}?>" class="form-control datepicker">
+         </div>
+       </div>
+       <div class="row" style="margin-top: 5px;">
+        <div class="col-md-12">
+          <label>ถึง วันที่</label>
+            <input type="text" name="filter_date2" value="<?php if(!empty($filter_date2)){ echo $this->mydate->date_db2str($filter_date2,543);}?>" class="form-control datepicker">
+         </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+        <button type="submit" id="btn-submit-plans" class="btn btn-primary">ค้นหา</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
