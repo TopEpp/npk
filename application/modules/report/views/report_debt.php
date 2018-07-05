@@ -7,8 +7,8 @@
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                          <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
-                          </button>
+                          <!-- <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
+                          </button> -->
                           <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
                           </button>
                           <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
@@ -43,7 +43,7 @@
                            foreach ($taxDebt as $key => $value) {
                             $sum1 += (@$value->notice_estimate-@$value->receive_amount);
                             $sum2 += (@$value->interest);
-                            $sum3 += (@$value->notice_estimate-@$value->receive_amount+@$interest);
+                            $sum3 += (@$value->notice_estimate- @$value->receive_amount+@$interest);
                          ?>
                         <tr>
                           <td><?php echo $value->tax_name?></td>
@@ -107,6 +107,7 @@
                             <?php $int =1 ;
                               $sum1 = $sum2 = $sum3 = $sum4 = $sum5 = $sum6 =0;
                               foreach ($person as $key => $value) {
+                                if((@$value[8]['notice_estimate']-@$value[8]['receive_amount']) + (@$value[9]['notice_estimate']-@$value[9]['receive_amount']) + (@$value[10]['notice_estimate']-@$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'] > 0){
                                 $sum1 += (@$value[8]['notice_estimate']-@$value[8]['receive_amount']);
                                 $sum2 += (@$value[8]['interest']);
 
@@ -130,7 +131,7 @@
                                 <td align="right"><?php echo number_format(@$value[10]['interest'],2)?></td>
                                 <td align="right"><?php echo number_format( (@$value[8]['notice_estimate']-@$value[8]['receive_amount']) + (@$value[9]['notice_estimate']-@$value[9]['receive_amount']) + (@$value[10]['notice_estimate']-@$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'],2)?></td>
                             </tr>
-                            <?php } ?>
+                            <?php }} ?>
                         </tbody>
                         <tfoot>
                           <tr>

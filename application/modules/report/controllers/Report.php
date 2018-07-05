@@ -60,6 +60,16 @@ class Report extends MY_Controller
         }
  
         // var_dump($prj[0]);die();
+        $post = $this->input->post();
+        if(!empty($post)){
+            $this->Report_model->filter_date1 = $this->mydate->date_thai2eng($post['filter_date1'],-543);
+            $this->Report_model->filter_date2 = $this->mydate->date_thai2eng($post['filter_date2'],-543);
+
+            $data['filter_date1'] = $this->Report_model->filter_date1;
+            $data['filter_date2'] = $this->Report_model->filter_date2;
+        }
+        
+
         $data['project'] = $this->Report_model->getTreeProjectManage($prj);
 
         $this->template->javascript->add('assets/modules/report/js/chart_project_manage.js');
