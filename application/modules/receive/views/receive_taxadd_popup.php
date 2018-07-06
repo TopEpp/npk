@@ -29,7 +29,7 @@ if ($chk == false) {
               <br />
 
               <!-- Smart Wizard -->
-              <?php if (!empty($this->uri->segment(3))) { ?>
+              <?php if (($this->uri->segment(3))) { ?>
                 <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save' . '/' . $this->uri->segment(3)); ?>" data-parsley-validate class="form-horizontal form-label-left">          
               <?php 
             } else { ?>
