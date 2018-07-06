@@ -640,12 +640,12 @@
                     <tr>
                       <td>สร้างเมื่อ</td>
                       <?php $time = explode(' ',$prj[0]->prj_create);?>
-                      <td> <?= $this->mydate->date_eng2thai($prj[0]->prj_create,'','S') .' '.$time[1];?>  น. (<?php echo $user_all[$prj[0]->prj_owner];?>)</td>
+                      <td> <?= $this->mydate->date_eng2thai($prj[0]->prj_create,'','S') .' '.$time[1];?>  น. (<?php echo @$user_all[$prj[0]->prj_owner];?>)</td>
                     </tr>
                     <tr>
                       <td>ปรับปรุงข้อมูลล่าสุด</td>
                       <?php $time = explode(' ',$prj[0]->prj_create);?>
-                      <td><?= $this->mydate->date_eng2thai($prj[0]->prj_update,'','S').' '.$time[1];?> น. (<?php echo $user_all[$prj[0]->prj_owner_update];?> )</td>
+                      <td><?= $this->mydate->date_eng2thai($prj[0]->prj_update,'','S').' '.$time[1];?> น. (<?php echo @$user_all[$prj[0]->prj_owner_update];?> )</td>
                     </tr>
                     <tr>
                       <td>สถานะโครงการ</td>

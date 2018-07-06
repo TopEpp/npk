@@ -12,7 +12,7 @@
 			<td><?php echo str_replace($keyword, '<span style="color: red;">'.$keyword.'</span>', $value->out_name);?></td>
 			<td style="text-align: right;"><?php echo number_format($value->out_budget,2);?></td>
 			<!-- <td style="text-align: center;"> -->
-			<td style="text-align: center;"><button class="btn btn-default" type="button" onclick="window.location.href='<?php echo base_url('receive_outside/outside_form/'.$value->out_id)?>'"><i class="fa fa-paypal"></i></button></td>
+			<td style="text-align: center;"><button class="btn btn-default" type="button" onclick="window.location.href='<?php echo base_url('receive_outside/outside_form/'.$value->out_id)?>'">จ่าย</button></td>
             </td>
 		</tr>
 	<?php } ?>

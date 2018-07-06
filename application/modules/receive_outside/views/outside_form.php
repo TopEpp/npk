@@ -55,12 +55,12 @@
                                             <table class="table table-bordered jambo_table">
                                               <tr>
                                                 <th>รายการ</th>
-                                                <th>จำนวนเงิน</th>
+                                                <th class="text-right">จำนวนเงิน (บาท)</th>
                                               </tr>
                                               <tbody>
                                                 <tr>
                                                   <td>ระบุจำนวน</td>
-                                                  <td><input type="text" name="outside_pay_budget" value="<?php echo (!empty($out_pay[0]->outside_pay_budget))?$out_pay[0]->outside_pay_budget:'';?>" placeholder="" id="expenses_amount" class="form-control col-md-7 col-xs-12 numeric"></td>
+                                                  <td ><input type="text" name="outside_pay_budget" value="<?php echo (!empty($out_pay[0]->outside_pay_budget))?$out_pay[0]->outside_pay_budget:'';?>" placeholder="" id="expenses_amount" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                 </tr>
 
                                               </tbody>
@@ -74,9 +74,7 @@
                                               <label for="middle-name"> รายละเอียด
                                               </label>
                                               <div>
-                                                 <textarea  class="form-control" name="outside_detail">
-                                                 <?php echo (!empty($out_pay[0]->outside_detail))?$out_pay[0]->outside_detail:'';?>
-                                                 </textarea>
+                                                 <textarea  class="form-control" name="outside_detail"><?php echo (!empty($out_pay[0]->outside_detail))?$out_pay[0]->outside_detail:'';?></textarea>
                                                  
                                               </div>
                                           </div>
@@ -103,10 +101,10 @@
         <table class="table table-bordered jambo_table">
           <thead>
             <tr>
-              <th>วันที่</th>
-              <th>ผู้เบิกจ่าย</th>
-              <th>รายละเอียด</th>
-              <th>จำนวนเงิน (บาท)</th>
+              <th class="text-center">วันที่</th>
+              <th class="text-center">ผู้เบิกจ่าย</th>
+              <th class="text-center">รายละเอียด</th>
+              <th class="text-right">จำนวนเงิน (บาท)</th>
               <!-- <th>จัดการ</th> -->
             </tr>
           </thead>
@@ -116,7 +114,7 @@
               <td><?php echo $this->mydate->date_eng2thai($value->outside_pay_create,'','S');?></td>
               <td><?php echo $value->user_firstname .' '.$value->user_lastname?></td>
               <td><?php echo $value->outside_detail?></td>
-              <td><?php echo number_format($value->outside_pay_budget);?></td>
+              <td class="text-right"><?php echo number_format($value->outside_pay_budget,2);?></td>
           
             </tr>
           <?php } ?>

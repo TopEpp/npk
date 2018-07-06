@@ -9,7 +9,7 @@ class Receive_outside_model extends CI_Model
         $this->db->from('tbl_outside');
         $this->db->where("out_parent != '0' ",null,false);
 		$this->db->like('out_name',$keyword);
-		// $this->db->where('prj_year',$this->session->userdata('year'));
+		$this->db->where('out_year',$this->session->userdata('year'));
 		$query = $this->db->get();
 
 		return $query->result();
@@ -38,6 +38,7 @@ class Receive_outside_model extends CI_Model
         if (!empty($pay_id)) {
             $this->db->where('outside_pay_id', $pay_id);
         }
+        $this->db->where('tbl_outside.out_year',$this->session->userdata('year'));
         $this->db->select('tbl_outside_pay.*,usrm_user.user_firstname,usrm_user.user_lastname,tbl_outside.out_name');
         $this->db->from('tbl_outside_pay');
         $this->db->join('tbl_outside','tbl_outside.out_id = tbl_outside_pay.outside_id','inner');
@@ -50,9 +51,12 @@ class Receive_outside_model extends CI_Model
     public function saveOutSidePay($data){
 
         if (!empty($data['outside_pay_id'])){
-			$id = $data['outside_pay_id'];
+            $id = $data['outside_pay_id'];
+            
             unset($data['outside_pay_id']);
+            unset($data['out_id']);
             unset($data['outside_pay_create']);
+
 			$this->db->where('outside_pay_id',$id);
 			return $this->db->update('tbl_outside_pay',$data);
 		}

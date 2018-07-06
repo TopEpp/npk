@@ -125,9 +125,12 @@ class Receive_outside extends MY_Controller
 
     public function saveOutSidePay(){
         $data = $this->input->post();
+
         $data['outside_pay_create'] = $this->mydate->date_thai2eng($data['outside_pay_create'],-543);
         $data['outside_pay_user'] = $_SESSION['user_id'] ;
-        $input['outside_pay_budget'] = str_replace(',', '', $data['outside_pay_budget']);
+       
+        $data['outside_pay_budget'] =  floatval(preg_replace('/[^\d.]/', '', $data['outside_pay_budget']));
+
         $data['outside_detail'] = trim($data['outside_detail']) ;
         $status = $this->Receive_outside_model->saveOutSidePay($data);
         redirect('receive_outside');
