@@ -37,7 +37,7 @@ var ctx = document.getElementById("report_receive").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["หมวดภาษีอากร", "หมวดภาษีจัดสรร", "หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต", "หมวดรายได้และทรัพย์สิน", "หมวดรายได้สาธารณูปโภคและสาธารณสุขฯ", "หมวดรายได้เบ็ดเตล็ด", "หมวดเงินอุดหนุน"],
+        labels: labels,
         datasets: [{
             label: 'ประมานการรายรับ ',
             data: [2013050, 3263180, 0, 0, 0, 0, 0],

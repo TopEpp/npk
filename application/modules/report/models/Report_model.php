@@ -88,7 +88,7 @@ class Report_model extends CI_Model
         $year =  $this->session->userdata('year');
          $this->db->select('tbl_tax.*,SUM(receive_amount) AS receive_amount , SUM(tbl_tax_estimate.tax_estimate) as tax_estimate');
          $this->db->from('tbl_tax');
-         $this->db->join('tax_receive','tbl_tax.tax_id= tax_receive.tax_id','left');
+         $this->db->join('tax_receive',"tbl_tax.tax_id= tax_receive.tax_id and tax_receive.year_id = '{$year}'",'left');
          $this->db->join('tbl_tax_estimate',"tbl_tax_estimate.tax_id = tbl_tax.tax_id and tbl_tax_estimate.year_id = '{$year}' ",'left');
          $this->db->where('tax_parent_id',$parent);
          $this->db->GROUP_BY('tbl_tax.tax_id');
