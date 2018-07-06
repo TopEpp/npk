@@ -10,6 +10,16 @@ class Receive_outside extends MY_Controller
 
     }
 
+    public function index()
+    {
+        $data = array();
+        $this->config->set_item('title', 'ข้อมูลบันทึกรายรับ - เทศบาลตำบลหนองป่าครั่ง');
+        $data['out_pay'] = $this->Receive_outside_model->getOutPay();
+        $this->template->javascript->add('assets/modules/receive_outside/search.js');
+        $this->setView('receive_save', $data);
+        $this->publish();
+    }
+
     public function outside()
     {
 
@@ -20,12 +30,63 @@ class Receive_outside extends MY_Controller
         $this->publish();
     }
 
+    // public function outside_prj()
+    // {
+   
+    //     // $data['title'] = "ระบบบัญชีรายจ่าย";
+    //     // $data['subtitle'] = "เทศบาลตำบลหนองป่าครั่ง";
+    //     // $data['view_isi'] = "expenditure_prj";
+
+    //     // // $this->load->view('template/template', $data);
+    //     $data = array();
+    //     $data['outside'] = $this->Receive_outside_model->getOut();
+    //     $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - เทศบาลตำบลหนองป่าครั่ง');
+    //     $this->template->javascript->add('assets/modules/receive_outside/search.js');
+    //     $this->setView('expenditure_prj', $data);
+    //     $this->publish();
+    // }
+
+    function getPrj()
+    {
+        $keyword = $this->input->post('keyword');
+        $data['prj'] = $this->Receive_outside_model->getPrjByKeyword($keyword);
+        $data['keyword'] = $keyword;
+
+        $this->load->view('table_prj', $data);
+    }
+
+    function search_outside_prj()
+    {
+        $data = array();
+        $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - ค้นหาโครงการ');
+        $this->template->javascript->add('assets/modules/receive_outside/search.js');
+        $this->setView('search_prj', $data);
+        $this->publish();
+    }
+
     // //get prj
     public function getOut()
     {
         $data = $this->input->post('data');
         $status = $this->Receive_outside_model->getOut($data);
         $this->json_publish($status);
+    }
+
+    public function outside_form($id,$pay_id = ''){
+
+        $data = array();
+        $data['out'] = $this->Receive_outside_model->getOut($id);
+        $data['out_pay_all'] = array();
+        if (!empty($pay_id))
+        {
+            $data['out_pay'] = $this->Receive_outside_model->getOutPay($id,$pay_id);
+            $data['out_pay_all'] = $this->Receive_outside_model->getOutPay($id);
+        }  
+
+        $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - เทศบาลตำบลหนองป่าครั่ง');
+        $this->template->javascript->add('assets/modules/receive_outside/search.js');
+        $this->setView('outside_form', $data);
+        $this->publish();
     }
 
     // //insert prj
@@ -62,6 +123,16 @@ class Receive_outside extends MY_Controller
         redirect('receive_outside/outside');
     }
 
+    public function saveOutSidePay(){
+        $data = $this->input->post();
+        $data['outside_pay_create'] = $this->mydate->date_thai2eng($data['outside_pay_create'],-543);
+        $data['outside_pay_user'] = $_SESSION['user_id'] ;
+        $input['outside_pay_budget'] = str_replace(',', '', $data['outside_pay_budget']);
+        $data['outside_detail'] = trim($data['outside_detail']) ;
+        $status = $this->Receive_outside_model->saveOutSidePay($data);
+        redirect('receive_outside');
+    }
+
 
     // //get data project_traing all
     public function getOutsideJson()
@@ -76,32 +147,24 @@ class Receive_outside extends MY_Controller
             $data['rows'][$key]['budget'] = number_format($value->out_budget,2);
             $data['rows'][$key]['account_id'] = $value->out_code;
             $data['rows'][$key]['name'] = $value->out_name;
-            $data['rows'][$key]['tools'] = "
-            <div class='btn-group'><button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success btn-sm' type='button'><i class='fa fa-plus'></i></button>
-            <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning btn-sm' type='button'><i class='fa fa-edit'></i></button>
-            <button onClick='del_out(" . $value->out_id . "," . '"1"' . ")'  id='outside_del' class='btn btn-danger btn-sm' type='button'><i class='fa fa-trash'></i></button></div>";
-
-            if ($value->out_parent != '0')
+            $data['rows'][$key]['tools'] = "<div class='btn-group'>";
+            if ($value->out_parent != '0'){
                 $data['rows'][$key]['_parentId'] = $value->out_parent;
+                $data['rows'][$key]['tools'] .=" <button  onClick='pay_out(" . $value->out_id . ")' class='btn btn-default btn-sm' type='button'>จ่าย</button>";
+            }
 
+         
+            $data['rows'][$key]['tools'] .=" <button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success btn-sm' type='button'>เพิ่ม</button>
+            <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning btn-sm' type='button'>แก้ไข</button>
+            <button onClick='del_out(" . $value->out_id . "," . '"1"' . ")'  id='outside_del' class='btn btn-danger btn-sm' type='button'>ลบ</button></div>";
 
         }
-
-        // $out = $this->Receive_outside_model->getOut();
-        // foreach ($out as $key => $value) {
-        //     $data['rows'][$data['total'] + $key]['id'] = $value->out_id;
-        //     $data['rows'][$data['total'] + $key]['budget'] = number_format($value->out_budget);
-        //     $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->out_name . '</p>';
-        //     $data['rows'][$data['total'] + $key]['tools'] = "
-        //     <button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success' type='button'><i class='fa fa-plus'></i></button>
-        //     <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning' type='button'><i class='fa fa-edit'></i></button>
-        //     <button onClick='del_out(" . $value->out_id . "," . '"1"' . ")'  id='outside_del' class='btn btn-danger' type='button'><i class='fa fa-trash'></i></button>";
-        //     $data['rows'][$data['total'] + $key]['_parentId'] = $value->out_parent;
-        //     // $data['rows'][$data['total']+$key]['iconCls'] = 'icon-ok';
-
-        // }
-
         $this->json_publish($data);
+    }
+
+    public function outSidePayDel($id){
+        $this->Receive_outside_model->outSidePayDel($id);
+        redirect('receive_outside');
     }
 
   

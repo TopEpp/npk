@@ -19,7 +19,7 @@
                                                 </div>
 
                                                 <div class="col-md-4 col-sm-12 col-xs-12 col-centered">
-                                                    <a href="<?php echo (base_url('receive/receive_save')) ?>">
+                                                    <a href="<?php echo (base_url('receive_outside')) ?>">
                                                         <button type="button" class="btn btn-nav" style="height: 110px; width:270px;">
                                                             <img src="../assets/plugins/icons/ellipse.png" width="43" height="43" />
                                                             <h4>รายจ่ายนอกงบประมาณ</h4>

@@ -19,7 +19,7 @@ $(function () {
                 {
                     title: 'รหัสบัญชี',
                     field: 'account_id',
-                    width: 20
+                    width: 15
                 },
                 {
                     field: 'budget',
@@ -30,7 +30,7 @@ $(function () {
                 {
                     field: 'tools',
                     title: '&nbsp;',
-                    width: 20,
+                    width: 25,
                     align: 'right'
                 },
                 // {field:'end',title:'End Date',width:80}
@@ -139,6 +139,7 @@ function add_out(value) {
 
     //clear data
     $("input[type='text']").val('');
+    $("#hidden_out_id").val();
 
 
 
@@ -182,4 +183,8 @@ function del_out(value, state = '') {
     $('#del_id').val(value);
     $('#del_state').val(state);
     $('.del_out').modal();
+}
+
+function pay_out(value){
+    window.location.replace(domain + 'receive_outside/' + 'outside_form' + '/' + value);
 }
