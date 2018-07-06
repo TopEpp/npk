@@ -39,11 +39,14 @@
                        </tr>
                       </thead>
                       <tbody>
-                      <?php $sum1=$sum2=$sum3=0;
+                      <?php $sum1=$sum2=$sum3=0; $labels_chart = $datasets ='';
                            foreach ($taxDebt as $key => $value) {
                             $sum1 += (@$value->notice_estimate-@$value->receive_amount);
                             $sum2 += (@$value->interest);
                             $sum3 += (@$value->notice_estimate- @$value->receive_amount+@$interest);
+
+                            $labels_chart .= $value->tax_name.'||';
+                            $datasets .= (@$value->notice_estimate- @$value->receive_amount+@$interest).'||';  
                          ?>
                         <tr>
                           <td><?php echo $value->tax_name?></td>
@@ -52,7 +55,9 @@
                           <td style="text-align: right;"><?php echo number_format(@$value->notice_estimate-@$value->receive_amount+@$interest,2) ?></td>
 
                         </tr>
-                      <?php } ?>
+                      <?php } 
+                          $labels_chart= substr($labels_chart, 0,-2);
+                          $datasets= substr($datasets, 0,-2);?>
                       </tbody>
                       <tfoot>
                         <tr>
@@ -63,10 +68,12 @@
                         </tr>
                       </tfoot>
                     </table>
+                    <input type="hidden" id="labels_chart" value="<?php echo $labels_chart;?>">
+                    <input type="hidden" id="datasets" value="<?php echo $datasets;?>"> 
                 </div>  
                     <div class="col-sm-6"></div>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                  <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
+                    <div class="col-md-6 col-sm-12 col-xs-12" style="text-align: right;">
+                      <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
                     <div >
                     <canvas id="chart_debt"></canvas>
                     </div>

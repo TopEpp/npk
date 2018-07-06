@@ -25,51 +25,45 @@ $(function(){
       data2.push( parseFloat(value) );
     });
 
-    console.log(labels);
-    console.log(data1);
-    console.log(data2);
-
-    labels2 = ["หมวดภาษีอากร", "หมวดภาษีจัดสรร", "หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต", "หมวดรายได้และทรัพย์สิน", "หมวดรายได้สาธารณูปโภคและสาธารณสุขฯ", "หมวดรายได้เบ็ดเตล็ด", "หมวดเงินอุดหนุน"];
-    
-});
-
-var ctx = document.getElementById("report_receive").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'ประมานการรายรับ ',
-            data: [2013050, 3263180, 0, 0, 0, 0, 0],
-            backgroundColor: "#26B99A",
-        },
-        {
-            label: 'รายรับจริง',
-            data: [65546, 219000, 21000, 0, 0, 0, 0],
-            backgroundColor: "#008080",
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    callback: function (value, index, values) {
-                        return number_format(value);
-                    }
-                }
+    var ctx = document.getElementById("report_receive").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'ประมานการรายรับ ',
+                data: data1,
+                backgroundColor: "#26B99A",
+            },
+            {
+                label: 'รายรับจริง',
+                data: data2,
+                backgroundColor: "#008080",
             }]
         },
-        tooltips: {
-            callbacks: {
-                label: function (tooltipItem, chart) {
-                    var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                    return datasetLabel + ': ' + number_format(tooltipItem.yLabel, 2);
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            return number_format(value);
+                        }
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, chart) {
+                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                        return datasetLabel + ': ' + number_format(tooltipItem.yLabel, 2);
+                    }
                 }
             }
         }
-    }
+    });
 });
+
 
 document.getElementById("chart_download").addEventListener("click", function () {
     var url_base64 = document.getElementById("report_receive").toDataURL("image/jpg");

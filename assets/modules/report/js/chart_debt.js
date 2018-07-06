@@ -1,54 +1,47 @@
-var ctx = document.getElementById("chart_debt").getContext('2d');
-var myChart1 = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ["ภาษีโรงเรือนและที่ดิน", "ภาษีบำรุงท้องที่", "ภาษีป้าย"],
-        datasets: [{
-            label: 'รวมค้างชำระ',
-            data: [27800.00, 300.00, 16000.00, ],
-            backgroundColor: "#26B99A",
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    callback: function (value, index, values) {
-                        return number_format(value);
-                    }
-                }
+var labels=new Array();
+var data1=new Array();
+
+$(function(){
+    labels_chart = $('#labels_chart').val();
+    labels_chart = labels_chart.split('||');
+
+    var datasets = $('#datasets').val();
+    datasets = datasets.split('||');
+
+    $.each( labels_chart, function( key, value ) {
+      labels.push(value);
+    });
+
+    $.each( datasets, function( key, value ) {
+      data1.push( parseFloat(value) ) ;
+    });
+
+    console.log(data1);
+
+    var ctx = document.getElementById("chart_debt").getContext('2d');
+    var myChart1 = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'รวมค้างชำระ',
+                data: data1,
+                backgroundColor: "#26B99A",
             }]
         },
-        tooltips: {
-            callbacks: {
-                label: function (tooltipItem, chart) {
-                    var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                    return datasetLabel + ': ' + number_format(tooltipItem.yLabel, 2);
-                }
-            }
+        options: {
+            // tooltips: {
+            //     callbacks: {
+            //         label: function (tooltipItem, chart) {
+            //             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+            //             return datasetLabel + ': ' + number_format(chart.datasets[tooltipItem.datasetIndex].data, 2);
+            //         }
+            //     }
+            // }
         }
-    }
+    });
+
 });
-//  google.charts.load("current", {packages:["corechart"]});
-//       google.charts.setOnLoadCallback(drawChart);
-// function drawChart() {
-//         var data = google.visualization.arrayToDataTable([
-//           ['Task', 'Hours per Day'],
-//           ['ภาษีโรงเรือนและที่ดิน',     3],
-//           ['ภาษีบำรุงท้องที่',      1],
-//           ['ภาษีป้าย',  1],
-      
-//         ]);
-
-//         var options = {
-//           title: 'รวมค้างชำระ',
-//           is3D: true,
-//         };
-
-//         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-//         chart.draw(data, options);
-//       }
 
 
 document.getElementById("chart_download").addEventListener("click", function () {

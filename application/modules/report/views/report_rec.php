@@ -84,10 +84,10 @@
                             <input type="hidden" id="datasets1" value="<?php echo $datasets1;?>">
                             <input type="hidden" id="datasets2" value="<?php echo $datasets2;?>">
                         </div> 
-                        <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="col-md-6 col-sm-12 col-xs-12" style="text-align: right;">
                           <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
                         <div >
-                          <canvas id="report_receive"></canvas>
+                          <canvas id="report_receive" ></canvas>
                         </div>
                     </div>
                  </div>
