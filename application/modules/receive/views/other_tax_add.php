@@ -99,7 +99,7 @@
                                                         จำนวนภาษี <span class="required" style="color:red">*</span>
                                                     </label>
                                                         <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <input type="text" name="receive_amount" value="" placeholder="0.00" class="form-control col-md-7 col-xs-12">
+                                                        <input type="text" name="receive_amount" value="" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12">
                                                         </div>
                                                 </div>
 

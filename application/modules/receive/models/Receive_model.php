@@ -38,12 +38,10 @@ class Receive_model extends CI_Model
         return $query->result();
     }
 
-    public function insertNotice($data, $id = '')
+    public function insertNotice($year, $data)
     {
-        if (!empty($id)) {
-            $this->db->where('notice_id', $id);
-            return $this->db->update('tax_notice', $data);
-        }
+        $this->db->where('year_id', $year);
+        $this->db->set('year_id', $year);
         return $this->db->insert('tax_notice', $data);
 
     }
@@ -101,9 +99,12 @@ class Receive_model extends CI_Model
     }
 
      //other_tax_add
-    public function insertOtherTax($input)
+    public function insertOtherTax($year, $input)
     {
+        $this->db->where('year_id', $year);
+        $this->db->set('year_id', $year);
         $this->db->insert('tax_receive', $input);
+
     }
 
 
@@ -117,10 +118,12 @@ class Receive_model extends CI_Model
             ->result_array();
     }
 
-    public function updateOtherTax($input)
+    public function updateOtherTax($year, $input)
     {
         $this->db
             ->where('receive_id', $input['receive_id'])
+            ->where('year_id', $year)
+            ->set('year_id', $year)
             ->update('tax_receive', $input);
 
 
@@ -210,6 +213,21 @@ class Receive_model extends CI_Model
     }
 
 
+    public function getPrjByKeyword($keyword)
+    {
+        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
+        $this->db->from('tax_notice');
+        $this->db->like('notice_number', $keyword);
+        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
+        $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
+        $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
+
+        $query = $this->db->get();
+        return $query->result_array();
+
+
+    }
+
 
 
 
@@ -288,6 +306,7 @@ class Receive_model extends CI_Model
 
         $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
         $this->db->from('tax_notice');
+        $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
@@ -331,17 +350,15 @@ class Receive_model extends CI_Model
 
         // }
 
-
         $this->db->where($condition);
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
-        // SELECT * FROM tax_receive WHERE tax_id != 8 and tax_id != 9 and tax_id != 10
 
         $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*');
-        // $this->db->where('tax_id!= 8 and tax_id != 9 and tax_id != 10');
         $this->db->from('tax_receive');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left');
+        $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
         $this->db->where('tbl_tax.tax_id!= 8');
         $this->db->where('tbl_tax.tax_id!= 9');
         $this->db->where('tbl_tax.tax_id!= 10');

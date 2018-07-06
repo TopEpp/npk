@@ -5,7 +5,7 @@
                   </div>
                   <div class="col-md-4 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                        <button style="width: 101px;" onclick="window.location.replace('receive/receive_tax_pay');" type="button" class="btn btn-success" title="ชำระภาษี"><i class="fa fa-paypal"></i> ชำระภาษี
+                        <button style="width: 101px;" onclick="window.location.replace('receive/search_tax_pay');" type="button" class="btn btn-success" title="ชำระภาษี"><i class="fa fa-paypal"></i> ชำระภาษี
                         </button>
                       </div>
                   </div>
