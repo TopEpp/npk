@@ -122,6 +122,7 @@ class Report_model extends CI_Model
 
     function getPersonTax($id){
         $data = array();
+        $year =  $this->session->userdata('year');
         $this->db->select('tbl_tax.*, 
                             tbl_individual.*,
                             tax_notice.*');
@@ -131,6 +132,7 @@ class Report_model extends CI_Model
         $this->db->join('tbl_individual','tbl_individual.individual_id = tax_notice.individual_id','left');
         $this->db->where('tbl_tax.tax_parent_id',1);
         $this->db->where('tbl_individual.individual_id', $id);
+        $this->db->where('tax_notice.tax_year',$year);
         // $this->db->GROUP_BY('tbl_individual.individual_id,tbl_tax.tax_id,tax_notice.tax_year,tax_notice.notice_id');
         // $this->db->having('notice_estimate > receive_amount');
         $query = $this->db->get();
@@ -140,6 +142,7 @@ class Report_model extends CI_Model
             $this->db->select('receive_date,receipt_number,SUM(tax_receive.receive_amount) as receive_amount');
             $this->db->from('tax_receive');
             $this->db->where('tax_receive.notice_id', $value->notice_id);
+            $this->db->where('tax_receive.year_id',$year);
             $query_re = $this->db->get();
             $row_re = $query_re->row();
 
