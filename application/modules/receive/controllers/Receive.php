@@ -148,7 +148,6 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['notice_annual_fee'] = $input['notice_annual_fee'][$form_key][$key];
                 }
            }
->>>>>>> Dev-Top
         }
     }
     public function receive_tax()
