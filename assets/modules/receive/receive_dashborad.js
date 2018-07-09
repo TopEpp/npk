@@ -9,6 +9,7 @@ $(function () {
     $('#btn-del').on('click', function (e) {
         e.preventDefault();
 
+
         var id = $(this).attr('del');
         window.location.replace(domain + 'receive/' + 'receive_notice_delete' + '/' + id);
     });
@@ -74,9 +75,16 @@ $(function () {
             {
                 data: 'notice_id',
                 render: function (data, type, row) {
+                    var form = '';
+                    if (row['tax_name'] == 'ภาษีป้าย') {
+                        form = '<a href=\'' + domain + 'export/gat1/' + '' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</a>';
+                    } else if (row['tax_name'] == 'ภาษีโรงเรือนและที่ดิน') {
+                        form = '<a href=\'' + domain + 'export/gat2/' + '' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</a>';
+                    } else {
+                        form = '<a href=\'' + domain + 'export/gat1/' + '' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</a>';
+                    }
                     var btn =
-                        '<div class="btn-group ">' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'export/gat1/gat2' + '' + data + '\'" id="" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</button>' +
+                        '<div class="btn-group ">' + form +
                         '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
                         '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'

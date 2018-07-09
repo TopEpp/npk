@@ -233,8 +233,8 @@ class Project_training extends MY_Controller
                }
                $budget_con_edit = array_sum($edit_tmp);
                $tmp = array();
-               if(!empty($this->input->post('prj_select'))){
-                    foreach (@$this->input->post('prj_select') as $key => $value) {
+               if($this->input->post('prj_select') != ''){
+                    foreach ($this->input->post('prj_select') as $key => $value) {
                         $budget = floatval(preg_replace('/[^\d.]/', '', $value));
                         array_push($tmp,$budget);
                     }

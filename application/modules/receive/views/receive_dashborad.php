@@ -58,10 +58,10 @@
                                 </select>
                               </div>
                             </div>
-    
+
                       <div class="ln_solid"></div>
                     </form>
-                    
+
                     <div class="form-group">
                           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
                             <br>
@@ -75,14 +75,14 @@
                     <table id="tax_table" class="table" width="100%">
                         <thead>
                           <tr>
-                            <th width="5%">ลำดับ</th>
+                            <th width="3%">ลำดับ</th>
                             <th width="10%">เลขที่รับ/ปี</th>
                             <th width="10%">จำนวนเงินที่ประเมิน (บาท)</th>
                             <th width="15%">เลขประจำตัวผู้เสียภาษี</th>
                             <th width="20%">ชื่อผู้เสียภาษี</th>
                             <th width="10%">หมวดรายได้</th>
                             <!-- <th width="10%">จำนวนเงินที่ชำระ (บาท)</th> -->
-                            <th width="20%">เครื่องมือ</th>
+                            <th width="25%">เครื่องมือ</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -100,7 +100,7 @@
               </div>
             </div>
 </div>
-                <!-- Modal Popup -->          
+                <!-- Modal Popup -->
           <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-dialog modal-sm">
@@ -110,8 +110,8 @@
                           </button>
                           <h4 class="modal-title" id="delmodal">การแจ้งเตือน!</h4>
                       </div>
-                      
-                      
+
+
                       <div class="modal-body">
                               <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
                       </div>
