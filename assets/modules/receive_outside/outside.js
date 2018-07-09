@@ -1,12 +1,13 @@
 $(function () {
 
     //grid tree
-    $('#tg').treegrid({
+    var $tg = $('#tg').treegrid({
         url: domain + 'receive_outside/getOutsideJson',
         rownumbers: false,
         animate: false,
         collapsible: false,
         fitColumns: true,
+        showFilterBar:false,
         idField: 'id',
         treeField: 'name',
         onContextMenu: onContextMenu,
@@ -41,22 +42,17 @@ $(function () {
         }
 
 
-    }).treegrid('enableFilter', [{
+    }).treegrid('enableFilter');
+
+    $('#search').on('keyup', function () {
+
+        $tg.treegrid('addFilterRule', {
             field: 'name',
-            type: 'text',
-        },
-        {
-            field: 'budget',
-            type: 'text',
-            options: {
-                precision: 1
-            },
-        },
-        {
-            field: 'tools',
-            type: 'label',
-        }
-    ]);
+            op: 'contains',
+            value: this.value
+        }).treegrid('doFilter');
+
+    });
 
 
     //add prj data to controller

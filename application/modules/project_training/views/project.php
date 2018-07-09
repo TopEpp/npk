@@ -15,6 +15,10 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
+          <div class="nav navbar-left panel_toolbox" style="width: 350px !important;">
+            <input type="text" class="form-control" id="search" placeholder="ค้นหา">
+          </div>
+          
 
           <div class="nav navbar-right panel_toolbox">
           

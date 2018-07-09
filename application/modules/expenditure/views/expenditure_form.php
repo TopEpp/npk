@@ -54,8 +54,8 @@
                                           <div class="form-group" style="margin-bottom: 0px;">
                                             <table class="table table-bordered jambo_table">
                                               <tr>
-                                                <th class="text-center">รายการ</th>
-                                                <th class="text-right">จำนวนเงิน</th>
+                                                <th width="70%" class="text-center">รายการ</th>
+                                                <th width="30%" class="text-right">จำนวนเงิน</th>
                                               </tr>
                                               <tbody>
                                                 <tr>
@@ -121,7 +121,7 @@
               </div>
           </div>
            <div style="text-align: right;">
-            <button type="submit" class="btn btn-default">บันทึก</button>
+            <button type="submit" class="btn btn-primary">บันทึก</button>
           </div>
       </div>
       </form>

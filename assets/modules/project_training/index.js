@@ -1,13 +1,14 @@
 $(function () {
 
     //grid tree
-    $('#tg').treegrid({
+    var $tg = $('#tg').treegrid({
         url: domain + 'project_training/getProjectJson',
         rownumbers: false,
         animate: false,
         collapsible: false,
         fitColumns: true,
         idField: 'id',
+        showFilterBar:false,
         treeField: 'name',
         onContextMenu: onContextMenu,
         columns: [
@@ -52,6 +53,17 @@ $(function () {
             type: 'label',
         }
     ]);
+
+
+    $('#search').on('keyup', function () {
+
+        $tg.treegrid('addFilterRule', {
+            field: 'name',
+            op: 'contains',
+            value: this.value
+        }).treegrid('doFilter');
+
+    });
 
 
     //add plan data
