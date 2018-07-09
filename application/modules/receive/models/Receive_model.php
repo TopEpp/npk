@@ -40,7 +40,14 @@ class Receive_model extends CI_Model
 
     public function insertNotice($data)
     {
-        return $this->db->insert('tax_notice', $data);
+         
+        foreach ($data as $value) { 
+            foreach ($value as $insert) {
+                 return $this->db->insert('tax_notice', $insert);
+            }
+            # code...
+        }
+       
 
     }
 

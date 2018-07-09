@@ -105,32 +105,32 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
                     $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
                     $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
-                    $data[$form_key][$key]['notice_date'] = $input['notice_date'][$form_key][0];
-                    $data[$form_key][$key]['notice_date_p2'] = $input['notice_date_p2'][$form_key][0];
-                    $data[$form_key][$key]['notice_amount'] = $input['notice_amount'][$form_key][0];
+                    $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0],-543);
+                    $data[$form_key][$key]['notice_date_p2'] = $this->mydate->date_thai2eng($input['notice_date_p2'][$form_key][0],-543);
+                    $data[$form_key][$key]['notice_amount'] = str_replace(',', '', $input['notice_amount'][$form_key][0]);
 
                     // --- $form_key $key ----//
                     $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
                     $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
                     $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
-                    $data[$form_key][$key]['notice_estimate'] = $input['notice_estimate'][$form_key][$key];
+                    $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
                     $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
                     $data[$form_key][$key]['noice_type_operation'] = $input['noice_type_operation'][$form_key][$key];
                     $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
-                    $data[$form_key][$key]['notice_annual_fee'] = $input['notice_annual_fee'][$form_key][$key];
+                    $data[$form_key][$key]['notice_annual_fee'] = str_replace(',', '', $input['notice_annual_fee'][$form_key][$key]);
 
                 }
 
 
             } else if (!empty($value[1])) {
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
-                    $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][1];
+                    $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 9;
 
-                    $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][1];
-                    $data[$form_key][$key]['notice_date_p5'] = $input['notice_date_p5'][$form_key][1];
-                    $data[$form_key][$key]['notice_date'] = $input['notice_date'][$form_key][1];
-                    $data[$form_key][$key]['land_amount'] = $input['land_amount'][$form_key][1];
+                    $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+                    $data[$form_key][$key]['notice_date_p5'] = $input['notice_date_p5'][$form_key][0];
+                    $data[$form_key][$key]['notice_date'] = $input['notice_date'][$form_key][0];
+                    $data[$form_key][$key]['land_amount'] = $input['land_amount'][$form_key][0];
 
                     // --- $form_key $key ----//
                     $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
@@ -173,7 +173,7 @@ class Receive extends MY_Controller
         }
         $this->Receive_model->insertNotice($data);
         // echo '<pre>';
-        print_r($data);
+        // print_r($data);
         // exit;
 
 
