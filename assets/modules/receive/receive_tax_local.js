@@ -10,7 +10,7 @@ $(function () {
         e.preventDefault();
 
         var id = $(this).attr('del');
-        window.location.replace(domain + 'receive/' + 'receive_notice_delete' + '/' + id);
+        window.location.replace(domain + 'receive/' + 'receive_local_delete' + '/' + id);
     });
 
     var table = $('#tax_table').DataTable({
@@ -19,7 +19,7 @@ $(function () {
         processing: true,
         lengthChange: false,
         ajax: {
-            url: domain + 'receive/getAjaxReceivedashborad',
+            url: domain + 'receive/getAjaxReceived_tax_local',
         },
         "columnDefs": [{
             "name": "",
@@ -27,11 +27,10 @@ $(function () {
         }, ],
 
         "order": [
-            [3, 'asc'],
+            [2, 'asc'],
         ],
-
         'columns': [{
-                data: 'notice_id',
+                data: 'receive_id',
                 "className": "text-center",
                 render: function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
@@ -39,46 +38,39 @@ $(function () {
 
             },
             {
-                data: null,
-                render: function (data, type, row) {
-                    return row.notice_number + "/" + row.tax_year;
-                    // return row.tax_year;
-                },
+                data: 'receive_date',
                 "className": "text-center",
-            },
-            {
-                data: 'notice_estimate',
-                "className": "text-right",
             },
             {
                 data: 'individual_number',
                 "className": "text-center",
             },
-            // {
-            //     data: null,
-            //     render: function (data, type, row) {
-
-            //         return row.individual_prename + " " + row.individual_fullname;
-            //     },
-            // },
             {
                 data: 'individual_fullname',
+                "className": "text-center",
             },
             {
-                data: 'tax_name',
+                data: 'notice_estimate',
+                "className": "text-center",
             },
-            // {
-            //     data: 'tax_amount',
-            // },
+            {
+                data: 'interest',
+                "className": "text-center",
+            },
+            {
+                data: 'receive_amount',
+                "className": "text-center",
+            },
+
 
             {
-                data: 'notice_id',
+                data: 'receive_id',
                 render: function (data, type, row) {
                     var btn =
                         '<div class="btn-group ">' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + '' + '' + data + '\'" id="" class="btn btn-success btn-sm " title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</button>' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
+                        // '<button type="button" onclick="window.location.href=\'' + domain + '' + '' + data + '\'" id="" class="btn btn-success btn-sm " title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</button>' +
+                        // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
+                        // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
                     '</div>';
                     return btn;
@@ -115,12 +107,5 @@ $(function () {
 
     });
 
-    //search data
-    $('#search_receive').click(function () {
-        table.columns(1).search($('#type_tax').val()).draw();
-        table.columns(2).search($('#number_tax').val()).draw();
-        table.columns(3).search($('#name_tax').val()).draw();
-        table.columns(4).search($('#tax_type_id').val()).draw();
-    });
 
 });

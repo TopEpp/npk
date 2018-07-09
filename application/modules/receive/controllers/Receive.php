@@ -97,102 +97,51 @@ class Receive extends MY_Controller
     }
 
   //add or edit notice to db
+    // public function receive_notice_save($id = '')
+    // {
+    //     $data = array();
+    //     $check_num = $this->input->post('notice_number');
+    //     foreach ($check_num as $key => $value) {
+    //         if (!empty($this->input->post('notice_number')[$key])) {
+    //             $data['individual_id'] = $this->input->post('individual_id')[$key];
+    //             $data['notice_number'] = $this->input->post('notice_number')[$key];
+    //             $data['notice_no'] = $this->input->post('notice_no')[$key];
+    //             $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
+    //             $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
+    //             $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
+    //             $data['notice_address_subdistrict'] = 50011300;
+    //             $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
+    //             $data['tax_year'] = $this->input->post('tax_year')[$key];
+
+    //             // $data['notice_date'] = $this->mydate->date_thai2eng($data['notice_date'],-543);
+    //             $data['notice_date'] = $this->input->post('notice_date')[$key];
+
+
+    //             $data['notice_amount'] = $this->input->post('notice_amount')[$key];
+    //             $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];
+    //             $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];
+    //             $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
+    //             $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];
+
+    //     // print_r($this->input->post());
+    //     // die();
+    //             print_r($data);
+    //         }
+    //     }
+    // }
     public function receive_notice_save($id = '')
     {
-    // check data noice tpye
-
         $data = array();
-        $check_num = $this->input->post('notice_number');
+
+        $check_num = $this->input->post('notice_estimate');
         foreach ($check_num as $key => $value) {
-            if (!empty($this->input->post('notice_number')[$key])) {
-                $data['tax_id'] = $key + 8;
-                $data['individual_id'] = $this->input->post('individual_id')[$key];
-                $data['tax_year'] = $this->input->post('tax_year')[$key];
-
-                $date = explode('/', $this->input->post('notice_date')[$key]);
-                $data['notice_date'] = ($date[2] - 543) . $date[1] . $date[0];
-
-                $value = str_replace(',', '', $this->input->post('notice_estimate')[$key]);
-                $data['notice_estimate'] = $value;
-
-                $data['notice_address_subdistrict'] = 50011300;
-                $data['notice_number'] = $this->input->post('notice_number')[$key];
-
-
-
-
-                if ($key == 1) {
-                    $data['tax_local_year'] = $this->input->post('tax_local_year')[$key];                           ///0  /2 ==1
-                    $data['land_rai'] = $this->input->post('land_rai')[$key];                                       ///0  /2 ==1
-                    $data['land_ngan'] = $this->input->post('land_ngan')[$key];                                     ///0  /2 ==1
-                    $data['land_wa'] = $this->input->post('land_wa')[$key];                                         ///0  /2 ==1
-                    $data['land_tax'] = $this->input->post('land_tax')[$key];
-                    $date = explode('/', $this->input->post('notice_date_p5')[$key]);
-                    $data['notice_date_p5'] = ($date[2] - 543) . $date[1] . $date[0];
-                    $data['land_amount'] = $this->input->post('land_amount')[$key];
-                    $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
-                    $data['notice_mark'] = $this->input->post('notice_mark')[$key];
-
-
-                }
-
-                if ($key == 0) {
-                    $date = explode('/', $this->input->post('notice_date_p2')[$key]);
-                    $data['notice_date_p2'] = ($date[2] - 543) . $date[1] . $date[0];
-
-
-                    $data['notice_amount'] = $this->input->post('notice_amount')[$key];
-
-                    $data['notice_no'] = $this->input->post('notice_no')[$key];
-
-                    $value = str_replace(',', '', $this->input->post('notice_annual_fee')[$key]);                    ///1 /2 ==0
-                    $data['notice_annual_fee'] = $value;   
-                                      ///1 /2 ==0
-                    $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];               ///1 /2 ==0
-                    $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
-                    $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
-                    $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
-
-
-                }
-
-                if ($key == 2) {
-                    $data['banner_type'] = $this->input->post('banner_type')[$key];
-                    $data['banner_width'] = $this->input->post('banner_width')[$key];
-                    $data['banner_heigth'] = $this->input->post('banner_heigth')[$key];
-                    $data['notice_mark'] = $this->input->post('notice_mark')[$key];
-                    $data['banner_amount'] = $this->input->post('banner_amount')[$key];
-
-
-                }
-
-                if ($key == 0 || $key == 1) {
-                    $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
-                    
-                     
-                                                  ///2 == 0 1
-                }
-
-                if ($key == 0 || $key == 2) {
-                    $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];               ///1 ==0 2
-
-                }
-
-
-
-
-                if (!empty($id)) {
-                    $status = $this->Receive_model->insertNotice($data, $id);
-                } else {
-                    $status = $this->Receive_model->insertNotice($data);
-                }
+            if (!empty($this->input->post('notice_estimate')[$key])) {
+                $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
+                $this->Receive_model->insertNotice($data);
+                print_r($data);
 
             }
         }
-        // print_r($data);        
-        redirect(base_url('receive/receive_dashborad'));
-
-
     }
 
 
@@ -218,7 +167,7 @@ class Receive extends MY_Controller
     public function other_tax()
     {
         $data = array();
-        $this->config->set_item('title', 'รายการข้อมูลรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
+        $this->config->set_item('title', 'รายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/other_tax.js');
         $this->setView('other_tax', $data);
         $this->publish();
@@ -231,8 +180,12 @@ class Receive extends MY_Controller
         $date = explode('/', $input['receive_date']);
         $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
 
+        $value = str_replace(',', '', $this->input->post('receive_amount'));
+        $input['receive_amount'] = $value;
 
-        $this->Receive_model->insertOtherTax($input);
+        $year = $this->session->userdata('year');
+
+        $this->Receive_model->insertOtherTax($year, $input);
         redirect(base_url('Receive/other_tax'));
     }
 
@@ -258,7 +211,8 @@ class Receive extends MY_Controller
         $data['tax_miscellaneous'] = $tax_miscellaneous->result_array();
         $data['tax_subsidy'] = $tax_subsidy->result_array();
 
-        $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
+
+        $this->config->set_item('title', 'บันทึกรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('other_tax_edit', $data);
         $this->publish();
 
@@ -297,7 +251,12 @@ class Receive extends MY_Controller
         $date = explode('/', $input['receive_date']);
         $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
 
-        $this->Receive_model->updateOtherTax($input);
+        $value = str_replace(',', '', $this->input->post('receive_amount'));
+        $input['receive_amount'] = $value;
+
+
+        $year = $this->session->userdata('year');
+        $this->Receive_model->updateOtherTax($year, $input);
         redirect(base_url('receive/other_tax'));
     }
 
@@ -461,13 +420,118 @@ class Receive extends MY_Controller
         $this->publish();
     }
 
-    public function receive_save()
+    public function search_tax_house()
     {
         $data = array();
-        $this->config->set_item('title', 'ข้อมูลบันทึกรายรับ - เทศบาลตำบลหนองป่าครั่ง');
-        $this->setView('receive_save', $data);
+        $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - ค้นหาโครงการ');
+        $this->template->javascript->add('assets/modules/receive/search_house.js');
+        $this->setView('search_tax_house', $data);
         $this->publish();
     }
+
+    public function getHouse()
+    {
+        $keyword = $this->input->post('keyword');
+        $data['receive'] = $this->Receive_model->getTaxByKeywordHouse($keyword);
+        $data['keyword'] = $keyword;
+
+        $this->load->view('table_receive_house.php', $data);
+    }
+
+
+
+    public function receive_save_house()
+    {
+        $data = array();
+        $this->template->javascript->add('assets/modules/receive/receive_tax_house.js');
+        $this->config->set_item('title', 'ข้อมูลบันทึกรายรับ - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('receive_save_house', $data);
+        $this->publish();
+    }
+
+        //delete Tax_house
+    public function receive_house_delete($id)
+    {
+        $this->Receive_model->del_other($id);
+        redirect(base_url('receive/receive_save_house'));
+
+    }
+
+    public function search_tax_local()
+    {
+        $data = array();
+        $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - ค้นหาโครงการ');
+        $this->template->javascript->add('assets/modules/receive/search_local.js');
+        $this->setView('search_tax_local', $data);
+        $this->publish();
+    }
+
+    public function getLocal()
+    {
+        $keyword = $this->input->post('keyword');
+        $data['receive'] = $this->Receive_model->getTaxByKeywordLocal($keyword);
+        $data['keyword'] = $keyword;
+
+        $this->load->view('table_receive_local.php', $data);
+    }
+
+
+    public function receive_save_local()
+    {
+        $data = array();
+        $this->template->javascript->add('assets/modules/receive/receive_tax_local.js');
+        $this->config->set_item('title', 'ข้อมูลบันทึกรายรับ - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('receive_save_local', $data);
+        $this->publish();
+    }
+
+        //delete Tax_house
+    public function receive_local_delete($id)
+    {
+        $this->Receive_model->del_other($id);
+        redirect(base_url('receive/receive_save_local'));
+
+    }
+
+    public function search_tax_label()
+    {
+        $data = array();
+        $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - ค้นหาโครงการ');
+        $this->template->javascript->add('assets/modules/receive/search_local.js');
+        $this->setView('search_tax_label', $data);
+        $this->publish();
+    }
+
+    public function getLabel()
+    {
+        $keyword = $this->input->post('keyword');
+        $data['receive'] = $this->Receive_model->getTaxByKeywordLabel($keyword);
+        $data['keyword'] = $keyword;
+
+        $this->load->view('table_receive_label.php', $data);
+    }
+
+
+
+    public function receive_save_label()
+    {
+        $data = array();
+        $this->template->javascript->add('assets/modules/receive/receive_tax_label.js');
+        $this->config->set_item('title', 'ข้อมูลบันทึกรายรับ - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('receive_save_label', $data);
+        $this->publish();
+    }
+
+        //delete Tax_house
+    public function receive_label_delete($id)
+    {
+        $this->Receive_model->del_other($id);
+        redirect(base_url('receive/receive_save_label'));
+
+    }
+
+
+    
 
 
 
@@ -882,6 +946,82 @@ class Receive extends MY_Controller
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
+    public function getAjaxReceived_tax_house()
+    {
+        $order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+      //check filter data
+        $filter = array();
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[] = $value['search']['value'];
+        }
+        $param['filter'] = $filter;
+        $results = $this->Receive_model->getRecieveTaxHouseAjax($param);
+
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
+    public function getAjaxReceived_tax_local()
+    {
+        $order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+      //check filter data
+        $filter = array();
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[] = $value['search']['value'];
+        }
+        $param['filter'] = $filter;
+        $results = $this->Receive_model->getRecieveTaxLocalAjax($param);
+
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
+
+    public function getAjaxReceived_tax_label()
+    {
+        $order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+      //check filter data
+        $filter = array();
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[] = $value['search']['value'];
+        }
+        $param['filter'] = $filter;
+        $results = $this->Receive_model->getRecieveTaxLabelAjax($param);
+
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
     public function getAjaxOtherTax()
     {
         $order_index = $this->input->get('order[0][column]');
@@ -921,6 +1061,7 @@ class Receive extends MY_Controller
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
+
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_tax_pay_add', $data);
         $this->publish();
