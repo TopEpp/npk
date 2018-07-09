@@ -1,6 +1,15 @@
 <?php
 class service_model extends CI_Model
 {
+
+	function removeProjectYear($year){
+		$this->db->where('project_year',$year+1);
+		$this->db->delete('tbl_project_manage');
+
+		$this->db->where('prj_year',$year+1);
+		$this->db->delete('tbl_project');		
+	}
+
 	function duplicate_project($year,$parent=''){
 		$data_insert = array();
 		$this->db->select('*');
@@ -18,7 +27,7 @@ class service_model extends CI_Model
 			$data_insert['project_year'] = $year+1;
 			$data_insert['project_level'] = $value['project_level'];
 			$data_insert['project_title'] = $value['project_title'];
-			$data_insert['prj_budget'] = $value['prj_budget'];
+			$data_insert['prj_budget_sum'] = $value['prj_budget_sum'];
 			$data_insert['project_ref_id'] = $value['project_id'];
 
 			$this->db->insert('tbl_project_manage',$data_insert);
@@ -46,6 +55,7 @@ class service_model extends CI_Model
 			$data_insert['prj_year'] = $year+1;
 			$data_insert['prj_name'] = $value['prj_name'];
 			$data_insert['prj_budget'] = $value['prj_budget'];
+			$data_insert['prj_budget_sum'] = $value['prj_budget_sum'];
 			$data_insert['prj_owner'] = $value['prj_owner'];
 			// $data_insert['prj_status'] = 0;
 			$data_insert['prj_type'] = '1';
@@ -101,6 +111,9 @@ class service_model extends CI_Model
 	}
 
 	function duplicate_estimate($year){
+		$this->db->where('tax_year',$year+1);
+    	$this->db->delete('tax_notice');
+
         $this->db->select('*');
         $this->db->from('tax_notice');
         $this->db->where('tax_year',$year);
@@ -112,6 +125,22 @@ class service_model extends CI_Model
         	$data_insert['tax_year'] = $year+1;
 
         	$this->db->insert('tax_notice',$data_insert);
+        }
+    }
+
+    function duplicate_estimate_tax($year){
+    	$this->db->where('year_id',$year+1);
+    	$this->db->delete('tbl_tax_estimate');
+
+        $this->db->select('*');
+        $this->db->from('tbl_tax_estimate');
+        $this->db->where('year_id',$year);
+        $query = $this->db->get();
+        foreach ($query->result_array() as $key => $value) {
+        	$data_insert = $value;
+        	$data_insert['tax_id'] = $year+1;
+
+        	$this->db->insert('tbl_tax_estimate',$data_insert);
         }
     }
 
