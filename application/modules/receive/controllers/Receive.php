@@ -96,56 +96,38 @@ class Receive extends MY_Controller
 
     }
 
-  //add or edit notice to db
-    // public function receive_notice_save($id = '')
-    // {
-    //     $data = array();
-    //     $check_num = $this->input->post('notice_number');
-    //     foreach ($check_num as $key => $value) {
-    //         if (!empty($this->input->post('notice_number')[$key])) {
-    //             $data['individual_id'] = $this->input->post('individual_id')[$key];
-    //             $data['notice_number'] = $this->input->post('notice_number')[$key];
-    //             $data['notice_no'] = $this->input->post('notice_no')[$key];
-    //             $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
-    //             $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
-    //             $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
-    //             $data['notice_address_subdistrict'] = 50011300;
-    //             $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
-    //             $data['tax_year'] = $this->input->post('tax_year')[$key];
-
-    //             // $data['notice_date'] = $this->mydate->date_thai2eng($data['notice_date'],-543);
-    //             $data['notice_date'] = $this->input->post('notice_date')[$key];
-
-
-    //             $data['notice_amount'] = $this->input->post('notice_amount')[$key];
-    //             $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];
-    //             $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];
-    //             $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
-    //             $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];
-
-    //     // print_r($this->input->post());
-    //     // die();
-    //             print_r($data);
-    //         }
-    //     }
-    // }
     public function receive_notice_save($id = '')
     {
         $data = array();
-
-        $check_num = $this->input->post('notice_estimate');
+        $check_num = $this->input->post('notice_number');
         foreach ($check_num as $key => $value) {
-            if (!empty($this->input->post('notice_estimate')[$key])) {
+            if (!empty($this->input->post('notice_number')[$key])) {
+                $data['individual_id'] = $this->input->post('individual_id')[$key];
+                $data['notice_number'] = $this->input->post('notice_number')[$key];
+                $data['notice_no'] = $this->input->post('notice_no')[$key];
+                $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
+                $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
+                $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
+                $data['notice_address_subdistrict'] = 50011300;
                 $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
-                $this->Receive_model->insertNotice($data);
-                print_r($data);
+                $data['tax_year'] = $this->input->post('tax_year')[$key];
 
+                // $data['notice_date'] = $this->mydate->date_thai2eng($data['notice_date'],-543);
+                $data['notice_date'] = $this->input->post('notice_date')[$key];
+
+
+                $data['notice_amount'] = $this->input->post('notice_amount')[$key];
+                $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];
+                $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];
+                $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
+                $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];
+
+        // print_r($this->input->post());
+        // die();
+                print_r($data);
             }
         }
     }
-
-
-
     public function receive_tax()
     {
         $data = array();
