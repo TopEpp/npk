@@ -99,33 +99,56 @@ class Receive extends MY_Controller
     public function receive_notice_save($id = '')
     {
         $data = array();
-        $check_num = $this->input->post('notice_number');
-        foreach ($check_num as $key => $value) {
-            if (!empty($this->input->post('notice_number')[$key])) {
-                $data['individual_id'] = $this->input->post('individual_id')[$key];
-                $data['notice_number'] = $this->input->post('notice_number')[$key];
-                $data['notice_no'] = $this->input->post('notice_no')[$key];
-                $data['notice_number_p2'] = $this->input->post('notice_number_p2')[$key];
-                $data['land_deed_number'] = $this->input->post('land_deed_number')[$key];
-                $data['notice_address_moo'] = $this->input->post('notice_address_moo')[$key];
-                $data['notice_address_subdistrict'] = 50011300;
-                $data['notice_estimate'] = $this->input->post('notice_estimate')[$key];
-                $data['tax_year'] = $this->input->post('tax_year')[$key];
 
-                // $data['notice_date'] = $this->mydate->date_thai2eng($data['notice_date'],-543);
-                $data['notice_date'] = $this->input->post('notice_date')[$key];
+        $input = $this->input->post();
+        // echo '<pre>';
+        // print_r($input);
+        // exit;
 
+        foreach ($input['notice_number'] as $form_key => $value) {
+           if(!empty($value[0])){
+                foreach ($input['notice_estimate'][$form_key] as $key => $v) {
+                    $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
 
-                $data['notice_amount'] = $this->input->post('notice_amount')[$key];
-                $data['noice_type_operation'] = $this->input->post('noice_type_operation')[$key];
-                $data['noice_name_operation'] = $this->input->post('noice_name_operation')[$key];
-                $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
-                $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];
+                    $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+                    $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
+                    $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
+                    $data[$form_key][$key]['notice_date'] = $input['notice_date'][$form_key][0];
+                    $data[$form_key][$key]['notice_date_p2'] = $input['notice_date_p2'][$form_key][0];
 
-        // print_r($this->input->post());
-        // die();
-                print_r($data);
-            }
+                    $data[$form_key][$key]['notice_amount'] = $input['notice_amount'][$form_key][0];
+
+                    $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
+                    $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
+                    $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+                    $data[$form_key][$key]['notice_estimate'] = $input['notice_estimate'][$form_key][$key];
+                    $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
+                    $data[$form_key][$key]['noice_type_operation'] = $input['noice_type_operation'][$form_key][$key];
+                    $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
+                    $data[$form_key][$key]['notice_annual_fee'] = $input['notice_annual_fee'][$form_key][$key];
+                }
+           }else if(!empty($value[1])){
+                foreach ($input['notice_estimate'][$form_key] as $key => $v) {
+                    $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
+
+                    $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+                    $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
+                    $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
+                    $data[$form_key][$key]['notice_date'] = $input['notice_date'][$form_key][0];
+                    $data[$form_key][$key]['notice_date_p2'] = $input['notice_date_p2'][$form_key][0];
+
+                    $data[$form_key][$key]['notice_amount'] = $input['notice_amount'][$form_key][0];
+
+                    $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
+                    $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
+                    $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+                    $data[$form_key][$key]['notice_estimate'] = $input['notice_estimate'][$form_key][$key];
+                    $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
+                    $data[$form_key][$key]['noice_type_operation'] = $input['noice_type_operation'][$form_key][$key];
+                    $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
+                    $data[$form_key][$key]['notice_annual_fee'] = $input['notice_annual_fee'][$form_key][$key];
+                }
+           }
         }
     }
     public function receive_tax()
