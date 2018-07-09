@@ -122,9 +122,9 @@ class Receive extends MY_Controller
                 $data['notice_address_number'] = $this->input->post('notice_address_number')[$key];
                 $data['notice_annual_fee'] = $this->input->post('notice_annual_fee')[$key];
 
-        // print_r($this->input->post());
-        // die();
-                print_r($data);
+                print_r($this->input->post());
+                die();
+                // print_r($data);
             }
         }
     }
