@@ -123,8 +123,6 @@
 
                                 $sum5 += (@$value[10]['notice_estimate']-@$value[10]['receive_amount']);
                                 $sum6 += (@$value[10]['interest']);
-
-
                             ?>
                             <tr>
                                 <td align="center"><?php echo $int++;?></td>

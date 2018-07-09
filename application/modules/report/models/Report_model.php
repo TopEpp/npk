@@ -174,7 +174,6 @@ class Report_model extends CI_Model
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_date_p5'] = $value->notice_date_p5;
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_annual_fee'] = $value->notice_annual_fee;
             
-
             @$data['tax'][$value->tax_id][$count_tax]['tax_receive']['receive_date'] = $row_re->receive_date;
             @$data['tax'][$value->tax_id][$count_tax]['tax_receive']['receive_amount'] = $row_re->receive_amount;
             @$data['tax'][$value->tax_id][$count_tax]['tax_receive']['receipt_number'] = $row_re->receipt_number;
@@ -378,10 +377,10 @@ class Report_model extends CI_Model
 
                 $ul .= '<tbody>';
                 $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
-                        <td align="right">' . number_format($ref->prj_budget_sum,2) . '</td>
+                        <td align="right">' . number_format(@$ref->prj_budget_sum,2) . '</td>
                         <td align="right">' . number_format($value->prj_budget_sum,2) . '</td>
-                        <td align="right">' . number_format($value->prj_budget_sum-$ref->prj_budget_sum,2) . '</td>
-                        <td align="right">' . number_format(($value->prj_budget_sum-$ref->prj_budget_sum)/$ref->prj_budget_sum*100,2) . ' %</td>
+                        <td align="right">' . number_format($value->prj_budget_sum-@$ref->prj_budget_sum,2) . '</td>
+                        <td align="right">' . number_format(($value->prj_budget_sum-@$ref->prj_budget_sum)/@$ref->prj_budget_sum*100,2) . ' %</td>
                         </tr>';
                 $ul .= $this->getTreeChildProjectYear($value->project_id);
                 $ul .= '</tbody>';
@@ -419,7 +418,7 @@ class Report_model extends CI_Model
             $ul .= "<td align='right'>". number_format($row->prj_budget_sum,2)."</td>";
             $ul .= "<td align='right'>". number_format($row->prj_budget_sum-@$ref->prj_budget_sum,2)."</td>";
             if(!empty($ref->prj_budget_sum) && @$ref->prj_budget_sum>0){
-                $ul .= "<td align='right'>". number_format( ($row->prj_budget_sum-@$ref->prj_budget_sum)/$ref->prj_budget_sum*100 ,2)." %</td>";
+                $ul .= "<td align='right'>". number_format( ($row->prj_budget_sum-@$ref->prj_budget_sum)/@$ref->prj_budget_sum*100 ,2)." %</td>";
             }else{
                 $ul .= "<td align='right'> 0%</td>";
             }
