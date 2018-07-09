@@ -1,3 +1,4 @@
+
 <div class="right_col" role="main">
             <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
