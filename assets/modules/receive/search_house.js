@@ -3,7 +3,7 @@ $(function () {
     $('#search-btn').click(function () {
         $.ajax({
             method: "POST",
-            url: domain + 'receive/getTax',
+            url: domain + 'receive/getHouse',
             data: {
                 keyword: $('#search').val(),
             }

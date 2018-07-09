@@ -16,7 +16,55 @@
                   <div class="clearfix"></div>
                   <br />
                   <br>
-
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                            <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี
+                                    </label>
+                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo ($tax_notice[0]['individual_prename'] . $tax_notice[0]['individual_firstname'] . " " . $tax_notice[0]['individual_lastname']); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                            <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี
+                                    </label>
+                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_notice[0]['individual_number'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                            <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ประเภทผู้เสียภาษี
+                                    </label>
+                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_notice[0]['tax_type_name'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                            <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เบอร์โทรศัพท์
+                                    </label>
+                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_notice[0]['individual_phone'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                            <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่
+                                    </label>
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . $tax_notice[0]['area_name_th'] ?></p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <hr>
+                    
 
             <form action="<?php echo base_url('receive/recieve_tax_add') ?>" method="post">
                 <div class="form-horizontal form-label-left">
@@ -90,7 +138,7 @@
                                 <button type="submit" id="btnSubmit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                                 </button>
                                                                 
-                                <button onclick="window.location.replace('<?php echo site_url('receive/receive_tax_pay'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                                <button onclick="window.location.replace('<?php echo site_url('receive/search_tax_house'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                                 </button>
                             </div>
                         </div>   
