@@ -111,6 +111,7 @@ class Receive extends MY_Controller
 
                     // --- $form_key $key ----//
                     $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
+                    $data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
                     $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
                     $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
                     $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
@@ -475,7 +476,8 @@ class Receive extends MY_Controller
         $data['receive'] = $this->Receive_model->getTaxByKeywordHouse($keyword);
         $data['keyword'] = $keyword;
 
-        $this->load->view('table_receive_house.php', $data);
+
+        $this->load->view('table_receive_house', $data);
     }
 
 
@@ -512,7 +514,7 @@ class Receive extends MY_Controller
         $data['receive'] = $this->Receive_model->getTaxByKeywordLocal($keyword);
         $data['keyword'] = $keyword;
 
-        $this->load->view('table_receive_local.php', $data);
+        $this->load->view('table_receive_local', $data);
     }
 
 
