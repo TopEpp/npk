@@ -177,8 +177,8 @@ class Receive extends MY_Controller
         $this->Receive_model->insertNotice($year, $data);
         // redirect(base_url('Receive/receive_dashborad'));
 
-        echo '<pre>';
-        print_r($data);
+        // echo '<pre>';
+        // print_r($data);
         exit;
 
 
