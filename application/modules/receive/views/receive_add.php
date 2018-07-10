@@ -127,14 +127,25 @@
                                                     </label>
                                                     <div >
                                                             <select id="colorselector" class="form-control" name="noice_type_operation[0][]">
-                                                                <?php foreach ($operation as $value) : ?>
-                                                                        <option value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>
-                                                                
-                                                                <?php endforeach; ?>
+                                                                <option value="0">หอพัก</option>
+                                                                <option value="1">ร้านค้า</option>
+                                                                <option value="2">บ้านเช่า</option>
+                                                                <option value="3">อาคารให้เช่า</option>
+                                                                <option value="4">อื่นๆ</option>
                                                             </select>
 
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-6 col-xs-12 type-value" id="4" style="display:none; margin-bottom: 0px;">
+                                                    <div class="form-group" >
+                                                        <label for="middle-name" > ประเภทกิจการ
+                                                        </label>
+                                                        <div >
+                                                            <input type="text" name="noice_name_operation_other[0][]" placeholder="ระบุประเภทกิจการ" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                    </div>
                                             </div>
 
                                             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -665,8 +676,6 @@
     width: 100%;
 }
 </style>
-<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
 $(document).ready( function() {
     	$(document).on('change', '.btn-file :file', function() {
@@ -703,7 +712,7 @@ $(document).ready( function() {
 		    readURL(this);
 		});
 	});
-</script> -->
+</script> 
 
 
 
@@ -726,19 +735,31 @@ $(document).ready( function() {
                                                 '</div>'+
                                             '</div>'+
                                             '</div>'+
+                                            
                                     '<div class="col-md-3 col-sm-6 col-xs-12">'+
                                         '<div class="form-group">'+
                                            ' <label  > ประกอบกิจการ'+
                                             '</label>'+
                                             '<div >'+
-                                                    '<select id="colorselector" class="form-control" name="noice_type_operation[0][]">'+
-                                                        '<?php foreach ($operation as $value) : ?>'+
-                                                                '<option value="<?php echo $value->noice_operation_id ?>"><?php echo $value->noice_operation_name ?></option>'+
-                                                       ' <?php endforeach; ?>'+
-                                                   ' </select>'+
+                                                        '<select id="colorselector" class="form-control" name="noice_type_operation[0][]">'+
+                                                                '<option value="0">หอพัก</option>'+
+                                                                '<option value="1">ร้านค้า</option>'+
+                                                                '<option value="2">บ้านเช่า</option>'+
+                                                                '<option value="3">อาคารให้เช่า</option>'+
+                                                                '<option value="4">อื่นๆ</option>'+
+                                                        '</select>'+
                                            ' </div>'+
                                         '</div>'+
                                     '</div>'+
+                                    '<div class="col-md-3 col-sm-6 col-xs-12 type-value" id="4" style="display:none; margin-bottom: 0px;">'+
+                                                    '<div class="form-group" >'+
+                                                        '<label for="middle-name" > ประเภทกิจการ'+
+                                                        '</label>'+
+                                                        '<div >'+
+                                                            '<input type="text" name="noice_name_operation_other[0][]" placeholder="ระบุประเภทกิจการ" class="form-control col-md-7 col-xs-12">'+
+                                                        '</div>'+
+                                                    '</div>'+
+                                            '</div>'+
                                     '<div class="col-md-3 col-sm-6 col-xs-12">'+
                                               '<div class="form-group" style="margin-bottom: 0px;">'+
                                                 '<label for="middle-name" > ชื่อสถานประกอบการค้าหรือกิจการอื่น'+
