@@ -66,18 +66,21 @@ class import_model extends MY_Model
 		foreach ($dataTmp as $key => $value) {
 			$num_all++;
 			if($value->tmp_Identification!=''){
-				$tmp_rec_number_one = explode('/', $value->tmp_rec_number_one);
-				$this->db->set('tax_year','2017');
-				$this->db->set('tax_id',8);
-				$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
-				$this->db->set('notice_number',@$tmp_rec_number_one[0]);
-				$this->db->set('notice_no',@$tmp_rec_number_one[1]);
-				$this->db->set('notice_estimate',$value->tmp_tax_one);
-				$this->db->set('notice_address_number',$value->tmp_number);
-				$this->db->set('notice_address_moo',$value->tmp_village);
-				$this->db->set('notice_address_subdistrict',$value->subdistrict_id);
-				$this->db->insert('tax_notice');
-				$num_insert++;
+				if($this->getIndividual_id($value->tmp_Identification)){
+					$tmp_rec_number_one = explode('/', $value->tmp_rec_number_one);
+					$this->db->set('tax_year','2017');
+					$this->db->set('tax_id',8);
+					$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
+					$this->db->set('notice_number',@$tmp_rec_number_one[0]);
+					$this->db->set('notice_no',@$tmp_rec_number_one[1]);
+					$this->db->set('notice_estimate',$value->tmp_tax_one);
+					$this->db->set('notice_address_number',$value->tmp_number);
+					$this->db->set('notice_address_moo',$value->tmp_village);
+					$this->db->set('notice_address_subdistrict',$value->subdistrict_id);
+					$this->db->insert('tax_notice');
+					$num_insert++;
+				}
+				
 			}
 		}
 
@@ -95,15 +98,18 @@ class import_model extends MY_Model
 		foreach ($dataTmp as $key => $value) {
 			$num_all++;
 			if($value->tmp_Identification!=''){
-				$tmp_rec_number_one = explode('/', $value->tmp_rec_number_one);
-				$this->db->set('tax_year','2017');
-				$this->db->set('tax_id',10);
-				$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
-				$this->db->set('notice_number',@$tmp_rec_number_one[0]);
-				$this->db->set('notice_no',@$tmp_rec_number_one[1]);
-				$this->db->set('notice_estimate',$value->tmp_tax_before);
-				$this->db->insert('tax_notice');
-				$num_insert++;
+				if($this->getIndividual_id($value->tmp_Identification)){
+					$tmp_rec_number_one = explode('/', $value->tmp_rec_number_one);
+					$this->db->set('tax_year','2017');
+					$this->db->set('tax_id',10);
+					$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
+					$this->db->set('notice_number',@$tmp_rec_number_one[0]);
+					$this->db->set('notice_no',@$tmp_rec_number_one[1]);
+					$this->db->set('notice_estimate',$value->tmp_tax_before);
+					$this->db->insert('tax_notice');
+					$num_insert++;
+				}
+				
 			}
 		}
 	}
@@ -118,21 +124,24 @@ class import_model extends MY_Model
 		foreach ($dataTmp as $key => $value) {
 			$num_all++;
 			if($value->tmp_Identification!=''){
-				$tmp_rec_number_one = explode('/', $value->tmp_number_receipt);
-				$this->db->set('tax_year','2017');
-				$this->db->set('tax_id',9);
-				$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
-				$this->db->set('notice_number',@$tmp_rec_number_one[0]);
-				$this->db->set('notice_no',@$tmp_rec_number_one[1]);
-				$this->db->set('notice_estimate',$value->tmp_sum_tax);
-				$this->db->set('notice_address_number',$value->tmp_number);
-				$this->db->set('land_deed_number',$value->tmp_deed_number);
-				$this->db->set('land_rai',$value->tmp_farm);
-				$this->db->set('land_ngan',$value->tmp_work);
-				$this->db->set('land_wa',$value->tmp_wa);
-				$this->db->set('land_tax',$value->tmp_tax_number);
-				$this->db->insert('tax_notice');
-				$num_insert++;
+				if($this->getIndividual_id($value->tmp_Identification)){
+					$tmp_rec_number_one = explode('/', $value->tmp_number_receipt);
+					$this->db->set('tax_year','2017');
+					$this->db->set('tax_id',9);
+					$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
+					$this->db->set('notice_number',@$tmp_rec_number_one[0]);
+					$this->db->set('notice_no',@$tmp_rec_number_one[1]);
+					$this->db->set('notice_estimate',$value->tmp_sum_tax);
+					$this->db->set('notice_address_number',$value->tmp_number);
+					$this->db->set('land_deed_number',$value->tmp_deed_number);
+					$this->db->set('land_rai',$value->tmp_farm);
+					$this->db->set('land_ngan',$value->tmp_work);
+					$this->db->set('land_wa',$value->tmp_wa);
+					$this->db->set('land_tax',$value->tmp_tax_number);
+					$this->db->insert('tax_notice');
+					$num_insert++;
+				}
+				
 			}
 		}
 

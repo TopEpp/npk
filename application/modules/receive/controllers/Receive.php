@@ -97,7 +97,8 @@ class Receive extends MY_Controller
         // exit;
 
         foreach ($input['notice_number'] as $form_key => $value) {
-            if (!empty($value[0])) {
+
+            if (!empty($input['notice_number'][0][0]) ) {
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 8;
@@ -122,7 +123,7 @@ class Receive extends MY_Controller
                 }
 
 
-            } else if (!empty($value[1])) {
+            } else if (!empty($value[1][0])) {
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 9;
@@ -147,7 +148,7 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
                     $data[$form_key][$key]['tax_local_year'] = $input['tax_local_year'][$form_key][$key];
                 }
-            } else if (!empty($value[2])) {
+            } else if (!empty($value[2][0])) {
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][2];
                     $data[$form_key][$key]['tax_id'] = 10;
@@ -171,10 +172,10 @@ class Receive extends MY_Controller
 
             }
         }
-        $this->Receive_model->insertNotice($data);
-        // echo '<pre>';
-        // print_r($data);
-        // exit;
+        // $this->Receive_model->insertNotice($data);
+        echo '<pre>';
+        print_r($data);
+        exit;
 
 
     }
@@ -632,61 +633,61 @@ class Receive extends MY_Controller
         $data['error'] = $results['error_message'];
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
-    //import users to table indevidual form data house
-    // public function import_data_house(){
-    //     //import module
-    //     $this->load->model('import/import_model');
-    //     $this->load->model('receive_model');
+  //   import users to table indevidual form data house
+  //   public function import_data_house(){
+  //       //import module
+  //       $this->load->model('import/import_model');
+  //       $this->load->model('receive_model');
 
-	// 	$dataTmp = $this->import_model->getTmpHouse();
-    //     // change some data to type int
-	// 	foreach ($dataTmp as $key => $value) {
-	// 		$provice_id = $this->import_model->getProviceID($value->tmp_province_send);
-	// 		$district_id = $this->import_model->getDistrictID($provice_id,$value->tmp_district_send);
-	// 		$subdistrict_id = $this->import_model->getSubDistrictID($district_id,$value->tmp_subdistrict_send);
+		// $dataTmp = $this->import_model->getTmpHouse();
+  //       // change some data to type int
+		// foreach ($dataTmp as $key => $value) {
+		// 	$provice_id = $this->import_model->getProviceID($value->tmp_province_send);
+		// 	$district_id = $this->import_model->getDistrictID($provice_id,$value->tmp_district_send);
+		// 	$subdistrict_id = $this->import_model->getSubDistrictID($district_id,$value->tmp_subdistrict_send);
 
-	// 		$dataTmp[$key]->provice_id_send = $provice_id;
-	// 		$dataTmp[$key]->district_id_send = $district_id;
-	// 		$dataTmp[$key]->subdistrict_id_send = $subdistrict_id;
-    //     }
+		// 	$dataTmp[$key]->provice_id_send = $provice_id;
+		// 	$dataTmp[$key]->district_id_send = $district_id;
+		// 	$dataTmp[$key]->subdistrict_id_send = $subdistrict_id;
+  //       }
 
-    //     //import data to table individual
-    //     $dataImport = array();
-    //     foreach ($dataTmp as $key => $value) {
+  //       //import data to table individual
+  //       $dataImport = array();
+  //       foreach ($dataTmp as $key => $value) {
 
-    //         if (strlen($value->tmp_Identification) == 12){
-    //             $dataImport['individual_type'] = 2;
-    //         }else{
-    //             $dataImport['individual_type'] = 1;
-    //         }
+  //           if (strlen($value->tmp_Identification) == 12){
+  //               $dataImport['individual_type'] = 2;
+  //           }else{
+  //               $dataImport['individual_type'] = 1;
+  //           }
 
-    //         $dataImport['individual_prename'] = $value->tmp_prename;
-    //         $dataImport['individual_fullname'] = $value->tmp_firstname .' '. $value->tmp_lastname;
-    //         $dataImport['individual_firstname'] = $value->tmp_firstname;
-    //         $dataImport['individual_lastname'] = $value->tmp_lastname;
-    //         $dataImport['individual_number'] = $value->tmp_Identification;
-    //         $dataImport['individual_address'] = $value->tmp_number;
-    //         $dataImport['individual_village'] = $value->tmp_village;
-    //         $dataImport['individual_subdistrict'] = $value->tmp_subdistrict;
-    //         $dataImport['individual_send_address'] = $value->tmp_number_send;
-    //         $dataImport['individual_send_village'] = $value->tmp_village_send;
-    //         $dataImport['individual_send_road'] = $value->tmp_road_send;
-    //         $dataImport['individual_send_lane'] = $value->tmp_lane_send;
-    //         $dataImport['individual_send_province'] = $value->provice_id_send;
-    //         $dataImport['individual_send_district'] = $value->district_id_send;
-    //         $dataImport['individual_send_subdistrict'] = $value->subdistrict_id_send;
-    //         $dataImport['individual_send_zipcode'] = $value->tmp_zipcode_send;
-    //         $dataImport['individual_business_name'] = $value->tmp_type_business;
+  //           $dataImport['individual_prename'] = $value->tmp_prename;
+  //           $dataImport['individual_fullname'] = $value->tmp_firstname .' '. $value->tmp_lastname;
+  //           $dataImport['individual_firstname'] = $value->tmp_firstname;
+  //           $dataImport['individual_lastname'] = $value->tmp_lastname;
+  //           $dataImport['individual_number'] = $value->tmp_Identification;
+  //           $dataImport['individual_address'] = $value->tmp_number;
+  //           $dataImport['individual_village'] = $value->tmp_village;
+  //           $dataImport['individual_subdistrict'] = $value->tmp_subdistrict;
+  //           $dataImport['individual_send_address'] = $value->tmp_number_send;
+  //           $dataImport['individual_send_village'] = $value->tmp_village_send;
+  //           $dataImport['individual_send_road'] = $value->tmp_road_send;
+  //           $dataImport['individual_send_lane'] = $value->tmp_lane_send;
+  //           $dataImport['individual_send_province'] = $value->provice_id_send;
+  //           $dataImport['individual_send_district'] = $value->district_id_send;
+  //           $dataImport['individual_send_subdistrict'] = $value->subdistrict_id_send;
+  //           $dataImport['individual_send_zipcode'] = $value->tmp_zipcode_send;
+  //           $dataImport['individual_business_name'] = $value->tmp_type_business;
 
-    //         //insert data to table
-    //         $status = $this->receive_model->insertData($dataImport);
+  //           //insert data to table
+  //           $status = $this->receive_model->insertData($dataImport);
 
-    //     }
-    //     echo $status ;
-    //         die();
+  //       }
+  //       echo $status ;
+  //           die();
 
 
-    // }
+  //   }
 
     public function import_data_label()
     {
