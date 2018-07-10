@@ -68,7 +68,8 @@ class import_model extends MY_Model
 			if($value->tmp_Identification!=''){
 				if($this->getIndividual_id($value->tmp_Identification)){
 					$tmp_rec_number_one = explode('/', $value->tmp_rec_number_one);
-					$this->db->set('tax_year','2017');
+					$this->db->set('tax_year',$this->session->userdata('year'));
+					$this->db->set('year_id',$this->session->userdata('year'));
 					$this->db->set('tax_id',8);
 					$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
 					$this->db->set('notice_number',@$tmp_rec_number_one[0]);
@@ -100,7 +101,8 @@ class import_model extends MY_Model
 			if($value->tmp_Identification!=''){
 				if($this->getIndividual_id($value->tmp_Identification)){
 					$tmp_rec_number_one = explode('/', $value->tmp_rec_number_one);
-					$this->db->set('tax_year','2017');
+					$this->db->set('tax_year',$this->session->userdata('year'));
+					$this->db->set('year_id',$this->session->userdata('year'));
 					$this->db->set('tax_id',10);
 					$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
 					$this->db->set('notice_number',@$tmp_rec_number_one[0]);
@@ -126,7 +128,8 @@ class import_model extends MY_Model
 			if($value->tmp_Identification!=''){
 				if($this->getIndividual_id($value->tmp_Identification)){
 					$tmp_rec_number_one = explode('/', $value->tmp_number_receipt);
-					$this->db->set('tax_year','2017');
+					$this->db->set('tax_year',$this->session->userdata('year'));
+					$this->db->set('year_id',$this->session->userdata('year'));
 					$this->db->set('tax_id',9);
 					$this->db->set('individual_id',$this->getIndividual_id($value->tmp_Identification));
 					$this->db->set('notice_number',@$tmp_rec_number_one[0]);
