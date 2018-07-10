@@ -1,5 +1,3 @@
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 <div class="right_col" role="main">
   <section class="row">
     <div class="col-md-6 col-sm-4 col-xs-4">

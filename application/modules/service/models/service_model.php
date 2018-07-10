@@ -111,18 +111,18 @@ class service_model extends CI_Model
 	}
 
 	function duplicate_estimate($year){
-		$this->db->where('tax_year',$year+1);
+		$this->db->where('year_id',$year+1);
     	$this->db->delete('tax_notice');
 
         $this->db->select('*');
         $this->db->from('tax_notice');
-        $this->db->where('tax_year',$year);
+        $this->db->where('year_id',$year);
         $query = $this->db->get();
         foreach ($query->result_array() as $key => $value) {
         	$data_insert = $value;
         	unset($data_insert['notice_id']);
 
-        	$data_insert['tax_year'] = $year+1;
+        	$data_insert['year_id'] = $year+1;
 
         	$this->db->insert('tax_notice',$data_insert);
         }
