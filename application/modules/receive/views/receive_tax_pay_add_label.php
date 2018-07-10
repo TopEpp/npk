@@ -66,7 +66,7 @@
                     <hr>
                     
 
-            <form action="<?php echo base_url('receive/recieve_tax_add') ?>" method="post">
+            <form action="<?php echo base_url('receive/recieve_tax_add_label') ?>" method="post">
                 <div class="form-horizontal form-label-left">
                   <div class="form-group">
                           <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขที่ใบเสร็จ
@@ -138,7 +138,7 @@
                                 <button type="submit" id="btnSubmit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                                 </button>
                                                                 
-                                <button onclick="window.location.replace('<?php echo site_url('receive/search_tax_house'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                                <button onclick="window.location.replace('<?php echo site_url('receive/search_tax_label'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                                 </button>
                             </div>
                         </div>   
@@ -147,7 +147,7 @@
             </form>
 
                   <br>
-                  <div class="x_content">
+                  <!-- <div class="x_content">
                       <table class="table table-bordered">
                           <thead>
                               <tr>
@@ -177,7 +177,7 @@
 
                               </tbody>
                       </table>
-                  </div>
+                  </div> -->
 
                             </div>
                           </div>
