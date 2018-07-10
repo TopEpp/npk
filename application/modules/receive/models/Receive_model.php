@@ -44,7 +44,7 @@ class Receive_model extends CI_Model
             foreach ($value as $insert) {
                 $this->db->where('year_id', $year);
                 $this->db->set('year_id', $year);
-                return $this->db->insert('tax_notice', $insert);
+                $this->db->insert('tax_notice', $insert);
             }
         }
 
