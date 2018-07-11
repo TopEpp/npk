@@ -1,5 +1,8 @@
 $(function(){
 
+
+    // jambo_table
+
     //load id to modal
     $('#delmodal').on('show.bs.modal', function (e) {
         var data = $(e.relatedTarget).data();

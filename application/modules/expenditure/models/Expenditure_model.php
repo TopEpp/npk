@@ -93,5 +93,19 @@ class expenditure_model extends CI_Model
 
 	}
 
+
+	//other_tax_add
+	public function insertOtherTax($year, $input)
+	{
+
+		$tax_id = $this->db->query("SELECT tax_id FROM tbl_tax WHERE tax_parent_id = '3' AND year_id = '".$year."' AND  tax_name LIKE '%ค่าปรับและค่าธรรมเนียมอื่นๆ%'")->row();
+		// echo $tax_id->tax_id;die();
+		$input['tax_id'] = $tax_id->tax_id;
+		$this->db->where('year_id', $year);
+		$this->db->set('year_id', $year);
+		$this->db->insert('tax_receive', $input);
+
+	}
+
 	
 }

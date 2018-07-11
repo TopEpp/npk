@@ -6,7 +6,7 @@
   </section>
   <div class="row">
    <div class="x_content">
-     <form method="post" action="<?php echo base_url('receive_outside/saveOutSidePay') ?>" >
+     <form method="post" action="<?php echo base_url('receive_outside/saveOutSideIn') ?>" >
         <input type="hidden" name="outside_pay_id" value="<?php echo @$out_pay[0]->outside_pay_id; ?>">
         <input type="hidden" name="outside_id" value="<?php echo (!empty($out[0]->out_id)) ? $out[0]->out_id : ''; ?>">
         <div id="form_tab" class="x_panel">
@@ -29,12 +29,12 @@
 
                             </tr>
                             <tr>
-                              <td>งบเบิกจ่ายทั้งหมด</td>
+                              <td>งบประมาณรายรับทั้งหมด</td>
                               <td class="text-right"><?php echo number_format(@$out_pay[0]->sum_pay_budget, 2) ?> บาท</td>
                             </tr>
                             <tr>
                               <td>รวม</td>
-                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum-@$out[0]->out_budget_sum, 2); ?> บาท</td>
+                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum + @$out[0]->out_budget_sum, 2); ?> บาท</td>
                             </tr>
                           </tbody>
                         </table>
@@ -62,37 +62,7 @@
                                                   <td>ระบุจำนวน</td>
                                                   <td ><input type="text" name="outside_pay_budget" value="<?php echo (!empty($out_pay[0]->outside_pay_budget)) ? $out_pay[0]->outside_pay_budget : ''; ?>" placeholder="" id="outside_pay_budget" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                 </tr>
-                                                <tbody>
-                                                <tr>
-                                                  <td><span style="text-decoration: underline;">บวก</span> ภาษีมูลค่าเพิ่ม &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span class="text-right" style="">
-
-                                                        <label>
-                                                          <input checked id="amount_vat" type="checkbox" class="flat" >
-                                                        </label>
-                                                        <input id="outside_pay_vat_val" style="width:40px;text-align: center;" type="text" value="7"> %
-                                                    </span>
-                                                  </td>
-                                                  <td><input type="text" name="outside_pay_vat" value="<?php echo (!empty($out_pay[0]->outside_pay_vat)) ? $out_pay[0]->outside_pay_vat : ''; ?>" placeholder="" id="outside_pay_vat" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                                <tr>
-                                                  <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                  <span class="text-right" style="">
-
-                                                    <label>
-                                                      <input type="checkbox" id="amount_tax" checked class="flat" >
-                                                    </label>
-                                                    <input id="outside_pay_tax_val" style="width:40px;text-align: center;" type="text" value="1"> %
-                                                </span>
-                                                  </td>
-                                                  <td><input type="text" name="outside_pay_tax" value="<?php echo (!empty($out_pay[0]->outside_pay_tax)) ? $out_pay[0]->outside_pay_tax : ''; ?>" placeholder="" id="outside_pay_tax" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-
-                                                <tr >
-                                                  <td>จำนวนเงินที่จ่ายสุทธิ</td>
-                                                  <td><input type="text" name="outside_pay_budget_sum" value="<?php echo (!empty($out_pay[0]->outside_pay_budget_sum)) ? $out_pay[0]->outside_pay_budget_sum : ''; ?>" placeholder="" id="outside_pay_budget_sum" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                              </tbody>
+                                        
 
                                               </tbody>
                                             </table>
@@ -133,7 +103,7 @@
           <thead>
             <tr>
               <th class="text-center">วันที่</th>
-              <th class="text-center">ผู้เบิกจ่าย</th>
+              <th class="text-center">ผู้บันทึก</th>
               <th class="text-center">รายละเอียด</th>
               <th class="text-right">จำนวนเงิน (บาท)</th>
               <!-- <th>จัดการ</th> -->

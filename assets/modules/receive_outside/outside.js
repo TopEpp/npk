@@ -20,18 +20,18 @@ $(function () {
                 {
                     title: 'รหัสบัญชี',
                     field: 'account_id',
-                    width: 15
+                    width: 10
                 },
                 {
                     field: 'budget',
                     title: 'งบประมาณ (บาท)',
-                    width: 30,
+                    width: 15,
                     align: 'right'
                 },
                 {
                     field: 'tools',
                     title: '&nbsp;',
-                    width: 25,
+                    width: 30,
                     align: 'right'
                 },
                 // {field:'end',title:'End Date',width:80}
@@ -183,4 +183,8 @@ function del_out(value, state = '') {
 
 function pay_out(value){
     window.location.replace(domain + 'receive_outside/' + 'outside_form' + '/' + value);
+}
+
+function add_in_out(value){
+    window.location.replace(domain + 'receive_outside/' + 'outside_in_form' + '/' + value);
 }

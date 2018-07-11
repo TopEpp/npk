@@ -46,8 +46,18 @@ class Expenditure extends MY_Controller
 
     function getPrj()
     {
+        $this->load->model('expenditure_model');
+        $this->load->model('project_training/project_model');
         $keyword = $this->input->post('keyword');
         $data['prj'] = $this->expenditure_model->getPrjByKeyword($keyword);
+        foreach ($data['prj'] as $key => $value) {
+
+            $tree = $this->project_model->getTitleTree($value->prj_parent);
+            $keys = array_keys($tree);
+            $cout = count($keys) - 1;
+            $data['prj'][$key]->prj_name = $data['prj'][$key]->prj_name . '<span style="color:#169F85">(' . @$tree[$keys[$cout - 1]] . ')</span>';
+        }
+
         $data['keyword'] = $keyword;
 
         $this->load->view('table_prj', $data);
@@ -62,8 +72,11 @@ class Expenditure extends MY_Controller
 
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - บันทึกการเบิกจ่าย');
         $data['prj'] = $this->expenditure_model->getPrjById($project_id);
+        $data['expenses_all'] = $this->expenditure_model->getPrjExpenses($project_id);
+        if ($expenses != '') {
+            $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id,$expenses);
 
-        $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id,$expenses);
+        }
 
         $data['project_id'] = $project_id;
         $this->template->javascript->add('assets/modules/expenditure/form.js');
@@ -73,9 +86,38 @@ class Expenditure extends MY_Controller
 
     function saveExpenditure()
     {
+        $this->load->model('receive_outside/Receive_outside_model');
         $input = $this->input->post();
+
+       
         $this->expenditure_model->saveExpenditure($input);
 
+        // tax insert
+        $data = array();
+        if ($input['expenses_amount_tax'] != '' && $input['expenses_amount_tax'] != '0'){
+            $id =$this->Receive_outside_model->getIdTaxPay();
+
+            $prj = $this->expenditure_model->getPrjById($input['project_id']);
+
+            $data['outside_id'] = $id->out_id;
+            $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก โครงการ'.$prj->prj_name;
+            $data['outside_pay_budget'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_tax']));
+            $data['outside_pay_create'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
+            $data['outside_pay_user'] = $_SESSION['user_id'];
+            $status = $this->Receive_outside_model->saveOutSideIn($data);
+           
+        }
+
+        if ($input['expenses_amount_fine'] != '' && $input['expenses_amount_fine'] != '0'){
+            $year = $this->session->userdata('year');
+
+            $data['receive_amount'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_fine']));
+            $data['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
+
+            $this->expenditure_model->insertOtherTax($year,$data);
+            
+        }
+        // die();
         redirect(base_url('expenditure/expenditure_prj'));
 
     }

@@ -1,5 +1,26 @@
-$(function(){
+$(function () {
 
+
+    $('#outside_pay_budget').keyup(function () {
+        var outside_pay_amount = this.value;
+        outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
+
+
+        var outside_pay_amount_vat = 0;
+        var outside_pay_amount_tax = 0;
+        if ($('input#amount_vat').is(':checked')) {
+            vat = $('#outside_pay_vat_val').val();
+            outside_pay_amount_vat = outside_pay_amount * vat / 100;
+        }
+        if ($('input#amount_tax').is(':checked')) {
+            tax = $('#outside_pay_tax_val').val();
+            outside_pay_amount_tax = outside_pay_amount * tax / 100;
+        }
+
+        $('#outside_pay_vat').val(outside_pay_amount_vat);
+        $('#outside_pay_tax').val(outside_pay_amount_tax);
+        $('#outside_pay_budget_sum').val(outside_pay_amount + outside_pay_amount_vat - outside_pay_amount_tax);
+    });
     // //load id to modal
     // $('#delmodal').on('show.bs.modal', function (e) {
     //     var data = $(e.relatedTarget).data();
@@ -22,7 +43,7 @@ $(function(){
 
     // check delete on click
     $('#btn-delpay').on('click', function (e) {
-       
+
         e.preventDefault();
         var id = $(this).attr('del');
         window.location.replace(domain + 'receive_outside/' + 'outSidePayDel' + '/' + id);
@@ -44,9 +65,9 @@ $(function(){
             method: "POST",
             url: domain + 'expenditure/saveExpenditureNumber',
             data: {
-                id : id,
-                expenses_number : number,
-                expenses_date_disburse : date
+                id: id,
+                expenses_number: number,
+                expenses_date_disburse: date
             }
         }).success(function (msg) {
             if (msg)
@@ -54,8 +75,8 @@ $(function(){
         });
     });
 
-	$('#search-btn').click(function(){
-		$.ajax({
+    $('#search-btn').click(function () {
+        $.ajax({
             method: "POST",
             url: domain + 'receive_outside/getPrj',
             data: {
@@ -63,12 +84,12 @@ $(function(){
             }
         }).done(function (msg) {
             if (msg) {
-            	console.log(msg);
-            	$('#div_table').html(msg);
+                console.log(msg);
+                $('#div_table').html(msg);
             }
         });
 
-	});
+    });
 
 });
 
