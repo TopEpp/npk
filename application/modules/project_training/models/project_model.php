@@ -102,6 +102,14 @@ class project_model extends CI_Model
             // $data['prj_active'] = '0';
             $this->db->where('prj_id', $id);
             $this->db->delete('tbl_project');
+            
+            //remove log prj budget
+            $this->db->where('prj_id', $id);
+            $this->db->delete('tbl_prj_budget_log');
+
+             //remove log prj 
+            $this->db->where('prj_id', $id);
+            $this->db->delete('tbl_project_log');
 
             $data = $this->updateBudget($parent);
             return true;
@@ -354,11 +362,12 @@ class project_model extends CI_Model
 
     public function searchPrj($data)
     {
-        $this->db->select('tbl_project.*,tbl_expenses.expenses_amount_result');
+        $this->db->select('tbl_project.*,sum(tbl_expenses.expenses_amount_result) as budget');
         $this->db->from('tbl_project');
         $this->db->where('prj_year', $this->session->userdata('year'));
         $this->db->like('prj_name', $data);
         $this->db->join('tbl_expenses', 'tbl_expenses.project_id = tbl_project.prj_id', 'left');
+        $this->db->group_by('prj_id');
         $query = $this->db->get();
         return $query->result();
 
@@ -388,6 +397,13 @@ class project_model extends CI_Model
         $this->db->where('tbl_prj_budget_log.prj_id', $id);
         $this->db->join('tbl_project', 'tbl_project.prj_id = tbl_prj_budget_log.prj_ref_id', 'left');
         return $this->db->get()->result();
+    }
+
+    public function getLastBudgetLog($id){
+        $this->db->where('prj_id', $id);
+        $this->db->where('prj_budget_type','2');
+        $this->db->order_by('prj_budget_id',"desc")->limit(1);
+        return $this->db->get('tbl_prj_budget_log')->row();
     }
 
     public function getBudgetLogNotNagative($id, $type = '')

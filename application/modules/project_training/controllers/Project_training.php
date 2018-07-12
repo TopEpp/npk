@@ -286,7 +286,7 @@ class Project_training extends MY_Controller
                     //  $data_budget['prj_ref_id'] = $key;
                     //  $data_budget['prj_budget_type'] = '2';
                     $budget = floatval(preg_replace('/[^\d.]/', '', $value));
-                    $data_budget['prj_amount'] = $budget;
+                    $data_budget['prj_amount'] = $budget; 
                     $bud_parent = $this->project_model->setLogBudget($data_budget, $data_update, '2', true);
 
                     array_push($budget_parent, $bud_parent);
@@ -297,26 +297,35 @@ class Project_training extends MY_Controller
                 $cout = 0;
                 // print_r($this->input->post('prj_selects'));die();
                 foreach ($this->input->post('prj_selects') as $key => $value) {
-                    $data_update['id'] = $key;
-                    $data_update['ref'] = $prj_id;
-                    $data_budget = array();
-                    $data_budget['prj_id'] = $key;
-                    //  $data_budget['prj_budget_parent'] = $budget_parent[$cout];
-                    //  $data_budget['prj_ref_id'] = $id_insert;
-                    //  $data_budget['prj_budget_type'] = '2';
+                    // echo '<pre>';
                     $budget = floatval(preg_replace('/[^\d.]/', '', $value));
-                    $data_budget['prj_amount'] = -abs($budget);
-                    $this->project_model->setLogBudget($data_budget, $data_update, '2');
- 
-                    //update budget prj form convert data
-                    //get budget prj_id
-                    $budget = $this->project_model->getBudget($key);
-                  
-                    $budget_update['prj_budget_sum'] = @$budget->prj_budget_sum + $data_budget['prj_amount'];
-             
-                    $this->project_model->insertPrj($budget_update, $key);
+                    $last_budget = $this->project_model->getLastBudgetLog($key);
+                    $budget =  ($budget + $last_budget->prj_amount);
+                    if ( ($budget) != '0'   ){
 
-                    $cout++;
+                        
+                        $data_update['id'] = $key;
+                        $data_update['ref'] = $prj_id;
+                        $data_budget = array();
+                        // $data_budget['prj_id'] = $key;
+                        //  $data_budget['prj_budget_parent'] = $budget_parent[$cout];
+                        //  $data_budget['prj_ref_id'] = $id_insert;
+                        //  $data_budget['prj_budget_type'] = '2';
+                    
+                        $data_budget['prj_amount'] = -abs($budget);
+
+                        $this->project_model->setLogBudget($data_budget, $data_update, '2',true);
+    
+                        //update budget prj form convert data
+                        //get budget prj_id
+                        $budget = $this->project_model->getBudget($key);
+
+                        $budget_update['prj_budget_sum'] = @$budget->prj_budget_sum + $data_budget['prj_amount'];
+                        // print_r($budget_update);die();
+                        $this->project_model->insertPrj($budget_update, $key);
+
+                        $cout++;
+                    }
 
                 }
 
@@ -583,7 +592,7 @@ class Project_training extends MY_Controller
             $cout = count($keys) - 1;
             $value->prj_name = $value->prj_name . ' <span style="color:#169F85;">(' . @$tree[$keys[$cout - 1]] . ')</span>';
 
-            $value->expenses_amount_result = number_format($value->prj_budget_sum - $value->expenses_amount_result, 2);
+            $value->budget = number_format($value->prj_budget_sum - $value->budget, 2);
             $value->prj_budget = number_format($value->prj_budget_sum, 2);
 
             $result[$key] = $value;

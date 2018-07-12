@@ -33,96 +33,102 @@
                               <td class="text-right"><?php echo number_format($prj->amount, 2) ?> บาท</td>
                             </tr>
                             <tr>
-                              <td>รวม</td>
-                              <td class="text-right"><?php echo number_format($prj->prj_budget_sum - $prj->amount, 2); ?> บาท</td>
+                              <td><b>คงเหลือที่เบิกจ่ายได้</b></td>
+                              <?php $sum_all = $prj->prj_budget_sum - $prj->amount;?>
+                              <td class="text-right"><b><?php echo number_format($sum_all, 2); ?> บาท</b></td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
-                      <div id="step-1">
-                              <div class="form-group">
-                                  <div class="row">
-                                      <div class="col-md-4 col-sm-6 col-xs-12">
-                                          <div class="form-group" >
-                                              <label>วันที่จัดทำ</label>
-                                              <span class="required" style="color:red">*</span>
+                      <?php if ($sum_all != '0'){ ?>
+                        <div id="step-1">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                            <div class="form-group" >
+                                                <label>วันที่จัดทำ</label>
+                                                <span class="required" style="color:red">*</span>
 
-                                              <input type="text" name="expenses_date" value="<?php echo (!empty($expenses[0]->expenses_date)) ? $expenses[0]->expenses_date : date('Y-m-d'); ?>" class="form-control datepicker">
-                                          </div>
-                                      </div>
-                                      <div class="col-md-12 ">
-                                          <div class="form-group" style="margin-bottom: 0px;">
-                                            <table class="table table-bordered jambo_table">
-                                              <tr>
-                                                <th width="70%" class="text-center">รายการ</th>
-                                                <th width="30%" class="text-right">จำนวนเงิน</th>
-                                              </tr>
-                                              <tbody>
+                                                <input type="text" name="expenses_date" value="<?php echo (!empty($expenses[0]->expenses_date)) ? $expenses[0]->expenses_date : date('Y-m-d'); ?>" class="form-control datepicker">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 ">
+                                            <div class="form-group" style="margin-bottom: 0px;">
+                                              <table class="table table-bordered jambo_table">
                                                 <tr>
-                                                  <td>มูลค่าสินค้า/บริการ</td>
-                                                  <td><input type="text" name="expenses_amount" value="<?php echo (!empty($expenses[0]->expenses_amount)) ? $expenses[0]->expenses_amount : ''; ?>" placeholder="" id="expenses_amount" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                  <th width="70%" class="text-center">รายการ</th>
+                                                  <th width="30%" class="text-right">จำนวนเงิน</th>
                                                 </tr>
-                                                <tr>
-                                                  <td><span style="text-decoration: underline;">บวก</span> ภาษีมูลค่าเพิ่ม &nbsp;
+                                                <tbody>
+                                                  <tr>
+                                                    <td>มูลค่าสินค้า/บริการ</td>
+                                                    <td><input type="text" name="expenses_amount" value="<?php echo (!empty($expenses[0]->expenses_amount)) ? $expenses[0]->expenses_amount : ''; ?>" placeholder="" id="expenses_amount" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><span style="text-decoration: underline;">บวก</span> ภาษีมูลค่าเพิ่ม &nbsp;
+                                                      <span class="text-right" style="">
+
+                                                          <label>
+                                                            <input checked id="amount_vat" type="checkbox" class="flat" >
+                                                          </label>
+                                                          <input id="amount_vat_val" style="width:40px;text-align: center;" type="text" value="7"> %
+                                                      </span>
+                                                    </td>
+                                                    <td><input type="text" name="expenses_amount_vat" value="<?php echo (!empty($expenses[0]->expenses_amount_vat)) ? $expenses[0]->expenses_amount_vat : ''; ?>" placeholder="" id="expenses_amount_vat" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>จำนวนเงินที่ขอเบิกทั้งสิ้น</td>
+                                                    <td><input type="text" name="expenses_amount_disburse" value="<?php echo (!empty($expenses[0]->expenses_amount_vat)) ? $expenses[0]->expenses_amount_vat : ''; ?>" placeholder="" id="expenses_amount_disburse" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย &nbsp;
                                                     <span class="text-right" style="">
 
-                                                        <label>
-                                                          <input checked id="amount_vat" type="checkbox" class="flat" >
-                                                        </label>
-                                                        <input id="amount_vat_val" style="width:40px;text-align: center;" type="text" value="7"> %
-                                                    </span>
-                                                  </td>
-                                                  <td><input type="text" name="expenses_amount_vat" value="<?php echo (!empty($expenses[0]->expenses_amount_vat)) ? $expenses[0]->expenses_amount_vat : ''; ?>" placeholder="" id="expenses_amount_vat" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                                <tr>
-                                                  <td>จำนวนเงินที่ขอเบิกทั้งสิ้น</td>
-                                                  <td><input type="text" name="expenses_amount_disburse" value="<?php echo (!empty($expenses[0]->expenses_amount_vat)) ? $expenses[0]->expenses_amount_vat : ''; ?>" placeholder="" id="expenses_amount_disburse" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                                <tr>
-                                                  <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย &nbsp;
-                                                  <span class="text-right" style="">
+                                                      <label>
+                                                        <input type="checkbox" id="amount_tax" checked class="flat" >
+                                                      </label>
+                                                      <input id="amount_tax_val" style="width:40px;text-align: center;" type="text" value="1"> %
+                                                  </span>
+                                                    </td>
+                                                    <td><input type="text" name="expenses_amount_tax" value="<?php echo (!empty($expenses[0]->expenses_amount_tax)) ? $expenses[0]->expenses_amount_tax : ''; ?>" placeholder="" id="expenses_amount_tax" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>ค่าปรับ</td>
+                                                    <td><input type="text" name="expenses_amount_fine" value="<?php echo (!empty($expenses[0]->expenses_amount_fine)) ? $expenses[0]->expenses_amount_fine : ''; ?>" placeholder="" id="expenses_amount_fine" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                  </tr>
+                                                  <tr >
+                                                    <td>จำนวนเงินที่จ่ายสุทธิ</td>
+                                                    <td><input type="text" name="expenses_amount_result" value="<?php echo (!empty($expenses[0]->expenses_amount_result)) ? $expenses[0]->expenses_amount_result : ''; ?>" placeholder="" id="expenses_amount_result" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-lg-12  ">
+                                            <div class="form-group" style="margin-bottom: 0px;">
 
-                                                    <label>
-                                                      <input type="checkbox" id="amount_tax" checked class="flat" >
-                                                    </label>
-                                                    <input id="amount_tax_val" style="width:40px;text-align: center;" type="text" value="1"> %
-                                                </span>
-                                                  </td>
-                                                  <td><input type="text" name="expenses_amount_tax" value="<?php echo (!empty($expenses[0]->expenses_amount_tax)) ? $expenses[0]->expenses_amount_tax : ''; ?>" placeholder="" id="expenses_amount_tax" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                                <tr>
-                                                  <td>ค่าปรับ</td>
-                                                  <td><input type="text" name="expenses_amount_fine" value="<?php echo (!empty($expenses[0]->expenses_amount_fine)) ? $expenses[0]->expenses_amount_fine : ''; ?>" placeholder="" id="expenses_amount_fine" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                                <tr >
-                                                  <td>จำนวนเงินที่จ่ายสุทธิ</td>
-                                                  <td><input type="text" name="expenses_amount_result" value="<?php echo (!empty($expenses[0]->expenses_amount_result)) ? $expenses[0]->expenses_amount_result : ''; ?>" placeholder="" id="expenses_amount_result" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                              </tbody>
-                                            </table>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-12 col-sm-12 col-lg-12  ">
-                                          <div class="form-group" style="margin-bottom: 0px;">
+                                                <label for="middle-name"> รายละเอียด
+                                                </label>
+                                                <div>
+                                                  <textarea  class="form-control" name="expenses_detail"><?php echo (!empty($expenses[0]->expenses_detail)) ? $expenses[0]->expenses_detail : ''; ?></textarea>
 
-                                              <label for="middle-name"> รายละเอียด
-                                              </label>
-                                              <div>
-                                                 <textarea  class="form-control" name="expenses_detail"><?php echo (!empty($expenses[0]->expenses_detail)) ? $expenses[0]->expenses_detail : ''; ?></textarea>
-
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          <br>
-                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <br>
+                        </div>
+                        <div style="text-align: right;">
+                          <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                      <?php } ?>
                   </div>
+
+                 
               </div>
           </div>
-           <div style="text-align: right;">
-            <button type="submit" class="btn btn-primary">บันทึก</button>
-          </div>
+           
       </div>
       </form>
     </div>

@@ -99,8 +99,11 @@ $(function () {
                     // html += '<td >' +    i + '</td>';
                     html += '<td class="text-left">' +    word['prj_name'] + '</td>';
                     html += '<td>' +    word['prj_budget'] + '</td>';
-                    html += '<td class="numeric">' +    word['expenses_amount_result'] + '</td>';
-                    html += '<td>' +'<div class=""><button onclick=getSelect(this,'+word['prj_id']+') class="btn btn-warning select_prj btn-sm"  type="button">เลือก</button></div>' + '</td>';
+                    html += '<td class="numeric">' +    word['budget'] + '</td>';
+                    if (word['budget'] != '0.00')
+                        html += '<td>' +'<div class=""><button onclick=getSelect(this,'+word['prj_id']+') class="btn btn-warning select_prj btn-sm"  type="button">เลือก</button></div>' + '</td>';
+                    else
+                        html += '<td>' +'<div class=""><button disabled="disabled" onclick=getSelect(this,'+word['prj_id']+') class="btn btn-warning select_prj btn-sm"  type="button">เลือก</button></div>' + '</td>';
                     html += '</tr>';
 
                 });

@@ -1,5 +1,46 @@
 $(function () {
 
+    $('#amount_vat').on("ifChanged",function () {
+        var outside_pay_amount = $('#outside_pay_budget').val();
+        outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
+
+
+        var outside_pay_amount_vat = 0;
+        var outside_pay_amount_tax = 0;
+        if ($('input#amount_vat').is(':checked')) {
+            vat = $('#outside_pay_vat_val').val();
+            outside_pay_amount_vat = outside_pay_amount * vat / 100;
+        }
+        if ($('input#amount_tax').is(':checked')) {
+            tax = $('#outside_pay_tax_val').val();
+            outside_pay_amount_tax = outside_pay_amount * tax / 100;
+        }
+
+        $('#outside_pay_vat').val(outside_pay_amount_vat);
+        $('#outside_pay_tax').val(outside_pay_amount_tax);
+        $('#outside_pay_budget_sum').val(outside_pay_amount + outside_pay_amount_vat - outside_pay_amount_tax);
+    });
+
+    $('#amount_tax').on("ifChanged",function () {
+        var outside_pay_amount = $('#outside_pay_budget').val();
+        outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
+
+
+        var outside_pay_amount_vat = 0;
+        var outside_pay_amount_tax = 0;
+        if ($('input#amount_vat').is(':checked')) {
+            vat = $('#outside_pay_vat_val').val();
+            outside_pay_amount_vat = outside_pay_amount * vat / 100;
+        }
+        if ($('input#amount_tax').is(':checked')) {
+            tax = $('#outside_pay_tax_val').val();
+            outside_pay_amount_tax = outside_pay_amount * tax / 100;
+        }
+
+        $('#outside_pay_vat').val(outside_pay_amount_vat);
+        $('#outside_pay_tax').val(outside_pay_amount_tax);
+        $('#outside_pay_budget_sum').val(outside_pay_amount + outside_pay_amount_vat - outside_pay_amount_tax);
+    });
 
     $('#outside_pay_budget').keyup(function () {
         var outside_pay_amount = this.value;

@@ -122,14 +122,14 @@
                               <label>
                                 <?php
 
-    $log = false;
-    foreach ($budget_log as $key => $value) {
-        if ($value->prj_budget_type == 2) {
-            $log = true;
-        }
+                                    $log = false;
+                                    foreach ($budget_log as $key => $value) {
+                                        if ($value->prj_budget_type == 2) {
+                                            $log = true;
+                                        }
 
-    }
-    ?>
+                                    }
+                                    ?>
                                 <input type="checkbox" <?=($log) ? 'checked' : '';?>  name="prj_budget_convert" id="prj_budget_convert"  value="1" class="flat" > แปลงงบประมาณ
                               </label>
                             </div>
@@ -200,8 +200,8 @@
                                     <tbody id="table_select">
                                       <tr></tr>
                                       <?php foreach ($budget_log as $key => $value) {
-        if ($value->prj_budget_type == 2 && $value->prj_budget_parent != null) {
-            ?>
+                                          if ($value->prj_budget_type == 2 && $value->prj_budget_parent != null) {
+                                              ?>
                                         <tr data-select="<?php echo $value->prj_budget_id; ?>" >
                                             <div class="row">
                                               <td class="text-left" style="">
