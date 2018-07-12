@@ -81,9 +81,9 @@ $(function () {
         $('.show-search').toggle(true);
         $("#table_search").empty();
         var data = $("#val_budget_convert").val();
-        if (data == ''){
-            return false;
-        }
+        // if (data == ''){
+        //     return false;
+        // }
         //call ajax to search
         $.ajax({
             method: "POST",

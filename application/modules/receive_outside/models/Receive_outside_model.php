@@ -20,14 +20,30 @@ class Receive_outside_model extends CI_Model
         $query = $this->db->get('tbl_outside_manager');
         return $query->result();
     }
+
+    public function getOuts($id =''){
+        if (!empty($id)) {
+            $this->db->where('out_id', $id);
+        }
+        $this->db->select('tbl_outside.*');
+        // $this->db->where("out_parent != '0' ",null,false);
+        $this->db->where('out_year', $this->session->userdata('year'));
+        $this->db->from('tbl_outside');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
     public function getOut($id = '')
     {
         if (!empty($id)) {
             $this->db->where('out_id', $id);
         }
+        $this->db->select('tbl_outside.*,sum(tbl_outside_pay.outside_pay_budget_sum) as budget');
         // $this->db->where("out_parent != '0' ",null,false);
         $this->db->where('out_year', $this->session->userdata('year'));
-        $query = $this->db->get('tbl_outside');
+        $this->db->from('tbl_outside');
+        $this->db->join('tbl_outside_pay', 'tbl_outside.out_id = tbl_outside_pay.outside_id', 'inner');
+        $query = $this->db->get();
         return $query->result();
     }
 
@@ -46,6 +62,25 @@ class Receive_outside_model extends CI_Model
         $this->db->from('tbl_outside_pay');
         $this->db->join('tbl_outside', 'tbl_outside.out_id = tbl_outside_pay.outside_id', 'inner');
         $this->db->join('usrm_user', 'usrm_user.user_id = tbl_outside_pay.outside_pay_user');
+        // $this->db->join('tbl_outside','tbl_outside.out_id = tbl_outside_pay.out_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function getOutRec($id = '', $pay_id = '')
+    {
+        if (!empty($id)) {
+          
+            $this->db->where('outside_id', $id);
+        }
+        if (!empty($pay_id)) {
+    
+            $this->db->where('outside_pay_id', $pay_id);
+        }
+        $this->db->select('tbl_outside_in_log.*,usrm_user.user_firstname,usrm_user.user_lastname,tbl_outside.out_name');
+        $this->db->from('tbl_outside_in_log');
+        $this->db->join('tbl_outside', 'tbl_outside.out_id = tbl_outside_in_log.outside_id', 'inner');
+        $this->db->join('usrm_user', 'usrm_user.user_id = tbl_outside_in_log.outside_pay_user');
         // $this->db->join('tbl_outside','tbl_outside.out_id = tbl_outside_pay.out_id');
         $query = $this->db->get();
         return $query->result();

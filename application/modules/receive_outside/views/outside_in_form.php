@@ -1,13 +1,13 @@
 <div class="right_col" role="main">
   <section class="row">
       <div class="col-md-12">
-          <h3>บันทึกรายจ่ายนอกงบประมาณ: <?php echo @$out[0]->out_name ?></h3>
+          <h3>บันทึกรายรับนอกงบประมาณ: <?php echo @$out[0]->out_name ?></h3>
       </div>
   </section>
   <div class="row">
    <div class="x_content">
      <form method="post" action="<?php echo base_url('receive_outside/saveOutSideIn') ?>" >
-        <input type="hidden" name="outside_pay_id" value="<?php echo @$out_pay[0]->outside_pay_id; ?>">
+        <!-- <input type="hidden" name="outside_pay_id" value="<?php echo @$out_pay[0]->outside_pay_id; ?>"> -->
         <input type="hidden" name="outside_id" value="<?php echo (!empty($out[0]->out_id)) ? $out[0]->out_id : ''; ?>">
         <div id="form_tab" class="x_panel">
           <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -21,7 +21,7 @@
                       <!-- //data prj  -->
                       <div class="col-md-6 col-xs-12  " style="float:right">
 
-                        <table class="table table-bordered">
+                        <!-- <table class="table table-bordered">
                           <tbody>
                             <tr>
                               <td>งบประมาณที่ได้รับ</td>
@@ -37,7 +37,7 @@
                               <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum + @$out[0]->out_budget_sum, 2); ?> บาท</td>
                             </tr>
                           </tbody>
-                        </table>
+                        </table> -->
                       </div>
                       <div id="step-1">
                               <div class="form-group">
@@ -110,7 +110,7 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach ($out_pay_all as $key => $value) {?>
+          <?php foreach ($out_rec_all as $key => $value) {?>
             <tr>
               <td><?php echo $this->mydate->date_eng2thai($value->outside_pay_create, '', 'S'); ?></td>
               <td><?php echo $value->user_firstname . ' ' . $value->user_lastname ?></td>

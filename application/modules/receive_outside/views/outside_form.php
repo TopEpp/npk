@@ -30,11 +30,11 @@
                             </tr>
                             <tr>
                               <td>งบเบิกจ่ายทั้งหมด</td>
-                              <td class="text-right"><?php echo number_format(@$out_pay[0]->sum_pay_budget, 2) ?> บาท</td>
+                              <td class="text-right"><?php echo number_format(@$out[0]->budget, 2) ?> บาท</td>
                             </tr>
                             <tr>
                               <td>รวม</td>
-                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum-@$out[0]->out_budget_sum, 2); ?> บาท</td>
+                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum-@$out[0]->budget, 2); ?> บาท</td>
                             </tr>
                           </tbody>
                         </table>
@@ -142,7 +142,7 @@
           <tbody>
           <?php foreach ($out_pay_all as $key => $value) {?>
             <tr>
-              <td><?php echo $this->mydate->date_eng2thai($value->outside_pay_create, '', 'S'); ?></td>
+              <td><?php echo $this->mydate->date_eng2thai($value->outside_pay_create, 543, 'S'); ?></td>
               <td><?php echo $value->user_firstname . ' ' . $value->user_lastname ?></td>
               <td><?php echo $value->outside_detail ?></td>
               <td class="text-right"><?php echo number_format($value->outside_pay_budget, 2); ?></td>

@@ -8,7 +8,12 @@ class Expenditure extends MY_Controller
     {
         parent::__construct();
         $this->load->model('expenditure_model');
+        $this->load->model('project_training/project_model');
 
+
+        // $this->project_training->ggg();
+
+      
     }
     public function expenditure_menu()
     {
@@ -46,16 +51,15 @@ class Expenditure extends MY_Controller
 
     function getPrj()
     {
-        $this->load->model('expenditure_model');
-        $this->load->model('project_training/project_model');
+
         $keyword = $this->input->post('keyword');
         $data['prj'] = $this->expenditure_model->getPrjByKeyword($keyword);
         foreach ($data['prj'] as $key => $value) {
 
-            $tree = $this->project_model->getTitleTree($value->prj_parent);
-            $keys = array_keys($tree);
-            $cout = count($keys) - 1;
-            $data['prj'][$key]->prj_name = $data['prj'][$key]->prj_name . '<span style="color:#169F85">(' . @$tree[$keys[$cout - 1]] . ')</span>';
+            $tree = $this->getLastArrayPrj($value->prj_parent);
+            // $keys = array_keys($tree);
+            // $cout = count($keys) - 1;
+            $data['prj'][$key]->prj_name = $data['prj'][$key]->prj_name . '<span style="color:#169F85">(' . end($tree) . ')</span>';
         }
 
         $data['keyword'] = $keyword;
@@ -133,7 +137,50 @@ class Expenditure extends MY_Controller
         $input['expenses_date_disburse'] = $this->input->post('expenses_date_disburse');
         $result = $this->expenditure_model->saveExpenditureNumber($id,$input);
 		$this->json_publish($result);
-	}
+    }
+    
+
+
+    //get last index prj
+    public function getLastArrayPrj($parent = ''){
+
+        $data_budget = ['', 'งบบุคลากร', 'งบดำเนินงาน', 'งบลงทุน', 'งบเงินอุดหนุน', 'งบกลาง'];
+        $data_cost = [
+            '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
+            'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง',
+        ];
+        
+        $tree = $this->project_model->getTitleTree($parent);
+        $num = 0;
+        foreach ($tree as $key => $value) {
+            if ($num == 0) {
+                $tree[$key] = $data_cost[$tree[$key]];
+            }
+
+            if ($num == 1) {
+                $tree[$key] = $data_budget[$tree[$key]];
+            }
+
+            $num++;
+        }
+        if (empty($tree)) {
+            $tree = $this->project_model->getTitleTreeChild($parent);
+            // print_r($tree);die();
+            $num = 0;
+            foreach ($tree as $key => $value) {
+                if ($num == 1) {
+                    $tree[$key] = $data_cost[$tree[$key]];
+                }
+
+                if ($num == 2) {
+                    $tree[$key] = $data_budget[$tree[$key]];
+                }
+
+                $num++;
+            }
+        }
+        return $tree;
+    }
 
 
 

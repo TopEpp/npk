@@ -68,14 +68,14 @@ class Receive_outside extends MY_Controller
     public function getOut()
     {
         $data = $this->input->post('data');
-        $status = $this->Receive_outside_model->getOut($data);
+        $status = $this->Receive_outside_model->getOuts($data);
         $this->json_publish($status);
     }
 
     public function outside_in_form($id ,$pay_id = ''){
         $data = array();
         $data['out'] = $this->Receive_outside_model->getOut($id);
-        $data['out_pay_all'] = $this->Receive_outside_model->getOutPay($id);
+        $data['out_rec_all'] = $this->Receive_outside_model->getOutRec($id);
         if ($pay_id != '')
             $data['out_pay'] = $this->Receive_outside_model->getOutPay($id, $pay_id);
             
@@ -97,9 +97,9 @@ class Receive_outside extends MY_Controller
         $data['out_pay_all'] = $this->Receive_outside_model->getOutPay($id);
         if ($pay_id != '')
             $data['out_pay'] = $this->Receive_outside_model->getOutPay($id, $pay_id);
-            
+
         // }
-        // print_r($data['out_pay_all']);die();
+        // print_r($data['out_pay']);die();
 
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive_outside/search.js');
@@ -159,7 +159,7 @@ class Receive_outside extends MY_Controller
             // print_r($data);die();
             //get Tax pay 
             $id =$this->Receive_outside_model->getIdTaxPay();
-            $out = $this->Receive_outside_model->getOut($data['outside_id']);
+            $out = $this->Receive_outside_model->getOuts($data['outside_id']);
 
             $data['outside_id'] = $id->out_id;
             $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก'.$out[0]->out_name;
@@ -195,7 +195,7 @@ class Receive_outside extends MY_Controller
     public function getOutsideJson()
     {
         $data = array();
-        $out = $this->Receive_outside_model->getOut();
+        $out = $this->Receive_outside_model->getOuts();
         // $data['total'] = count($out);
 
         foreach ($out as $key => $value) {
@@ -209,7 +209,7 @@ class Receive_outside extends MY_Controller
                 $data['rows'][$key]['_parentId'] = $value->out_parent;
 
             }
-            $data['rows'][$key]['tools'] .= " <button  onClick='add_in_out(" . $value->out_id . ")' class='btn btn-info btn-sm' type='button'>เพิ่มรายรับ</button>";
+            $data['rows'][$key]['tools'] .= " <button  onClick='add_in_out(" . $value->out_id . ")' class='btn btn-info btn-sm' type='button'>รับ</button>";
             $data['rows'][$key]['tools'] .= " <button  onClick='pay_out(" . $value->out_id . ")' class='btn btn-default btn-sm' type='button'>จ่าย</button>";
             $data['rows'][$key]['tools'] .= " <button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success btn-sm' type='button'>เพิ่ม</button>
             <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning btn-sm' type='button'>แก้ไข</button>

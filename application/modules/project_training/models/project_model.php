@@ -157,7 +157,10 @@ class project_model extends CI_Model
 
             //update  budget all
             $parent = $this->getPrj($id);
-            $data = $this->updateBudget($parent[0]->prj_parent);
+            if ( !empty($parent[0]->prj_parent)){
+                $data = $this->updateBudget($parent[0]->prj_parent);
+            }
+            
             return true;
         }
         //check  last id project and prj
@@ -185,30 +188,33 @@ class project_model extends CI_Model
 
     public function setLogBudget($data, $data_id = array(), $type = '', $ref = false)
     {
-    
-        if (!empty($data_id['id'])) {
+        if ($data['prj_amount'] != 0){
+            if (!empty($data_id['id'])) {
 
-            $data['prj_budget_status'] = '0';
-            $this->db->where('prj_id', $data_id['id']);
-            if ($data_id['ref'] != '') {
-                $this->db->where('prj_ref_id', $data_id['ref']);
+                $data['prj_budget_status'] = '0';
+                $this->db->where('prj_id', $data_id['id']);
+                if ($data_id['ref'] != '') {
+                    $this->db->where('prj_ref_id', $data_id['ref']);
+                }
+
+                // if ($ref){
+                //     $this->db->where('prj_ref_id',$id);
+                // }
+                $this->db->where('prj_budget_type', $type);
+                return $this->db->update('tbl_prj_budget_log', $data);
+            }
+            $query = $this->db->query('SELECT prj_budget_id  FROM tbl_prj_budget_log  WHERE prj_id = ' . $data['prj_id']);
+            if ($query->num_rows() > 0) {
+            } else {
+                $data['prj_budget_status'] = '1';
             }
 
-            // if ($ref){
-            //     $this->db->where('prj_ref_id',$id);
-            // }
-            $this->db->where('prj_budget_type', $type);
-            return $this->db->update('tbl_prj_budget_log', $data);
-        }
-        $query = $this->db->query('SELECT prj_budget_id  FROM tbl_prj_budget_log  WHERE prj_id = ' . $data['prj_id']);
-        if ($query->num_rows() > 0) {
-        } else {
-            $data['prj_budget_status'] = '1';
-        }
+            $data['prj_log_date'] = date('Y-m-d');
+            $this->db->insert('tbl_prj_budget_log', $data);
+            return $this->db->insert_id();
 
-        $data['prj_log_date'] = date('Y-m-d');
-        $this->db->insert('tbl_prj_budget_log', $data);
-        return $this->db->insert_id();
+        }
+        return true;
 
     }
 
@@ -236,44 +242,44 @@ class project_model extends CI_Model
     //updatee budget data project or prj
     public function updateBudget($id = '', $parent = '')
     {
-
-        //sum budget data
-        if (!empty($parent)) {
-            $id = $parent;
-            $query = $this->db->query('SELECT SUM(T2.prj_budget_sum) as num FROM tbl_project_manage T2 WHERE T2.project_parent = ' . $id);
-        } else {
-            $query = $this->db->query("SELECT SUM(T2.prj_budget_sum) as num FROM tbl_project T2 WHERE prj_active = '1' and T2.prj_parent = " . $id);
-        }
-
-        $data['prj_budget_sum'] = @$query->row()->num;
-
-        //update budget to prj_id
-        //find prj or project
-        $query = $this->db->query('SELECT prj_id  FROM tbl_project  WHERE prj_id = ' . $id);
-        if ($query->num_rows() > 0) {
-            $this->db->where('prj_id', $id);
-            $this->db->update('tbl_project', $data);
-            //get parent id
-            $parent = $this->getPrj($id);
-            if (!empty($parent[0]->prj_parent)) {
-                $this->updateBudget($parent[0]->prj_parent);
+            //sum budget data
+            if (!empty($parent)) {
+                $id = $parent;
+                // echo $id;die();
+                $query = $this->db->query('SELECT SUM(T2.prj_budget_sum) as num FROM tbl_project_manage T2 WHERE T2.project_parent = ' . $id);
             } else {
-                return false;
+                $query = $this->db->query("SELECT SUM(T2.prj_budget_sum) as num FROM tbl_project T2 WHERE prj_active = '1' and T2.prj_parent = " . $id);
             }
 
-        } else { //update budget to project
-            $this->db->where('project_id', $id);
-            $this->db->update('tbl_project_manage', $data);
-            //get parent id
-            $parent = $this->getProject($id);
-            if (!empty($parent[0]->project_parent)) {
-                $this->updateBudget('', $parent[0]->project_parent);
-            } else {
-                return false;
+            $data['prj_budget_sum'] = @$query->row()->num;
+          
+            //update budget to prj_id
+            //find prj or project
+            $query = $this->db->query('SELECT prj_id  FROM tbl_project  WHERE prj_id = ' . $id);
+
+            if ($query->num_rows() > 0) {
+                $this->db->where('prj_id', $id);
+                $this->db->update('tbl_project', $data);
+                //get parent id
+                $parent = $this->getPrj($id);
+                if (!empty($parent[0]->prj_parent)) {
+                    $this->updateBudget($parent[0]->prj_parent);
+                } else {
+                    return false;
+                }
+
+            } else { //update budget to project
+                $this->db->where('project_id', $id);
+                $this->db->update('tbl_project_manage', $data);
+                //get parent id
+                $parent = $this->getProject($id);
+                if (!empty($parent[0]->project_parent)) {
+                    $this->updateBudget('', $parent[0]->project_parent);
+                } else {
+                    return false;
+                }
+
             }
-
-        }
-
     }
 
     public function getTreeProjectManage($project)
@@ -367,7 +373,7 @@ class project_model extends CI_Model
         $this->db->where('prj_year', $this->session->userdata('year'));
         $this->db->like('prj_name', $data);
         $this->db->join('tbl_expenses', 'tbl_expenses.project_id = tbl_project.prj_id', 'left');
-        $this->db->group_by('prj_id');
+        $this->db->group_by(array("prj_id", "prj_name"));
         $query = $this->db->get();
         return $query->result();
 

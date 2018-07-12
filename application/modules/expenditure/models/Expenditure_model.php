@@ -8,6 +8,7 @@ class expenditure_model extends CI_Model
 		$this->db->from('tbl_project');
 		$this->db->like('prj_name',$keyword);
 		$this->db->where('prj_year',$this->session->userdata('year'));
+		$this->db->group_by('prj_id');
 		$query = $this->db->get();
 
 		return $query->result();

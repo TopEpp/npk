@@ -66,9 +66,9 @@
                                         }
 
                                     }
-                                    if (!empty($prj[0]->prj_budget)) {
-                                        $log = true;
-                                    }
+                                    // if (!empty($prj[0]->prj_budget)) {
+                                    //     $log = true;
+                                    // }
 
                                     ?>
                                 <input type="checkbox" <?=($log) ? 'checked' : '';?>  name="prj_budget_inside" id="prj_budget_inside" value="1" class="flat" > งบประมาณที่ได้รับ
@@ -97,8 +97,8 @@
                                   }?>
                           <?php if (@$prj_bud_in > 0) {?>
                             <input class="form-control numeric" id="prj_budget" value="<?php echo $prj_bud_in; ?>" name="prj_budget" placeholder="จำนวน" type="text">
-                          <?php } else if (!empty($prj[0]->prj_budget)) {?>
-                             <input class="form-control numeric" id="prj_budget" value="<?php echo $prj[0]->prj_budget; ?>" name="prj_budget" placeholder="จำนวน" type="text">
+                          <?php } else{?>
+                             <input class="form-control numeric" id="prj_budget" value="" name="prj_budget" placeholder="จำนวน" type="text">
                           <?php }?>
                           </div>
 
@@ -648,12 +648,12 @@
                     <tr>
                       <td>สร้างเมื่อ</td>
                       <?php $time = explode(' ', $prj[0]->prj_create);?>
-                      <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, '', 'S') . ' ' . $time[1];?>  น. (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
+                      <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, 543, 'S') . ' ' . $time[1];?>  น. (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
                     </tr>
                     <tr>
                       <td>ปรับปรุงข้อมูลล่าสุด</td>
                       <?php $time = explode(' ', $prj[0]->prj_create);?>
-                      <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, '', 'S') . ' ' . $time[1];?> น. (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
+                      <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, 543, 'S') . ' ' . $time[1];?> น. (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
                     </tr>
                     <tr>
                       <td>สถานะโครงการ</td>
@@ -668,20 +668,23 @@
                               </span>
                             </a>
                           </li>
+                          <?php $expenses_sum = 0;?>
+                            <?php foreach ($expenses as $key => $value) {
+                                  $expenses_sum = ($expenses_sum + $value->expenses_amount_result);
+                              }
+                              ?>
                           <li>
-                            <a href="#step-2" class="<?=(!empty($expenses)) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
+                            <a href="#step-2" class="<?= (!empty($expenses) &&  ($prj[0]->prj_budget_sum - $expenses_sum) != 0) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
                               <span class="step_no">2</span>
                               <span class="step_descr">
                               อยู่ระหว่างดำเนินการ
                               </span>
                             </a>
                           </li>
-                          <?php $expenses_sum = 0;?>
-                            <?php foreach ($expenses as $key => $value) {
-    $expenses_sum = ($expenses_sum + $value->expenses_amount_result);
-}?>
+
                           <li>
-                            <a href="#step-3" class="<?=(($prj[0]->prj_budget_sum - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
+                         
+                            <a href="#step-3" class="<?=( !empty($expenses) && ($prj[0]->prj_budget_sum - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
                               <span class="step_no">3</span>
                               <span class="step_descr">
                               ดำเนินการเสร็จสิ้น
@@ -732,7 +735,12 @@
                         <div class="x_content">
 
                           <div style="text-align: center; margin-bottom: 17px">
-                            <span class="chart" data-percent="<?=($expenses_sum * 100) / $prj[0]->prj_budget_sum;?>">
+                          <?php 
+                            $divv = 0;
+                            if ( !empty( $expenses_sum) && !empty($prj[0]->prj_budget_sum)) {
+                              $divv = ($expenses_sum * 100) / @$prj[0]->prj_budget_sum;
+                          } ?>
+                            <span class="chart" data-percent="<?=$divv;?>">
                                 <span class="percent"></span>
                             </span>
                           </div>
@@ -782,13 +790,13 @@
                         <td class="text-right"><?=number_format($value->prj_amount, 2);?></td>
                         <td>
                             <?php if (@$value->prj_amount > 0 && $value->prj_name != '') {
-    echo 'แปลงงบประมาณมาจาก ' . $value->prj_name;
-} else if (@$value->prj_amount < 0) {
-    echo $value->prj_name . ' ดึงงบประมาณ';
-} else if ($value->prj_name == '') {
-    echo 'งบประมาณที่ได้รับ';
+                                  echo 'แปลงงบประมาณมาจาก ' . $value->prj_name;
+                              } else if (@$value->prj_amount < 0) {
+                                  echo $value->prj_name . ' ดึงงบประมาณ';
+                              } else if ($value->prj_name == '') {
+                                  echo 'งบประมาณที่ได้รับ';
 
-}?>
+                              }?>
                         </td>
                       </tr>
                    <?php }?>
