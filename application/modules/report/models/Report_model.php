@@ -248,8 +248,38 @@ class Report_model extends CI_Model
             $ul .= "<td align='right'>". @number_format($budget['prj_budget']+$budget['prj_amount']-$budget['expenses_amount'],2)."</td>";
             $ul .= '</tr>';
 
-
+            $this->getTreeChildTblProject($row->project_id, $ul, $tab);
             $this->getTreeChildProject(@$row->project_id, $ul, $tab);
+        }
+
+        return $ul;
+    }
+
+    public function getTreeChildTblProject($parent, &$ul = '', $tab = '')
+    {
+        //tab data
+        $tab = '&emsp; ' . $tab;
+
+        $this->db->where('prj_parent', $parent);
+        $query = $this->db->get('tbl_project');
+        foreach ($query->result() as $key => $row) {
+
+            $prj_id_array = $this->getPrjParent($row->prj_id);
+            $budget = $this->getSumBudgetPrj($prj_id_array);
+
+            $ul .= '<tr>';
+            $ul .= "<td>{$tab}" . $row->prj_name . "</td>";
+            $ul .= "<td align='right'>". number_format($budget['prj_budget'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['amount_minus'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['amount_plus'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_budget']+$budget['prj_amount'],2)."</td>";
+            $ul .= "<td align='right'>". @number_format($budget['expenses_amount'],2)."</td>";
+            // $ul .= "<td align='right'>-</td>";
+            $ul .= "<td align='right'>". @number_format($budget['prj_budget']+$budget['prj_amount']-$budget['expenses_amount'],2)."</td>";
+            $ul .= '</tr>';
+
+
+            $this->getTreeChildTblProject(@$row->prj_id, $ul, $tab);
         }
 
         return $ul;

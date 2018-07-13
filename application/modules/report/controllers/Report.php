@@ -50,6 +50,7 @@ class Report extends MY_Controller
 
     public function report_projectManage()
     {
+        ini_set('max_execution_time', 300); 
         $this->config->set_item('title', 'รายงานยุทธศาสตร์ - เทศบาลตำบลหนองป่าครั่ง');
         $data = array();
         $this->load->model('project_training/project_model');
