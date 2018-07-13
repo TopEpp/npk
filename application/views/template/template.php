@@ -41,6 +41,10 @@ if (!isset($_SESSION['user_id'])) {
     <!-- datatable -->
     <?php echo css_asset('../plugins/datatables/1.10.16/css/jquery.dataTables.min.css'); ?>
 
+    <!-- alertify -->
+    <?php echo css_asset('../plugins/alertify/css/themes/default.min.css'); ?>
+    <?php echo css_asset('../plugins/alertify/css/alertify.min.css'); ?>
+
     <?php echo $this->template->stylesheet; ?>
     
 <body class="nav-md">
@@ -110,6 +114,9 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo js_asset('../js/treegrid-dnd.js'); ?>
 
     
+    <!-- alertify -->
+    <?php echo js_asset('../plugins/alertify/alertify.min.js'); ?>
+
 
     <?php echo js_asset('../js/jquery.number.min.js'); ?>
     <?php echo js_asset('../js/jquery.maskedinput.min.js'); ?>

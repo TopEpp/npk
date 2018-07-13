@@ -100,7 +100,7 @@ $(function () {
                     html += '<td class="text-left">' +    word['prj_name'] + '</td>';
                     html += '<td>' +    word['prj_budget'] + '</td>';
                     html += '<td class="numeric">' +    word['budget'] + '</td>';
-                    if (word['budget'] != '0.00')
+                    if (word['budget'] > '0.00')
                         html += '<td>' +'<div class=""><button onclick=getSelect(this,'+word['prj_id']+') class="btn btn-warning select_prj btn-sm"  type="button">เลือก</button></div>' + '</td>';
                     else
                         html += '<td>' +'<div class=""><button disabled="disabled" onclick=getSelect(this,'+word['prj_id']+') class="btn btn-warning select_prj btn-sm"  type="button">เลือก</button></div>' + '</td>';
@@ -165,13 +165,13 @@ function getSelect(tmp ,data){
             data: data
         },
         success: function (response) {
-            console.log(response)
+            // console.log(response)
             var html;
             $.each(response, function(i, word) {
                 html += '<tr data-select="'+word['prj_id']+'">';
                 html += '<div class="row"><td class="text-left">' ;
                 html += '<span class="col-sm-7">'+word['prj_name']+' งบเหลือจ่าย ' +word['expenses_amount_result']+' บาท'+'</span>';
-                html += '<span class="col-sm-3"><input class="form-control numeric budget_item" name="prj_select['+word['prj_id']+']" type="text"></span>';
+                html += '<span class="col-sm-3"><input class="form-control numeric budget_item text-right" onkeyup="integerInRange(this,'+word['expenses_number']+')" name="prj_select['+word['prj_id']+']" type="text"></span>';
                 html += '<span class="col-sm-1">บาท</span>';
                 html += '<div class="btn-group col-sm-1"><button onclick=delSelect('+word['prj_id']+') class="btn btn-danger btn-sm" type="button">ลบ</button></div>';
                 html += '</td></div>';
@@ -184,6 +184,8 @@ function getSelect(tmp ,data){
                 $('.budget_item').on('blur', function() { 
                     updateBudgetConvert();
                 });
+
+                
                 // $(".budget_item").mask("9-9999-99999-99-9");
              }, 1000);
             // // console.log(html)
@@ -193,6 +195,18 @@ function getSelect(tmp ,data){
 
         },
     })
+}
+
+function integerInRange(val,max){
+    var value = val.value;
+    value = parseFloat(value.replace(/,/g, ''));
+    if(value > max)
+    {
+        // document.getElementById(name).value = "100";
+        $("input[name='"+val.name+"']").val('');
+        alertify.error('กรุณากรอก งบเหลือจ่ายไม่เกินจำนวน ');
+        return false;
+    }
 }
 
 function delSelect(value){
