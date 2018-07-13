@@ -379,9 +379,14 @@ class Report_model extends CI_Model
                 $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
                         <td align="right">' . number_format(@$ref->prj_budget_sum,2) . '</td>
                         <td align="right">' . number_format($value->prj_budget_sum,2) . '</td>
-                        <td align="right">' . number_format($value->prj_budget_sum-@$ref->prj_budget_sum,2) . '</td>
-                        <td align="right">' . number_format(($value->prj_budget_sum-@$ref->prj_budget_sum)/@$ref->prj_budget_sum*100,2) . ' %</td>
+                        <td align="right">' . number_format($value->prj_budget_sum-@$ref->prj_budget_sum,2) . '</td>;'
+                if(@$ref->prj_budget_sum>0){
+                    $ul .= '<td align="right">' . number_format(($value->prj_budget_sum-@$ref->prj_budget_sum)/@$ref->prj_budget_sum*100,2) . ' %</td>
                         </tr>';
+                }else{
+                    $ul .= "<td align='right'> 0%</td>";
+                }
+                
                 $ul .= $this->getTreeChildProjectYear($value->project_id);
                 $ul .= '</tbody>';
             }
