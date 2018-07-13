@@ -8,8 +8,6 @@
                       <div class="btn-group">
                             <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
                             </button>
-                            <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="ทำซ้ำข้อมูล"><i class="glyphicon glyphicon-duplicate"></i> ทำซ้ำข้อมูล
-                            </button>
                             <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
                             </button>
                       </div>

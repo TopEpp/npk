@@ -28,7 +28,7 @@ $(function () {
         }, ],
 
         "order": [
-            [3, 'asc'],
+            [1, 'asc'],
         ],
 
         'columns': [{
@@ -48,7 +48,7 @@ $(function () {
                 "className": "text-center",
             },
             {
-                data: 'notice_estimate',
+                data: 'sum_notice_estimate',
                 "className": "text-right",
             },
             {
@@ -86,7 +86,7 @@ $(function () {
                     var btn =
                         '<div class="btn-group ">' + form +
                         '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
                     '</div>';
                     return btn;
