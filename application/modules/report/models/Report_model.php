@@ -349,7 +349,7 @@ class Report_model extends CI_Model
             $this->db->join('tbl_prj_budget_log','tbl_prj_budget_log.prj_id = tbl_project.prj_id','left');
             $this->db->where_in('tbl_project.prj_id ',$project_id);
             $this->db->where('tbl_project.prj_active ','1');
-            $this->db->where('tbl_prj_budget_log.prj_budget_status',0);
+            $this->db->where('tbl_prj_budget_log.prj_budget_status','0');
             if($this->filter_date1!='' && $this->filter_date2!=''){
                 $this->db->where('tbl_prj_budget_log.prj_log_date >=', $this->filter_date1);
                 $this->db->where('tbl_prj_budget_log.prj_log_date <=', $this->filter_date2);
