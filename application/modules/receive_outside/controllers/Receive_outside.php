@@ -186,7 +186,7 @@ class Receive_outside extends MY_Controller
 
         $status = $this->Receive_outside_model->saveOutSideIn($data);
         if ($return)
-            redirect('receive_outside');
+            redirect('receive_outside/outside');
         redirect('receive_outside/outside');
 
     }
@@ -209,8 +209,8 @@ class Receive_outside extends MY_Controller
                 $data['rows'][$key]['_parentId'] = $value->out_parent;
 
             }
-            $data['rows'][$key]['tools'] .= " <button  onClick='add_in_out(" . $value->out_id . ")' class='btn btn-info btn-sm' type='button'>รับ</button>";
-            $data['rows'][$key]['tools'] .= " <button  onClick='pay_out(" . $value->out_id . ")' class='btn btn-default btn-sm' type='button'>จ่าย</button>";
+            $data['rows'][$key]['tools'] .= " <button  onclick=" .'window.location.href="'.base_url('receive_outside/outside_in_form').'/'.$value->out_id.'"'. " class='btn btn-info btn-sm' type='button'>รับ</button>";
+            $data['rows'][$key]['tools'] .= " <button  onclick=" .'window.location.href="'.base_url('receive_outside/outside_form').'/'.$value->out_id.'"'. " class='btn btn-default btn-sm' type='button'>จ่าย</button>";
             $data['rows'][$key]['tools'] .= " <button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success btn-sm' type='button'>เพิ่ม</button>
             <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning btn-sm' type='button'>แก้ไข</button>
             <button onClick='del_out(" . $value->out_id . "," . '"1"' . ")'  id='outside_del' class='btn btn-danger btn-sm' type='button'>ลบ</button></div>";

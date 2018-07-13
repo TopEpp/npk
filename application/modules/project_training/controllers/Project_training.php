@@ -513,7 +513,7 @@ class Project_training extends MY_Controller
          
                 // $cout = count($keys) - 1;
                 $data['budget_log'][$key]->prj_name = $data['budget_log'][$key]->prj_name . '<span style="color:#169F85">(' . end($tree) . ')</span>';
-                $data['budget_log'][$key]->budget = number_format($data['budget_log'][$key]->prj_budget_sum - $data['budget_log'][$key]->budget, 2);
+                $data['budget_log'][$key]->budget = $data['budget_log'][$key]->prj_budget_sum - $data['budget_log'][$key]->budget;
                 // $aa = key(($tree));
                 //  @$tree[$keys[$cout - 1]];
 
@@ -561,17 +561,15 @@ class Project_training extends MY_Controller
         $data = $this->project_model->searchPrj($val);
         $result = array();
         foreach ($data as $key => $value) {
+            if ($this->input->post('id') != $value->prj_id){
+                $tree = $this->getLastArrayPrj($value->prj_parent);
+                $value->prj_name = $value->prj_name . ' <span style="color:#169F85;">(' . end($tree) . ')</span>';
 
-            $tree = $this->getLastArrayPrj($value->prj_parent);
-            // print_r($tree);
-            // $keys = array_keys($tree);
-            // $cout = count($keys) - 1;
-            $value->prj_name = $value->prj_name . ' <span style="color:#169F85;">(' . end($tree) . ')</span>';
+                $value->budget = number_format($value->prj_budget_sum - $value->budget, 2);
+                $value->prj_budget = number_format($value->prj_budget_sum, 2);
 
-            $value->budget = number_format($value->prj_budget_sum - $value->budget, 2);
-            $value->prj_budget = number_format($value->prj_budget_sum, 2);
-
-            $result[$key] = $value;
+                $result[$key] = $value;
+            }
         }
 
         $this->json_publish($result);
@@ -584,6 +582,8 @@ class Project_training extends MY_Controller
 
         $result = array();
         foreach ($data as $key => $value) {
+            $tree = $this->getLastArrayPrj($value->prj_parent);
+            $value->tree = end($tree);
             $value->expenses_amount_result = number_format($value->prj_budget - $value->expenses_amount_result, 2);
             $value->expenses_number = $value->prj_budget - $value->expenses_amount_result;
             $value->prj_budget = number_format($value->prj_budget, 2);

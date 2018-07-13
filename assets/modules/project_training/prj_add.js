@@ -81,6 +81,7 @@ $(function () {
         $('.show-search').toggle(true);
         $("#table_search").empty();
         var data = $("#val_budget_convert").val();
+        var id = $("input[name='prj_id']").val();
         // if (data == ''){
         //     return false;
         // }
@@ -89,10 +90,11 @@ $(function () {
             method: "POST",
             url: domain + 'project_training/searchPrj',
             data: {
-                data: data
+                data: data,
+                id : id
             },
             success: function (response) {
-                console.log(response)
+                // console.log(response)
                 var html;
                 $.each(response, function(i, word) {
                     html += '<tr data-id="'+word['prj_id']+'">';
@@ -170,7 +172,7 @@ function getSelect(tmp ,data){
             $.each(response, function(i, word) {
                 html += '<tr data-select="'+word['prj_id']+'">';
                 html += '<div class="row"><td class="text-left">' ;
-                html += '<span class="col-sm-7">'+word['prj_name']+' งบเหลือจ่าย ' +word['expenses_amount_result']+' บาท'+'</span>';
+                html += '<span class="col-sm-7">'+word['prj_name']+'<span style="color:#169F85">('+word['tree']+')</span>'+'<br/> งบเหลือจ่าย ' +word['expenses_amount_result']+' บาท'+'</span>';
                 html += '<span class="col-sm-3"><input class="form-control numeric budget_item text-right" onkeyup="integerInRange(this,'+word['expenses_number']+')" name="prj_select['+word['prj_id']+']" type="text"></span>';
                 html += '<span class="col-sm-1">บาท</span>';
                 html += '<div class="btn-group col-sm-1"><button onclick=delSelect('+word['prj_id']+') class="btn btn-danger btn-sm" type="button">ลบ</button></div>';
@@ -197,10 +199,11 @@ function getSelect(tmp ,data){
     })
 }
 
-function integerInRange(val,max){
+function integerInRange(val,val_max){
     var value = val.value;
     value = parseFloat(value.replace(/,/g, ''));
-    if(value > max)
+
+    if(value > val_max)
     {
         // document.getElementById(name).value = "100";
         $("input[name='"+val.name+"']").val('');

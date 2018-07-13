@@ -116,25 +116,7 @@ class Receive_outside_model extends CI_Model
         $this->db->update('tbl_outside',$data);
     }
 
-    public function insertOutside($data)
-    {
-
-        //check  last id outside and out
-        $last_id_outside = $this->db->select('outside_id')
-            ->order_by('outside_id', 'desc')
-            ->limit(1)->get('tbl_outside_manager')->row('outside_id');
-        $last_id_out = $this->db->select('out_id')
-            ->order_by('out_id', 'desc')
-            ->limit(1)->get('tbl_outside')->row('out_id');
-
-        if ($last_id_outside > $last_id_out) {
-            $data['outside_id'] = $last_id_outside + 1;
-            return $this->db->insert('tbl_outside_manager', $data);
-        } else {
-            $data['outside_id'] = $last_id_outside + 1;
-            return $this->db->insert('tbl_outside_manager', $data);
-        }
-    }
+  
 
     public function editOutside($id, $data)
     {
@@ -169,6 +151,7 @@ class Receive_outside_model extends CI_Model
 
         if (!empty($id)) {
             $this->db->where('out_id', $id);
+            $data['out_budget_sum'] = $data['out_budget'];
             return $this->db->update('tbl_outside', $data);
         } else {
 

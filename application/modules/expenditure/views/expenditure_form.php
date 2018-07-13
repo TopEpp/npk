@@ -65,7 +65,7 @@
                                                     <td><input type="text" name="expenses_amount" value="<?php echo (!empty($expenses[0]->expenses_amount)) ? $expenses[0]->expenses_amount : ''; ?>" placeholder="" id="expenses_amount" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                   <tr>
-                                                    <td><span style="text-decoration: underline;">บวก</span> ภาษีมูลค่าเพิ่ม &nbsp;
+                                                    <td><span style="text-decoration: underline;">บวก</span> ภาษีมูลค่าเพิ่ม &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                       <span class="text-right" style="">
 
                                                           <label>
@@ -81,7 +81,7 @@
                                                     <td><input type="text" name="expenses_amount_disburse" value="<?php echo (!empty($expenses[0]->expenses_amount_vat)) ? $expenses[0]->expenses_amount_vat : ''; ?>" placeholder="" id="expenses_amount_disburse" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                   <tr>
-                                                    <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย &nbsp;
+                                                    <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <span class="text-right" style="">
 
                                                       <label>
@@ -119,8 +119,10 @@
                                 </div>
                             <br>
                         </div>
-                        <div style="text-align: right;">
-                          <button type="submit" class="btn btn-primary">บันทึก</button>
+                        <div style="text-align: center;">
+                            <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
+                            <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                            </button>
                         </div>
                       <?php } ?>
                   </div>

@@ -88,8 +88,10 @@
                   </div>
               </div>
           </div>
-           <div style="text-align: right;">
-            <button type="submit" class="btn btn-primary">บันทึก</button>
+           <div style="text-align: center;">
+           <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
+            <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+            </button>
           </div>
       </div>
       </form>

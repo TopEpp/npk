@@ -165,7 +165,7 @@ function edit_out(value) {
         $('#hidden_out_id').val(msg[0]['out_id']);
         $('#out_name').val(msg[0]['out_name']);
         $('#out_code').val(msg[0]['out_code']);
-        $('#out_budget').val(msg[0]['out_budget']);
+        $('#out_budget').val(msg[0]['out_budget_sum']);
         $('#out_owner').val(msg[0]['out_owner']);
         $('#out_parent').val(msg[0]['out_parent']);
 

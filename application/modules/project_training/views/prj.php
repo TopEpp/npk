@@ -205,8 +205,8 @@
                                         <tr data-select="<?php echo $value->prj_budget_id; ?>" >
                                             <div class="row">
                                               <td class="text-left" style="">
-                                                <span class="col-sm-7"> <?php echo @$value->prj_name .'<br>งบเหลือจ่าย '. $value->budget.' บาท'; ?></span>
-                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
+                                                <span class="col-sm-7"> <?php echo @$value->prj_name .'<br>งบเหลือจ่าย '. number_format($value->budget,2).' บาท'; ?></span>
+                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this,<?php echo $value->budget;?>)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
                                                 <span class="col-sm-1">บาท</span>
                                                 <div class="btn-group col-sm-1"><button onclick=delSelect(<?php echo $value->prj_budget_id; ?>) class="btn btn-danger btn-sm" type="button">ลบ</button></div>
                                               </td>
@@ -313,9 +313,10 @@
                     </div>
                     <hr/>
                     <div class="form-group">
-                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                        <button type="submit" class="btn btn-success">ยืนยัน</button>
-                        <button class="btn btn-primary" type="button" onclick="window.location.href ='<?php echo base_url('project_training/project'); ?>'">ยกเลิก</button>
+                      <div style="text-align: center;">
+                      <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
+                      <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                      </button>
 
                       </div>
                     </div>
@@ -606,9 +607,10 @@
                     </div>
                     <hr/>
                     <div class="form-group">
-                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                        <button type="submit" class="btn btn-success">ยืนยัน</button>
-                        <button class="btn btn-primary" type="button">ยกเลิก</button>
+                      <div style="text-align: center;">
+                        <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
+                        <button onclick="window.location.replace('<?php  echo base_url('project_training/project');?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                        </button>
 
                       </div>
                     </div>
