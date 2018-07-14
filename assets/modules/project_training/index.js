@@ -70,6 +70,8 @@ $(function () {
     $('#btn-submit-plans').click(function () {
 
         if ($('#project_title').val() == '') {
+            alertify.error('กรุณาระบุแผนงาน/งาน');
+            $("#project_title").focus();
             return false;
         }
         var data = $('#project_title').val();
@@ -94,7 +96,9 @@ $(function () {
     //add plan data
     $('#btn-submit-plan').click(function () {
 
-        if ($('#project_select').val() == '') {
+        if ($('#project_select').val() == '') { 
+            alertify.error('กรุณาระบุ ประเภทงบ');
+            $("#project_select").focus();
             return false;
         }
         var data = $('#project_select').val();
@@ -123,6 +127,8 @@ $(function () {
     $('#btn-submit-cost').click(function () {
 
         if ($('#project_cost').val() == '') {
+            alertify.error('กรุณาระบุ หมวด/ลักษณะ');
+            $("#project_cost").focus();
             return false;
         }
         var data = $('#project_cost').val();

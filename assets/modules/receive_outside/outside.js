@@ -59,9 +59,17 @@ $(function () {
     $('#btn-submit-out').click(function () {
 
 
-        if ($('#out_name').val() == '') {
+        if ($("input[name='out_name']").val() == '') {
+            alertify.error('กรุณาระบุรายการ');
+            $("input[name='out_name']").focus();
             return false;
         }
+        if ($("input[name='out_budget']").val() == '') {
+            alertify.error('กรุณาระบุจำนวนเงิน');
+            $("input[name='out_budget']").focus();
+            return false;
+        }
+
         var data = $('#form_out').serializeArray();
         var edit = $('#hidden_out_edit').val();
         var id = $('#hidden_out_id').val();
@@ -85,6 +93,7 @@ $(function () {
     });
     //end plan
 
+  
     //del project or 
     $('#btn-del').click(function () {
         var id = $('#del_id').val();

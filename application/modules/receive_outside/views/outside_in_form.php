@@ -6,7 +6,7 @@
   </section>
   <div class="row">
    <div class="x_content">
-     <form method="post" action="<?php echo base_url('receive_outside/saveOutSideIn') ?>" >
+     <form method="post" action="<?php echo base_url('receive_outside/saveOutSideIn') ?>" class="form-horizontal form-label-left" >
         <!-- <input type="hidden" name="outside_pay_id" value="<?php echo @$out_pay[0]->outside_pay_id; ?>"> -->
         <input type="hidden" name="outside_id" value="<?php echo (!empty($out[0]->out_id)) ? $out[0]->out_id : ''; ?>">
         <div id="form_tab" class="x_panel">
@@ -40,49 +40,27 @@
                         </table> -->
                       </div>
                       <div id="step-1">
-                              <div class="form-group">
-                                  <div class="row">
-                                      <div class="col-md-4 col-sm-6 col-xs-12">
-                                          <div class="form-group" >
-                                              <label>วันที่จัดทำ</label>
-                                              <span class="required" style="color:red">*</span>
-
-                                              <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $out_pay[0]->outside_pay_create : date('Y-m-d'); ?>" class="form-control datepicker">
-                                          </div>
-                                      </div>
-                                      <div class="col-md-12 ">
-                                          <div class="form-group" style="margin-bottom: 0px;">
-                                            <table class="table table-bordered jambo_table">
-                                              <tr>
-                                                <th width="70%" >รายการ</th>
-                                                <th width="30%" class="text-right">จำนวนเงิน (บาท)</th>
-                                              </tr>
-                                              <tbody>
-                                                <tr>
-                                                  <td>ระบุจำนวน</td>
-                                                  <td ><input type="text" name="outside_pay_budget" value="<?php echo (!empty($out_pay[0]->outside_pay_budget)) ? $out_pay[0]->outside_pay_budget : ''; ?>" placeholder="" id="outside_pay_budget" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
-                                                </tr>
-                                        
-
-                                              </tbody>
-                                            </table>
-                                          </div>
-                                      </div>
-
-                                      <div class="col-md-12 col-sm-12 col-lg-12  ">
-                                          <div class="form-group" style="margin-bottom: 0px;">
-
-                                              <label for="middle-name"> รายละเอียด
-                                              </label>
-                                              <div>
-                                                 <textarea  class="form-control" name="outside_detail"><?php echo (!empty($out_pay[0]->outside_detail)) ? $out_pay[0]->outside_detail : ''; ?></textarea>
-
-                                              </div>
-                                          </div>
-                                      </div>
-
-                                  </div>
-                              </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">วันที่จัดทำ <span style="color:red">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $out_pay[0]->outside_pay_create : date('Y-m-d'); ?>" class="form-control datepicker">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">จำนวนเงิน (บาท) <span style="color:red">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="outside_pay_budget" value="<?php echo (!empty($out_pay[0]->outside_pay_budget)) ? $out_pay[0]->outside_pay_budget : ''; ?>" placeholder="" id="outside_pay_budget" class="form-control col-md-7 col-xs-12 numeric text-right">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">รายละเอียด</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <textarea  class="form-control" name="outside_detail"><?php echo (!empty($out_pay[0]->outside_detail)) ? $out_pay[0]->outside_detail : ''; ?></textarea>
+                            </div>
+                          </div>
+                             
                           <br>
                       </div>
                   </div>
@@ -90,7 +68,7 @@
           </div>
            <div style="text-align: center;">
            <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
-            <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+            <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
             </button>
           </div>
       </div>

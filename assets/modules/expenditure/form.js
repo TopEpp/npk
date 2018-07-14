@@ -130,4 +130,20 @@ $(function () {
 	});
 
 
+	// check potection expenditure in
+	$('#btn-submit').click(function(){
+
+		if ($("input[name='expenses_date']").val() == '') {
+			alertify.error('กรุณาระบุวันที่จัดทำ');
+			$("input[name='expenses_date']").focus();
+			return false;
+		}
+		if ($("input[name='expenses_amount']").val() == '') {
+			alertify.error('กรุณาระบุจำนวนเงิน');
+			$("input[name='expenses_amount']").focus();
+			return false;
+		}
+	});
+
+
 });

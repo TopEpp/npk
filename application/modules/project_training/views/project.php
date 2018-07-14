@@ -60,7 +60,7 @@
         <input  id="hidden_id"  name="hidden_id"  type="hidden">
         <input  id="hidden_edit"  name="hidden_edit"  value="false" type="hidden"> 
           <div class="form-group">
-            <label>แผนงาน/งาน</label>
+            <label>แผนงาน/งาน <span  style="color:red">*</span></label>
             <input class="form-control" id="project_title"  name="project_title" placeholder="ระบุแผนงาน" type="text">
           </div>
         </form>
@@ -82,7 +82,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel2">งบ</h4>
+        <h4 class="modal-title" id="myModalLabel2">งบ </h4>
       </div>
       <div class="modal-body clearfix">
         <form class="form-horizontal form-label-left" id="form_plan_name">
@@ -91,7 +91,7 @@
         <input  id="hidden_id_detail"  name="hidden_id_detail"  type="hidden">
         <input  id="hidden_edit_detail"  name="hidden_edit_detail"  type="hidden">
           <div class="form-group">
-            <label>งบ</label>
+            <label>งบ <span  style="color:red">*</span></label></label>
             <select id="project_select"  name="project_select" class="select2_single form-control" tabindex="1">
               <option disabled>เลือก</option>
               <option value="1">งบบุคลากร</option>
@@ -129,7 +129,7 @@
           <input  id="hidden_id_cost"  name="hidden_id_cost"  type="hidden"> 
           <input  id="hidden_edit_cost"  name="hidden_edit_cost"  type="hidden">
           <div class="form-group">
-            <label>รายจ่าย</label>
+            <label>รายจ่าย <span  style="color:red">*</span></label></label>
             <select class="select2_group form-control" id="project_cost" name="project_cost">
               <optgroup label="งบบุคลากร">
                 <option value="1">เงินเดือน (ฝ่ายการเมือง)</option>

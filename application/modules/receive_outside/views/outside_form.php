@@ -40,21 +40,23 @@
                         </table>
                       </div>
                       <div id="step-1">
-                              <div class="form-group">
+                              <div class="form-group" >
                                   <div class="row">
                                       <div class="col-md-4 col-sm-6 col-xs-12">
                                           <div class="form-group" >
                                               <label>วันที่จัดทำ</label>
-                                              <span class="required" style="color:red">*</span>
+                                              <span  style="color:red">*</span>
 
                                               <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $out_pay[0]->outside_pay_create : date('Y-m-d'); ?>" class="form-control datepicker">
                                           </div>
                                       </div>
-                                      <div class="col-md-12 ">
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2">
                                           <div class="form-group" style="margin-bottom: 0px;">
                                             <table class="table table-bordered jambo_table">
                                               <tr>
-                                                <th width="70%" >รายการ</th>
+                                                <th width="70%" >รายการ  <span  style="color:red">*</span></th>
                                                 <th width="30%" class="text-right">จำนวนเงิน (บาท)</th>
                                               </tr>
                                               <tbody>
@@ -68,7 +70,7 @@
                                                     <span class="text-right" style="">
 
                                                         <label>
-                                                          <input checked id="amount_vat" type="checkbox" class="flat" >
+                                                          <input  id="amount_vat" type="checkbox" class="flat" >
                                                         </label>
                                                         <input id="outside_pay_vat_val" style="width:40px;text-align: center;" type="text" value="7"> %
                                                     </span>
@@ -80,7 +82,7 @@
                                                   <span class="text-right" style="">
 
                                                     <label>
-                                                      <input type="checkbox" id="amount_tax" checked class="flat" >
+                                                      <input type="checkbox" id="amount_tax"  class="flat" >
                                                     </label>
                                                     <input id="outside_pay_tax_val" style="width:40px;text-align: center;" type="text" value="1"> %
                                                 </span>
@@ -98,8 +100,9 @@
                                             </table>
                                           </div>
                                       </div>
-
-                                      <div class="col-md-12 col-sm-12 col-lg-12  ">
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2">
                                           <div class="form-group" style="margin-bottom: 0px;">
 
                                               <label for="middle-name"> รายละเอียด
@@ -110,7 +113,6 @@
                                               </div>
                                           </div>
                                       </div>
-
                                   </div>
                               </div>
                           <br>
@@ -119,7 +121,7 @@
               </div>
           </div>
            <div style="text-align: center;">
-            <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
+            <button type="submit" id="btn-submit_pay" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
             <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
             </button>
           </div>

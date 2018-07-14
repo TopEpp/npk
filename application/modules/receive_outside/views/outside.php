@@ -59,16 +59,16 @@
           <input  id="out_parent"  name="out_parent"  type="hidden"> 
           <input  id="out_year"  name="out_year"  type="hidden"> 
           <div class="form-group">
-            <label>รายการ</label> 
+            <label>รายการ <span style="color:red;">*</span> </label>  
             <input class="form-control" id="out_name"  name="out_name" placeholder="ระบุรายการ" type="text">
           </div>
           <div class="form-group">
-            <label>รหัสบัญชี</label> 
+            <label>รหัสบัญชี</label>  
             <input class="form-control" id="out_code"  name="out_code" placeholder="ระบุรหัสบัญชี" type="text">
           </div>
 
           <div class="form-group">
-            <label>จำนวนเงินที่รับ</label> 
+            <label>จำนวนเงินที่รับ <span style="color:red;">*</span> </label>  </label> 
             <input class="form-control numeric" id="out_budget"  name="out_budget" placeholder="ระบุจำนวนเงินที่รับ" type="text">
           </div>
 

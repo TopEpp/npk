@@ -43,7 +43,7 @@
                     <input type="hidden" name="prj_id" value="<?php echo $this->uri->segment(4); ?>">
                     <input type="hidden" name="edit" value="<?php echo ($this->uri->segment(5) == 'edit') ? 'true' : 'false'; ?>">
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ชื่อโครงการ<span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ชื่อโครงการ <span style="color:red;">*</span>
                       </label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
                         <input class="form-control" id="prj_name"  name="prj_name" placeholder="ระบุชื่อโครงการ" type="text" value="<?=@$prj[0]->prj_name;?>">
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">กรอบงบประมาณ<span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">กรอบงบประมาณ <span style="color:red;">*</span>
                       </label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="row">
@@ -82,7 +82,7 @@
                     <div class="row well" id="budget_inside" style="display:none;">
                       <div class="">
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prj_budget">ระบุจำนวนเงิน
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prj_budget">ระบุจำนวนเงิน <span style="color:red;">*</span>
                           </label>
 
 
@@ -270,7 +270,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ประเภทโครงการ
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ประเภทโครงการ <span style="color:red;">*</span>
                       </label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="radio">
@@ -289,7 +289,7 @@
                     <div class="row well" id="type_connect" style="display:none;">
                           <div class="">
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">เลือกโครงการ
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">เลือกโครงการ <span style="color:red;">*</span>
                               </label>
 
                               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -315,7 +315,7 @@
                     <div class="form-group">
                       <div style="text-align: center;">
                       <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
-                      <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                      <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                       </button>
 
                       </div>
@@ -327,7 +327,7 @@
                     <input type="hidden" name="prj_id" value="<?php echo $this->uri->segment(4); ?>">
                     <input type="hidden" name="edit" value="<?php echo ($this->uri->segment(5) == 'edit') ? 'true' : 'false'; ?>">
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ชื่อโครงการ<span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ชื่อโครงการ <span style="color:red;">*</span>
                       </label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
                         <input class="form-control" id="prj_name"  name="prj_name" placeholder="ระบุชื่อโครงการ" type="text" >
@@ -335,7 +335,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">กรอบงบประมาณ<span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">กรอบงบประมาณ <span style="color:red;">*</span>
                       </label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="row">
@@ -353,7 +353,7 @@
                     <div class="row well" id="budget_inside" style="display:none;">
                       <div class="">
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prj_budget">ระบุจำนวนเงิน
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="prj_budget">ระบุจำนวนเงิน <span style="color:red;">*</span>
                           </label>
 
 
@@ -564,7 +564,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ประเภทโครงการ
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ประเภทโครงการ <span style="color:red;">*</span>
                       </label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="radio">
@@ -583,19 +583,19 @@
                     <div class="row well" id="type_connect" style="display:none;">
                           <div class="">
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">เลือกโครงการ
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="budget">เลือกโครงการ <span style="color:red;">*</span>
                               </label>
 
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select style="width: 100%;" class="form-control" name="prj_type_connect" id="prj_type_connect">
                                   <option value=""  >เลือก</option>
                                   <?php foreach ($prj_name as $key => $value) {
-    $data_province = '';
-    // if (@$individual[0]->individual_send_province == $value->area_code) {
-    //   $data_province = 'selected';
-    // }
+                                        $data_province = '';
+                                        // if (@$individual[0]->individual_send_province == $value->area_code) {
+                                        //   $data_province = 'selected';
+                                        // }
 
-    ?>
+                                        ?>
                                     <option <?php echo $data_province; ?> value="<?php echo $value->prj_id; ?>"><?php echo $value->prj_name; ?> </option>
                                   <?php }?>
                                 </select>
@@ -630,92 +630,92 @@
                   </p>
 
               </div> -->
-              <?php if ($this->uri->segment(4) != '0' && $this->uri->segment(5) != '') {?>
-                <h4>ข้อมูล</h4>
-                <table class="table table-bordered">
+                    <?php if ($this->uri->segment(4) != '0' && $this->uri->segment(5) != '') {?>
+                      <h4>ข้อมูล</h4>
+                      <table class="table table-bordered">
 
-                  <tbody>
-                    <tr>
-                      <td>โครงการ</td>
-                      <td><?=$prj[0]->prj_name;?></td>
-                    </tr>
-                    <tr>
-                      <td>ภายใต้</td>
-                      <td><?php echo $prj_tree; ?></td>
-                    </tr>
-                    <tr>
-                      <td>ปีงบประมาณ</td>
-                      <td><?php echo $this->session->userdata('year') + 543; ?></td>
-                    </tr>
-                    <tr>
-                      <td>สร้างเมื่อ</td>
-                      <?php $time = explode(' ', $prj[0]->prj_create);?>
-                      <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, 543, 'S') . ' ' . $time[1];?>  น. (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
-                    </tr>
-                    <tr>
-                      <td>ปรับปรุงข้อมูลล่าสุด</td>
-                      <?php $time = explode(' ', $prj[0]->prj_create);?>
-                      <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, 543, 'S') . ' ' . $time[1];?> น. (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
-                    </tr>
-                    <tr>
-                      <td>สถานะโครงการ</td>
-                      <td>
-                      <div id="wizard" class="form_wizard wizard_horizontal">
-                        <ul class="wizard_steps anchor">
-                          <li>
-                            <a href="#step-1" class="<?=(empty($expenses)) ? 'selected' : 'disabled'?>" isdone="1" rel="1">
-                              <span class="step_no">1</span>
-                              <span class="step_descr">
-                                ยังไม่ได้ดำเนินการ
-                              </span>
-                            </a>
-                          </li>
-                          <?php $expenses_sum = 0;?>
-                            <?php foreach ($expenses as $key => $value) {
-                                  $expenses_sum = ($expenses_sum + $value->expenses_amount_result);
-                              }
-                              ?>
-                          <li>
-                            <a href="#step-2" class="<?= (!empty($expenses) &&  ($prj[0]->prj_budget_sum - $expenses_sum) != 0) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
-                              <span class="step_no">2</span>
-                              <span class="step_descr">
-                              อยู่ระหว่างดำเนินการ
-                              </span>
-                            </a>
-                          </li>
+                        <tbody>
+                          <tr>
+                            <td>โครงการ</td>
+                            <td><?=$prj[0]->prj_name;?></td>
+                          </tr>
+                          <tr>
+                            <td>ภายใต้</td>
+                            <td><?php echo $prj_tree; ?></td>
+                          </tr>
+                          <tr>
+                            <td>ปีงบประมาณ</td>
+                            <td><?php echo $this->session->userdata('year') + 543; ?></td>
+                          </tr>
+                          <tr>
+                            <td>สร้างเมื่อ</td>
+                            <?php $time = explode(' ', $prj[0]->prj_create);?>
+                            <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, 543, 'S') . ' ' . $time[1];?>  น. (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
+                          </tr>
+                          <tr>
+                            <td>ปรับปรุงข้อมูลล่าสุด</td>
+                            <?php $time = explode(' ', $prj[0]->prj_create);?>
+                            <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, 543, 'S') . ' ' . $time[1];?> น. (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
+                          </tr>
+                          <tr>
+                            <td>สถานะโครงการ</td>
+                            <td>
+                            <div id="wizard" class="form_wizard wizard_horizontal">
+                              <ul class="wizard_steps anchor">
+                                <li>
+                                  <a href="#step-1" class="<?=(empty($expenses)) ? 'selected' : 'disabled'?>" isdone="1" rel="1">
+                                    <span class="step_no">1</span>
+                                    <span class="step_descr">
+                                      ยังไม่ได้ดำเนินการ
+                                    </span>
+                                  </a>
+                                </li>
+                                <?php $expenses_sum = 0;?>
+                                  <?php foreach ($expenses as $key => $value) {
+                                        $expenses_sum = ($expenses_sum + $value->expenses_amount_result);
+                                    }
+                                    ?>
+                                <li>
+                                  <a href="#step-2" class="<?= (!empty($expenses) &&  ($prj[0]->prj_budget_sum - $expenses_sum) != 0) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
+                                    <span class="step_no">2</span>
+                                    <span class="step_descr">
+                                    อยู่ระหว่างดำเนินการ
+                                    </span>
+                                  </a>
+                                </li>
 
-                          <li>
-                         
-                            <a href="#step-3" class="<?=( !empty($expenses) && ($prj[0]->prj_budget_sum - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
-                              <span class="step_no">3</span>
-                              <span class="step_descr">
-                              ดำเนินการเสร็จสิ้น
-                              </span>
-                            </a>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-
-
-                  </tbody>
-                </table>
+                                <li>
+                              
+                                  <a href="#step-3" class="<?=( !empty($expenses) && ($prj[0]->prj_budget_sum - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
+                                    <span class="step_no">3</span>
+                                    <span class="step_descr">
+                                    ดำเนินการเสร็จสิ้น
+                                    </span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
 
 
-                <h4>รายการเบิกจ่าย</h4>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th width="10%">วันที่</th>
-                      <th width="50%">รายละเอียด</th>
-                      <th width="15%">ผู้ที่เบิกจ่าย</th>
-                      <th width="15%">เงินเบิกจ่าย (บาท)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                        </tbody>
+                      </table>
 
-                  <?php foreach ($expenses as $key => $value) {
-    ?>
+
+                      <h4>รายการเบิกจ่าย</h4>
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th width="10%">วันที่</th>
+                            <th width="50%">รายละเอียด</th>
+                            <th width="15%">ผู้ที่เบิกจ่าย</th>
+                            <th width="15%">เงินเบิกจ่าย (บาท)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php foreach ($expenses as $key => $value) {
+                    ?>
                     <tr>
                       <td><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S') ?></td>
                       <td><?php echo $value->expenses_detail; ?></td>

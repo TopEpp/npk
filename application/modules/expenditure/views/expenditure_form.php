@@ -52,11 +52,11 @@
                                                 <input type="text" name="expenses_date" value="<?php echo (!empty($expenses[0]->expenses_date)) ? $expenses[0]->expenses_date : date('Y-m-d'); ?>" class="form-control datepicker">
                                             </div>
                                         </div>
-                                        <div class="col-md-12 ">
+                                        <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2">
                                             <div class="form-group" style="margin-bottom: 0px;">
                                               <table class="table table-bordered jambo_table">
                                                 <tr>
-                                                  <th width="70%" class="text-center">รายการ</th>
+                                                  <th width="70%" class="text-left">รายการ <span class="required" style="color:red">*</span></th>
                                                   <th width="30%" class="text-right">จำนวนเงิน</th>
                                                 </tr>
                                                 <tbody>
@@ -104,7 +104,7 @@
                                               </table>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-12  ">
+                                        <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2">
                                             <div class="form-group" style="margin-bottom: 0px;">
 
                                                 <label for="middle-name"> รายละเอียด

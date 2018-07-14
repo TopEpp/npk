@@ -132,6 +132,55 @@ $(function () {
 
     });
 
+
+        // check potection outside in
+    $('#btn-submit').click(function(){
+        if ($("input[name='outside_pay_create']").val() == '') {
+            alertify.error('กรุณาระบุวันที่จัดทำ');
+            $("input[name='outside_pay_create']").focus();
+            return false;
+        }
+        if ($("input[name='outside_pay_budget']").val() == '') {
+            alertify.error('กรุณาระบุจำนวนเงิน');
+            $("input[name='outside_pay_budget']").focus();
+            return false;
+        }
+    });
+
+    // check potection outside in
+    $('#btn-submit_pay').click(function(){
+        if ($("input[name='outside_pay_create']").val() == '') {
+            alertify.error('กรุณาระบุวันที่จัดทำ');
+            $("input[name='outside_pay_create']").focus();
+            return false;
+        }
+        if ($("input[name='outside_pay_budget']").val() == '') {
+            alertify.error('กรุณาระบุจำนวนเงิน');
+            $("input[name='outside_pay_budget']").focus();
+            return false;
+        }
+
+        if ($('#amount_vat').is(':checked')){
+            var outside_pay_vat = $("input[name='outside_pay_vat']").val();
+            if (outside_pay_vat == ''){
+                alertify.error('กรุณาระบุ จำนวนภาษีมูลค่าเพิ่ม');
+                $("input[name='outside_pay_vat']").focus();
+                return false;
+            }
+        }
+        if ($('#amount_tax').is(':checked')){
+            var outside_pay_tax = $("input[name='outside_pay_tax']").val();
+            if (outside_pay_tax == ''){
+                alertify.error('กรุณาระบุ จำนวนภาษีหัก ณ ที่จ่าย');
+                $("input[name='outside_pay_tax']").focus();
+                return false;
+            }
+        }
+    });
+
+
+
+
 });
 
 //del all project or prj

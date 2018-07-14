@@ -126,6 +126,61 @@ $(function () {
         updateBudgetConvert();
     });
 
+
+    //check protection data submit
+    $('#btn-submit').click(function(){
+        var prj_name = $("input[name='prj_name']").val();
+        if (prj_name == ''){
+            alertify.error('กรุณาระบุ ชื่อโครงการ ');
+            $("input[name='prj_name']").focus();
+            return false;
+        }
+        var prj_budget_inside = $("input[name='prj_budget_inside']").val();
+        if (prj_budget_inside == ''){
+            alertify.error('กรุณาเลือก กรอบงบประมาณ ');
+            $("input[name='prj_budget_inside']").focus();
+            return false;
+        }
+        var prj_budget = $("input[name='prj_budget']").val();
+        if (prj_budget == ''){
+            alertify.error('กรุณาระบุ งบประมาณที่ได้รับ  ');
+            $("input[name='prj_budget']").focus();
+            return false;
+        }
+        var prj_type = $("input[name='prj_type']").val();
+        if (prj_type == ''){
+            alertify.error('กรุณาเลือก ประเภทโครงการ ');
+            $("input[name='prj_name']").focus();
+            return false;
+        }
+        if ($('#prj_type1').is(':checked')){
+            var prj_type_connect = $("input[name='prj_type_connect']").val();
+            if (prj_type_connect == ''){
+                alertify.error('กรุณาเลือกโครงการ ');
+                $("input[name='prj_type_connect']").focus();
+                return false;
+            }
+        }
+
+        let status = false;
+        $(".budget_item").each(function() {  // find budget convert
+            
+            if (this.value == ''){
+                alertify.error('กรุณาระบุ งบประมาณที่ต้องการ ');
+                $("input[name='"+this.name+"']").focus();
+                status = true;
+                return false;
+             
+            }
+           
+        });
+        if (status)
+            return false;
+       
+
+       
+    });
+
   
 
     // $('#add_outside').click(function(){
