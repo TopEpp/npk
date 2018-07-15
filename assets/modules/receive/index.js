@@ -59,7 +59,7 @@ $(function () {
         render: function (data, type, row) {
           var btn =
             '<div class="btn-group ">' +
-            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_add/' + '' + data + '\'"id="" class="btn btn-success btn-sm" style="width: 47px;" title="เพิ่มการประเมินรายรับ" >เพิ่ม</button>' +
+            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_add/' + '' + data + '\'"id="" class="btn btn-success btn-sm" title="เพิ่มการประเมินรายรับ" >ประเมิน</button>' +
             '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_taxadd_popup/' + '' + data + '\'" id="edit-individual" class="btn btn-success btn-sm" style="width: 47px;" title="แก้ไข" >แก้ไข</button>' +
             '<button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>'
           '</div>';
