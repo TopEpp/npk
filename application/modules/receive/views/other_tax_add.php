@@ -1,3 +1,14 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+    if ($chk_permission['app_id'] == 1) :
+    $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+    redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
             <div class="">
                 <div class="page-title">
@@ -19,7 +30,7 @@
                             <br />
                             <br />
 
-                                <?php echo form_open('Receive/insert_other_tax') ?>
+                                <?php echo form_open('receive/insert_other_tax') ?>
                                         <div class="form-horizontal form-label-left">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4 col-sm-3 col-xs-12">

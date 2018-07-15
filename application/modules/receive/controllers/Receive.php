@@ -7,7 +7,6 @@ class Receive extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Receive_model');
-        // $this->load->model('Outside_model');
 
     }
 
@@ -108,6 +107,9 @@ class Receive extends MY_Controller
 
         $query = $this->db->query("SELECT * FROM tbl_banner");
         $data['banner'] = $query->result();
+
+        $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
+        $data['tax_years'] = $query->result();
 
 
 

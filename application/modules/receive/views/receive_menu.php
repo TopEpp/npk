@@ -1,7 +1,18 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+    if ($chk_permission['app_id'] == 1) :
+    $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+    redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
             <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
-                      <h3>บันทึกรายรับ</h3>
+                      <h3>ข้อมูลรายรับ</h3>
                   </div>
             </section>
             <br>

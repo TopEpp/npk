@@ -1,4 +1,14 @@
-
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+    if ($chk_permission['app_id'] == 1) :
+    $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+    redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
   <div class="">
       <div class="page-title">
@@ -293,8 +303,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
-                                       
                                     </div>
 
                               <br/>
@@ -696,12 +704,12 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-btn">
                                                                     <span class="btn btn-success btn-file">
-                                                                    อัปโหลด <input type="file" id="imgInp">
+                                                                    อัปโหลด <input type="file" id="imgInp0" class="imgInp">
                                                                     </span>
                                                                 </span>
                                                                 <input type="text" class="form-control" readonly>
                                                             </div>
-                                                        <img id="img-upload"/>
+                                                        <img id="img-uploadimgInp0"/>
                                                     </div>
                                     		    </div>
                                             </div> 
@@ -887,15 +895,17 @@
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
-                        $('#img-upload').attr('src', e.target.result);
+                        console.log(input.id);
+                        $('#img-upload'+input.id).attr('src', e.target.result);
                     }
 
                     reader.readAsDataURL(input.files[0]);
                 }
             }
-
-            $("#imgInp").change(function(){
-                readURL(this);
+            
+            $(".imgInp").change(function(){
+                console.log(this.id);
+                // readURL(this);
             });
         });
 </script> 
@@ -1291,12 +1301,12 @@
                                                             '<div class="input-group">'+
                                                                 '<span class="input-group-btn">'+
                                                                     '<span class="btn btn-success btn-file">'+
-                                                                    'อัปโหลด <input type="file" id="imgInp">'+
+                                                                    'อัปโหลด <input type="file" id="imgInp1" class="imgInp">'+
                                                                     '</span>'+
                                                                 '</span>'+
                                                                 '<input type="text" class="form-control" readonly>'+
                                                             '</div>'+
-                                                        '<img id="img-upload"/>'+
+                                                        '<img id="img-uploadimgInp1"/>'+
                                                     '</div>'+
                                     		'</div>'+
 										'</div>'+
