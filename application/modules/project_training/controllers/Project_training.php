@@ -119,7 +119,7 @@ class Project_training extends MY_Controller
                 }
                 $budget_con = array_sum($tmp);
 
-                $data['prj_budget'] = $budget_in + $budget_con;
+                $data['prj_budget'] = $budget_in;
                 $data['prj_budget_sum'] = $budget_in + $budget_con;
 
             }
@@ -502,6 +502,7 @@ class Project_training extends MY_Controller
         $data['budget_log'] = '';
         if (!empty($data['prj'][0]->prj_id)) {
             $data['budget_log'] = $this->project_model->getBudgetLogNotNagative($data['prj'][0]->prj_id);
+
             // echo '<pre>';
             // print_r($data['budget_log']);die();
             foreach ($data['budget_log'] as $key => $value) {
@@ -512,6 +513,7 @@ class Project_training extends MY_Controller
          
                 // $cout = count($keys) - 1;
                 $data['budget_log'][$key]->prj_name = $data['budget_log'][$key]->prj_name . '<span style="color:#169F85">(' . end($tree) . ')</span>';
+                $data['budget_log'][$key]->budget = number_format($data['budget_log'][$key]->prj_budget_sum - $data['budget_log'][$key]->budget, 2);
                 // $aa = key(($tree));
                 //  @$tree[$keys[$cout - 1]];
 
@@ -519,6 +521,8 @@ class Project_training extends MY_Controller
         }
         // die();
         $data['budget_log_all'] = $this->project_model->getBudgetLog($data['prj'][0]->prj_id);
+        // echo '<pre>';
+        // print_r($data['budget_log_all']);
         // echo '<pre>';
         // print_r($data['budget_log_all']);die();
         $data['expenses'] = $this->expenditure_model->getPrjExpensesByPrj($id);
@@ -581,6 +585,7 @@ class Project_training extends MY_Controller
         $result = array();
         foreach ($data as $key => $value) {
             $value->expenses_amount_result = number_format($value->prj_budget - $value->expenses_amount_result, 2);
+            $value->expenses_number = $value->prj_budget - $value->expenses_amount_result;
             $value->prj_budget = number_format($value->prj_budget, 2);
 
             $result[$key] = $value;

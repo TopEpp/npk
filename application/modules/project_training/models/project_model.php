@@ -100,16 +100,28 @@ class project_model extends CI_Model
             $parent = $parent[0]->prj_parent;
             // $data['prj_owner_update'] = $_SESSION['user_id'];
             // $data['prj_active'] = '0';
-            $this->db->where('prj_id', $id);
-            $this->db->delete('tbl_project');
             
-            //remove log prj budget
+            // remove log prj budget and parent id
+            // $query = $this->db->query("SELECT prj_budget_id  FROM tbl_prj_budget_logห  WHERE prj_budget_type = 2 AND prj_id = " . $id);
+            // foreach ($query->result() as $key => $value) {
+            //     print_r($value);
+            //     // $this->db->where('prj_budget_parent', $value->prj_budget_id);
+            //     //  $this->db->delete('tbl_prj_budget_log');
+            // }
+            // die();
+
+            $this->db->where('project_id', $id);
+            $this->db->delete('tbl_expenses');
+
             $this->db->where('prj_id', $id);
             $this->db->delete('tbl_prj_budget_log');
 
              //remove log prj 
             $this->db->where('prj_id', $id);
             $this->db->delete('tbl_project_log');
+
+            $this->db->where('prj_id', $id);
+            $this->db->delete('tbl_project');
 
             $data = $this->updateBudget($parent);
             return true;
@@ -141,8 +153,12 @@ class project_model extends CI_Model
             $budget_update['prj_budget_sum'] = $budget->prj_budget_sum + $log_budget->prj_amount;
             $this->project_model->insertPrj($budget_update, $log_budget->prj_ref_id);
 
+            $this->db->where('prj_budget_parent', $log_budget->prj_budget_id);
+            $this->db->delete('tbl_prj_budget_log');
+
             $this->db->where('prj_budget_id', $id);
             $this->db->delete('tbl_prj_budget_log');
+            
         }
 
         return true;
@@ -414,7 +430,7 @@ class project_model extends CI_Model
 
     public function getBudgetLogNotNagative($id, $type = '')
     {
-        $this->db->select('tbl_prj_budget_log.* , tbl_project.prj_name,tbl_project.prj_parent');
+        $this->db->select('tbl_prj_budget_log.* , tbl_project.prj_name,tbl_project.prj_parent,tbl_project.prj_budget_sum,sum(tbl_expenses.expenses_amount_result) as budget');
         if (!empty($type)) {
             $this->db->where('prj_budget_type', $type);
             $this->db->where('prj_budget_parent is not null', null, false);
@@ -423,6 +439,8 @@ class project_model extends CI_Model
         $this->db->where('prj_amount > 0', null, false);
         $this->db->where('tbl_prj_budget_log.prj_id', $id);
         $this->db->join('tbl_project', 'tbl_project.prj_id = tbl_prj_budget_log.prj_ref_id', 'left');
+        $this->db->join('tbl_expenses', 'tbl_expenses.project_id = tbl_project.prj_id', 'left');
+        $this->db->group_by('tbl_project.prj_id');
         return $this->db->get()->result();
     }
 

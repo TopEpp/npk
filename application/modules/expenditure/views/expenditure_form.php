@@ -136,6 +136,7 @@
   <div class="row">
     <div class="col-md-12">
       <div id="div_table">
+        <h2>ประวัติการเบิกจ่าย</h2>
         <table class="table table-bordered jambo_table">
           <thead>
             <tr>

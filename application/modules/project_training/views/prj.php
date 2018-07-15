@@ -205,8 +205,8 @@
                                         <tr data-select="<?php echo $value->prj_budget_id; ?>" >
                                             <div class="row">
                                               <td class="text-left" style="">
-                                                <span class="col-sm-7"> <?php echo @$value->prj_name; ?></span>
-                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
+                                                <span class="col-sm-7"> <?php echo @$value->prj_name .'<br>งบเหลือจ่าย '. $value->budget.' บาท'; ?></span>
+                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
                                                 <span class="col-sm-1">บาท</span>
                                                 <div class="btn-group col-sm-1"><button onclick=delSelect(<?php echo $value->prj_budget_id; ?>) class="btn btn-danger btn-sm" type="button">ลบ</button></div>
                                               </td>
@@ -220,7 +220,7 @@
                                         <div class="row">
                                           <td class="text-left" style="">
                                             <span class="col-sm-7 text-right">รวม</span>
-                                            <span class="col-sm-3"><input class="form-control numeric" id="budget_convert_sum" value=""  type="text"></span>
+                                            <span class="col-sm-3"><input disabled class="form-control numeric text-right" id="budget_convert_sum" value=""  type="text"></span>
                                             <span class="col-sm-1">บาท</span>
                                             <div class="btn-group col-sm-1">&nbsp;</div>
                                           </td>
@@ -792,7 +792,7 @@
                             <?php if (@$value->prj_amount > 0 && $value->prj_name != '') {
                                   echo 'แปลงงบประมาณมาจาก ' . $value->prj_name;
                               } else if (@$value->prj_amount < 0) {
-                                  echo $value->prj_name . ' ดึงงบประมาณ';
+                                  echo  ' ดึงงบประมาณให้ '.$value->prj_name ;
                               } else if ($value->prj_name == '') {
                                   echo 'งบประมาณที่ได้รับ';
 
