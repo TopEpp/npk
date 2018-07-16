@@ -1,4 +1,14 @@
-
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 10) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
           <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
@@ -26,13 +36,15 @@
           
                <div class="x_content">
                  <div style="text-align: center;">
-                   <h2>สรุปการใช้จ่ายเงินงบประมาณ <?php echo $this->session->userdata('year')+543?></h2>
-                   <?php if(empty($filter_date1)){?>
-                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'),543,'S')?></h5> 
-                   <?php }else{?>
-                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai($filter_date1,543,'S').' ถึง '.$this->mydate->date_eng2thai($filter_date2,543,'S')?></h5> 
+                   <h2>สรุปการใช้จ่ายเงินงบประมาณ <?php echo $this->session->userdata('year') + 543 ?></h2>
+                   <?php if (empty($filter_date1)) { ?>
+                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
+                   <?php 
+                } else { ?>
+                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai($filter_date1, 543, 'S') . ' ถึง ' . $this->mydate->date_eng2thai($filter_date2, 543, 'S') ?></h5> 
 
-                   <?php }?>
+                   <?php 
+                } ?>
                  </div>
                  <br>
                  <table class="table table-bordered jambo_table">
@@ -76,7 +88,7 @@ color: #FFF;
 <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="modal_filter">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-      <form method="post" action="<?php echo base_url('report/report_projectManage');?>">
+      <form method="post" action="<?php echo base_url('report/report_projectManage'); ?>">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
@@ -86,13 +98,17 @@ color: #FFF;
        <div class="row">
          <div class="col-md-12">
            <label>ข้อมูลวันที่</label> 
-           <input type="text" name="filter_date1" value="<?php if(!empty($filter_date1)){ echo $this->mydate->date_db2str($filter_date1,543);}?>" class="form-control datepicker">
+           <input type="text" name="filter_date1" value="<?php if (!empty($filter_date1)) {
+                                                          echo $this->mydate->date_db2str($filter_date1, 543);
+                                                        } ?>" class="form-control datepicker">
          </div>
        </div>
        <div class="row" style="margin-top: 5px;">
         <div class="col-md-12">
           <label>ถึง วันที่</label>
-            <input type="text" name="filter_date2" value="<?php if(!empty($filter_date2)){ echo $this->mydate->date_db2str($filter_date2,543);}?>" class="form-control datepicker">
+            <input type="text" name="filter_date2" value="<?php if (!empty($filter_date2)) {
+                                                            echo $this->mydate->date_db2str($filter_date2, 543);
+                                                          } ?>" class="form-control datepicker">
          </div>
        </div>
       </div>

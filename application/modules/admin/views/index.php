@@ -1,3 +1,15 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 16) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
+
 <div class="right_col" role="main">
   <section class="row">
     <div class="col-md-6 col-sm-4 col-xs-4">
@@ -19,13 +31,15 @@
                 </tr>
               </thead>
               <tbody>
-              <?php foreach ($year as $key => $value) { $maxYear=$value->year_label;?>
+              <?php foreach ($year as $key => $value) {
+                $maxYear = $value->year_label; ?>
                 <tr>
-                  <td><?php echo $value->year_label;?></td>
-                  <td align="right"><?php echo number_format($value->prj_budget,2);?></td>
-                  <td align="right"><?php echo number_format($value->tax_estimate,2);?></td>
+                  <td><?php echo $value->year_label; ?></td>
+                  <td align="right"><?php echo number_format($value->prj_budget, 2); ?></td>
+                  <td align="right"><?php echo number_format($value->tax_estimate, 2); ?></td>
                 </tr>
-              <?php } ?>
+              <?php 
+            } ?>
               </tbody>
             </table>
           </div>
@@ -53,11 +67,11 @@ th{
         <h4 class="modal-title" id="myModalLabel2">สร้างปีงบประมาณ</h4>
       </div>
       <div class="modal-body clearfix">
-        ยืนยันสร้างปีงบประมาณ : <?php echo $maxYear+1;?>
+        ยืนยันสร้างปีงบประมาณ : <?php echo $maxYear + 1; ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-        <button type="button" id="btn-submit-plans" class="btn btn-primary" onclick="window.location.href='<?php echo base_url('admin/create_year');?>'">บันทึก</button>
+        <button type="button" id="btn-submit-plans" class="btn btn-primary" onclick="window.location.href='<?php echo base_url('admin/create_year'); ?>'">บันทึก</button>
       </div>
 
     </div>

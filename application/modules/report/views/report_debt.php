@@ -1,3 +1,14 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 10) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <div class="right_col" role="main">
@@ -20,7 +31,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel" style="top: 10px;">
                     <div class="col-xs-12 ">
-                          <h5 class="inline text-right">ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'),543,'S')?></h5> 
+                          <h5 class="inline text-right">ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
                     </div>
 
                 
@@ -39,37 +50,39 @@
                        </tr>
                       </thead>
                       <tbody>
-                      <?php $sum1=$sum2=$sum3=0; $labels_chart = $datasets ='';
-                           foreach ($taxDebt as $key => $value) {
-                            $sum1 += (@$value->notice_estimate-@$value->receive_amount);
-                            $sum2 += (@$value->interest);
-                            $sum3 += (@$value->notice_estimate- @$value->receive_amount+@$interest);
+                      <?php $sum1 = $sum2 = $sum3 = 0;
+                      $labels_chart = $datasets = '';
+                      foreach ($taxDebt as $key => $value) {
+                        $sum1 += (@$value->notice_estimate - @$value->receive_amount);
+                        $sum2 += (@$value->interest);
+                        $sum3 += (@$value->notice_estimate - @$value->receive_amount + @$interest);
 
-                            $labels_chart .= $value->tax_name.'||';
-                            $datasets .= (@$value->notice_estimate- @$value->receive_amount+@$interest).'||';  
-                         ?>
+                        $labels_chart .= $value->tax_name . '||';
+                        $datasets .= (@$value->notice_estimate - @$value->receive_amount + @$interest) . '||';
+                        ?>
                         <tr>
-                          <td><?php echo $value->tax_name?></td>
-                          <td style="text-align: right;"><?php echo number_format(@$value->notice_estimate-@$value->receive_amount,2) ?></td>
-                          <td style="text-align: right;"><?php echo number_format(@$value->interest,2) ?></td>
-                          <td style="text-align: right;"><?php echo number_format(@$value->notice_estimate-@$value->receive_amount+@$interest,2) ?></td>
+                          <td><?php echo $value->tax_name ?></td>
+                          <td style="text-align: right;"><?php echo number_format(@$value->notice_estimate - @$value->receive_amount, 2) ?></td>
+                          <td style="text-align: right;"><?php echo number_format(@$value->interest, 2) ?></td>
+                          <td style="text-align: right;"><?php echo number_format(@$value->notice_estimate - @$value->receive_amount + @$interest, 2) ?></td>
 
                         </tr>
-                      <?php } 
-                          $labels_chart= substr($labels_chart, 0,-2);
-                          $datasets= substr($datasets, 0,-2);?>
+                      <?php 
+                    }
+                    $labels_chart = substr($labels_chart, 0, -2);
+                    $datasets = substr($datasets, 0, -2); ?>
                       </tbody>
                       <tfoot>
                         <tr>
                           <td align="center">รวม</td>
-                          <td align="right"><?php echo  number_format($sum1,2); ?></td>
-                          <td align="right"><?php echo  number_format($sum2,2); ?></td>
-                          <td align="right"><?php echo  number_format($sum3,2); ?></td>
+                          <td align="right"><?php echo number_format($sum1, 2); ?></td>
+                          <td align="right"><?php echo number_format($sum2, 2); ?></td>
+                          <td align="right"><?php echo number_format($sum3, 2); ?></td>
                         </tr>
                       </tfoot>
                     </table>
-                    <input type="hidden" id="labels_chart" value="<?php echo $labels_chart;?>">
-                    <input type="hidden" id="datasets" value="<?php echo $datasets;?>"> 
+                    <input type="hidden" id="labels_chart" value="<?php echo $labels_chart; ?>">
+                    <input type="hidden" id="datasets" value="<?php echo $datasets; ?>"> 
                 </div>  
                     <div class="col-sm-6"></div>
                     <div class="col-md-6 col-sm-12 col-xs-12" style="text-align: right;">
@@ -111,43 +124,45 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <?php $int =1 ;
-                              $sum1 = $sum2 = $sum3 = $sum4 = $sum5 = $sum6 =0;
-                              foreach ($person as $key => $value) {
-                                if((@$value[8]['notice_estimate']-@$value[8]['receive_amount']) + (@$value[9]['notice_estimate']-@$value[9]['receive_amount']) + (@$value[10]['notice_estimate']-@$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'] > 0){
-                                $sum1 += (@$value[8]['notice_estimate']-@$value[8]['receive_amount']);
+                            <?php $int = 1;
+                            $sum1 = $sum2 = $sum3 = $sum4 = $sum5 = $sum6 = 0;
+                            foreach ($person as $key => $value) {
+                              if ((@$value[8]['notice_estimate'] - @$value[8]['receive_amount']) + (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']) + (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'] > 0) {
+                                $sum1 += (@$value[8]['notice_estimate'] - @$value[8]['receive_amount']);
                                 $sum2 += (@$value[8]['interest']);
 
-                                $sum3 += (@$value[9]['notice_estimate']-@$value[9]['receive_amount']);
+                                $sum3 += (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']);
                                 $sum4 += (@$value[9]['interest']);
 
-                                $sum5 += (@$value[10]['notice_estimate']-@$value[10]['receive_amount']);
+                                $sum5 += (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']);
                                 $sum6 += (@$value[10]['interest']);
-                            ?>
+                                ?>
                             <tr>
-                                <td align="center"><?php echo $int++;?></td>
-                                <td align="center"><?php echo $value['idcard']?></td>
-                                <td><?php echo $value['name']?></td>
-                                <td align="right"><?php echo number_format(@$value[8]['notice_estimate']-@$value[8]['receive_amount'],2)?></td>
-                                <td align="right"><?php echo number_format(@$value[8]['interest'],2)?></td>
-                                <td align="right"><?php echo number_format(@$value[9]['notice_estimate']-@$value[9]['receive_amount'],2)?></td>
-                                <td align="right"><?php echo number_format(@$value[9]['interest'],2)?></td>
-                                <td align="right"><?php echo number_format(@$value[10]['notice_estimate']-@$value[10]['receive_amount'],2)?></td>
-                                <td align="right"><?php echo number_format(@$value[10]['interest'],2)?></td>
-                                <td align="right"><?php echo number_format( (@$value[8]['notice_estimate']-@$value[8]['receive_amount']) + (@$value[9]['notice_estimate']-@$value[9]['receive_amount']) + (@$value[10]['notice_estimate']-@$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'],2)?></td>
+                                <td align="center"><?php echo $int++; ?></td>
+                                <td align="center"><?php echo $value['idcard'] ?></td>
+                                <td><?php echo $value['name'] ?></td>
+                                <td align="right"><?php echo number_format(@$value[8]['notice_estimate'] - @$value[8]['receive_amount'], 2) ?></td>
+                                <td align="right"><?php echo number_format(@$value[8]['interest'], 2) ?></td>
+                                <td align="right"><?php echo number_format(@$value[9]['notice_estimate'] - @$value[9]['receive_amount'], 2) ?></td>
+                                <td align="right"><?php echo number_format(@$value[9]['interest'], 2) ?></td>
+                                <td align="right"><?php echo number_format(@$value[10]['notice_estimate'] - @$value[10]['receive_amount'], 2) ?></td>
+                                <td align="right"><?php echo number_format(@$value[10]['interest'], 2) ?></td>
+                                <td align="right"><?php echo number_format((@$value[8]['notice_estimate'] - @$value[8]['receive_amount']) + (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']) + (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'], 2) ?></td>
                             </tr>
-                            <?php }} ?>
+                            <?php 
+                          }
+                        } ?>
                         </tbody>
                         <tfoot>
                           <tr>
                             <td align="center" colspan="3">รวม</td>
-                            <td align="right"><?php echo number_format($sum1,2) ?></td>
-                            <td align="right"><?php echo number_format($sum2,2) ?></td>
-                            <td align="right"><?php echo number_format($sum3,2) ?></td>
-                            <td align="right"><?php echo number_format($sum4,2) ?></td>
-                            <td align="right"><?php echo number_format($sum5,2) ?></td>
-                            <td align="right"><?php echo number_format($sum6,2) ?></td>
-                            <td align="right"><?php echo number_format($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6,2) ?></td>
+                            <td align="right"><?php echo number_format($sum1, 2) ?></td>
+                            <td align="right"><?php echo number_format($sum2, 2) ?></td>
+                            <td align="right"><?php echo number_format($sum3, 2) ?></td>
+                            <td align="right"><?php echo number_format($sum4, 2) ?></td>
+                            <td align="right"><?php echo number_format($sum5, 2) ?></td>
+                            <td align="right"><?php echo number_format($sum6, 2) ?></td>
+                            <td align="right"><?php echo number_format($sum1 + $sum2 + $sum3 + $sum4 + $sum5 + $sum6, 2) ?></td>
                           </tr>
                         </tfoot>
                   </table>
