@@ -1,7 +1,7 @@
 <?php
 $chk = false;
 foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-  if ($chk_permission['app_id'] == 2) :
+  if ($chk_permission['app_id'] == 1) :
   $chk = true;
 break;
 endif;

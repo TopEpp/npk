@@ -7,10 +7,13 @@ class Receive_model extends CI_Model
         if (!empty($id)) {
             $this->db->where('individual_id', $id);
         }
-        $this->db->select('tbl_individual.*,tbl_tax_type.*');
+        $this->db->select('tbl_individual.*,tbl_tax_type.*,std_area.*');
 
         $this->db->from('tbl_individual');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
+        $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
+        // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_district', 'left');
+        // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
 
         $query = $this->db->get();
         return $query->result();
@@ -18,11 +21,13 @@ class Receive_model extends CI_Model
 
     public function read_dashborad()
     {
-        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
+        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*,sum(notice_estimate)');
         $this->db->from('tax_notice');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
+        $this->db->group_by('notice_number');
+
 
         $query = $this->db->get();
         return $query->result_array();
@@ -32,7 +37,13 @@ class Receive_model extends CI_Model
     public function getNoticeAll($id = '')
     {
         if (!empty($id)) {
-            $this->db->where('notice_id', $id);
+            $this->db->where('individual_id', $id)
+                ->where('year_id', $this->session->userdata('year'))
+                ->order_by('notice_id');
+            // echo ("year_id " . $this->session->userdata('year'));
+                // ->where('year_id', $year);
+
+
         }
         $query = $this->db->get('tax_notice');
         return $query->result();
@@ -47,9 +58,30 @@ class Receive_model extends CI_Model
                 $this->db->insert('tax_notice', $insert);
             }
         }
-
-
     }
+
+    public function insertNoticeFormUpdate($year, $data)
+    {
+        $this->db->where('year_id', $year);
+        $this->db->set('year_id', $year);
+        $this->db->insert('tax_notice', $data);
+    }
+
+    public function updateNotice($year, $data)
+    {
+        // echo ('<pre>');
+        // print_r($data);
+        // foreach ($data as $value) {
+        // foreach ($data as $key => $update) {
+
+        $this->db->where('notice_id', $data['notice_id']);
+        $this->db->where('year_id', $year);
+        $this->db->set('year_id', $year);
+        $this->db->update('tax_notice', $data);
+        // }
+        // }
+    }
+
 
     public function del_notice($id)
     {
@@ -355,19 +387,21 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
-        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
+        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*,sum(notice_estimate) as sum_notice_estimate');
         $this->db->from('tax_notice');
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
+        $this->db->group_by('notice_number', 'tax_id');
+
 
         $query = $this->db->get();
         $data = array();
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
-                $row['notice_estimate'] = number_format($row['notice_estimate'], 2);
+                $row['sum_notice_estimate'] = number_format($row['sum_notice_estimate'], 2);
                 $row['tax_year'] = (date("Y") + 542);
                 $data[] = $row;
             }

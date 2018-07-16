@@ -1,3 +1,14 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+    if ($chk_permission['app_id'] == 1) :
+    $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+    redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
 
           <div class="page-title">
@@ -53,7 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่
                                     </label>
@@ -61,7 +72,7 @@
                                     <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . $tax_notice[0]['area_name_th'] ?></p>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <hr>
                     
@@ -147,7 +158,7 @@
             </form>
 
                   <br>
-                  <!-- <div class="x_content">
+                  <div class="x_content">
                       <table class="table table-bordered">
                           <thead>
                               <tr>
@@ -177,7 +188,7 @@
 
                               </tbody>
                       </table>
-                  </div> -->
+                  </div>
 
                             </div>
                           </div>
