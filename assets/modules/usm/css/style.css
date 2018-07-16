@@ -5672,7 +5672,7 @@ button i {
 .dropzone .dz-preview .dz-remove {
   text-align: right;
 }
-
+/* 
 .usm-panel .tree-title {
   height: 45px;
   line-height: 49px;
@@ -5762,6 +5762,6 @@ button i {
 
 .usm-panel .tree-checkbox2 {
   background: url('images/tree_icons_big.png') no-repeat -240px -18px;
-}
+} */
 
 /*# sourceMappingURL=style.css.map */
