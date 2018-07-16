@@ -1,4 +1,14 @@
-
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 10) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
           <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
@@ -20,14 +30,14 @@
               <div class="x_panel" style="top: 10px;">
                   <div class="col-xs-12 ">
                       <h5 class="inline text-right">ข้อมูล ณ วันที่ 
-                        <?php echo $this->mydate->date_eng2thai(date('Y-m-d'),543,'S')?></h5> 
+                        <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
                   </div>
 
               
           
                <div class="x_content">
                  <div style="text-align: center;">
-                   <h2>รายงานเปรียบเทียบ ยุทธศาสตร์ปี <?php echo $this->session->userdata('year')+543-1?> - <?php echo $this->session->userdata('year')+543?></h2>
+                   <h2>รายงานเปรียบเทียบ ยุทธศาสตร์ปี <?php echo $this->session->userdata('year') + 543 - 1 ?> - <?php echo $this->session->userdata('year') + 543 ?></h2>
                  </div>
                  <br>
                  <table class="table table-bordered jambo_table">
@@ -37,8 +47,8 @@
                           <th colspan="4">ประมาณการงบประมาณ</th>
                         </tr>
                         <tr>
-                          <th width="10%">ปี <?php echo $this->session->userdata('year')+543-1?></th>
-                          <th width="10%">ปี <?php echo $this->session->userdata('year')+543?></th>
+                          <th width="10%">ปี <?php echo $this->session->userdata('year') + 543 - 1 ?></th>
+                          <th width="10%">ปี <?php echo $this->session->userdata('year') + 543 ?></th>
                           <th width="10%">เปลี่ยนแปลง </th>
                           <th width="10%">ยอดต่าง (%) </th>
                         </tr>
