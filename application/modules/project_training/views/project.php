@@ -34,7 +34,7 @@ if ($chk == false) {
 
           <div class="nav navbar-right panel_toolbox">
           
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus"></i>เพิ่มแผนงาน</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus-square"></i> เพิ่มแผนงาน</button>
           </div>
           <!-- <div class="nav navbar-right panel_toolbox">
             <label>

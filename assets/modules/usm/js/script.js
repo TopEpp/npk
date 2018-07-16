@@ -29534,7 +29534,7 @@ var usm=function () {
     }).tree({
       rownumbers: false,
       checkOnSelect: true,
-      lines:true,
+      lines:false,
       checkbox: true,
       animate: true,
       queryParams:{
@@ -30028,9 +30028,10 @@ $(document).ready(function(){
       return $(window).height()-160;
     }).treegrid({
       rownumbers: false,
-      lines: true,
+      lines: false,
       animate: true,
       collapsible: true,
+      showFilterBar:false,
       url:domain+'/usm/get_org_all',
       method: 'get',
       idField: 'id',
@@ -30092,7 +30093,7 @@ $(document).ready(function(){
         $tg.treegrid('enableDnd',null);
       },
       columns: [[
-        {title: '&nbsp;&nbsp; หน่วยงาน', field: 'title', width: '80%',
+        {title: '&nbsp;&nbsp; หน่วยงาน', field: 'title', width: '60%',
           formatter: function (value, row) {
             var format=value;
             if (row.type == 'org') {
@@ -30109,25 +30110,25 @@ $(document).ready(function(){
             return format;
           }
           },
-        {title: 'จัดการ', field: 'action',   align: 'right', width: '20%',
+        {title: 'จัดการ', field: 'action',   align: 'right', width: '40%',
           formatter: function (value, row) {
             var format = [];
             if (row.org_parent_id == 0) {
-              format.push("<a class='btn btn-success' href='javascript:void(0)' title='เพิ่มองค์กร' onclick='usm.orgNew()'><i class='glyphicon glyphicon glyphicon-home'></i></a>");
+              format.push("<div class='btn-group '><a class='btn btn-success btn-sm' href='javascript:void(0)' title='เพิ่มองค์กร' onclick='usm.orgNew()'><i class='glyphicon glyphicon glyphicon-home'></i></a></div>");
             } else {
               if (row.type == 'org') {
-                format.push("<a class='btn btn-success' href='javascript:void(0)' title='เพิ่มองค์กร' onclick='usm.orgNew()'><i class='glyphicon glyphicon glyphicon-home'></i></a>");
+                format.push("<div class='btn-group '><a class='btn btn-success btn-sm ' href='javascript:void(0)' title='เพิ่มองค์กร' onclick='usm.orgNew()'><i class='glyphicon glyphicon glyphicon-home'></i></a>");
                 if (row.last) {
-                  format.push("<a class='btn btn-success' href='javascript:void(0)' title='เพิ่มบุคลกร' onclick='usm.userNew()'><i class='glyphicon  glyphicon-user'></i></a>");
+                  format.push("<a class='btn btn-success btn-sm' href='javascript:void(0)' title='เพิ่มบุคลกร' onclick='usm.userNew()'><i class='glyphicon  glyphicon-user'></i></a>");
                 }else{
-                  format.push("<a class='btn btn-success' href='javascript:void(0)'  disabled title='เพิ่มบุคลกร'><i class='glyphicon disabled  glyphicon-user'></i></a>");
+                  format.push("<a class='btn btn-success btn-sm' href='javascript:void(0)'  disabled title='เพิ่มบุคลกร'><i class='glyphicon  glyphicon-user'></i></a>");
                 }
-                format.push("<a class='btn btn-warning' href='javascript:void(0)' title='แก้ไขข้อมูลองค์กร' onclick='usm.orgEdit()'><i class='glyphicon glyphicon-pencil'></i></a>");
+                format.push("<a class='btn btn-warning btn-sm' href='javascript:void(0)' title='แก้ไขข้อมูลองค์กร' onclick='usm.orgEdit()'><i class='glyphicon glyphicon-pencil'></i></a>");
                 
-                format.push("<a class='btn btn-danger' href='javascript:void(0)' title='ลบองค์กร' onclick='usm.orgDel()'><i class='glyphicon glyphicon-trash'></i></a>");
+                format.push("<a class='btn btn-danger btn-sm' href='javascript:void(0)' title='ลบองค์กร' onclick='usm.orgDel()'><i class='glyphicon glyphicon-trash'></i></a></div>");
               }else if(row.type == 'user'){
-                format.push("<a class='btn btn-warning' href='javascript:void(0)' title='แก้ไขบุคลกร' onclick='usm.userEdit()'><i class='glyphicon glyphicon-pencil'></i></a>");
-                format.push("<a class='btn btn-danger' href='javascript:void(0)'' title='ลบบุคลกร' onclick='usm.userDel()'><i class='glyphicon glyphicon-trash'></i></a>");
+                format.push(" <div class='btn-group '><a class='btn btn-warning btn-sm' href='javascript:void(0)' title='แก้ไขบุคลกร' onclick='usm.userEdit()'><i class='glyphicon glyphicon-pencil'></i></a>");
+                format.push("<a class='btn btn-danger btn-sm' href='javascript:void(0)'' title='ลบบุคลกร' onclick='usm.userDel()'><i class='glyphicon glyphicon-trash'></i></a></div>");
               }
             }
             return format.join('');

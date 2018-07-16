@@ -21,7 +21,7 @@
             </div>
 
             <div class="nav navbar-right panel_toolbox">
-              <button type="button" class="btn btn-default" onclick="add_out()"></i> เพิ่มรายการ</button>
+              <button type="button" class="btn btn-success" onclick="add_out()"><i class="fa fa-plus-square"></i> เพิ่มรายการ</button>
             </div>
             <div style="margin:20px 0;"></div>
             <table id="tg" class="easyui-treegrid" title="&emsp;รายรับนอกงบประมาณ" style="width:100%;">
