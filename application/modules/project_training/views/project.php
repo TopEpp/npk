@@ -1,3 +1,15 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 6) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
+
 <div class="right_col" role="main">
     <div class="page-title">
       <div class="title_left">
@@ -26,7 +38,7 @@
           </div>
           <div class="nav navbar-right panel_toolbox">
             <label>
-              <input type="checkbox" class="js-switch" id="state"  <?php echo ($state == 1)? 'checked':''; ?>/> ยืนยัน &nbsp;
+              <input type="checkbox" class="js-switch" id="state"  <?php echo ($state == 1) ? 'checked' : ''; ?>/> ยืนยัน &nbsp;
             </label>
           </div>
           <div style="margin:20px 0;"></div>
@@ -205,8 +217,9 @@
             <select id="prj_owner"  name="prj_owner" class="select2_single form-control" tabindex="1">
               <option disabled>เลือก</option>
               <?php foreach ($user as $key => $value) { ?>
-                <option value="<?= $value->user_id?>"><?= $value->user_firstname; ?></option>
-              <?php } ?>
+                <option value="<?= $value->user_id ?>"><?= $value->user_firstname; ?></option>
+              <?php 
+            } ?>
             </select>
             
           </div>

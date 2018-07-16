@@ -1,3 +1,15 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 6) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
+
 <div class="right_col" role="main">
   <section class="row">
       <div class="col-md-12">
@@ -34,13 +46,13 @@
                             </tr>
                             <tr>
                               <td><b>คงเหลือที่เบิกจ่ายได้</b></td>
-                              <?php $sum_all = $prj->prj_budget_sum - $prj->amount;?>
+                              <?php $sum_all = $prj->prj_budget_sum - $prj->amount; ?>
                               <td class="text-right"><b><?php echo number_format($sum_all, 2); ?> บาท</b></td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
-                      <?php if ($sum_all != '0'){ ?>
+                      <?php if ($sum_all != '0') { ?>
                         <div id="step-1">
                                 <div class="form-group">
                                     <div class="row">
@@ -122,7 +134,8 @@
                         <div style="text-align: right;">
                           <button type="submit" class="btn btn-primary">บันทึก</button>
                         </div>
-                      <?php } ?>
+                      <?php 
+                    } ?>
                   </div>
 
                  
@@ -148,15 +161,16 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach ($expenses_all as $key => $value) {?>
+          <?php foreach ($expenses_all as $key => $value) { ?>
             <tr>
               <td ><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S'); ?></td>
               <td><?php echo $value->expenses_user ?></td>
               <td><?php echo $value->expenses_detail ?></td>
               <td class="text-right"><?php echo number_format($value->expenses_amount); ?></td>
-              <!-- <td><?php ?></td> -->
+              <!-- <td><?php  ?></td> -->
             </tr>
-          <?php }?>
+          <?php 
+        } ?>
           </tbody>
         </table>
       </div>

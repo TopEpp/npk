@@ -1,3 +1,14 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 6) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
           
           <div class="page-title">
@@ -15,7 +26,7 @@
               <div class="x_panel">
                 <div class="x_title">
                       <div class="col-xs-12 text-right">
-                          <button type="button" class="btn btn-success"  onclick="window.location.href='<?php echo base_url('expenditure/search_prj');?>'" title="เบิกจ่าย"><i class="fa fa-paypal"> เบิกจ่าย</i>
+                          <button type="button" class="btn btn-success"  onclick="window.location.href='<?php echo base_url('expenditure/search_prj'); ?>'" title="เบิกจ่าย"><i class="fa fa-paypal"> เบิกจ่าย</i>
                           </button>
                       </div>
                   <div class="clearfix"></div>
@@ -37,21 +48,21 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <?php foreach ($expenditure as $key => $value) {?>
+                      <?php foreach ($expenditure as $key => $value) { ?>
                          <tr>
-                          <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date_disburse,543,'S')?></td>
-                          <td align="center"><?php echo $value->expenses_number;?></td>
-                          <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date,543,'S')?></td>
-                          <td><?php echo $value->prj_name;?></td>  
-                          <td align="right"><?php echo number_format($value->expenses_amount_result,2); ?></td>
-                          <td align="center"><?php echo $value->user_firstname;?></td>
+                          <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date_disburse, 543, 'S') ?></td>
+                          <td align="center"><?php echo $value->expenses_number; ?></td>
+                          <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S') ?></td>
+                          <td><?php echo $value->prj_name; ?></td>  
+                          <td align="right"><?php echo number_format($value->expenses_amount_result, 2); ?></td>
+                          <td align="center"><?php echo $value->user_firstname; ?></td>
                           <td>
                             <center>
                                 <div class="btn-group ">
                                     <button type="button" data-toggle="modal" data-target="#paymodal" data-id="<?php echo $value->expenses_id ?>" class="btn btn-default btn-sm" title="เช๊ค">
                                        เลขเช๊ค
                                     </button>
-                                    <button type="button" onclick="window.location = '<?php echo base_url('expenditure/expenditure_form').'/'.$value->project_id.'/'.$value->expenses_id;?>'" class="btn btn-warning btn-sm" title="แก้ไข">
+                                    <button type="button" onclick="window.location = '<?php echo base_url('expenditure/expenditure_form') . '/' . $value->project_id . '/' . $value->expenses_id; ?>'" class="btn btn-warning btn-sm" title="แก้ไข">
                                        แก้ไข
                                     </button>
                                     <button type="button" class="btn btn-danger btn-sm" data-id="<?php echo $value->expenses_id ?>"  data-toggle="modal" data-target="#delmodal" title="ลบ">
@@ -61,7 +72,8 @@
                             </center>               
                           </td>
                         </tr>
-                      <?php } ?> 
+                      <?php 
+                    } ?> 
 
                       <tbody>
                     </table>
@@ -98,7 +110,7 @@
                         <div class="row">
                           <div class="col-sm-12">
                             <label> วันที่เช๊ค</label>
-                            <input type="text" name="expenses_date_disburse" value="<?php echo date('Y-m-d');?>" class="form-control datepicker">
+                            <input type="text" name="expenses_date_disburse" value="<?php echo date('Y-m-d'); ?>" class="form-control datepicker">
                           </div>
                         </div>
                   
