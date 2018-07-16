@@ -20,6 +20,24 @@ class export extends My_Controller
 
         $date = explode('-', $gat1['notice_date']);
         $budget = explode('.', $gat1['notice_estimate']);
+        if ($budget[0] == ''){
+          $budget[0] = '-';
+        }
+        if ($budget[1] == ''){
+          $budget[1] = '-';
+        }
+
+        $tax_interest  = explode('.',$gat['tax_interest']);
+        $sum = $budget[0] + $tax_interest[0];
+        $sum_str = $budget[1] + $tax_interest[1];
+        if ($tax_interest[0] == ''){
+          $tax_interest[0] = '-';
+        }
+        if ($tax_interest[1] == ''){
+          $tax_interest[1] = '-';
+        }
+
+     
 
         $content = '<table border="0" style="width:100%;" >
 
@@ -27,12 +45,12 @@ class export extends My_Controller
               <td colspan="3" style="text-align: right;" >26-30-02</td>
             </tr>
             <tr>
-              <td style="width: 5%">ภ.ป. ๓<br><br><b>หนังสือแจ้งการประเมิน</b><br><br></td>
+              <td style="width: 5%"><b>ภ.ป. ๓</b><br><br><b>หนังสือแจ้งการประเมิน</b><br><br></td>
               <td style="text-align: left;"> <img src="assets/images/unnamed.jpg" style="width: 100px;margin-left: 170px;">  </td>
             </tr>
             <tr>
               <td style="width: 25%">
-                    ที่ .............../...............
+                    ที่ ชม. ๕๔๙๐๒/...............
               </td>
               <td>&nbsp;</td>
               <td style="text-align: right; ">เทศบาลตำบลหนองป่าครั่ง<br><br>อ.เมือง จ.เชียงใหม่ ๕๐๐๐๐ </td >
@@ -40,7 +58,7 @@ class export extends My_Controller
 
             <tr>
             <br>
-              <td colspan="3"><br>เรื่อง  แจ้งการประเมิน ' . " " . ' ' . $gat1['tax_name'] . '<br><br> เรียน ' . " " . ' ' . $gat1['individual_fullname'] . '</td>
+              <td colspan="3"><br>เรื่อง  แจ้งการประเมิน' .$gat1['tax_name'] . '<br><br> เรียน ' . " " . ' ' . $gat1['individual_prename'].$gat1['individual_fullname'] . '</td>
             </tr>
             <tr>
               <td colspan="3" style="text-align: center;"><br><br>ตามที่ท่านได้ยื่นแบบแสดงรายการ' . " " . ' ' . $gat1['tax_name'] . ' ไว้ตามแบบ ภ.ป. ๑
@@ -57,11 +75,11 @@ class export extends My_Controller
             </tr>
             <tr>
               <td colspan="3" style="width:10px;"><br>
-              ' . " " . ' ' . $this->mydate->conv_th_digit(number_format($budget[1])) . ' สตางค์ และเงินเพิ่ม.......................บาท.......................สตางค์ รวมทั้งสิ้นเป็นเงิน '.$this->mydate->conv_th_digit(number_format($budget[0])).' บาท
+              ' . " " . ' ' . $this->mydate->conv_th_digit(number_format($budget[1])) . ' สตางค์ และเงินเพิ่ม '.$tax_interest[0].' บาท '.$tax_interest[1].' สตางค์ รวมทั้งสิ้นเป็นเงิน '.$this->mydate->conv_th_digit(number_format($sum)).' บาท
             </tr>
             <tr>
               <td colspan="3" style="width:10px;"><br>
-              '.$this->mydate->conv_th_digit(number_format($budget[1])).' สตางค์ โปรดนำเงินจำนวนดังกล่าวไปชำระภายใน ๑๕ วัน นับตั้งแต่วันที่ได้รับหนังสือนี้
+              '.$this->mydate->conv_th_digit(number_format($sum_str)).' สตางค์ โปรดนำเงินจำนวนดังกล่าวไปชำระภายใน ๑๕ วัน นับตั้งแต่วันที่ได้รับหนังสือนี้
               หากพ้นกำหนด<br><br>จะต้องเสียเงินเพิ่มตามกฏหมาย
             </tr>
             <tr>
@@ -103,7 +121,6 @@ class export extends My_Controller
         $content = '	<style>
                         table {
                             border-collapse: collapse;
-
                         }
                         pre{
                           font-size:16px;

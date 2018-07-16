@@ -58,7 +58,7 @@ if ($chk == false) {
                                               <label>วันที่จัดทำ</label>
                                               <span  style="color:red">*</span>
 
-                                              <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $out_pay[0]->outside_pay_create : date('Y-m-d'); ?>" class="form-control datepicker">
+                                              <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $this->mydate->date_db2str($out_pay[0]->outside_pay_create) : date('d/m/Y'); ?>" class="form-control datepicker">
                                           </div>
                                       </div>
                                   </div>

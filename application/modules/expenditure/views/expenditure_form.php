@@ -60,8 +60,7 @@ if ($chk == false) {
                                             <div class="form-group" >
                                                 <label>วันที่จัดทำ</label>
                                                 <span class="required" style="color:red">*</span>
-
-                                                <input type="text" name="expenses_date" value="<?php echo (!empty($expenses[0]->expenses_date)) ? $expenses[0]->expenses_date : date('Y-m-d'); ?>" class="form-control datepicker">
+                                                <input type="text" name="expenses_date" value="<?php echo (!empty($expenses[0]->expenses_date)) ? $this->mydate->date_db2str($expenses[0]->expenses_date) : date('d/m/Y'); ?>" class="form-control datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2">
