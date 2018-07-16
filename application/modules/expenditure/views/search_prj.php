@@ -1,3 +1,14 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 6) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
   <section class="row">
       <div class="col-md-6 col-sm-4 col-xs-4">

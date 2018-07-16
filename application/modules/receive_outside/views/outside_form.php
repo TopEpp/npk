@@ -1,3 +1,14 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 6) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
   <section class="row">
       <div class="col-md-12">
@@ -34,7 +45,7 @@
                             </tr>
                             <tr>
                               <td>รวม</td>
-                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum-@$out[0]->budget, 2); ?> บาท</td>
+                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum - @$out[0]->budget, 2); ?> บาท</td>
                             </tr>
                           </tbody>
                         </table>
@@ -144,7 +155,7 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach ($out_pay_all as $key => $value) {?>
+          <?php foreach ($out_pay_all as $key => $value) { ?>
             <tr>
               <td><?php echo $this->mydate->date_eng2thai($value->outside_pay_create, 543, 'S'); ?></td>
               <td><?php echo $value->user_firstname . ' ' . $value->user_lastname ?></td>
@@ -152,7 +163,8 @@
               <td class="text-right"><?php echo number_format($value->outside_pay_budget, 2); ?></td>
 
             </tr>
-          <?php }?>
+          <?php 
+        } ?>
           </tbody>
         </table>
       </div>

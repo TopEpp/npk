@@ -1,3 +1,14 @@
+<?php
+$chk = false;
+foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+  if ($chk_permission['app_id'] == 6) :
+  $chk = true;
+break;
+endif;
+endforeach;
+if ($chk == false) {
+  redirect('main/dashborad');
+} ?>
 <div class="right_col" role="main">
   <section class="row">
       <div class="col-md-6 col-sm-4 col-xs-4">
@@ -51,7 +62,7 @@
                 <label>วันที่บันทึก</label>
                 <span class="required" style="color:red">*</span>
 
-                <input type="text" name="expenses_date" value="<?php echo date('Y-m-d');?>" class="form-control datepicker">
+                <input type="text" name="expenses_date" value="<?php echo date('Y-m-d'); ?>" class="form-control datepicker">
             </div>
         </form>
       </div>
