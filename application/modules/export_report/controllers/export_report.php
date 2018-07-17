@@ -146,7 +146,7 @@ class export_report extends My_Controller
                           $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
                           $color = '';
                           if ($diff < 0) {
-                            $color = 'style="color: red;"';
+                             $color = 'color: red;';
                           }
 
                           $sum1 = $sum[$title->tax_id]->tax_estimate;
@@ -156,21 +156,21 @@ class export_report extends My_Controller
                             <td style="font-weight:bolder;">'.$title->tax_name.'</td>
                             <td style="font-weight:bolder;text-align:right">'.number_format(@$sum[$title->tax_id]->tax_estimate, 2).'</td> 
                             <td style="font-weight:bolder;text-align:right">'.number_format(@$sum[$title->tax_id]->receive_amount, 2).'</td>  
-                            <td style="font-weight:bolder;text-align:right"><span '.$color.'>'.number_format($diff, 2).'</span></td>  
+                            <td style="font-weight:bolder;text-align:right;'.$color.'">'.number_format($diff, 2).'</td>  
                           </tr>';
 
                           foreach ($getrec[$title->tax_id] as $key => $title2) {
                             $diff = @$title2->tax_estimate - @$title2->receive_amount;
                             $color = '';
                             if ($diff < 0) {
-                              $color = 'style="color: red;"';
+                               $color = 'color: red;';
                             }
                             
                               $content .= '<tr>
-                             <td><span style="padding-left: 10px;">'.$title2->tax_name.'</span></td>              
+                             <td style="padding-left: 10px;">'.$title2->tax_name.'</td>              
                              <td style="text-align:right">'.number_format(@$title2->tax_estimate, 2).'</td> 
                              <td style="text-align:right">'.number_format(@$title2->receive_amount, 2).'</td>      
-                             <td style="text-align:right"><span '.$color.'>'.number_format($diff, 2).'</span></td>   
+                             <td style="text-align:right; '.$color.'">'.number_format($diff, 2).'</td>   
                              </tr>';
                           }
                       }
