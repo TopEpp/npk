@@ -68,7 +68,7 @@ if ($chk == false) {
                             $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
                             $color = '';
                             if ($diff < 0) {
-                              $color = 'style="color: red;"';
+                              $color = 'color: red;';
                             }
 
                             $labels_chart .= $title->tax_name . '||';
@@ -84,7 +84,7 @@ if ($chk == false) {
                                 <td><?php echo $title->tax_name ?></td>
                                 <td style="text-align:right"><?php echo number_format(@$sum[$title->tax_id]->tax_estimate, 2); ?></td> 
                                 <td style="text-align:right"><?php echo number_format(@$sum[$title->tax_id]->receive_amount, 2); ?></td>  
-                                <td style="text-align:right"><span <?php echo $color; ?>><?php echo number_format($diff, 2); ?></span></td>   
+                                <td style="text-align:right;<?php echo $color; ?>"><?php echo number_format($diff, 2); ?></td>   
                               </tr>
                            <?php 
                         }
@@ -144,7 +144,7 @@ if ($chk == false) {
                           $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
                           $color = '';
                           if ($diff < 0) {
-                            $color = 'style="color: red;"';
+                            $color = 'color: red;';
                           }
                           ?>
 
@@ -152,22 +152,22 @@ if ($chk == false) {
                             <td style="font-weight:bolder;"> <?php echo $title->tax_name; ?></td>
                             <td style="font-weight:bolder;text-align:right"><?php echo number_format(@$sum[$title->tax_id]->tax_estimate, 2); ?></td> 
                             <td style="font-weight:bolder;text-align:right"><?php echo number_format(@$sum[$title->tax_id]->receive_amount, 2); ?></td>  
-                            <td style="font-weight:bolder;text-align:right"><span <?php echo $color; ?>><?php echo number_format($diff, 2); ?></span></td>  
+                            <td style="font-weight:bolder;text-align:right;<?php echo $color; ?>"><?php echo number_format($diff, 2); ?></td>  
                           </tr>
                            <?php foreach ($getrec[$title->tax_id] as $key => $title2) {
                             $diff = $title2->tax_estimate - $title2->receive_amount;
                             $color = '';
                             if ($diff < 0) {
-                              $color = 'style="color: red;"';
+                              $color = 'color: red;';
                             }
                             ?>
                              
                     
                           <tr>
-                         <td><span style="padding-left: 10px;"><?php echo $title2->tax_name; ?></span></td>              
+                         <td style="padding-left: 20px;"><?php echo $title2->tax_name; ?></td>              
                          <td style="text-align:right"><?php echo number_format(@$title2->tax_estimate, 2); ?></td> 
                          <td style="text-align:right"><?php echo number_format(@$title2->receive_amount, 2); ?></td>      
-                         <td style="text-align:right"><span <?php echo $color; ?>><?php echo number_format($diff, 2); ?></span></td>     
+                         <td style="text-align:right; <?php echo $color; ?>"><?php echo number_format($diff, 2); ?></td>     
                                    
                          </tr>
 
