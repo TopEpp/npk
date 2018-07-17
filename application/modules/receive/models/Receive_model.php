@@ -85,7 +85,7 @@ class Receive_model extends CI_Model
 
     public function del_notice($id)
     {
-        $this->db->where('notice_id', $id);
+        $this->db->where('tax_id', $id);
         return $this->db->delete('tax_notice');
     }
 
