@@ -18,7 +18,7 @@
                                             <div id="form_tab" class="x_panel">
                                                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                                            <li role="presentation" class="<?php echo ($tax_id == '8') ? 'active' : ''; ?>"><a href="#tab_content1" id="tab1" role="tab" data-toggle="tab" aria-expanded="true">ภาษีโรงเรือนและที่ดิน</a>
+                                                            <li role="presentation" class="<?php echo ($tax_id == '8') ? 'active' : ''; ?>"><a href="#tab_content1" role="tab" id="tab1" data-toggle="tab" aria-expanded="true">ภาษีโรงเรือนและที่ดิน</a>
                                                             </li>
                                                             <li role="presentation" class="<?php echo ($tax_id == '9') ? 'active' : ''; ?>"><a href="#tab_content2" role="tab" id="tab2" data-toggle="tab" aria-expanded="false">ภาษีบำรุงท้องที่</a>
                                                             </li>
@@ -1351,7 +1351,7 @@
                                                 <div class="ln_solid"></div>
                                                             <div class="form-group">
                                                                 <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3 text-center">
-                                                                    <button type="submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
+                                                                    <button type="submit" value="Submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                                                                     </button>
                                                                     <button onclick="window.location.replace('<?php echo site_url('receive/receive_dashborad'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                                                                     </button>
