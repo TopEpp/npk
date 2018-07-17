@@ -117,6 +117,9 @@
                             <?php $int = 1;
                             $sum1 = $sum2 = $sum3 = $sum4 = $sum5 = $sum6 = 0;
                             foreach ($person as $key => $value) {
+                              // echo '<pre>';
+                              // print_r($value);
+                              // echo '</pre>';
                               if ((@$value[8]['notice_estimate'] - @$value[8]['receive_amount']) + (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']) + (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'] > 0) {
                                 $sum1 += (@$value[8]['notice_estimate'] - @$value[8]['receive_amount']);
                                 $sum2 += (@$value[8]['interest']);

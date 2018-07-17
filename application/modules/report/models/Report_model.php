@@ -56,15 +56,12 @@ class Report_model extends CI_Model
     function getPersonDebt($year){
         $data = array();
         $this->db->select('tbl_tax.*, tbl_individual.*,
-                            SUM(notice_estimate) AS notice_estimate,
-                            SUM(receive_amount) AS receive_amount,
-                            SUM(interest) as interest');
+                            SUM(notice_estimate) AS notice_estimate');
         $this->db->from('tbl_tax');
         $this->db->JOIN('tax_notice','tbl_tax.tax_id= tax_notice.tax_id');
-        $this->db->JOIN('tax_receive','tax_notice.notice_id= tax_receive.notice_id','left');
         $this->db->join('tbl_individual','tbl_individual.individual_id = tax_notice.individual_id','left');
         $this->db->where('tbl_tax.tax_parent_id',1);
-        $this->db->where('tax_notice.tax_year', $year);
+        $this->db->where('tax_notice.year_id', $year);
         $this->db->GROUP_BY('tbl_individual.individual_id,tbl_tax.tax_id');
         // $this->db->having('notice_estimate > receive_amount');
         $query = $this->db->get();
@@ -74,6 +71,20 @@ class Report_model extends CI_Model
             @$data[$value->individual_id]['idcard'] = $value->individual_number;
 
             @$data[$value->individual_id][$value->tax_id]['notice_estimate'] = $value->notice_estimate; 
+        }
+
+        $this->db->select('tbl_tax.*, tax_receive.individual_id,
+                            SUM(receive_amount) AS receive_amount,
+                            SUM(interest) as interest');
+        $this->db->from('tbl_tax');
+        $this->db->JOIN('tax_receive','tbl_tax.tax_id= tax_receive.tax_id','left');
+        $this->db->where('tbl_tax.tax_parent_id',1);
+        $this->db->where('tax_receive.year_id', $year);
+        $this->db->GROUP_BY('tax_receive.individual_id,tbl_tax.tax_id');
+        // $this->db->having('notice_estimate > receive_amount');
+        $query = $this->db->get();
+        foreach ($query->result() as $key => $value) {
+
             @$data[$value->individual_id][$value->tax_id]['receive_amount'] = $value->receive_amount;
             @$data[$value->individual_id][$value->tax_id]['interest'] = $value->interest;
         }
