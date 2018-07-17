@@ -1379,6 +1379,26 @@ class Receive extends MY_Controller
     }
 
 
+    //get data tax alert
+    public function getalert(){
+        $data = $this->input->post('data');
+        $result['data'] = $this->Receive_model->getAlert($data);
+        $this->load->view('tax_alert',$result);
+       
+    }
+
+    public function savealert(){
+        $data['alert_date'] = $this->mydate->date_thai2eng($this->input->post('data'));
+        $data['notice_id'] = $this->input->post('notice');
+        $data['agent_id'] = $_SESSION['user_id'];
+        $result['id'] = $this->Receive_model->saveAlert($data);
+        $result['id'] = $data['notice_id'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($result));
+       
+    }
+
+
+
 
 
 }

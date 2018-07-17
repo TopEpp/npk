@@ -432,4 +432,127 @@ class export extends My_Controller
 
     }
 
+    public function alert1($id = ''){
+      $data = $this->export_model->getTaxNoticeAlert($id);
+      // print_r($data);die();
+      $content = '
+
+      <table border="0" style="width:100%; font-size:12px" >
+        <tr>
+          <td style="text-align:left;">ที่ ชม.๕๔๙๐๒ฝ๒๕๖๐</td>
+          <td style="text-align:center;"><img src="assets/images/logo_alert.jpg" style="width: 60px;"> </td>
+          <td style="text-align:right;">เทศบาลตำบลหนองป่าครั่ง <br/> อำเภอเมือง จังหวัดเชียงใหม่</td>
+        </tr>
+        <tr>
+          <td colspan=2 style="width:370px;"><br/>
+            เรื่อง ให้ไปชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. ๒๕๖๐ แจ้งเตือนครั้งที่ '.$data['alert_id'].'
+          </td>
+        </tr>
+        <tr>
+          <td>
+             เรียน '.$data['individual_prename'].' '.$data['individual_fullname'].'
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>
+            อ้างอิง ใบแจ้งรายการประเมิน '.$data['tax_name'].' (ภ.ร.ด.๘) เล่มที่...เลขที่... ลงวันที่ ....
+          </td>
+        </tr>
+        <tr>
+          <td colspan=3><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ตามที่ท่านได้รับใบแจ้งประเมินค่า'.$data['tax_name'].' จำนวนเงิน ..... บาท ตามที่อ้างถึง นั้น
+          </td>
+        </tr>
+        <tr>
+          <td colspan=3><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            บัดนี้ ได้พ้นกำหนดระยะเวลาการชำระ'.$data['tax_name'].' ประจำปี พ.ศ. ๒๕๖๐ มาแล้วเทศบาลตำบลหนองป่าครั่ง จึงแจ้งเตือนมายังท่านให้มาชำระเงินค่า'.$data['tax_name'].'พร้อมเงินเพิ่ม ณ
+            สำนักงานเทศบาลตำบลหนองป่าครั่ง โดยเร็ว นับตั้งแต่วันที่ได้รับหนังสือแจ้งเตือนฉบับนี้
+          </td>
+        </tr>
+        <tr>
+          <td colspan=3><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           จึงเรียนมาเพื่อโปรดชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. ๒๕๖๐
+          </td>
+        </tr>
+        <tr>
+          <td colspan=3 style="text-align:center"><br/>
+                ขอแสดงความนับถือ<br/><br/><br/><br/>
+                (นายชฏิลพงษ์ จำเดิมเผด็จศึก)<br/>
+                ปลัดเทศบาลตำบลหนองป่าครั่ง<br/>
+                เจ้าพนักงานประเมิน
+          </td>
+        </tr>
+        <tr>
+          <td colspan=3>
+            ฝ่ายพัฒนารายได้  กองคลัง<br/>
+            โทรศัพท์ ๐-๕๓๘๕-๐๔๒๑ ต่อ ๑๑๕<br/>
+            โทรศัพท์ ๐-๕๓๘๕-๑๖๔๖<br/>
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=3>
+            <u><b>หมายเหตุ</b></u> ขออภัยมา ณ ที่นี่ด้วย ถ้าหากท่านได้ชำระเงินเป็นที่เรียบร้อยแล้ว<br/>
+            ***** ตามพระราชบัญญัติภาษีโรงเรือนและที่ดิน พ.ศ. ๒๕๓๕ มาตรา ๕๓, ๕๔<br/>
+            กรณีผู้รับการประเมินไม่ชำระค่าภาษีภายใน ๓๐ วัน นับถัดจากวันที่ได้รับแจ้งการประเมินค่าภาษีจะต้องเสียภาษีเพิ่มอีก ดังนี้
+          
+            <li>ค้างชำระไม่เกิน ๑ เดือน นับตั้งแต่วันพ้นกำหนดจะต้องเสียเงินเพิ่ม ร้อยละ ๕ ของค่าภาษี</li>
+            <li>ค้างชำระไม่เกิน ๑ เดือนแต่ไม่เกิน ๒ เดือนจะต้องเสียเงินเพิ่ม ร้อยละ ๕ ของค่าภาษี</li>
+            <li>ค้างชำระเกิน ๒ เดือนแต่ไม่เกิน ๓ เดือนจะต้องเสียเงินเพิ่ม ร้อยละ ๗.๕ ของค่าภาษี</li>
+            <li>ค้างชำระเกิน ๓ เดือนแต่ไม่เกิน ๔ เดือนจะต้องเสียเงินเพิ่ม ร้อยละ ๑๐ ของค่าภาษี</li>
+            <li>ถ้ามิได้การชำระภาษี และเงินเพิ่มภายใน ๔ เดือนให้ผู้บริหารท้องถิ่นมีอำนาจออกคำสั่งเป็นหนังสือ ให้ยึด อายัด หรือขายทอดตลาดหลักทรัพย์สินของผู้ซึ่งค้างชำระ ภาษีเพื่อนำเงินมาชำระเป็น ค่าภาษีเงินเพิ่ม ค่าธรรมเนียม</li>
+            <br/><br/><br/>
+            
+          </td>
+        </tr>
+        </table>
+        <table  border="0" style="font-size:12px">
+        <tr>
+          <td>
+            <img src="assets/images/logo_alert.jpg" style="width: 40px;">
+          </td>          
+          <td style="width: 200px;">
+            เทศบาลหนองป่าครั่ง<br>
+            15 หมู่ที่ 3 ตำบลหนองป่าครั่ง<br>
+            อำเภอเมือง จังหวัดเชียงใหม่ 50000<br>
+          </td>
+          <td style="width: 300px;">
+
+          </td>
+          <td style="width: 100px; text-align:center;  border:.5mm solid black;">
+            ชำระค่าฝากส่งเป็นรายเดือน
+            ใบอนุญาตที่ 17/2541
+            ปณจ.เชียงใหม่
+          </td>
+          
+        </tr>
+        <tr>
+          <td colspan=2>
+          </td>
+          <td style=" text-align:left;"><br><br><br><br>
+              <b>กรุณาส่ง ...........</b><br>
+                เลขที่ .... หมู่ ...<br>
+                ตำบลหนองป่าครั่ง อำเภอเมือง <br>
+                จังหวัดเชียงใหม่ 50000
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>
+            แจ้งเตือน'.$data['tax_name'].'ครั้งที่.. ลำดับที่แจ้ง ... 
+          </td>
+          <td colspan=2 style=" text-align:right;">
+            นางสาวนิตยา มณีรัตน์<br>
+            หัวหน้าฝ่ายพัฒนารายได้
+          </td>
+         
+        </tr>
+        </table>
+
+      ';
+
+      $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+      $this->exportpdf->exportFhtml($dataExport);
+    }
+
 }

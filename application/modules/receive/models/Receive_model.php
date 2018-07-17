@@ -673,5 +673,15 @@ class Receive_model extends CI_Model
 
     }
 
+    public function getAlert($data){
+        $this->db->where('notice_id',$data);
+        return $this->db->get('tax_alert')->result();
+    }
+    
+    public function saveAlert($data){
+        $this->db->insert('tax_alert',$data);
+        return $this->db->insert_id();
+    } 
+
 
 }

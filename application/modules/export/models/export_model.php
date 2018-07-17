@@ -62,4 +62,18 @@ class export_model extends CI_Model
 
     }
 
+    
+    public function getTaxNoticeAlert($id)
+    {
+        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*,tax_alert.alert_date,tax_alert.alert_id');
+        $this->db->from('tax_notice');
+        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id');
+        $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type');
+        $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
+        $this->db->join('tax_alert', 'tax_alert.notice_id = tax_notice.notice_id');
+        $this->db->where('alert_id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
 }
