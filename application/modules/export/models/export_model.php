@@ -37,6 +37,24 @@ class export_model extends CI_Model
         return $result;
     }
 
+    public function getTaxNoticeGat3($data)
+    {
+        $this->db->select('
+                sum(tax_notice.notice_estimate) as notice_estimate ,
+                sum(tax_notice.land_rai) as land_rai ,
+                sum(tax_notice.land_ngan) as land_ngan ,
+                sum(tax_notice.land_wa) as land_wa ,
+        ');
+        $this->db->from('tax_notice');
+      
+        $this->db->where('year_id',$data['year_id']);
+        $this->db->where('tax_id',$data['tax_id']);
+        $this->db->where('individual_id',$data['individual_id']);
+        $this->db->group_by('tax_id');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
     public function getAddressNameById($code_id){
         $this->db->select('area_name_th');
         $this->db->where('area_code',$code_id);

@@ -298,14 +298,15 @@ class export extends My_Controller
     {
 
         $gat3 = $this->export_model->getTaxNotice($id);
-        // print_r($gat3);die();
+        $data = $this->export_model->getTaxNoticeGat3($gat3);
+   
         $subdistrict = $this->export_model->getAddressNameById($gat3['individual_subdistrict']);
         // print_r($subdistrict);die();
         $district = $this->export_model->getAddressNameById($gat3['individual_district']);
         $province = $this->export_model->getAddressNameById($gat3['individual_provice']);
      
         // $date = explode('-', $gat1['notice_date']);
-        $budget = explode('.', $gat3['notice_estimate']);
+        $budget = explode('.', $data['notice_estimate']);
         if ($budget[0] == ''){
           $budget[0] = '-';
         }
@@ -391,10 +392,10 @@ class export extends My_Controller
                   <td><br><br><br><br>  </td>
               </tr>
               <tr >  
-                  <td><br>เนื้อที่ดินทั้งหมด&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_rai']).' ไร่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_ngan']).' งาน&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_wa']).' วา </td>
+                  <td><br>เนื้อที่ดินทั้งหมด&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($data['land_rai']).' ไร่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($data['land_ngan']).' งาน&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($data['land_wa']).' วา </td>
               </tr>
               <tr >  
-                  <td><br>เนื้อที่ดินที่ต้องชำระภาษี&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_tax']).' ไร่&nbsp;&nbsp;&nbsp;&nbsp;'.$gat3['land_ngan'].' งาน&nbsp;&nbsp;&nbsp;&nbsp;'.$gat3['land_wa'].' วา  </td>
+                  <td><br>เนื้อที่ดินที่ต้องชำระภาษี&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($data['land_rai']).' ไร่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($data['land_ngan']).' งาน&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($data['land_wa']).' วา </td>
               </tr>
               <tr >  
                   <td><br>รวมเงินภาษีที่ต้องชำระ&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($budget[0]).' บาท &nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($budget[1]).'&nbsp;&nbsp;&nbsp;&nbsp;สต.</td>

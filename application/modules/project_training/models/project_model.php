@@ -417,7 +417,9 @@ class project_model extends CI_Model
         $this->db->from('tbl_prj_budget_log');
         $this->db->where('prj_amount != 0', null, false);
         $this->db->where('tbl_prj_budget_log.prj_id', $id);
-        $this->db->join('tbl_project', 'tbl_project.prj_id = tbl_prj_budget_log.prj_ref_id', 'left');
+        $this->db->join('tbl_project', 'tbl_project.prj_id = tbl_prj_budget_log.prj_ref_id','left');
+        $this->db->join('tbl_project_log', 'tbl_project_log.prj_id = tbl_project.prj_ref_id', 'left');
+      
         return $this->db->get()->result();
     }
 
@@ -468,7 +470,7 @@ class project_model extends CI_Model
         $data = array();
         foreach ($val as $key => $value) {
 
-            $data[$value->user_id] = $value->user_firstname . '' . $value->user_lastname;
+            $data[$value->user_id] = $value->user_firstname . ' ' . $value->user_lastname;
         }
         return $data;
 
