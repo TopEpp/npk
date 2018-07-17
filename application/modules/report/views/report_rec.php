@@ -20,8 +20,8 @@ if ($chk == false) {
                           </button>
                           <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
                           </button> -->
-                          <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
-                          </button>
+                          <!-- <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
+                          </button> -->
                       </div>
                   </div>
           </section>
@@ -37,6 +37,14 @@ if ($chk == false) {
                   <div class="container-fluid">
                       <div class="row-container">
                         <div class="col-sm-6">
+                          <div class="col-md-12 text-right" style="margin-bottom: 7px; padding-right: 0;">
+                              <div class="btn-group">
+                                  <button onclick="window.open('<?php echo base_url('export_report/report_rec_sum?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                                  </button>
+                                  <button onclick="window.open('<?php echo base_url('export_report/report_rec_sum');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
+                                  </button>
+                              </div>
+                          </div>
                            <?php foreach ($getrec[0] as $key => $title) {
                             foreach ($getrec[$title->tax_id] as $key => $title2) {
                               @$sum[$title->tax_id]->tax_estimate += $title2->tax_estimate;
@@ -98,7 +106,8 @@ if ($chk == false) {
                             <input type="hidden" id="datasets2" value="<?php echo $datasets2; ?>">
                         </div> 
                         <div class="col-md-6 col-sm-12 col-xs-12" style="text-align: right;">
-                          <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
+                          <a id="chart_download" download="ChartJpg.jpg" type="button" class="btn btn-success" title="ดาวน์โหลด "> <i class="fa fa-file-image-o"> </i> ดาวน์โหลด</a>
+                          <!-- <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> ดาวน์โหลด</a> -->
                         <div >
                           <canvas id="report_receive" ></canvas>
                         </div>
@@ -107,6 +116,18 @@ if ($chk == false) {
                  </div>    
 
                <div class="x_content">
+                <div class="col-md-6 col-sm-4 col-xs-4">
+                      <!-- <h3>รายงานบัญชีรายรับ</h3> -->
+                  </div>
+                  <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-bottom: 7px; padding-right: 0;">
+                      <div class="btn-group">
+                          <button onclick="window.open('<?php echo base_url('export_report/report_rec?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                          </button>
+                          <button onclick="window.open('<?php echo base_url('export_report/report_rec');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
+                          </button>
+                      </div>
+                  </div>
+                
                  <br>
                  <table class="table table-bordered table-striped ">
                       <thead>
