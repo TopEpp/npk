@@ -508,4 +508,20 @@ class Report_model extends CI_Model
         return $ul;
     }
 
+    function getPersonReceive(){
+        $data = array();
+        $year =  $this->session->userdata('year');
+
+        $this->db->select('tax_receive.*,tax_notice.*,tbl_individual.*,tbl_tax.tax_name');
+        $this->db->from('tax_receive');
+        $this->db->join('tbl_tax','tbl_tax.tax_id = tax_receive.tax_id');
+        $this->db->join('tax_notice','tax_notice.notice_id = tax_receive.notice_id');
+        $this->db->join('tbl_individual','tbl_individual.individual_id = tax_receive.individual_id');
+        $this->db->where('tax_receive.year_id',$year);
+        $query = $this->db->get();
+
+        return $query->result();
+
+    }
+
 }
