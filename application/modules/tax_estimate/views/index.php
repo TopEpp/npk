@@ -37,7 +37,7 @@ if ($chk == false) {
                 <?php foreach ($tax[$value->tax_id] as $key => $value2) { ?>
                   <tr>
                     <td><span style="padding-left: 15px;"><?php echo $value2->tax_name; ?></span></td>
-                    <td><input type="text" class="numeric form-control" name="estimate_tax[<?php echo $value2->tax_id ?>]" value="<?php echo $value2->tax_estimate ?>" ></td>
+                    <td><input type="text" class="numeric text-right form-control" name="estimate_tax[<?php echo $value2->tax_id ?>]" value="<?php echo $value2->tax_estimate ?>" ></td>
                   </tr>
                 <?php 
               } ?>
@@ -47,9 +47,9 @@ if ($chk == false) {
             </table>
 
               <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3 text-center">
-                    <button type="submit" value="Submit" class="btn btn-primary">บันทึก
+                    <button type="submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                     </button>
-                    <button onclick="window.location.replace('<?php echo site_url('main/dashborad'); ?>');" type="button" class="btn btn-warning">ยกเลิก
+                    <button onclick="window.location.replace('<?php echo site_url('main/dashborad'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                     </button>
               </div>
           

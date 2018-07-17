@@ -130,7 +130,10 @@ class Receive_model extends CI_Model
         $this->db->from('tax_receive');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left');
-
+        $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
+        $this->db->where('tbl_tax.tax_id!= 8');
+        $this->db->where('tbl_tax.tax_id!= 9');
+        $this->db->where('tbl_tax.tax_id!= 10');
         $query = $this->db->get();
         return $query->result();
     }
@@ -454,6 +457,7 @@ class Receive_model extends CI_Model
 
             foreach ($query->result_array() as $key => $row) {
                 $row['receive_amount'] = number_format($row['receive_amount'], 2);
+
                 $date = explode('-', $row['receive_date']);
                 $row['receive_date'] = $date[2] . '/' . $date[1] . '/' . ($date[0] + 543);
 

@@ -7,7 +7,16 @@ class Receive_outside extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Receive_outside_model');
-
+        $chk = false;
+        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+            if ($chk_permission['app_id'] == 6) :
+            $chk = true;
+        break;
+        endif;
+        endforeach;
+        if ($chk == false) {
+            redirect('main/dashborad');
+        }
     }
 
     public function index()
@@ -72,7 +81,8 @@ class Receive_outside extends MY_Controller
         $this->json_publish($status);
     }
 
-    public function outside_in_form($id ,$pay_id = ''){
+    public function outside_in_form($id, $pay_id = '')
+    {
         $data = array();
         $data['out'] = $this->Receive_outside_model->getOut($id);
         $data['out_rec_all'] = $this->Receive_outside_model->getOutRec($id);
@@ -152,29 +162,30 @@ class Receive_outside extends MY_Controller
         $data['outside_pay_budget_sum'] = floatval(preg_replace('/[^\d.]/', '', $data['outside_pay_budget_sum']));
 
         $data['outside_detail'] = trim($data['outside_detail']);
-        
+
         $status = $this->Receive_outside_model->saveOutSidePay($data);
 
-        if ($data['outside_pay_tax'] != '' && $input['expenses_amount_tax'] != '0'){
+        if ($data['outside_pay_tax'] != '' && $input['expenses_amount_tax'] != '0') {
             // print_r($data);die();
             //get Tax pay 
-            $id =$this->Receive_outside_model->getIdTaxPay();
+            $id = $this->Receive_outside_model->getIdTaxPay();
             $out = $this->Receive_outside_model->getOuts($data['outside_id']);
 
             $data['outside_id'] = $id->out_id;
-            $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก'.$out[0]->out_name;
+            $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก' . $out[0]->out_name;
             $data['outside_pay_budget'] = $data['outside_pay_tax'];
             unset($data['outside_pay_budget_sum']);
             unset($data['outside_pay_vat']);
             unset($data['outside_pay_tax']);
 
-            $this->saveOutSideIn($data,true);
+            $this->saveOutSideIn($data, true);
         }
         redirect('receive_outside');
     }
 
-    public function saveOutSideIn($data = array(),$return = false){
-        if (empty($data)){
+    public function saveOutSideIn($data = array(), $return = false)
+    {
+        if (empty($data)) {
             $data = $this->input->post();
         }
 
@@ -209,8 +220,8 @@ class Receive_outside extends MY_Controller
                 $data['rows'][$key]['_parentId'] = $value->out_parent;
 
             }
-            $data['rows'][$key]['tools'] .= " <button  onclick=" .'window.location.href="'.base_url('receive_outside/outside_in_form').'/'.$value->out_id.'"'. " class='btn btn-info btn-sm' type='button'>รับ</button>";
-            $data['rows'][$key]['tools'] .= " <button  onclick=" .'window.location.href="'.base_url('receive_outside/outside_form').'/'.$value->out_id.'"'. " class='btn btn-default btn-sm' type='button'>จ่าย</button>";
+            $data['rows'][$key]['tools'] .= " <button  onclick=" . 'window.location.href="' . base_url('receive_outside/outside_in_form') . '/' . $value->out_id . '"' . " class='btn btn-info btn-sm' type='button'>รับ</button>";
+            $data['rows'][$key]['tools'] .= " <button  onclick=" . 'window.location.href="' . base_url('receive_outside/outside_form') . '/' . $value->out_id . '"' . " class='btn btn-default btn-sm' type='button'>จ่าย</button>";
             $data['rows'][$key]['tools'] .= " <button  onClick='add_out(" . $value->out_id . ")' class='btn btn-success btn-sm' type='button'>เพิ่ม</button>
             <button onClick='edit_out(" . $value->out_id . ")' id='outside_edit' class='btn btn-warning btn-sm' type='button'>แก้ไข</button>
             <button onClick='del_out(" . $value->out_id . "," . '"1"' . ")'  id='outside_del' class='btn btn-danger btn-sm' type='button'>ลบ</button></div>";
