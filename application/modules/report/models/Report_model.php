@@ -218,10 +218,11 @@ class Report_model extends CI_Model
         return $ul;
     }
 
-    public function getTreeChildProject($parent = '0', &$ul = '', $tab = '')
+    public function getTreeChildProject($parent = '0', &$ul = '', $tab = 0)
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('project_parent', $parent);
         $query = $this->db->get('tbl_project_manage');
@@ -232,11 +233,11 @@ class Report_model extends CI_Model
 
             $ul .= '<tr>';
             if (@$row->project_level == 3) {
-                $ul .= "<td>{$tab}" . $this->data_budget[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_budget[$row->project_title] . "</td>";
             } else if (@$row->project_level == 4) {
-                $ul .= "<td>{$tab}" . $this->data_cost[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_cost[$row->project_title] . "</td>";
             } else {
-                $ul .= "<td>{$tab}" . $row->project_title . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $row->project_title . "</td>";
             }
 
             $ul .= "<td align='right'>". number_format($budget['prj_budget'],2)."</td>";
@@ -258,7 +259,8 @@ class Report_model extends CI_Model
     public function getTreeChildTblProject($parent, &$ul = '', $tab = '')
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('prj_parent', $parent);
         $query = $this->db->get('tbl_project');
@@ -268,7 +270,7 @@ class Report_model extends CI_Model
             $budget = $this->getSumBudgetPrj($prj_id_array);
 
             $ul .= '<tr>';
-            $ul .= "<td>{$tab}" . $row->prj_name . "</td>";
+            $ul .= "<td style='padding-left:".$padding."px'>" . $row->prj_name . "</td>";
             $ul .= "<td align='right'>". number_format($budget['prj_budget'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['amount_minus'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['amount_plus'],2)."</td>";
@@ -426,10 +428,11 @@ class Report_model extends CI_Model
         return $ul;
     }
 
-    public function getTreeChildProjectYear($parent = '0', &$ul = '', $tab = '')
+    public function getTreeChildProjectYear($parent = '0', &$ul = '', $tab = '0')
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('project_parent', $parent);
         $query = $this->db->get('tbl_project_manage');
@@ -442,11 +445,11 @@ class Report_model extends CI_Model
 
             $ul .= '<tr>';
             if (@$row->project_level == 3) {
-                $ul .= "<td>{$tab}" . $this->data_budget[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_budget[$row->project_title] . "</td>";
             } else if (@$row->project_level == 4) {
-                $ul .= "<td>{$tab}" . $this->data_cost[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_cost[$row->project_title] . "</td>";
             } else {
-                $ul .= "<td>{$tab}" . $row->project_title . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $row->project_title . "</td>";
             }
 
             $ul .= "<td align='right'>". number_format(@$ref->prj_budget_sum,2)."</td>";
@@ -472,7 +475,8 @@ class Report_model extends CI_Model
     public function getTreeChildPrjYear($parent = '0', &$ul = '', $tab = '')
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('prj_parent', $parent);
         $this->db->where('prj_active','1');
@@ -485,7 +489,7 @@ class Report_model extends CI_Model
             $ref = $query_ref->row();
 
             $ul .= '<tr>';
-            $ul .= "<td>{$tab}" . $row->prj_name . "</td>";
+            $ul .= "<td style='padding-left:".$padding."px'>" . $row->prj_name . "</td>";
             $ul .= "<td align='right'>". number_format(@$ref->prj_budget_sum,2)."</td>";
             $ul .= "<td align='right'>". number_format($row->prj_budget_sum,2)."</td>";
             $ul .= "<td align='right'>". number_format($row->prj_budget_sum-@$ref->prj_budget_sum,2)."</td>";
