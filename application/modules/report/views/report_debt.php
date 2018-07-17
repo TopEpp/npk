@@ -1,14 +1,4 @@
-<?php
-$chk = false;
-foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-  if ($chk_permission['app_id'] == 10) :
-  $chk = true;
-break;
-endif;
-endforeach;
-if ($chk == false) {
-  redirect('main/dashborad');
-} ?>
+
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <div class="right_col" role="main">
