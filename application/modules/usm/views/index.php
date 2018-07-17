@@ -1,15 +1,3 @@
-<?php
-$chk = false;
-foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-  if ($chk_permission['app_id'] == 15) :
-  $chk = true;
-break;
-endif;
-endforeach;
-if ($chk == false) {
-  redirect('main/dashborad');
-} ?>
-
 <div class="right_col" role="main">
   <div class="page-title">
       <div class="title_left">
