@@ -1,14 +1,3 @@
-<?php
-$chk = false;
-foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-    if ($chk_permission['app_id'] == 1) :
-    $chk = true;
-break;
-endif;
-endforeach;
-if ($chk == false) {
-    redirect('main/dashborad');
-} ?>
 <div class="right_col" role="main">
   <div class="">
       <div class="page-title">
@@ -27,16 +16,15 @@ if ($chk == false) {
           <div class="x_panel">
             <div class="x_content">
               <br />
-              
         <form id="notice-form" method="post" enctype="multipart/form-data" action="<?php echo base_url('receive/receive_notice_save'); ?>" data-parsley-validate class="form-horizontal form-label-left">
             <div id="form_tab" class="x_panel">
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                       <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">ภาษีโรงเรือนและที่ดิน</a>
+                        <li role="presentation" class="active"><a href="#tab_content1" id="tab1" role="tab" data-toggle="tab" aria-expanded="true">ภาษีโรงเรือนและที่ดิน</a>
                         </li>
-                        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ภาษีบำรุงท้องที่</a>
+                        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="tab2" data-toggle="tab" aria-expanded="false">ภาษีบำรุงท้องที่</a>
                         </li>
-                        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">ภาษีป้าย</a>
+                        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="tab3" data-toggle="tab" aria-expanded="false">ภาษีป้าย</a>
                         </li>
                       </ul>
                       <br>
@@ -76,7 +64,7 @@ if ($chk == false) {
 
                     
                     <div id="myTabContent" class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="tab1">
                           <div id="step-1">
                           <br>
                                 <h2 class="StepTitle">บันทึกข้อมูลภาษีโรงเรือนและที่ดิน</h2>
@@ -103,7 +91,7 @@ if ($chk == false) {
                                                         <div class="form-group">
                                                                 <label >วันที่รับ ภ.ร.ด. 2</label>
                                                                 <span class="required" style="color:red">*</span>
-                                                                <input type='text' name="notice_date_p2[0][]" class="form-control datepicker" />
+                                                                <input type="text" name="notice_date_p2[0][]" class="form-control datepicker">
                                                         </div>
                                                 </div>
 
@@ -311,7 +299,7 @@ if ($chk == false) {
                         </div>
 
 
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="tab2">
                           <div id="step-2">
                           <br>
                                 <h2 class="StepTitle">บันทึกข้อมูลภาษีบำรุงท้องที่</h2>
@@ -323,6 +311,7 @@ if ($chk == false) {
                                                 <div class="input-group">
                                                 <input type="text" id="num2" name="land_amount[1][]" class="form-control col-md-4 col-xs-12" value="1" >
                                                 <input type="hidden" name="individual_id[1][]" value="<?php echo @$tax_notice[0]->individual_id; ?>">
+                                                <input type="hidden" name="tab[1][]" id="tab" value="2" >
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-success" type="button" id="addNum2" style="margin-right: 0px;">
                                                         <i class="fa fa-plus-square"></i>
@@ -540,7 +529,7 @@ if ($chk == false) {
                           </div>
                         </div>
 
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="tab3">
                           <div id="step-3">
                           <br>
                                 <h2 class="StepTitle">บันทึกข้อมูลภาษีป้าย</h2>
@@ -765,7 +754,7 @@ if ($chk == false) {
                   <div class="ln_solid"></div>
                       <div class="form-group">
                           <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3 text-center">
-                              <button type="submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
+                              <button type="submit" id="btn-submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                               </button>
                               <button onclick="window.location.replace('<?php echo site_url('receive/receive_tax'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                               </button>
@@ -785,8 +774,6 @@ if ($chk == false) {
 
   </div>
 </div>
-
-
 
 <style>
 .btn-file {
@@ -1336,3 +1323,5 @@ if ($chk == false) {
 
 
 </script>
+
+
