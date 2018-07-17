@@ -1,14 +1,4 @@
-<?php
-$chk = false;
-foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-  if ($chk_permission['app_id'] == 6) :
-  $chk = true;
-break;
-endif;
-endforeach;
-if ($chk == false) {
-  redirect('main/dashborad');
-} ?>
+
 <div class="right_col" role="main">
   <section class="row">
       <div class="col-md-12">
@@ -133,7 +123,7 @@ if ($chk == false) {
           </div>
            <div style="text-align: center;">
             <button type="submit" id="btn-submit_pay" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
-            <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+            <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER']; ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
             </button>
           </div>
       </div>

@@ -1,14 +1,4 @@
-<?php
-$chk = false;
-foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-    if ($chk_permission['app_id'] == 1) :
-    $chk = true;
-break;
-endif;
-endforeach;
-if ($chk == false) {
-    redirect('main/dashborad');
-} ?>
+
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -154,6 +144,7 @@ if ($chk == false) {
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                     </div>
+                                                                                                    
 
                                                                                             <?php 
                                                                                         } //if tax_count
@@ -246,7 +237,7 @@ if ($chk == false) {
                                                                                                                     <span class="required" style="color:red">*</span>
                                                                                                                     </label>
                                                                                                                     <div >
-                                                                                                                        <input type="text" name="notice_annual_fee[0][]" value="<?php echo @$notice->notice_annual_fee; ?>" placeholder="ระบุค่ารายปี"  id="notice_annual_fee" class="form-control col-md-7 col-xs-12">
+                                                                                                                        <input type="text" name="notice_annual_fee[0][]" value="<?php echo @$notice->notice_annual_fee; ?>" placeholder="ระบุค่ารายปี"  id="notice_annual_fee" class="numeric form-control col-md-7 col-xs-12">
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                         </div>
@@ -257,7 +248,7 @@ if ($chk == false) {
                                                                                                                         <span class="required" style="color:red">*</span>
                                                                                                                         </label>
                                                                                                                         <div >
-                                                                                                                            <input type="text" name="notice_estimate[0][]" value="<?php echo @$notice->notice_estimate; ?>" placeholder="ระบุจำนวนเงินที่ประเมิน" id="notice_estimate" class="form-control col-md-7 col-xs-12" >
+                                                                                                                            <input type="text" name="notice_estimate[0][]" value="<?php echo @$notice->notice_estimate; ?>" placeholder="ระบุจำนวนเงินที่ประเมิน" id="notice_estimate" class="notice_estimate_house numeric form-control col-md-7 col-xs-12" >
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </div>
@@ -268,13 +259,14 @@ if ($chk == false) {
                                                                                                                         <span class="required" style="color:red">*</span>
                                                                                                                 </label>                                                                                                                        
                                                                                                                 <select class="form-control" name="tax_year[0][]">
+                                                                                                                
 
-                                                                                                                            <?php foreach ($years as $value) : ?>
+                                                                                                                            <?php foreach ($tax_years as $value) : ?>
 
-                                                                                                                                <?php if ($notice->tax_year == $value->year_id) : ?>
-                                                                                                                                    <option  selected value="<?php echo $value->year_id ?>">ปีงบประมาณ <?php echo $value->year_label ?></option>
+                                                                                                                                <?php if ($notice->tax_year == $value->tax_year_id) : ?>
+                                                                                                                                    <option  selected value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
                                                                                                                                 <?php else : ?>
-                                                                                                                                    <option   value="<?php echo $value->year_id ?>">ปีงบประมาณ <?php echo $value->year_label ?></option>
+                                                                                                                                    <option value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
                                                                                                                                 <?php endif; ?>
 
                                                                                                                             <?php endforeach; ?>
@@ -290,6 +282,24 @@ if ($chk == false) {
                                                                             }// if for
 
                                                                             ?>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <h2 class="StepTitle">รวมค่าภาษีโรงเรือนและที่ดิน </h2>
+                                                                                        </div>
+                                                                                </div>
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label  > จำนวนเงินภาษี
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="sum_amount_house" id="sum_amount_house"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        
+                                                                            
+                                                                            </div>
                                                                     </div>
                                                                 </div>
                                                         <?php
@@ -720,6 +730,32 @@ if ($chk == false) {
                                                                         <?php 
                                                                     } // if for
                                                                     ?>
+                                                                    <div class="row">
+                                                                            <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                    <div class="form-group">
+                                                                                        <h2 class="StepTitle">รวมค่าภาษีบำรุงท้องที่ </h2>
+                                                                                    </div>
+                                                                            </div>
+                                                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <label  > เงินเพิ่ม
+                                                                                            </label>
+                                                                                            <div >
+                                                                                                <input type="text" name="tax_interest[1][]" id="interest" placeholder="0.00" value="0.00"  class="numeric form-control col-md-7 col-xs-12" >
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <label  > จำนวนเงินภาษี
+                                                                                            </label>
+                                                                                            <div >
+                                                                                                <input type="text" name="sum_amount_local" id="sum_amount_local"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+                                                                        </div>
                                                                 
                                                                     </div>                                                           
                                                                 </div>
@@ -1083,14 +1119,41 @@ if ($chk == false) {
 
                                                                                             
                                                                                             </div>
-                                                                                </div>
+                                                                                
                                                                                 
                                                                                 
                                                                             <?php 
                                                                         } // if for 
                                                                         ?>
-                                                                        </div>  
-                                                                        </div>                                                           
+                                                                        <div class="row">
+                                                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <h2 class="StepTitle">รวมค่าภาษีป้าย </h2>
+                                                                                        </div>
+                                                                                </div>
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label  > เงินเพิ่ม
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="tax_interest[2][]" id="interest" placeholder="0.00" value="0.00"  class="form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label  > จำนวนเงินภาษี
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="sum_amount_label" id="sum_amount_label"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    
+                                                                            </div>
+
+                                                                    </div> 
+                                                                </div>                                                           
                                                      <?php 
                                                 } else {
                                                     ?>
@@ -1241,18 +1304,22 @@ if ($chk == false) {
                                                                                 </div>
                                                                                 
 
-                                                                                    <!-- <div class="col-md-3 col-sm-6 col-xs-12" style="padding-left: 0px;">
-                                                                                            <label>อัปโหลดรูปภาพ</label>
-                                                                                                <div class="input-group">
-                                                                                                    <span class="input-group-btn">
-                                                                                                        <span class="btn btn-success btn-file">
-                                                                                                        อัปโหลด <input type="file" id="imgInp">
+                                                                                    <div class="row">   
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>อัปโหลดรูปภาพ</label>
+                                                                                                    <div class="input-group">
+                                                                                                        <span class="input-group-btn">
+                                                                                                            <span class="btn btn-success btn-file">
+                                                                                                            อัปโหลด <input type="file" id="imgInp">
+                                                                                                            </span>
                                                                                                         </span>
-                                                                                                    </span>
-                                                                                                    <input type="text" class="form-control" readonly>
-                                                                                                </div>
-                                                                                            <img id='img-upload'/>
-                                                                                    </div> -->
+                                                                                                        <input type="text" class="form-control" readonly>
+                                                                                                    </div>
+                                                                                                <img id="img-upload"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div> 
 
                                                                         <div class="form-group">
                                                                             <div class="col-md-12 col-sm-6 col-xs-12">
@@ -1300,6 +1367,87 @@ if ($chk == false) {
 </div>
 </div>
 
+<style>
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+}
+</style>
+
+
+<script>
+    $(document).ready( function() {
+        $(document).on('change', '.notice_estimate_house', function() {
+                var sum = 0;
+                console.log( "house" );
+                $(".notice_estimate_house").each(function() {
+                var val = $.trim( $(this).val() );
+                
+                if ( val ) {
+                    val = parseFloat( val.replace( /^\$/, "" ) );
+                
+                    sum += !isNaN( val ) ? val : 0;
+                    
+                }
+                $('#sum_amount_house').val(sum);
+            });
+        });
+
+        $(document).on('change', '.notice_estimate_local', function() {
+                var sum = 0;
+                console.log( "local" );
+                $(".notice_estimate_local").each(function() {
+                var val = $.trim( $(this).val() );
+                
+                if ( val ) {
+                    val = parseFloat( val.replace( /^\$/, "" ) );
+                
+                    sum += !isNaN( val ) ? val : 0;
+                    
+                }
+                $('#sum_amount_local').val(sum);
+                });
+            });
+
+        $(document).on('change', '.notice_estimate_label', function() {
+                var sum = 0;
+                console.log( "label" );
+                $(".notice_estimate_label").each(function() {
+                var val = $.trim( $(this).val() );
+                
+                if ( val ) {
+                    val = parseFloat( val.replace( /^\$/, "" ) );
+                
+                    sum += !isNaN( val ) ? val : 0;
+                    
+                }
+                $('#sum_amount_label').val(sum);
+                });
+            });
+        
+                
+});
+
+</script>
 
 <script>
   $(function(){
@@ -1727,3 +1875,42 @@ if ($chk == false) {
 
 
 </script>
+
+<script>
+    $(document).ready( function() {
+
+            $(document).on('change', '.btn-file :file', function() {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+            });
+
+            $('.btn-file :file').on('fileselect', function(event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if( input.length ) {
+                    input.val(log);
+                } else {
+                    if( log ) alert(log);
+                }
+
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img-upload').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function(){
+                readURL(this);
+            });
+        });
+</script> 

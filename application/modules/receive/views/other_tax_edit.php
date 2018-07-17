@@ -1,14 +1,4 @@
-<?php
-$chk = false;
-foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-    if ($chk_permission['app_id'] == 1) :
-    $chk = true;
-break;
-endif;
-endforeach;
-if ($chk == false) {
-    redirect('main/dashborad');
-} ?>
+
 <div class="right_col" role="main">
             <div class="">
                 <div class="page-title">
@@ -152,7 +142,7 @@ if ($chk == false) {
 
                                                 <div class="form-group">
                                                     <div class="text-center">
-                                                        <button type="submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
+                                                        <button type="submit" id="btn-submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                                                         </button>
                                                         
                                                         <button onclick="window.location.replace('<?php echo site_url('receive/other_tax'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
@@ -171,3 +161,34 @@ if ($chk == false) {
 </div>
 
 
+<script>
+// check potection expenditure in
+	$('#btn-submit').click(function(){
+
+		if ($("input[name='receipt_no']").val() == '') {
+			alertify.error('กรุณาระบุ เลขที่ใบเสร็จ');
+			$("input[name='receipt_no']").focus();
+			return false;
+		}
+		if ($("input[name='receipt_number']").val() == '') {
+			alertify.error('กรุณาระบุ เล่มที่ใบเสร็จ');
+			$("input[name='receipt_number']").focus();
+			return false;
+        }
+        if ($("input[name='tax_id']").val() == '') {
+			alertify.error('กรุณา เลือกหมดรายได้');
+			$("input[name='tax_id']").focus();
+			return false;
+        }
+        if ($("input[name='receive_date']").val() == '') {
+			alertify.error('กรุณาระบุ วันที่รับ');
+			$("input[name='receive_date']").focus();
+			return false;
+        }
+        if ($("input[name='receive_amount']").val() == '') {
+			alertify.error('กรุณาระบุ จำนวนภาษี');
+			$("input[name='receive_amount']").focus();
+			return false;
+		}
+    });
+</script>
