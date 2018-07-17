@@ -1,14 +1,4 @@
-<?php
-$chk = false;
-foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-    if ($chk_permission['app_id'] == 6) :
-    $chk = true;
-break;
-endif;
-endforeach;
-if ($chk == false) {
-    redirect('main/dashborad');
-} ?>
+
 <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
