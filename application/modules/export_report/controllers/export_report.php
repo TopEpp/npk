@@ -348,7 +348,7 @@ class export_report extends My_Controller
     }
 
 
-    function function report_person_receive(){
+    function report_person_receive(){
         $data = array();
         $person = $this->Report_model->getPersonReceive();
     }
