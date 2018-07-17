@@ -1,6 +1,6 @@
 $(function () {
 
-    $('#amount_vat').on("ifChanged",function () {
+    $('#amount_vat').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
         outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
 
@@ -21,7 +21,7 @@ $(function () {
         $('#outside_pay_budget_sum').val(outside_pay_amount + outside_pay_amount_vat - outside_pay_amount_tax);
     });
 
-    $('#amount_tax').on("ifChanged",function () {
+    $('#amount_tax').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
         outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
 
@@ -133,8 +133,8 @@ $(function () {
     });
 
 
-        // check potection outside in
-    $('#btn-submit').click(function(){
+    // check potection outside in
+    $('#btn-submit').click(function () {
         if ($("input[name='outside_pay_create']").val() == '') {
             alertify.error('กรุณาระบุวันที่จัดทำ');
             $("input[name='outside_pay_create']").focus();
@@ -148,7 +148,7 @@ $(function () {
     });
 
     // check potection outside in
-    $('#btn-submit_pay').click(function(){
+    $('#btn-submit_pay').click(function () {
         if ($("input[name='outside_pay_create']").val() == '') {
             alertify.error('กรุณาระบุวันที่จัดทำ');
             $("input[name='outside_pay_create']").focus();
@@ -160,17 +160,17 @@ $(function () {
             return false;
         }
 
-        if ($('#amount_vat').is(':checked')){
+        if ($('#amount_vat').is(':checked')) {
             var outside_pay_vat = $("input[name='outside_pay_vat']").val();
-            if (outside_pay_vat == ''){
+            if (outside_pay_vat == '') {
                 alertify.error('กรุณาระบุ จำนวนภาษีมูลค่าเพิ่ม');
                 $("input[name='outside_pay_vat']").focus();
                 return false;
             }
         }
-        if ($('#amount_tax').is(':checked')){
+        if ($('#amount_tax').is(':checked')) {
             var outside_pay_tax = $("input[name='outside_pay_tax']").val();
-            if (outside_pay_tax == ''){
+            if (outside_pay_tax == '') {
                 alertify.error('กรุณาระบุ จำนวนภาษีหัก ณ ที่จ่าย');
                 $("input[name='outside_pay_tax']").focus();
                 return false;

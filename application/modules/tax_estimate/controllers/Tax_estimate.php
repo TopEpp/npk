@@ -9,6 +9,17 @@ class Tax_estimate extends MY_Controller
         parent::__construct();
         $this->load->model('Tax_estimate_model', 'estimate_model');
 
+        $chk = false;
+        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+            if ($chk_permission['app_id'] == 1) :
+            $chk = true;
+        break;
+        endif;
+        endforeach;
+        if ($chk == false) {
+            redirect('main/dashborad');
+
+        }
     }
 
     public function index()

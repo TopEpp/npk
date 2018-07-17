@@ -9,6 +9,18 @@ class Receive extends MY_Controller
         $this->load->model('Receive_model');
         
 
+        $chk = false;
+        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+            if ($chk_permission['app_id'] == 1) :
+            $chk = true;
+        break;
+        endif;
+        endforeach;
+        if ($chk == false) {
+            redirect('main/dashborad');
+        }
+
+
     }
 
 
@@ -77,6 +89,7 @@ class Receive extends MY_Controller
         $query = $this->db->query("SELECT * FROM tbl_banner");
         $data['banner'] = $query->result();
 
+        $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
         $this->setView('receive_add', $data);
         $this->publish();
     }
@@ -209,7 +222,7 @@ class Receive extends MY_Controller
 
                     $upload_path = APPPATH . '../assets/images/banner/';
                     if (!file_exists($upload_path)) mkdir($upload_path);
-                    if (!$_FILES) redirect(base_url('Receive/receive_dashborad'));
+                    if (!$_FILES) redirect(base_url('receive/receive_dashborad'));
                     $this->load->library('upload', [
                         'upload_path' => $upload_path,
                         'allowed_types' => 'jpg|png'
@@ -217,7 +230,7 @@ class Receive extends MY_Controller
                     if ($this->upload->do_upload('file')) {
                         $year = $this->session->userdata('year');
                         $this->Receive_model->insertNotice($year, $data);
-                        redirect(base_url('Receive/receive_dashborad'));
+                        redirect(base_url('receive/receive_dashborad'));
 
                     }
 
@@ -229,7 +242,7 @@ class Receive extends MY_Controller
         }
         $year = $this->session->userdata('year');
         $this->Receive_model->insertNotice($year, $data);
-        redirect(base_url('Receive/receive_dashborad'));
+        redirect(base_url('receive/receive_dashborad'));
         // echo '<pre>';
         // print_r($data);
         // exit;
@@ -352,7 +365,7 @@ class Receive extends MY_Controller
 
 
 
-        redirect(base_url('Receive/receive_dashborad'));
+        redirect(base_url('receive/receive_dashborad'));
 
         // echo '<pre>';
         // print_r($data);
@@ -385,8 +398,11 @@ class Receive extends MY_Controller
     public function other_tax()
     {
         $data = array();
+
+        $year = $this->session->userdata('year');
+        $data['other_tax'] = $this->Receive_model->getOtherTaxAll($year);
         $this->config->set_item('title', 'รายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
-        $this->template->javascript->add('assets/modules/receive/other_tax.js');
+        // $this->template->javascript->add('assets/modules/receive/other_tax.js');
         $this->setView('other_tax', $data);
         $this->publish();
     }
@@ -404,7 +420,7 @@ class Receive extends MY_Controller
         $year = $this->session->userdata('year');
 
         $this->Receive_model->insertOtherTax($year, $input);
-        redirect(base_url('Receive/other_tax'));
+        redirect(base_url('receive/other_tax'));
     }
 
 

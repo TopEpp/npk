@@ -8,33 +8,47 @@ class admin extends MY_Controller
     {
         parent::__construct();
         $this->load->model('admin_model');
-        $this->load->model('service/service_model','service');
+        $this->load->model('service/service_model', 'service');
 
+        $chk = false;
+        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+            if ($chk_permission['app_id'] == 16) :
+            $chk = true;
+        break;
+        endif;
+        endforeach;
+        if ($chk == false) {
+            redirect('main/dashborad');
+
+        }
     }
 
-    function index(){
-    	$data = array();
-    	$data['year'] = $this->admin_model->getYear();
+    function index()
+    {
+        $data = array();
+        $data['year'] = $this->admin_model->getYear();
 
-    	$this->config->set_item('title', 'จัดการปีงบประมาณ');
+        $this->config->set_item('title', 'จัดการปีงบประมาณ');
         $this->template->javascript->add('assets/modules/admin/index.js');
         $this->setView('index', $data);
         $this->publish();
     }
 
-    function create_year(){
-    	$maxYear = $this->admin_model->getMaxYear();
-    	$this->admin_model->create_year($maxYear);
+    function create_year()
+    {
+        $maxYear = $this->admin_model->getMaxYear();
+        $this->admin_model->create_year($maxYear);
 
-    	$this->service->removeProjectYear($maxYear);
-    	$this->service->duplicate_project($maxYear);
-    	$this->service->duplicate_estimate($maxYear);
-    	$this->service->duplicate_estimate_tax($maxYear);
+        $this->service->removeProjectYear($maxYear);
+        $this->service->duplicate_project($maxYear);
+        $this->service->duplicate_estimate($maxYear);
+        $this->service->duplicate_estimate_tax($maxYear);
 
-    	redirect(base_url('admin'));
+        redirect(base_url('admin'));
     }
 
-    function import_file(){
+    function import_file()
+    {
         $data = array();
 
         $this->config->set_item('title', 'ระบบน้ำเข้าข้อมูล');
@@ -42,31 +56,32 @@ class admin extends MY_Controller
         $this->publish();
     }
 
-    function getFileData(){
+    function getFileData()
+    {
         $this->load->library('ImportExcel');
         ini_set('memory_limit', '2048M');
         set_time_limit('1800');
 
         $file_name = $_FILES['fileToUpload']['name'];
         $type = explode('.', $file_name);
-        $type = $type[count($type)-1];
-        
-        if($type == 'xlsx' || $type =='xls' ){
+        $type = $type[count($type) - 1];
+
+        if ($type == 'xlsx' || $type == 'xls') {
             $data = $this->importexcel->getData($_FILES['fileToUpload']['tmp_name']);
             $tax_id = $this->input->post('tax_id');
 
             $this->admin_model->clearTemp($tax_id);
-            $this->admin_model->importDataToTemp($tax_id,$data);
+            $this->admin_model->importDataToTemp($tax_id, $data);
             $this->import_data_individual($tax_id);
-            if($tax_id==8){
+            if ($tax_id == 8) {
                 $this->houseImport();
-            }else if($tax_id==9){
+            } else if ($tax_id == 9) {
                 $this->wardImport();
-            }else if($tax_id==10){
+            } else if ($tax_id == 10) {
                 $this->labelImport();
             }
         }
-        
+
         redirect(base_url('admin/import_file'));
     }
 
@@ -80,10 +95,10 @@ class admin extends MY_Controller
         // print_r($dataTmp);
         foreach ($dataTmp as $key => $value) {
             $provice_id = $this->import_model->getProviceID($value->tmp_province_send);
-            $district_id = $this->import_model->getDistrictID($provice_id,$value->tmp_district_send);
-            $subdistrict_id_send = $this->import_model->getSubDistrictID($district_id,$value->tmp_subdistrict_send);
+            $district_id = $this->import_model->getDistrictID($provice_id, $value->tmp_district_send);
+            $subdistrict_id_send = $this->import_model->getSubDistrictID($district_id, $value->tmp_subdistrict_send);
 
-            $subdistrict_id = $this->import_model->getSubDistrictID('50010000',$value->tmp_subdistrict);
+            $subdistrict_id = $this->import_model->getSubDistrictID('50010000', $value->tmp_subdistrict);
 
             $dataTmp[$key]->provice_id_send = $provice_id;
             $dataTmp[$key]->district_id_send = $district_id;
@@ -92,10 +107,11 @@ class admin extends MY_Controller
 
         }
         $this->import_model->importNoticeHouse($dataTmp);
-        
+
     }
 
-    function wardImport(){
+    function wardImport()
+    {
         $this->load->model('import/import_model');
         $dataTmp = $this->import_model->getTmpWard();
         // echo '<pre>';
@@ -103,7 +119,8 @@ class admin extends MY_Controller
         $this->import_model->importNoticeWard($dataTmp);
     }
 
-    function labelImport(){
+    function labelImport()
+    {
         $this->load->model('import/import_model');
         $dataTmp = $this->import_model->getTmpLabel();
         // echo '<pre>';
@@ -111,17 +128,18 @@ class admin extends MY_Controller
         $this->import_model->importNoticeLabel($dataTmp);
     }
 
-    public function import_data_individual($tax_id){
+    public function import_data_individual($tax_id)
+    {
         //import module
         $this->load->model('import/import_model');
         $this->load->model('receive/receive_model');
 
-        if($tax_id==8){
+        if ($tax_id == 8) {
             $dataTmp = $this->import_model->getTmpHouse();
             foreach ($dataTmp as $key => $value) {
                 $provice_id = $this->import_model->getProviceID($value->tmp_province_send);
-                $district_id = $this->import_model->getDistrictID($provice_id,$value->tmp_district_send);
-                $subdistrict_id = $this->import_model->getSubDistrictID($district_id,$value->tmp_subdistrict_send);
+                $district_id = $this->import_model->getDistrictID($provice_id, $value->tmp_district_send);
+                $subdistrict_id = $this->import_model->getSubDistrictID($district_id, $value->tmp_subdistrict_send);
 
                 $dataTmp[$key]->provice_id_send = $provice_id;
                 $dataTmp[$key]->district_id_send = $district_id;
@@ -132,14 +150,14 @@ class admin extends MY_Controller
             $dataImport = array();
             foreach ($dataTmp as $key => $value) {
 
-                if (strlen($value->tmp_Identification) == 12){
+                if (strlen($value->tmp_Identification) == 12) {
                     $dataImport['individual_type'] = 2;
-                }else{
+                } else {
                     $dataImport['individual_type'] = 1;
                 }
 
                 $dataImport['individual_prename'] = $value->tmp_prename;
-                $dataImport['individual_fullname'] = $value->tmp_firstname .' '. $value->tmp_lastname;
+                $dataImport['individual_fullname'] = $value->tmp_firstname . ' ' . $value->tmp_lastname;
                 $dataImport['individual_firstname'] = $value->tmp_firstname;
                 $dataImport['individual_lastname'] = $value->tmp_lastname;
                 $dataImport['individual_number'] = $value->tmp_Identification;
@@ -157,12 +175,12 @@ class admin extends MY_Controller
                 $dataImport['individual_business_name'] = $value->tmp_type_business;
 
                 //insert data to table
-                if($this->admin_model->checkIndividual($value->tmp_Identification)){
+                if ($this->admin_model->checkIndividual($value->tmp_Identification)) {
                     $status = $this->receive_model->insertDataImport($dataImport);
                 }
             }
 
-        }else if($tax_id==9){
+        } else if ($tax_id == 9) {
             $dataTmp = $this->import_model->getTmpWard();
             foreach ($dataTmp as $key => $value) {
                 $provice_id = $this->import_model->getProviceID($value->tmp_province);
@@ -200,12 +218,12 @@ class admin extends MY_Controller
                 $dataImport['individual_zipcode'] = $value->tmp_zipcode;
 
                 //insert data to table
-                if($this->admin_model->checkIndividual($value->tmp_Identification)){
+                if ($this->admin_model->checkIndividual($value->tmp_Identification)) {
                     $status = $this->receive_model->insertDataImport($dataImport);
                 }
 
             }
-        }else if($tax_id==10){
+        } else if ($tax_id == 10) {
             $dataTmp = $this->import_model->getTmpLabel();
             foreach ($dataTmp as $key => $value) {
                 $provice_id = $this->import_model->getProviceID($value->tmp_province);
@@ -244,7 +262,7 @@ class admin extends MY_Controller
                 $dataImport['individual_business_name'] = $value->tmp_name_store;
 
                 //insert data to table
-                if($this->admin_model->checkIndividual($value->tmp_Identification)){
+                if ($this->admin_model->checkIndividual($value->tmp_Identification)) {
                     $status = $this->receive_model->insertDataImport($dataImport);
                 }
 
@@ -252,8 +270,8 @@ class admin extends MY_Controller
         }
         
         // change some data to type int
-        
+
     }
 
-    
+
 }

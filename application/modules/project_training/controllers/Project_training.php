@@ -9,8 +9,18 @@ class Project_training extends MY_Controller
         parent::__construct();
         // $ci = &get_instance();
         $this->load->model('project_model');
+        $chk = false;
+        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
+            if ($chk_permission['app_id'] == 6) :
+            $chk = true;
+        break;
+        endif;
+        endforeach;
+        if ($chk == false) {
+            redirect('main/dashborad');
 
-      
+
+        }
     }
 
 
@@ -289,7 +299,7 @@ class Project_training extends MY_Controller
                     //  $data_budget['prj_ref_id'] = $key;
                     //  $data_budget['prj_budget_type'] = '2';
                     $budget = floatval(preg_replace('/[^\d.]/', '', $value));
-                    $data_budget['prj_amount'] = $budget; 
+                    $data_budget['prj_amount'] = $budget;
                     $bud_parent = $this->project_model->setLogBudget($data_budget, $data_update, '2', true);
 
                     array_push($budget_parent, $bud_parent);
@@ -303,10 +313,10 @@ class Project_training extends MY_Controller
                     // echo '<pre>';
                     $budget = floatval(preg_replace('/[^\d.]/', '', $value));
                     $last_budget = $this->project_model->getLastBudgetLog($key);
-                    $budget =  ($budget + $last_budget->prj_amount);
-                    if ( ($budget) != '0'   ){
+                    $budget = ($budget + $last_budget->prj_amount);
+                    if (($budget) != '0') {
 
-                        
+
                         $data_update['id'] = $key;
                         $data_update['ref'] = $prj_id;
                         $data_budget = array();
@@ -314,10 +324,10 @@ class Project_training extends MY_Controller
                         //  $data_budget['prj_budget_parent'] = $budget_parent[$cout];
                         //  $data_budget['prj_ref_id'] = $id_insert;
                         //  $data_budget['prj_budget_type'] = '2';
-                    
+
                         $data_budget['prj_amount'] = -abs($budget);
 
-                        $this->project_model->setLogBudget($data_budget, $data_update, '2',true);
+                        $this->project_model->setLogBudget($data_budget, $data_update, '2', true);
     
                         //update budget prj form convert data
                         //get budget prj_id
@@ -485,7 +495,7 @@ class Project_training extends MY_Controller
     {
         $this->load->model('expenditure/expenditure_model');
 
-       
+
 
         $this->config->set_item('title', 'ระบบบริหารโครงการ - เทศบาลตำบลหนองป่าครั่ง');
 
@@ -563,7 +573,7 @@ class Project_training extends MY_Controller
         $data = $this->project_model->searchPrj($val);
         $result = array();
         foreach ($data as $key => $value) {
-            if ($this->input->post('id') != $value->prj_id){
+            if ($this->input->post('id') != $value->prj_id) {
                 $tree = $this->getLastArrayPrj($value->prj_parent);
                 $value->prj_name = $value->prj_name . ' <span style="color:#169F85;">(' . end($tree) . ')</span>';
 
@@ -604,14 +614,15 @@ class Project_training extends MY_Controller
         $this->json_publish($result);
     }
 
-    public function getLastArrayPrj($parent = ''){
+    public function getLastArrayPrj($parent = '')
+    {
 
         $data_budget = ['', 'งบบุคลากร', 'งบดำเนินงาน', 'งบลงทุน', 'งบเงินอุดหนุน', 'งบกลาง'];
         $data_cost = [
             '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
             'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง',
         ];
-        
+
         $tree = $this->project_model->getTitleTree($parent);
         $num = 0;
         foreach ($tree as $key => $value) {

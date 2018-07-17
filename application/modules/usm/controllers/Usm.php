@@ -12,7 +12,7 @@ class Usm extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Usm_model');
-        // chkUserLogin();
+            // chkUserLogin();
     }
 
     function __deconstruct()
