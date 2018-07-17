@@ -12,17 +12,6 @@ class Usm extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Usm_model');
-
-        $chk = false;
-        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-            if ($chk_permission['app_id'] == 15) :
-            $chk = true;
-        break;
-        endif;
-        endforeach;
-        if ($chk == false) {
-            redirect('main/dashborad');
-        }
             // chkUserLogin();
     }
 
