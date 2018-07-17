@@ -10,9 +10,9 @@
                       <div class="btn-group">
                           <!-- <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
                           </button> -->
-                          <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
+                          <button onclick="window.open('<?php echo base_url('export_report/report_debt?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                           </button>
-                          <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
+                          <button onclick="window.open('<?php echo base_url('export_report/report_debt');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
                           </button>
                       </div>
                   </div>
@@ -117,6 +117,9 @@
                             <?php $int = 1;
                             $sum1 = $sum2 = $sum3 = $sum4 = $sum5 = $sum6 = 0;
                             foreach ($person as $key => $value) {
+                              // echo '<pre>';
+                              // print_r($value);
+                              // echo '</pre>';
                               if ((@$value[8]['notice_estimate'] - @$value[8]['receive_amount']) + (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']) + (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'] > 0) {
                                 $sum1 += (@$value[8]['notice_estimate'] - @$value[8]['receive_amount']);
                                 $sum2 += (@$value[8]['interest']);

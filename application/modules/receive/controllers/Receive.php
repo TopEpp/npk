@@ -127,7 +127,7 @@ class Receive extends MY_Controller
 
 
 
-
+        $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_edit', $data);
         $this->publish();
@@ -402,7 +402,8 @@ class Receive extends MY_Controller
         $year = $this->session->userdata('year');
         $data['other_tax'] = $this->Receive_model->getOtherTaxAll($year);
         $this->config->set_item('title', 'รายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
-        // $this->template->javascript->add('assets/modules/receive/other_tax.js');
+        $this->template->javascript->add('assets/modules/receive/other_tax.js');
+
         $this->setView('other_tax', $data);
         $this->publish();
     }

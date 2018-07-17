@@ -8,9 +8,9 @@
                       <div class="btn-group">
                           <button type="button" class="btn btn-success" title="กรองข้อมูล" data-toggle="modal" data-target="#modal_filter"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
                           </button>
-                          <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
+                          <button onclick="window.open('<?php echo base_url('export_report/report_projectManage?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                           </button>
-                          <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
+                          <button onclick="window.open('<?php echo base_url('export_report/report_projectManage');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
                           </button>
                       </div>
                   </div>
@@ -26,7 +26,7 @@
           
                <div class="x_content">
                  <div style="text-align: center;">
-                   <h2>สรุปการใช้จ่ายเงินงบประมาณ <?php echo $this->session->userdata('year') + 543 ?></h2>
+                   <h2>สรุปการใช้จ่ายเงินงบประมาณปี <?php echo $this->session->userdata('year') + 543 ?></h2>
                    <?php if (empty($filter_date1)) { ?>
                    <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
                    <?php 

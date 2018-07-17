@@ -10,8 +10,8 @@
                           </button>
                           <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
                           </button> -->
-                          <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
-                          </button>
+                          <!-- <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
+                          </button> -->
                       </div>
                   </div>
           </section>
@@ -27,6 +27,14 @@
                   <div class="container-fluid">
                       <div class="row-container">
                         <div class="col-sm-6">
+                          <div class="col-md-12 text-right" style="margin-bottom: 7px; padding-right: 0;">
+                              <div class="btn-group">
+                                  <button onclick="window.open('<?php echo base_url('export_report/report_rec_sum?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                                  </button>
+                                  <button onclick="window.open('<?php echo base_url('export_report/report_rec_sum');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
+                                  </button>
+                              </div>
+                          </div>
                            <?php foreach ($getrec[0] as $key => $title) {
                             foreach ($getrec[$title->tax_id] as $key => $title2) {
                               @$sum[$title->tax_id]->tax_estimate += $title2->tax_estimate;
@@ -50,7 +58,7 @@
                             $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
                             $color = '';
                             if ($diff < 0) {
-                              $color = 'style="color: red;"';
+                              $color = 'color: red;';
                             }
 
                             $labels_chart .= $title->tax_name . '||';
@@ -66,7 +74,7 @@
                                 <td><?php echo $title->tax_name ?></td>
                                 <td style="text-align:right"><?php echo number_format(@$sum[$title->tax_id]->tax_estimate, 2); ?></td> 
                                 <td style="text-align:right"><?php echo number_format(@$sum[$title->tax_id]->receive_amount, 2); ?></td>  
-                                <td style="text-align:right"><span <?php echo $color; ?>><?php echo number_format($diff, 2); ?></span></td>   
+                                <td style="text-align:right;<?php echo $color; ?>"><?php echo number_format($diff, 2); ?></td>   
                               </tr>
                            <?php 
                         }
@@ -88,7 +96,8 @@
                             <input type="hidden" id="datasets2" value="<?php echo $datasets2; ?>">
                         </div> 
                         <div class="col-md-6 col-sm-12 col-xs-12" style="text-align: right;">
-                          <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
+                          <a id="chart_download" download="ChartJpg.jpg" type="button" class="btn btn-success" title="ดาวน์โหลด "> <i class="fa fa-file-image-o"> </i> ดาวน์โหลด</a>
+                          <!-- <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> ดาวน์โหลด</a> -->
                         <div >
                           <canvas id="report_receive" ></canvas>
                         </div>
@@ -97,6 +106,18 @@
                  </div>    
 
                <div class="x_content">
+                <div class="col-md-6 col-sm-4 col-xs-4">
+                      <!-- <h3>รายงานบัญชีรายรับ</h3> -->
+                  </div>
+                  <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-bottom: 7px; padding-right: 0;">
+                      <div class="btn-group">
+                          <button onclick="window.open('<?php echo base_url('export_report/report_rec?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                          </button>
+                          <button onclick="window.open('<?php echo base_url('export_report/report_rec');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
+                          </button>
+                      </div>
+                  </div>
+                
                  <br>
                  <table class="table table-bordered table-striped ">
                       <thead>
@@ -113,7 +134,7 @@
                           $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
                           $color = '';
                           if ($diff < 0) {
-                            $color = 'style="color: red;"';
+                            $color = 'color: red;';
                           }
                           ?>
 
@@ -121,22 +142,22 @@
                             <td style="font-weight:bolder;"> <?php echo $title->tax_name; ?></td>
                             <td style="font-weight:bolder;text-align:right"><?php echo number_format(@$sum[$title->tax_id]->tax_estimate, 2); ?></td> 
                             <td style="font-weight:bolder;text-align:right"><?php echo number_format(@$sum[$title->tax_id]->receive_amount, 2); ?></td>  
-                            <td style="font-weight:bolder;text-align:right"><span <?php echo $color; ?>><?php echo number_format($diff, 2); ?></span></td>  
+                            <td style="font-weight:bolder;text-align:right;<?php echo $color; ?>"><?php echo number_format($diff, 2); ?></td>  
                           </tr>
                            <?php foreach ($getrec[$title->tax_id] as $key => $title2) {
                             $diff = $title2->tax_estimate - $title2->receive_amount;
                             $color = '';
                             if ($diff < 0) {
-                              $color = 'style="color: red;"';
+                              $color = 'color: red;';
                             }
                             ?>
                              
                     
                           <tr>
-                         <td><span style="padding-left: 10px;"><?php echo $title2->tax_name; ?></span></td>              
+                         <td style="padding-left: 20px;"><?php echo $title2->tax_name; ?></td>              
                          <td style="text-align:right"><?php echo number_format(@$title2->tax_estimate, 2); ?></td> 
                          <td style="text-align:right"><?php echo number_format(@$title2->receive_amount, 2); ?></td>      
-                         <td style="text-align:right"><span <?php echo $color; ?>><?php echo number_format($diff, 2); ?></span></td>     
+                         <td style="text-align:right; <?php echo $color; ?>"><?php echo number_format($diff, 2); ?></td>     
                                    
                          </tr>
 
