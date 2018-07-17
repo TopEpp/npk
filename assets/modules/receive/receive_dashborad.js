@@ -81,7 +81,7 @@ $(function () {
                     } else if (row['tax_name'] == 'ภาษีโรงเรือนและที่ดิน') {
                         form = '<a href=\'' + domain + 'export/gat2/' + '' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</a>';
                     } else {
-                        form = '<a href=\'' + domain + 'export/gat1/' + '' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</a>';
+                        form = '<a href=\'' + domain + 'export/gat3/' + '' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</a>';
                     }
                     var btn =
                         '<div class="btn-group ">' + form +
@@ -133,3 +133,4 @@ $(function () {
     });
 
 });
+

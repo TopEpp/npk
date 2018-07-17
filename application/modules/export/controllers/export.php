@@ -117,6 +117,8 @@ class export extends My_Controller
     {
 
         $data = $this->export_model->getTaxNotice($id);
+        $detail = $this->export_model->getTaxNoticeHouse($data);
+ 
         $date = explode('-', $data['notice_date']);
         $content = '	<style>
                         table {
@@ -137,11 +139,11 @@ class export extends My_Controller
                 <td style="text-align: center;"><h3>ใบแจ้งรายการประเมิน ตามมาตรา ๒๔ แห่ง</h3></td>
               </tr>
               <tr>
-                <td style="text-align: left;">&nbsp;เล่มที่ ' . $this->mydate->conv_th_digit($data['notice_number']) . '</td>
+                <td style="text-align: left;">&nbsp;เล่มที่ ' . $this->mydate->conv_th_digit($data['notice_no']) . '</td>
                 <td style="text-align: center;"><h3>พระราชบัญญัติภาษีโรงเรือนและที่ดิน พ.ศ. ๒๔๗๕</h3></td>
               </tr>
               <tr>
-                <td style="text-align: left;">&nbsp;เลขที่ ' . $this->mydate->conv_th_digit($data['notice_no']) . '</td>
+                <td style="text-align: left;">&nbsp;เลขที่ ' . $this->mydate->conv_th_digit($data['notice_number']) . '</td>
                 <td style="text-align: center;">____________________________</td>
               </tr>
               <tr>
@@ -150,9 +152,9 @@ class export extends My_Controller
               </tr>
               <tr>
                 <td style="text-align: left;" colspan="2">
-                  <pre>&nbsp;ภ.ร.ด ๒ เลขประจำตำบลที่ ' . $this->mydate->conv_th_digit($data['notice_no']) . '/' . $this->mydate->conv_th_digit($data['tax_year'] + 543) . '  เทศบาลหนองป่าครั่ง                                       วันที่ ' . $this->mydate->conv_th_digit($date[2]) . ' เดือน ' . $this->mydate->getMonthname($date[1] * 1) . ' พ.ศ. ' . $this->mydate->conv_th_digit($date[0] + 543) . '
+                  <pre>&nbsp;ภ.ร.ด ๒ เลขประจำตำบลที่ ' . $this->mydate->conv_th_digit($data['notice_number_p2']) . '/' . $this->mydate->conv_th_digit($data['tax_year'] + 543) . '  เทศบาลตำบลหนองป่าครั่ง                                       วันที่ ' . $this->mydate->conv_th_digit($date[2]) . ' เดือน ' . $this->mydate->getMonthname($date[1] * 1) . ' พ.ศ. ' . $this->mydate->conv_th_digit($date[0] + 543) . '
 
-                  แจ้งความมายัง ' . $data['individual_fullname'] . '                                                   ผู้รับประเมินภาษีโรงเรือน จำนวน พ.ศ. ๒๕๖๐
+                  แจ้งความมายัง ' .$data['individual_prename'].$data['individual_fullname'] . '                                                   ผู้รับประเมินภาษีโรงเรือน จำนวน พ.ศ. ๒๕๖๐
 
                   ด้วยพนักงานเจ้าหน้าที่เห็นสมควรกำหนดค่ารายปีและค่าภาษีที่พึ่งชำระสำหรับทรัพย์สินของท่าน ดังแจ้งต่อไปนี้
                   </pre></td>
@@ -176,68 +178,38 @@ class export extends My_Controller
                       <td style="text-align:center">บาท</td>
                       <td style="text-align:center">สต.</td>
                     </tr>
-
-                    <tr style="text-align: left; font-size:10px">
-                      <td style="font-size:10px">' . $data['noice_name_operation'] . '</td>
-                      <td style="font-size:10px">' . $data['land_deed_number'] . '</td>
+                    ';
+                    $sum_year = 0;
+                    $sum_tax = 0; 
+                    foreach ($detail as $key => $value) {
+                      $sum_year = $sum_year + $value['notice_annual_fee'];
+                      $sum_tax = $sum_tax + $value['notice_estimate'];
+                      
+                      $value['notice_annual_fee'] = explode('.',$value['notice_annual_fee']);
+                      $value['notice_estimate'] = explode('.',$value['notice_estimate']);
+                      $content .= '<tr style="text-align: left; font-size:10px">
+                      <td style="font-size:10px">' . $value['noice_operation_name'] .' '.$this->mydate->conv_th_digit($value['number']).' หลัง' . '</td>
+                      <td style="font-size:10px">' . $this->mydate->conv_th_digit($value['notice_address_number']) . '</td>
                       <td style="font-size:10px">ต.หนองป่าครั่ง อ.เมือง จ.เชียงใหม่</td>
-                      <td style="font-size:10px"> ' . $this->mydate->conv_th_digit(number_format($data['notice_annual_fee']), 2) . '</td>
-                      <td style="font-size:10px">-</td>
-                      <td style="font-size:10px"> ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate']), 2) . '</td>
-                      <td style="font-size:10px">-</td>
+                      <td style="font-size:10px"> ' . $this->mydate->conv_th_digit(number_format($value['notice_annual_fee'][0]), 2) . '</td>
+                      <td style="font-size:10px"> ' . $this->mydate->conv_th_digit(number_format($value['notice_annual_fee'][1]), 2) . '</td>
+                      <td style="font-size:10px"> ' . $this->mydate->conv_th_digit(number_format($value['notice_estimate'][0]), 2) . '</td>
+                      <td style="font-size:10px"> ' . $this->mydate->conv_th_digit(number_format($value['notice_estimate'][1]), 2) . '</td>
                       <td style="border-right-color: white;"></td>
-                    </tr>
+                      </tr>';
+                    }
+                    
+                    $sum_years = explode('.',$sum_year);
+                    $sum_taxs = explode('.',$sum_tax);
 
-                    <tr>
-                      <td><br></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td style="border-right-color: white;"></td>
-                    </tr>
-
-                    <tr>
-                      <td><br></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td style="border-right-color: white;"></td>
-                    </tr>
-
-                    <tr>
-                      <td><br></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td style="border-right-color: white;"></td>
-                    </tr>
-
-                    <tr>
-                      <td><br></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td style="border-right-color: white;"></td>
-                    </tr>
-                    <tr >
+                   
+                    $content .='<tr >
                       <td colspan="2" style="border-left:none;border-bottom:none;"></td>
                       <td style="font-size:10px">รวม</td>
-                      <td style="font-size:10px">' . $this->mydate->conv_th_digit(number_format($data['notice_annual_fee']), 2) . '</td>
-                      <td>-</td>
-                      <td style="font-size:10px">' . $this->mydate->conv_th_digit(number_format($data['notice_estimate']), 2) . '</td>
-                      <td>-</td>
+                      <td style="font-size:10px">' . $this->mydate->conv_th_digit(number_format($sum_years[0]), 2) . '</td>
+                      <td style="font-size:10px">' . $this->mydate->conv_th_digit(number_format($sum_years[1]), 2) . '</td>
+                      <td style="font-size:10px">' . $this->mydate->conv_th_digit(number_format($sum_taxs[0]), 2) . '</td>
+                      <td style="font-size:10px">' . $this->mydate->conv_th_digit(number_format($sum_taxs[1]), 2) . '</td>
                       <td style="border-right-color: white;"></td>
                     </tr>
                   </table>
@@ -283,40 +255,179 @@ class export extends My_Controller
           <td  style="text-align: ;" >คำนวณ พ.ศ. ๒๕๖๐</td>
         </tr>
         <tr>
-          <td  style="text-align: ;" >ภ.ร.ด. ๒ เลขประจำตำบลที่ ' . $this->mydate->conv_th_digit($data['notice_no']) . '/' . $this->mydate->conv_th_digit($data['tax_year'] + 543) . '</td>
+          <td  style="text-align: ;" >เล่มที่ ' . $this->mydate->conv_th_digit($data['notice_no']) . ' เลขที่ ' . $this->mydate->conv_th_digit($data['notice_number']) . '</td>
+        </tr>
+        <tr>
+          <td  style="text-align: ;" >ภ.ร.ด. ๒ เลขประจำตำบลที่ ' . $this->mydate->conv_th_digit($data['notice_number_p2']) . '/' . $this->mydate->conv_th_digit($data['tax_year'] + 543) . '</td>
         </tr>
         <tr>
           <td  style="text-align: ;" >เทศบาลตำบลหนองป่าครั่ง</td>
         </tr>
         <tr>
-          <td  style="text-align: ;" >ถึง ' . $data['individual_fullname'] . '</td>
+          <td  style="text-align: ;" >ถึง ' .$data['individual_prename']. $data['individual_fullname'] . '</td>
         </tr>
         <tr>
           <td  style="text-align: center;" ><b>รายการทรัพย์สิน</b></td>
         </tr>
         <tr>
-          <td  style="" >
-          ..........................................................................<br>
-            ..........................................................................<br>
-            ..........................................................................
-            ..........................................................................<br>
-            ..........................................................................<br>
+          <td   >';
 
-          </td>
+          foreach ($detail as $key => $value) {
+            $content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($key+1) .'. '.$value['noice_operation_name'] .' '.$this->mydate->conv_th_digit($value['number']).' หลัง';
+          }
+
+          $content .='</td>
         </tr>
         <tr><td>&nbsp;</td></tr>
 
         <tr>
-          <td  style="text-align: left;" ><b>ค่ารายปี     ' . $this->mydate->conv_th_digit(number_format($data['notice_annual_fee']), 2) . '    บาท</td>
+          <td  style="text-align: left;" ><b>ค่ารายปี     ' . $this->mydate->conv_th_digit(number_format($sum_year), 2) . '    บาท</td>
         </b></tr>
         <tr>
-          <td  style="text-align: left;" ><b>ค่าภาษี     ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate']), 2) . '     บาท</td>
+          <td  style="text-align: left;" ><b>ค่าภาษี     ' . $this->mydate->conv_th_digit(number_format($sum_tax), 2) . '     บาท</td>
         </b></tr>
       </table>';
 
         $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
 
         $this->exportpdf->exportFhtml($dataExport, 'A4-L');
+
+    }
+
+    public function gat3($id = '')
+    {
+
+        $gat3 = $this->export_model->getTaxNotice($id);
+        // print_r($gat3);die();
+        $subdistrict = $this->export_model->getAddressNameById($gat3['individual_subdistrict']);
+        // print_r($subdistrict);die();
+        $district = $this->export_model->getAddressNameById($gat3['individual_district']);
+        $province = $this->export_model->getAddressNameById($gat3['individual_provice']);
+     
+        // $date = explode('-', $gat1['notice_date']);
+        $budget = explode('.', $gat3['notice_estimate']);
+        if ($budget[0] == ''){
+          $budget[0] = '-';
+        }
+        if ($budget[1] == ''){
+          $budget[1] = '-';
+        }
+
+        // $tax_interest  = explode('.',$gat['tax_interest']);
+        // $sum = $budget[0] + $tax_interest[0];
+        // $sum_str = $budget[1] + $tax_interest[1];
+        // if ($tax_interest[0] == ''){
+        //   $tax_interest[0] = '-';
+        // }
+        // if ($tax_interest[1] == ''){
+        //   $tax_interest[1] = '-';
+        // }
+
+     
+
+        $content = '
+          <style>
+            table {
+                border-collapse: collapse;
+            }
+            hr{
+              border: none;
+              height: 2px;
+              /* Set the hr color */
+              color: #333; /* old IE */
+              background-color: #333; /* Modern Browsers */
+            }
+          </style>
+          <table border="0" width="100%">
+          <tbody>
+            <tr>
+              <td colspan="4" style="text-align: center;" ><h3>ภ.บ.ท. ๕</h3></td>
+            </tr>
+            <tr>
+              <td colspan="4" style="text-align: center;"><h3>(ท่อนนี้มอบให้เจ้าของที่ดิน)</h3></td>
+            </tr>
+            <tr >
+                <td width="40%"></td>
+                <td width="40%"><hr></td>
+                <td width="40%"></td>
+            </tr>
+          </tbody>
+          </table>
+          <table border="0" width="100%" style="font-size:14px">
+            <tbody>
+              <tr >
+                  <td rowspan=20 width="20%"></td>
+                  <td width="60%"><br>ที่ดินตั้งอยู่หน่วยที่&nbsp;&nbsp;&nbsp;&nbsp;...........</td>
+              </tr>
+              <tr >  
+                  <td><br>เลขสำรวจที่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['notice_number']).'</td>
+              </tr>
+              <tr >  
+                  <td><br>หมู่ที่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['notice_address_moo']).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตำบล&nbsp;&nbsp;&nbsp;&nbsp;หนองป่าครั่ง </td>
+            
+              </tr>
+              <tr>  
+                  <td><br>อำเภอ&nbsp;&nbsp;&nbsp;&nbsp;เมือง &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จังหวัด&nbsp;&nbsp;&nbsp;&nbsp;เชียงใหม่ </td>
+              </tr>
+              <tr>  
+                  <td ><br/></td>
+              </tr>
+              <tr>  
+                  <td><br>ชื่อเจ้าของที่ดิน&nbsp;&nbsp;&nbsp;&nbsp;'.$gat3['individual_prename'].' '.$gat3['individual_firstname'].' '.$gat3['individual_lastname'].'</td>
+              </tr>
+              <tr >  
+                  <td><br>อยู่บ้านเลขที่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['individual_address']).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;หมู่ที่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['individual_village']).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถนน&nbsp;&nbsp;&nbsp;&nbsp;'.$gat3['individual_road'].' </td>
+              </tr>
+              <tr >  
+                  <td><br>ตรอก / ซอย&nbsp;&nbsp;&nbsp;&nbsp;'.$gat3['individual_lane'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตำบล&nbsp;&nbsp;&nbsp;&nbsp;'.$subdistrict['area_name_th'].' </td>
+              </tr>
+              <tr >  
+                  <td><br>อำเภอ&nbsp;&nbsp;&nbsp;&nbsp;'.$district['area_name_th'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จังหวัด&nbsp;&nbsp;&nbsp;&nbsp;'.$province['area_name_th'].' </td>
+              </tr>
+              <tr >  
+                  <td><br>ชื่อผู้ถือกรรมสิทธิ์ร่วม&nbsp;&nbsp;&nbsp;&nbsp;...........</td>
+              </tr>
+              <tr >  
+                  <td><br><br><br><br>  </td>
+              </tr>
+              <tr >  
+                  <td><br>เนื้อที่ดินทั้งหมด&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_rai']).' ไร่&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_ngan']).' งาน&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_wa']).' วา </td>
+              </tr>
+              <tr >  
+                  <td><br>เนื้อที่ดินที่ต้องชำระภาษี&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($gat3['land_tax']).' ไร่&nbsp;&nbsp;&nbsp;&nbsp;'.$gat3['land_ngan'].' งาน&nbsp;&nbsp;&nbsp;&nbsp;'.$gat3['land_wa'].' วา  </td>
+              </tr>
+              <tr >  
+                  <td><br>รวมเงินภาษีที่ต้องชำระ&nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($budget[0]).' บาท &nbsp;&nbsp;&nbsp;&nbsp;'.$this->mydate->conv_th_digit($budget[1]).'&nbsp;&nbsp;&nbsp;&nbsp;สต.</td>
+              </tr>
+              <tr >  
+                    <td><br><br><br><br>  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table border="0" width="100%" style="font-size:14px;text-align:center;">
+              <tbody>
+                <tr >  
+                  <td ><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ลงชื่อ..................................................เจ้าพนักงานประเมิน</td>
+                </tr>
+                <tr >  
+                  <td ><br>(............................)</td>
+                </tr>
+                <tr >  
+                  <td ><br>วันที่............. / ............. / ............</td>
+                </tr>
+
+                <tr >  
+                    <td><br><br><br><br>  </td>
+                </tr>
+                <tr >  
+                  <td ><br><b>โปรดเก็บรักษาไว้ให้ดี และนำมาด้วยทุกครั้ง ที่ท่านติดต่อชำระภาษีบำรุงท้องที่</b></td>
+                </tr>
+              </tbody>
+            </table>';
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        $this->exportpdf->exportFhtml($dataExport);
 
     }
 

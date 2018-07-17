@@ -7,6 +7,7 @@ class Receive extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Receive_model');
+        
 
     }
 

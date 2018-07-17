@@ -16,4 +16,32 @@ class export_model extends CI_Model
         return $query->row_array();
     }
 
+    public function getTaxNoticeHouse($data = array()){
+        $this->db->select(' count(tax_notice.tax_id) as number ,
+                            sum(tax_notice.notice_estimate) as notice_estimate ,
+                            sum(tax_notice.notice_annual_fee) as notice_annual_fee ,
+                            tbl_operation.noice_operation_name,
+                            GROUP_CONCAT(
+                                DISTINCT CONCAT(tax_notice.notice_address_number," หมู่ ",tax_notice.notice_address_moo) 
+                                SEPARATOR "<br/>"
+                              )  as notice_address_number');
+        $this->db->from('tax_notice');
+        $this->db->where('year_id',$data['year_id']);
+        // $this->db->where('tax_year',$data['tax_year']);
+        $this->db->where('tax_id',$data['tax_id']);
+        $this->db->where('individual_id',$data['individual_id']);
+        $this->db->join('tbl_operation', 'tbl_operation.noice_operation_id = tax_notice.noice_type_operation', 'left');
+        $this->db->group_by('tbl_operation.noice_operation_id');
+        $query = $this->db->get();
+        $result= $query->result_array();
+        return $result;
+    }
+
+    public function getAddressNameById($code_id){
+        $this->db->select('area_name_th');
+        $this->db->where('area_code',$code_id);
+        return $this->db->get('std_area')->row_array();
+
+    }
+
 }

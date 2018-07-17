@@ -519,6 +519,8 @@ class Project_training extends MY_Controller
 
             }
         }
+        // echo '<pre>';
+        // print_r($data['budget_log']);
         // die();
         $data['budget_log_all'] = $this->project_model->getBudgetLog($data['prj'][0]->prj_id);
         // echo '<pre>';

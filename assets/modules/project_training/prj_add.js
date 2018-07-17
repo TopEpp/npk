@@ -154,10 +154,10 @@ $(function () {
             return false;
         }
         if ($('#prj_type1').is(':checked')){
-            var prj_type_connect = $("input[name='prj_type_connect']").val();
+            var prj_type_connect = $("select[name='prj_type_connect']").val();
             if (prj_type_connect == ''){
                 alertify.error('กรุณาเลือกโครงการ ');
-                $("input[name='prj_type_connect']").focus();
+                $("select[name='prj_type_connect']").focus();
                 return false;
             }
         }
@@ -269,22 +269,35 @@ function integerInRange(val,val_max){
 
 function delSelect(value){
 
-    $.ajax({
-        method: "POST",
-        url: domain + 'project_training/delPrjConvert',
-        data: {
-            data: value
-        },
-        success: function (response) {
-            $("tr[data-select='" + value + "'] ").remove();
-            $(".table-search tr ").filter(function() {
-                return $(this).attr("data-id") == value;
-            }).css('color','#73879C');
-        
-            updateBudgetConvert();
-        }
 
-    });
+    var edit = $("input[name='edit']").val();
+    
+    if (edit){
+        $.ajax({
+            method: "POST",
+            url: domain + 'project_training/delPrjConvert',
+            data: {
+                data: value
+            },
+            success: function (response) {
+                $("tr[data-select='" + value + "'] ").remove();
+                $(".table-search tr ").filter(function() {
+                    return $(this).attr("data-id") == value;
+                }).css('color','#73879C');
+            
+                updateBudgetConvert();
+            }
+    
+        });
+    }else{
+        $("tr[data-select='" + value + "'] ").remove();
+        $(".table-search tr ").filter(function() {
+            return $(this).attr("data-id") == value;
+        }).css('color','#73879C');
+    
+        updateBudgetConvert();
+    }
+   
 
   
     
