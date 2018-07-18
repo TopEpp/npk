@@ -16,29 +16,77 @@
               <div class="x_panel">
                 <div class="x_title">
                       <div class="col-xs-12 text-right">
+                        <div class="btn-group">
+                          <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
+                          </button>
                           <button type="button" class="btn btn-success"  onclick="window.location.href='<?php echo base_url('expenditure/search_prj'); ?>'" title="เบิกจ่าย"><i class="fa fa-paypal"> เบิกจ่าย</i>
                           </button>
+                        </div>
                       </div>
                   <div class="clearfix"></div>
                 </div>
 
+
+                <div class="collapse" id="search" class="x_content">
+                  <br />
+                  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขที่เช็ค/ฎีกา
+                      </label>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                          <input type="text" name="number_tax" id="number_tax" placeholder="" class="form-control col-md-4 col-xs-12" >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">วันที่ลงเช๊ค</label>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <input type="text" id="check_date_tax" placeholder="" value="" class="form-control col-md-7 col-xs-12 datepicker">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">วันที่ชำระ</label>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <input type="text" id="pay_date_tax" placeholder="" value="" class="form-control col-md-7 col-xs-12 datepicker">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">แผนงาน/โครงการ</label>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <input type="text" id="tax_name" placeholder="" value="" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+  
+                    <div class="ln_solid"></div>
+                  </form>
+                  
+                  <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
+                          <br>
+                          <button type="submit" id="search_pay" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
+                          <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
+                        </div>
+                  </div>
+                </div>
+                
+
               
 
                <div class="x_content">
-                  <table id="myTable" class="display" style="width:100%">
+                  <table id="table_expenditure"  class="table table-striped" style="width:100%">
                       <thead>
                         <tr>
-                          <th>วันที่ลงเช๊ค</th>
-                          <th>เลขที่เช็ค / ฎีกา</th>
-                          <th>วันที่ชำระ</th>
-                          <th>แผนงาน / โครงการ</th>
-                          <th>จำนวนเงินที่เบิกจ่าย (บาท)</th>
-                          <th>ผู้ดำเนินการ</th>
-                          <th style="width: 20%;">เครื่องมือ</th>
+                          <th width="10%">วันที่ลงเช๊ค</th>
+                          <th width="5%">เลขที่เช็ค/ฎีกา</th>
+                          <th width="10%">วันที่ชำระ</th>
+                          <th width="20%">แผนงาน/โครงการ</th>
+                          <th width="15%">จำนวนเงินที่เบิกจ่าย (บาท)</th>
+                          <th width="10%">ผู้ดำเนินการ</th>
+                          <th width="20%">เครื่องมือ</th>
                         </tr>
                       </thead>
                       <tbody>
-                      <?php foreach ($expenditure as $key => $value) { ?>
+                      <!-- <?php foreach ($expenditure as $key => $value) { ?>
                          <tr>
                           <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date_disburse, 543, 'S') ?></td>
                           <td align="center"><?php echo $value->expenses_number; ?></td>
@@ -63,7 +111,7 @@
                           </td>
                         </tr>
                       <?php 
-                    } ?> 
+                    } ?>  -->
 
                       <tbody>
                     </table>
@@ -77,82 +125,87 @@
           </div>
       </div>
 
-        <!-- Modal Popup -->
-
-          <div class="modal fade" id="paymodal" tabindex="-1" role="dialog" aria-labelledby="paymodal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                            </button>
-                            <h4 class="modal-title" id="delmodal">บันทึก เลขที่เช็ค /วันที่เช๊ค!</h4>
-                        </div>
-                      
-                        <div class="modal-body">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <label> เลขที่เช๊ค</label>
-                            <input type="text" name="expenses_number" class="form-control">
-                          </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <label> วันที่เช๊ค</label>
-                            <input type="text" name="expenses_date_disburse" value="<?php echo date('Y-m-d'); ?>" class="form-control datepicker">
-                          </div>
-                        </div>
-                  
-                               
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" id="btn-pay"  class="btn btn-primary"></i> บันทึก
-                            </button>
-
-                            <button type="button" class="btn btn-default" data-dismiss="modal"></i> ยกเลิก
-                            </button>
-                        </div>
-                    </div>
-                </div>
+<!-- Modal Popup -->          
+<div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="delmodal">การแจ้งเตือน!</h4>
             </div>
-          </div>
+            
+            
+            <div class="modal-body">
+                    <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btn-del"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                </button>
+
+                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
 
           
-                 <!-- Modal Popup -->          
-          <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-dialog modal-sm">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                          </button>
-                          <h4 class="modal-title" id="delmodal">การแจ้งเตือน!</h4>
-                      </div>
-                      
-                      
-                      <div class="modal-body">
-                              <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
-                      </div>
+<!-- Modal Popup -->
 
-                      <div class="modal-footer">
-                          <button type="button" id="btn-del"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
-                          </button>
-
-                          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
-                          </button>
-                      </div>
-                  </div>
+<div class="modal fade" id="paymodal" tabindex="-1" role="dialog" aria-labelledby="paymodal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title" id="delmodal">บันทึก เลขที่เช็ค/วันที่เช๊ค</h4>
               </div>
-            </div>
+            
+              <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label> เลขที่เช๊ค</label><span style="color:red">*</span>
+                  <input type="text" name="expenses_number" class="form-control">
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-sm-12">
+                  <label> วันที่ลงเช๊ค</label><span style="color:red">*</span>
+                  <input type="text" name="expenses_date_disburse" value="" class="form-control datepicker">
+                </div>
+              </div>
+        
+                      
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" id="btn-pay"  class="btn btn-primary"></i> บันทึก
+                  </button>
+
+                  <button type="button" class="btn btn-default" data-dismiss="modal"></i> ยกเลิก
+                  </button>
+              </div>
           </div>
+      </div>
+  </div>
+</div>
 
 
 <style>
-th{
-text-align: center;
-}
+  th{
+  text-align: center;
+  }
+
+  .dataTables_filter, .dataTables_info { display: none; }
+
 </style>
       
 

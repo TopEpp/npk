@@ -63,6 +63,7 @@ class Receive_outside_model extends CI_Model
         $this->db->join('tbl_outside', 'tbl_outside.out_id = tbl_outside_pay.outside_id', 'inner');
         $this->db->join('usrm_user', 'usrm_user.user_id = tbl_outside_pay.outside_pay_user');
         // $this->db->join('tbl_outside','tbl_outside.out_id = tbl_outside_pay.out_id');
+        $this->db->order_by('tbl_outside_pay.outside_pay_id DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -178,6 +179,60 @@ class Receive_outside_model extends CI_Model
     public function getIdTaxPay(){
         $this->db->like('out_name','ภาษีหัก ณ ที่จ่าย');
         return $this->db->get('tbl_outside')->row();
+    }
+
+    //ajax index
+	public function getOutsideAjax($param)
+    {
+        $keyword = $param['keyword'];
+        $this->db->select('*');
+
+        $condition = "1=1";
+
+        if (!empty($param['filter'])) {
+			$filter = $param['filter'];
+			// print_r($filter);die();
+		
+			if (!empty($filter[0])) {
+                $this->db->like('outside_pay_create', $this->mydate->date_thai2eng($filter[0],-543));
+            }
+            if (!empty($filter[2])) {
+                $this->db->like('outside_detail', $filter[2]);
+            }
+            if (!empty($filter[1])) {
+                $this->db->like('tbl_outside.out_name', $filter[1]);
+            }
+
+        }
+
+        $this->db->where('tbl_outside.out_year', $this->session->userdata('year'));
+        $this->db->select('tbl_outside_pay.*,usrm_user.user_firstname,usrm_user.user_lastname,tbl_outside.out_name');
+        $this->db->from('tbl_outside_pay');
+        $this->db->join('tbl_outside', 'tbl_outside.out_id = tbl_outside_pay.outside_id', 'inner');
+        $this->db->join('usrm_user', 'usrm_user.user_id = tbl_outside_pay.outside_pay_user');
+        // $this->db->join('tbl_outside','tbl_outside.out_id = tbl_outside_pay.out_id');
+        $this->db->where($condition);
+        $this->db->limit($param['page_size'], $param['start']);
+		$this->db->order_by($param['column'], $param['dir']);
+		
+	
+		$query = $this->db->get();
+		// $this->db->order_by('expenses_id DESC','expenses_date_disburse DESC');
+        $data = array();
+        if ($query->num_rows() > 0) {
+
+            foreach ($query->result_array() as $key => $row) {
+				$row['outside_pay_budget_sum'] = number_format($row['outside_pay_budget_sum'],2);
+				$row['outside_pay_create'] = $this->mydate->date_eng2thai($row['outside_pay_create'],543,'S');
+                $data[] = $row;
+            }
+        }
+
+        $count_condition = $this->db->from('tbl_expenses')->where($condition)->count_all_results();
+        $count = $this->db->from('tbl_expenses')->count_all_results();
+        $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
+        return $result;
+
     }
 
 }

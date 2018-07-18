@@ -1,4 +1,7 @@
 $(function () {
+
+
+
     $('#outside_pay_vat_val').prop('disabled', true);
     $('#outside_pay_vat').prop('disabled', true);
     $('#amount_vat').on("ifChanged", function () {
@@ -194,6 +197,105 @@ $(function () {
         }
     });
 
+          // load ajax
+
+          var table = $('#table_outside_pay').DataTable({
+            pageLength: 100,
+            serverSide: true,
+            processing: true,
+            lengthChange: false,
+            ajax: {
+              url: domain + 'receive_outside/getOutsideAjax',
+            },
+            "columnDefs": [{
+              "name": "",
+              "targets": 0
+            }, ],
+        
+        
+            "order": [
+              [5, 'DESC']
+            ],
+            'columns': [{
+                data: 'outside_pay_create',
+                "className": "text-center",
+                // render: function (data, type, row, meta) {
+                //   return meta.row + meta.settings._iDisplayStart + 1;
+                // },
+        
+              },
+              {
+                data: 'out_name',
+                "className": "text-center",
+              },
+              {
+                data: 'outside_detail',
+                "className": "text-center",
+              },
+        
+              {
+                data: 'outside_pay_budget_sum',
+                "className": "text-right",
+              },
+              {
+                data: 'user_firstname',
+                render: function (data, type, row) {
+                  return row['user_firstname']+' '+row['user_lastname']
+                }
+              },
+              {
+                data: 'outside_id',
+                render: function (data, type, row) {
+                  var btn =
+                    '<div class="btn-group ">' +
+                    '<button type="button" onclick="window.location.href=\'' + domain + 'receive_outside/outside_form/' + '' + data +'/'+row['outside_pay_id']+ '\'"  class="btn btn-warning btn-sm"  title="แก้ไข" >แก้ไข</button>' +
+                    '<button type="button" class="btn btn-danger btn-sm"  id="' + row['outside_pay_id'] + '" data-id="' + row['outside_pay_id'] + '" data-toggle="modal" data-target="#delpay_modal" title="ลบ" >ลบ</button>' +
+                    '</div>';
+                  return btn;
+                },
+                "className": "text-center",
+                orderable: false
+              }
+            ],
+            // "bSort" : false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "responsive": true,
+            "language": {
+              "sProcessing": "กำลังดำเนินการ...",
+              "sLengthMenu": "แสดง _MENU_ แถว",
+              "sZeroRecords": "ไม่พบข้อมูล",
+              // "sInfo":         "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว / รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 50 รายการ)",
+              "sInfo": "รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 25 รายการ)",
+              // "sInfoEmpty":    "แสดง 0 ถึง 0 จาก 0 แถว",
+              "sInfoEmpty": "รายการทั้งหมด จำนวน 0 รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 25 รายการ)",
+              // "sInfoFiltered": "(กรองข้อมูล _MAX_ ทุกแถว)",
+              "sInfoFiltered": "",
+              "sInfoPostFix": "",
+              "sSearch": "ค้นหา: ",
+              "sUrl": "",
+              "oPaginate": {
+                "sFirst": '<i class="fa fa-step-backward" style="font-size: 12px;" aria-hidden="true"></i>',
+                "sPrevious": '<i class="fa fa-backward" style="font-size: 12px;" aria-hidden="true"></i>',
+                "sNext": '<i class="fa fa-forward" style="font-size: 12px;" aria-hidden="true"></i>',
+                "sLast": '<i class="fa fa-step-forward" style="font-size: 12px;" aria-hidden="true"></i>'
+              }
+            }
+        
+        
+        
+          });
+        
+          //search data 
+          $('#search_pay').click(function () {
+    
+            table.columns(1).search($('#outside_name').val()).draw();
+            table.columns(0).search($('#outside_date').val()).draw();
+            table.columns(2).search($('#outside_detail').val()).draw();
+            // table.columns(2).search($('#pay_date_tax').val()).draw();
+          });
+
+  
 
 
 

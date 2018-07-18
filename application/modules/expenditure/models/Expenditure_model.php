@@ -29,6 +29,7 @@ class expenditure_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tbl_expenses');
 		$this->db->like('project_id',$project_id);
+		$this->db->join('usrm_user','usrm_user.user_id = tbl_expenses.user_id');
 		if (!empty($expenses_id)){
 			$this->db->where('expenses_id',$expenses_id);
 		}
@@ -77,6 +78,7 @@ class expenditure_model extends CI_Model
 		$this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
 		$this->db->join('usrm_user','usrm_user.user_id = tbl_expenses.user_id');
 		$this->db->where('prj_year',$year);
+		$this->db->order_by('expenses_id DESC','expenses_date_disburse DESC');
 		$query = $this->db->get();
 
 		return $query->result();
@@ -87,8 +89,12 @@ class expenditure_model extends CI_Model
 		return $this->db->delete('tbl_expenses');
 	}
 
+	public function getExpenditureNumber($id){
+		return  $this->db->query("SELECT * FROM tbl_expenses WHERE expenses_id = ".$id)->row();
+	}
+
 	public function saveExpenditureNumber($id,$input){
-		$input['expenses_date_disburse'] = $this->mydate->date_thai2eng($input['expenses_date_disburse'],-543);
+		$input['expenses_date_disburse'] = $this->mydate->date_thai2eng($input['expenses_date_disburse']);
 		$this->db->where('expenses_id',$id);
 		return $this->db->update('tbl_expenses',$input);
 	
@@ -108,6 +114,62 @@ class expenditure_model extends CI_Model
 		$this->db->insert('tax_receive', $input);
 
 	}
+
+	//ajax index
+	public function getAjaxExpenditure($param)
+    {
+        $keyword = $param['keyword'];
+        $this->db->select('*');
+
+        $condition = "1=1";
+
+        if (!empty($param['filter'])) {
+			$filter = $param['filter'];
+			// print_r($filter);die();
+		
+			if (!empty($filter[0])) {
+                $this->db->like('expenses_date_disburse', $this->mydate->date_thai2eng($filter[0]));
+            }
+            if (!empty($filter[1])) {
+                $this->db->like('expenses_number', $filter[1]);
+            }
+            if (!empty($filter[2])) {
+                $this->db->like('expenses_date', $this->mydate->date_thai2eng($filter[2],-543));
+            }
+            if (!empty($filter[3])) {
+                $this->db->like('tbl_project.prj_name', $filter[3]);
+            }
+
+        }
+
+		$this->db->select('tbl_expenses.*, tbl_project.prj_name,usrm_user.user_firstname,usrm_user.user_lastname');
+		$this->db->from('tbl_expenses');
+		$this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
+		$this->db->join('usrm_user','usrm_user.user_id = tbl_expenses.user_id');
+		$this->db->where('prj_year',$this->session->userdata('year'));
+        $this->db->where($condition);
+        $this->db->limit($param['page_size'], $param['start']);
+		$this->db->order_by($param['column'], $param['dir']);
+		
+	
+		$query = $this->db->get();
+		// $this->db->order_by('expenses_id DESC','expenses_date_disburse DESC');
+        $data = array();
+        if ($query->num_rows() > 0) {
+
+            foreach ($query->result_array() as $key => $row) {
+				$row['expenses_date_disburse'] = $this->mydate->date_eng2thai($row['expenses_date_disburse'],'','S');
+				$row['expenses_date'] = $this->mydate->date_eng2thai($row['expenses_date'],543,'S');
+                $data[] = $row;
+            }
+        }
+
+        $count_condition = $this->db->from('tbl_expenses')->where($condition)->count_all_results();
+        $count = $this->db->from('tbl_expenses')->count_all_results();
+        $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
+        return $result;
+
+    }
 
 	
 }

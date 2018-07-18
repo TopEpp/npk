@@ -464,7 +464,7 @@ class export extends My_Controller
         </tr>
         <tr>
           <td colspan=2 style="width:370px;"><br/>
-            เรื่อง ให้ไปชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. ๒๕๖๐ แจ้งเตือนครั้งที่ '.$data['alert_id'].'
+            เรื่อง ให้ไปชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. '.$this->mydate->conv_th_digit($data['tax_year']+543).' แจ้งเตือนครั้งที่ '.$data['alert_id'].'
           </td>
         </tr>
         <tr>
@@ -473,24 +473,29 @@ class export extends My_Controller
           </td>
         </tr>
         <tr>
-          <td colspan=2>
-            อ้างอิง ใบแจ้งรายการประเมิน '.$data['tax_name'].' (ภ.ร.ด.๘) เล่มที่...เลขที่... ลงวันที่ ....
+          <td colspan=2>';
+          if ($data['tax_name'] == 'ภาษีป้าย' ){
+            $content .= 'อ้างอิง หนังสือแจ้งการประเมิน '.$data['tax_name'].' (ภ.ร.ด.๘) เล่มที่...เลขที่... ลงวันที่ ....';
+          }else if ($data['tax_name'] == 'ภาษีโรงเรือนและที่ดิน' ){
+            $content .= 'อ้างอิง ใบจ้างรายการประเมิน '.$data['tax_name'].' (ภ.ร.ด.๘) เล่มที่ '.$data['notice_no'].' เลขที่ '.$data['notice_number_p2'].' ลงวันที่ ....';
+          }
+
+          $content .= '</td>
+        </tr>
+        <tr>
+          <td colspan=3><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ตามที่ท่านได้รับใบแจ้งประเมินค่า'.$data['tax_name'].' จำนวนเงิน '.$this->mydate->conv_th_digit(number_format($data['notice_estimate'],2)).' บาท ตามที่อ้างถึงนั้น
           </td>
         </tr>
         <tr>
           <td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            ตามที่ท่านได้รับใบแจ้งประเมินค่า'.$data['tax_name'].' จำนวนเงิน ..... บาท ตามที่อ้างถึง นั้น
-          </td>
-        </tr>
-        <tr>
-          <td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            บัดนี้ ได้พ้นกำหนดระยะเวลาการชำระ'.$data['tax_name'].' ประจำปี พ.ศ. ๒๕๖๐ มาแล้วเทศบาลตำบลหนองป่าครั่ง จึงแจ้งเตือนมายังท่านให้มาชำระเงินค่า'.$data['tax_name'].'พร้อมเงินเพิ่ม ณ
-            สำนักงานเทศบาลตำบลหนองป่าครั่ง โดยเร็ว นับตั้งแต่วันที่ได้รับหนังสือแจ้งเตือนฉบับนี้
+            บัดนี้ ได้พ้นกำหนดระยะเวลาการชำระ'.$data['tax_name'].' ประจำปี พ.ศ. '.$this->mydate->conv_th_digit($data['tax_year']+543).' มาแล้วเทศบาลตำบลหนองป่าครั่ง จึงแจ้งเตือนมายังท่านให้มาชำระเงินค่า'.$data['tax_name'].'พร้อมเงินเพิ่ม ณ
+            สำนักงานเทศบาลตำบลหนองป่าครั่ง โดยเร็ว นับตั้งแต่วันที่<br>ได้รับหนังสือแจ้งเตือนฉบับนี้
           </td>
         </tr>
         <tr>
           <td colspan=3><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           จึงเรียนมาเพื่อโปรดชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. ๒๕๖๐
+           จึงเรียนมาเพื่อโปรดชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. '.$this->mydate->conv_th_digit($data['tax_year']+543).'
           </td>
         </tr>
         <tr>
@@ -509,7 +514,7 @@ class export extends My_Controller
             <hr>
           </td>
         </tr>';
-        if ($data['tax_name'] == 'ภาษีบำรุงท้องที่' ){
+        if ($data['tax_name'] == 'ภาษีโรงเรือนและที่ดิน' ){
           $content .= '<tr>
                         <td colspan=3>
                           <u><b>หมายเหตุ</b></u> ขออภัยมา ณ ที่นี่ด้วย ถ้าหากท่านได้ชำระเงินเป็นที่เรียบร้อยแล้ว<br/>
@@ -522,12 +527,12 @@ class export extends My_Controller
                             <li>ค้างชำระเกิน ๓ เดือนแต่ไม่เกิน ๔ เดือนจะต้องเสียเงินเพิ่ม ร้อยละ ๑๐ ของค่าภาษี</li>
                             <li>ถ้ามิได้การชำระภาษี และเงินเพิ่มภายใน ๔ เดือนให้ผู้บริหารท้องถิ่นมีอำนาจออกคำสั่งเป็นหนังสือ ให้ยึด อายัด หรือขายทอดตลาดหลักทรัพย์สินของผู้ซึ่งค้างชำระ ภาษีเพื่อนำเงินมาชำระเป็น ค่าภาษีเงินเพิ่ม ค่าธรรมเนียม</li>
                           </ul>
-                          <br/><br/>
+                          <br/>
                           
                         </td>
                       </tr>';
         }
-        else  if ($data['tax_name'] == 'ภาษีโรงเรือนและที่ดิน' ){
+        else  if ($data['tax_name'] == 'ภาษีป้าย' ){
           $content .= '<tr>
                         <td colspan=3>
                           <u><b>หมายเหตุ</b></u> ขออภัยมา ณ ที่นี่ด้วย ถ้าหากท่านได้ชำระเงินเป็นที่เรียบร้อยแล้ว<br/>
@@ -554,7 +559,7 @@ class export extends My_Controller
             <img src="assets/images/logo_alert.jpg" style="width: 40px;">
           </td>          
           <td style="width: 200px;">
-            เทศบาลหนองป่าครั่ง<br>
+            <b>เทศบาลหนองป่าครั่ง</b><br>
             15 หมู่ที่ 3 ตำบลหนองป่าครั่ง<br>
             อำเภอเมือง จังหวัดเชียงใหม่ 50000<br>
           </td>
