@@ -55,7 +55,7 @@
                            <?php $labels_chart = $datasets1 = $datasets2 = '';
                           $sum1 = $sum2 = 0;
                           foreach ($getrec[0] as $key => $title) {
-                            $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
+                            $diff = $sum[$title->tax_id]->receive_amount - $sum[$title->tax_id]->tax_estimate;
                             $color = '';
                             if ($diff < 0) {
                               $color = 'color: red;';
@@ -131,7 +131,7 @@
                       </thead>
                       <tbody>
                         <?php foreach ($getrec[0] as $key => $title) {
-                          $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
+                          $diff = $sum[$title->tax_id]->receive_amount - $sum[$title->tax_id]->tax_estimate ;
                           $color = '';
                           if ($diff < 0) {
                             $color = 'color: red;';
@@ -145,7 +145,7 @@
                             <td style="font-weight:bolder;text-align:right;<?php echo $color; ?>"><?php echo number_format($diff, 2); ?></td>  
                           </tr>
                            <?php foreach ($getrec[$title->tax_id] as $key => $title2) {
-                            $diff = $title2->tax_estimate - $title2->receive_amount;
+                            $diff = $title2->receive_amount - $title2->tax_estimate;
                             $color = '';
                             if ($diff < 0) {
                               $color = 'color: red;';
