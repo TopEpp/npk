@@ -33,7 +33,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                        <tr>
-                        <td align="center">ชื่อภาษี</td>
+                        <td align="center">ภาษี</td>
                         <td align="center">จำนวนเงิน</td>
                         <td align="center">เงินเพิ่ม</td>
                         <td align="center">รวม</td>
