@@ -11,6 +11,11 @@ $(function () {
 		if ($('input#amount_vat').is(':checked')) {
 			vat = $('#amount_vat_val').val();
 			expenses_amount_vat = expenses_amount * vat / 100;
+			$('#expenses_amount_vat').prop('disabled', false);
+			$('#amount_vat_val').prop('disabled', false);
+		}else{
+			$('#expenses_amount_vat').prop('disabled', true);
+			$('#amount_vat_val').prop('disabled', true);
 		}
 		if ($('input#amount_tax').is(':checked')) {
 			tax = $('#amount_tax_val').val();
@@ -38,6 +43,12 @@ $(function () {
 		if ($('input#amount_tax').is(':checked')) {
 			tax = $('#amount_tax_val').val();
 			expenses_amount_tax = expenses_amount * tax / 100;
+			$('#expenses_amount_tax').prop('disabled', false);
+			$('#amount_tax_val').prop('disabled', false);
+		}
+		else{
+			$('#expenses_amount_tax').prop('disabled', true);
+			$('#amount_tax_val').prop('disabled', true);
 		}
 
 		$('#expenses_amount_vat').val(expenses_amount_vat);

@@ -1,5 +1,6 @@
 $(function () {
-
+    $('#outside_pay_vat_val').prop('disabled', true);
+    $('#outside_pay_vat').prop('disabled', true);
     $('#amount_vat').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
         outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
@@ -7,10 +8,18 @@ $(function () {
 
         var outside_pay_amount_vat = 0;
         var outside_pay_amount_tax = 0;
+
         if ($('input#amount_vat').is(':checked')) {
             vat = $('#outside_pay_vat_val').val();
             outside_pay_amount_vat = outside_pay_amount * vat / 100;
+            $('#outside_pay_vat_val').prop('disabled', false);
+			$('#outside_pay_vat').prop('disabled', false);
         }
+        else{
+			$('#outside_pay_vat_val').prop('disabled', true);
+			$('#outside_pay_vat').prop('disabled', true);
+        }
+        
         if ($('input#amount_tax').is(':checked')) {
             tax = $('#outside_pay_tax_val').val();
             outside_pay_amount_tax = outside_pay_amount * tax / 100;
@@ -21,6 +30,8 @@ $(function () {
         $('#outside_pay_budget_sum').val(outside_pay_amount + outside_pay_amount_vat - outside_pay_amount_tax);
     });
 
+    $('#outside_pay_tax_val').prop('disabled', true);
+    $('#outside_pay_tax').prop('disabled', true);
     $('#amount_tax').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
         outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
@@ -35,6 +46,11 @@ $(function () {
         if ($('input#amount_tax').is(':checked')) {
             tax = $('#outside_pay_tax_val').val();
             outside_pay_amount_tax = outside_pay_amount * tax / 100;
+            $('#outside_pay_tax_val').prop('disabled', false);
+			$('#outside_pay_tax').prop('disabled', false);
+        }else{
+			$('#outside_pay_tax_val').prop('disabled', true);
+			$('#outside_pay_tax').prop('disabled', true);
         }
 
         $('#outside_pay_vat').val(outside_pay_amount_vat);
