@@ -141,10 +141,13 @@ class Receive extends MY_Controller
         // echo '<pre>';
         // print_r($input);
 
-        foreach ($input['notice_number'] as $k => $value) {
-            if (!empty($input['notice_number'][0][0])) {
-                $form_key = 0;
-                foreach ($input['notice_estimate'][$form_key] as $key => $v) {
+        for($form_key=0; $form_key<3 ; $form_key++){
+            // echo 'form_key -=- '.$form_key.'<br>';
+            if ($form_key==0) {
+                // echo 'k -=- '.$k.'<br>';
+                // $form_key = 0;
+                foreach ($input['notice_estimate'][0] as $key => $v) {
+                    // echo 'form_key -=- '.$form_key.'<br>';
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 8;
 
@@ -169,9 +172,11 @@ class Receive extends MY_Controller
 
                 }
 
-            } else if (!empty($input['notice_number'][1][0])) {
-                $form_key = 1;
-                foreach ($input['notice_estimate'][$form_key] as $key => $v) {
+            } else if ($form_key==1) {
+                // echo 'k -=- '.$k.'<br>';
+                // $form_key = 1;
+                foreach ($input['notice_estimate'][1] as $key => $v) {
+                    // echo 'notice_estimate -=- '.$v.'<br>';
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 9;
                     $data[$form_key][$key]['tax_interest'] = $input['tax_interest'][$form_key][0];
@@ -197,9 +202,11 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
                     $data[$form_key][$key]['tax_local_year'] = $input['tax_local_year'][$form_key][$key];
                 }
-            } else if (!empty($input['notice_number'][2][0])) {
-                $form_key = 2;
-                foreach ($input['notice_estimate'][$form_key] as $key => $v) {
+            } else if ($form_key==2) {
+                // echo 'k -=- '.$k.'<br>';
+                // $form_key = 2;
+                foreach ($input['notice_estimate'][2] as $key => $v) {
+                    // echo 'notice_estimate -=- '.$v.'<br>';
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 10;
 
@@ -259,12 +266,10 @@ class Receive extends MY_Controller
         $year = $this->session->userdata('year');
         $this->Receive_model->insertNotice($year, $data);
         redirect(base_url('receive/receive_dashborad'));
+
         // echo '<pre>';
         // print_r($data);
         // exit;
-
-
-
     }
 
     public function receive_notice_update($id = '')
