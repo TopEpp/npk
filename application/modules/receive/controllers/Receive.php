@@ -219,19 +219,35 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['banner_heigth'] = str_replace(',', '', $input['banner_heigth'][$form_key][$key]);
                     $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
 
-                    $upload_path = APPPATH . '../assets/images/banner/';
-                    if (!file_exists($upload_path)) mkdir($upload_path);
-                    if (!$_FILES) redirect(base_url('receive/receive_dashborad'));
-                    $this->load->library('upload', [
-                        'upload_path' => $upload_path,
-                        'allowed_types' => 'jpg|png'
-                    ]);
-                    if ($this->upload->do_upload('file')) {
-                        $year = $this->session->userdata('year');
-                        $this->Receive_model->insertNotice($year, $data);
-                        redirect(base_url('receive/receive_dashborad'));
+                    // $upload_path = APPPATH . '../assets/images/banner/';
+                    // if (!file_exists($upload_path)) mkdir($upload_path);
+                    // if (!$_FILES) redirect(base_url('receive/receive_dashborad'));
+                    // $this->load->library('upload', [
+                    //     'upload_path' => $upload_path,
+                    //     'allowed_types' => 'jpg|png'
+                    // ]);
+                    // if ($this->upload->do_upload('file')) {
+                    //     $year = $this->session->userdata('year');
+                    //     $this->Receive_model->insertNotice($year, $data);
+                    //     redirect(base_url('receive/receive_dashborad'));
 
-                    }
+                    // }
+                    // $config['upload_path'] = './uploads/';  // โฟลเดอร์ ตำแหน่งเดียวกับ root ของโปรเจ็ค
+                    // $config['allowed_types'] = 'gif|jpg|png'; // ปรเเภทไฟล์ 
+                    // $config['max_size'] = '1024';  // ขนาดไฟล์ (kb)  0 คือไม่จำกัด ขึ้นกับกำหนดใน php.ini ปกติไม่เกิน 2MB
+                    // $config['max_width'] = '1024';  // ความกว้างรูปไม่เกิน
+                    // $config['max_height'] = '1024'; // ความสูงรูปไม่เกิน
+
+                    // $this->load->library("upload");
+                    // $this->upload->initialize($config);
+
+                    // if ($this->upload->do_upload("picture")) {
+                    //     $data = $this->upload->data();
+                    //     print_r($data);
+                    // } else {
+                    //     echo $this->upload->display_errors();
+                    // }
+
 
 
 
@@ -388,6 +404,7 @@ class Receive extends MY_Controller
         //import input mark
         $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
         $this->template->javascript->add('assets/modules/receive/index.js');
+
         $this->publish();
     }
 
@@ -561,12 +578,9 @@ class Receive extends MY_Controller
         $this->template->stylesheet->add('assets/plugins/select2/dist/css/select2.css');
         $this->template->javascript->add('assets/plugins/select2/dist/js/select2.js');
 
-        //import smartwizard
-        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
-        //import input mark
-        $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
 
         //load js
+        $this->template->javascript->add('assets/modules/receive/alert_receive_tax.js');
         $this->template->javascript->add('assets/modules/receive/taxadd.js');
         $this->setView('receive_taxadd_popup', $data);
         $this->publish();
