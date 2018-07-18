@@ -83,14 +83,14 @@ class export_report extends My_Controller
 
                         $sum1 = $sum2 = 0;
                         foreach ($getrec[0] as $key => $title) {
-                          $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
+                          $diff = $sum[$title->tax_id]->receive_amount -$sum[$title->tax_id]->tax_estimate;
                           $color = '';
                           if ($diff < 0) {
                             $color = 'style="color: red;"';
                           }
 
-                          $sum1 = $sum[$title->tax_id]->tax_estimate;
-                          $sum2 = $sum[$title->tax_id]->receive_amount;
+                          $sum1 += $sum[$title->tax_id]->tax_estimate;
+                          $sum2 += $sum[$title->tax_id]->receive_amount;
 
                           $content .= '<tr>
                             <td style="font-weight:bolder;">'.$title->tax_name.'</td>
@@ -99,14 +99,17 @@ class export_report extends My_Controller
                             <td style="font-weight:bolder;text-align:right"><span '.$color.'>'.number_format($diff, 2).'</span></td>  
                           </tr>';
                       }
-
+                $diff = $sum2 - $sum1;
+                    if ($diff < 0) {
+                      $color = 'style="color: red;"';
+                    }
                 $content .= '</tbody>
                     <tfoot>
                       <tr>
                         <td align="center">รวม</td>
                         <td align="right">'.number_format($sum1, 2).'</td>
                         <td align="right">'.number_format($sum2, 2).'</td>
-                        <td align="right">'.number_format($sum1 - $sum2, 2).'</td>
+                        <td align="right"><span '.$color.'>'.number_format($diff, 2).'</span></td>
                       </tr>
                     </tfoot>
                 </table>';
@@ -143,7 +146,7 @@ class export_report extends My_Controller
 
                         $sum1 = $sum2 = 0;
                         foreach ($getrec[0] as $key => $title) {
-                          $diff = $sum[$title->tax_id]->tax_estimate - $sum[$title->tax_id]->receive_amount;
+                          $diff = $sum[$title->tax_id]->receive_amount - $sum[$title->tax_id]->tax_estimate;
                           $color = '';
                           if ($diff < 0) {
                              $color = 'color: red;';
@@ -160,7 +163,7 @@ class export_report extends My_Controller
                           </tr>';
 
                           foreach ($getrec[$title->tax_id] as $key => $title2) {
-                            $diff = @$title2->tax_estimate - @$title2->receive_amount;
+                            $diff = @$title2->receive_amount - @$title2->tax_estimate ;
                             $color = '';
                             if ($diff < 0) {
                                $color = 'color: red;';
@@ -174,6 +177,10 @@ class export_report extends My_Controller
                              </tr>';
                           }
                       }
+                $diff = $sum2 - $sum1;
+                if ($diff < 0) {
+                  $color = 'color: red;';
+                }
 
                 $content .= '</tbody>
                     <tfoot>
@@ -181,7 +188,7 @@ class export_report extends My_Controller
                         <td align="center">รวม</td>
                         <td align="right">'.number_format($sum1, 2).'</td>
                         <td align="right">'.number_format($sum2, 2).'</td>
-                        <td align="right">'.number_format($sum1 - $sum2, 2).'</td>
+                        <td align="right" style="'.$color.'">'.number_format($diff, 2).'</td>
                       </tr>
                     </tfoot>
                 </table>';

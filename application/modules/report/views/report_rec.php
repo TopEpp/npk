@@ -80,14 +80,20 @@
                         }
                         $labels_chart = substr($labels_chart, 0, -2);
                         $datasets1 = substr($datasets1, 0, -2);
-                        $datasets2 = substr($datasets2, 0, -2); ?>
+                        $datasets2 = substr($datasets2, 0, -2); 
+
+                        $diff = $sum2 - $sum1;
+                        if ($diff < 0) {
+                          $color = 'color: red;';
+                        }
+                        ?>
                             </tbody>
                             <tfoot>
                               <tr>
                                 <td align="center">รวม</td>
                                 <td align="right"><?php echo number_format($sum1, 2); ?></td>
                                 <td align="right"><?php echo number_format($sum2, 2); ?></td>
-                                <td align="right"><?php echo number_format($sum1 - $sum2, 2); ?></td>
+                                <td align="right" style="<?php echo $color;?>"><?php echo number_format($diff , 2); ?></td>
                               </tr>
                             </tfoot>
                             </table>
@@ -165,6 +171,11 @@
                       <?php 
                     }
                   }
+
+                    $diff = $sum2 - $sum1;
+                    if ($diff < 0) {
+                      $color = 'color: red;';
+                    }
                   ?>
                       </tbody>
                       <tfoot>
@@ -172,7 +183,7 @@
                           <td align="center">รวม</td>
                           <td align="right"><?php echo number_format($sum1, 2); ?></td>
                           <td align="right"><?php echo number_format($sum2, 2); ?></td>
-                          <td align="right"><?php echo number_format($sum1 - $sum2, 2); ?></td>
+                          <td align="right" style="<?php echo $color;?>"><?php echo number_format($diff, 2); ?></td>
                         </tr>
                       </tfoot>
         
