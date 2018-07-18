@@ -30,7 +30,7 @@
               <div class="conteiner-fluid ">
                      <div class="row x_content">
                      <div class="col-sm-6">
-                    <table class="table table-bordered jambo_table">
+                    <table class="table table-bordered table-striped">
                         <thead>
                        <tr>
                         <td align="center">ชื่อภาษี</td>

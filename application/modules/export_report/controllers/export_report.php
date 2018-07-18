@@ -351,5 +351,49 @@ class export_report extends My_Controller
     function report_person_receive(){
         $data = array();
         $person = $this->Report_model->getPersonReceive();
+
+        $content = '<table cellspacing="0" cellpadding="0" width="100%" border=1>
+                        <thead>
+                          <tr>
+                              <th >ลำดับ</th>
+                              <th >เลขประจำตัวผู้เสียภาษี</th>
+                              <th >ชื่อ - สกุล</th>
+                              <th >เลขรับ</th>
+                              <th >จำนวนที่จ่าย</th>
+                              <th >ภาษี</th>
+                              <th>เล่มที่/เลขที่ ใบเสร็จ</th>
+                              <th>วันที่ชำระ</th>
+                          </tr>
+                        </thead>
+                        <tbody>';
+                        $int =1;
+                            foreach ($person as $key => $value) { 
+                            $content .='<tr>
+                              <td>'.$int++.'</td>
+                              <td>'.$value->individual_number.'</td>
+                              <td>'.$value->individual_prename.$value->individual_fullname.'</td>
+                              <td>'.$value->notice_number.'</td>
+                              <td align="right">'.number_format($value->receive_amount,2).'</td>
+                              <td>'.$value->tax_name.'</td>
+                              <td>'.$value->receipt_no.'/'.$value->receipt_number.'</td>
+                              <td>'.$this->mydate->date_eng2thai($value->receive_date,543,'S').'</td>
+                            </tr>';
+                        } 
+                    $content .='</tbody>
+                        <tfoot>
+                        </tfoot>
+                  </table>';
+
+                  
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        // echo '<pre>'; 
+        // print_r($dataExport);
+
+        if($this->excel){
+          $this->exportexcel->exportFhtml($dataExport);
+        }else{
+          $this->exportpdf->exportFhtml($dataExport);
+        }
     }
 }

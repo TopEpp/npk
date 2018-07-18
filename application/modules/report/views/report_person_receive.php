@@ -27,7 +27,7 @@
               
                <div class="x_content">
                  <br>
-                    <table class="table table-bordered jambo_table">
+                    <table class="table table-bordered table-striped">
                         <thead>
                           <tr>
                               <th >ลำดับ</th>

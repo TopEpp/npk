@@ -30,7 +30,7 @@
                    <h2>รายงานเปรียบเทียบ ยุทธศาสตร์ปี <?php echo $this->session->userdata('year') + 543 - 1 ?> - <?php echo $this->session->userdata('year') + 543 ?></h2>
                  </div>
                  <br>
-                 <table class="table table-bordered jambo_table">
+                 <table class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th rowspan="2">แผนงาน</th>
