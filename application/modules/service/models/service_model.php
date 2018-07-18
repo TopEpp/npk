@@ -138,7 +138,7 @@ class service_model extends CI_Model
         $query = $this->db->get();
         foreach ($query->result_array() as $key => $value) {
         	$data_insert = $value;
-        	$data_insert['tax_id'] = $year+1;
+        	$data_insert['year_id'] = $year+1;
 
         	$this->db->insert('tbl_tax_estimate',$data_insert);
         }

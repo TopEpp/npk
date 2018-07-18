@@ -3,13 +3,29 @@ class admin_model extends CI_Model
 {
 
 	function getYear(){
-		$this->db->select('tbl_year.*, SUM(tbl_tax_estimate.tax_estimate) AS tax_estimate, SUM(tbl_project.prj_budget_sum) as prj_budget');
+		$data =array();
+		$this->db->select('tbl_year.*,  SUM(tbl_project.prj_budget_sum) as prj_budget');
 		$this->db->from('tbl_year');
-		$this->db->join('tbl_tax_estimate','tbl_tax_estimate.year_id = tbl_year.year_id','left');
 		$this->db->join('tbl_project','tbl_project.prj_year = tbl_year.year_id','left');
 		$this->db->group_by('tbl_year.year_id');
 		$query = $this->db->get();
-		return $query->result();
+		foreach ($query->result() as $key => $value) {
+			@$data[$value->year_id]->year_id = $value->year_id;
+			@$data[$value->year_id]->year_label = $value->year_label;
+			@$data[$value->year_id]->prj_budget = $value->prj_budget;
+		}
+
+		$this->db->select('tbl_year.*, SUM(tbl_tax_estimate.tax_estimate) AS tax_estimate');
+		$this->db->from('tbl_year');
+		$this->db->join('tbl_tax_estimate','tbl_tax_estimate.year_id = tbl_year.year_id','left');
+		$this->db->group_by('tbl_year.year_id');
+		$query = $this->db->get();
+		foreach ($query->result() as $key => $value) {
+			@$data[$value->year_id]->tax_estimate = $value->tax_estimate;
+		}
+
+
+		return $data;
 	}
 
 	function getMaxYear(){
@@ -144,6 +160,26 @@ class admin_model extends CI_Model
 		}else{
 			return true;
 		}
+	}
+
+	function del_year($year){
+		$this->db->where('year_id',$year);
+		$this->db->delete('tbl_year');
+
+		$this->db->where('prj_year',$year);
+		$this->db->delete('tbl_project');
+
+		$this->db->where('project_year',$year);
+		$this->db->delete('tbl_project_manage');
+
+		$this->db->where('year_id',$year);
+		$this->db->delete('tax_notice');
+
+		$this->db->where('year_id',$year);
+		$this->db->delete('tbl_tax_estimate');
+
+		$this->db->where('year_id',$year);
+		$this->db->delete('tax_receive');
 	}
 
 }
