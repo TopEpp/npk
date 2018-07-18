@@ -1,6 +1,8 @@
 
+
 application/config/database.php
-application/config/database.php
-application/config/database.php
-application/config/database.php
-application/config/database.php
+
+### macOS template
+*.DS_Store
+.AppleDouble
+.LSOverride
