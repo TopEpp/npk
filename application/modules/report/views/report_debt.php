@@ -76,7 +76,7 @@
                 </div>  
                     <div class="col-sm-6"></div>
                     <div class="col-md-6 col-sm-12 col-xs-12" style="text-align: right;">
-                      <a class="btn btn-default btn-xs" id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> Download</a>
+                      <a class="btn btn-success " id="chart_download" download="ChartJpg.jpg"><i class="fa fa-file-image-o"></i> ดาวน์โหลด</a>
                     <div >
                     <canvas id="chart_debt"></canvas>
                     </div>
