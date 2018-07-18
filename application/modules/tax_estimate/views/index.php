@@ -21,7 +21,7 @@
               <?php foreach ($tax[0] as $key => $value) { ?>
                 <tr>
                   <td><span style="font-weight: bolder;"><?php echo $value->tax_name; ?></span></td>
-                  <td></td>
+                  <td style="font-weight:bolder;text-align:right"><?php echo number_format(@$sum[$title->tax_id]->tax_estimate, 2); ?></td>
                 </tr>
                 <?php foreach ($tax[$value->tax_id] as $key => $value2) { ?>
                   <tr>
