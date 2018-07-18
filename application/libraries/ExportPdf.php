@@ -15,9 +15,9 @@ class ExportPdf
     public function exportFhtml($data, $format = 'A4')
     {
         // $format = 'A4-L';
-        $mgl = $mgr = $mgt = $mgb = $mgh = "15";
+        $mgl = $mgr = $mgt = $mgb = $mgh = "20";
         $mgf = "0";
-        $mpdf = new mPDF('utf-8', $format, "", "", $mgl, $mgr, $mgt, $mgb, $mgh, $mgf);
+        $mpdf = new mPDF('utf-8', $format, "", "", $mgl, $mgr, '10', $mgb, $mgh, $mgf);
         $mpdf->SetAutoFont(AUTOFONT_THAIVIET);
         $mpdf->mirrorMargins = 1;
         $mpdf->allow_output_buffering = true;

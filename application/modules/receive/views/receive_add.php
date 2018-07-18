@@ -16,6 +16,7 @@
           <div class="x_panel">
             <div class="x_content">
               <br />
+              
         <form id="notice-form" method="post" enctype="multipart/form-data" action="<?php echo base_url('receive/receive_notice_save'); ?>" data-parsley-validate class="form-horizontal form-label-left">
             <div id="form_tab" class="x_panel">
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -680,7 +681,7 @@
                                                     <div class="form-group">
                                                         
                                                         <span class="btn btn-success btn-file"> อัปโหลด <span id="file_text"></span>
-                                                            <input type="file" onchange="file_text.innerText = this.value" hidden name="file">
+                                                            <input type="file" onchange="file_text.innerText = this.value" name="file">
                                                         </span>
                                                         <span id="file_text">
                                                         </span>
@@ -693,7 +694,7 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-btn">
                                                                     <span class="btn btn-success btn-file">
-                                                                    อัปโหลด <input type="file" id="imgInp0" class="imgInp">
+                                                                    อัปโหลด <input type="file" id="imgInp0" name="picture"class="imgInp">
                                                                     </span>
                                                                 </span>
                                                                 <input type="text" class="form-control" readonly>

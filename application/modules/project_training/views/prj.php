@@ -783,6 +783,7 @@
                       <th>อัพเดทเมื่อ</th>
                       <th>จำนวนเงิน (บาท)</th>
                       <th>หมายเหตุ</th>
+                      <th>ผู้อัพเดท</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -799,6 +800,9 @@
                                   echo 'งบประมาณที่ได้รับ';
 
                               }?>
+                        </td>
+                        <td>
+                            <?php echo $user_log[$key]->user_firstname.' '.$user_log[$key]->user_lastname;?>
                         </td>
                       </tr>
                    <?php }?>
