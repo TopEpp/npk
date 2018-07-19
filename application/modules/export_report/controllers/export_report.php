@@ -1,4 +1,6 @@
 <?php
+define('WP_DEBUG_DISPLAY', false);
+@ini_set('display_errors',0);
 class export_report extends My_Controller
 {
 
@@ -162,7 +164,7 @@ class export_report extends My_Controller
                             <td style="font-weight:bolder;text-align:right;'.$color.'">'.number_format($diff, 2).'</td>  
                           </tr>';
 
-                          foreach ($getrec[$title->tax_id] as $key => $title2) {
+                          foreach (@$getrec[$title->tax_id] as $key => $title2) {
                             $diff = @$title2->receive_amount - @$title2->tax_estimate ;
                             $color = '';
                             if ($diff < 0) {
@@ -176,6 +178,7 @@ class export_report extends My_Controller
                              <td style="text-align:right; '.$color.'">'.number_format($diff, 2).'</td>   
                              </tr>';
                           }
+
                       }
                 $diff = $sum2 - $sum1;
                 if ($diff < 0) {
