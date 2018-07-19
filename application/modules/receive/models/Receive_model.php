@@ -85,7 +85,7 @@ class Receive_model extends CI_Model
 
     public function del_notice($id)
     {
-        $this->db->where('tax_id', $id);
+        $this->db->where('notice_number', $id);
         return $this->db->delete('tax_notice');
     }
 
@@ -344,6 +344,7 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
+
         $query = $this->db->get('tbl_individual');
         $data = array();
         if ($query->num_rows() > 0) {
@@ -405,7 +406,7 @@ class Receive_model extends CI_Model
 
             foreach ($query->result_array() as $key => $row) {
                 $row['sum_notice_estimate'] = number_format($row['sum_notice_estimate'], 2);
-                $row['tax_year'] = (date("Y") + 542);
+                $row['year_id'] = (date("Y") + 542);
                 $data[] = $row;
             }
         }
@@ -673,15 +674,17 @@ class Receive_model extends CI_Model
 
     }
 
-    public function getAlert($data){
-        $this->db->where('notice_id',$data);
+    public function getAlert($data)
+    {
+        $this->db->where('notice_id', $data);
         return $this->db->get('tax_alert')->result();
     }
-    
-    public function saveAlert($data){
-        $this->db->insert('tax_alert',$data);
+
+    public function saveAlert($data)
+    {
+        $this->db->insert('tax_alert', $data);
         return $this->db->insert_id();
-    } 
+    }
 
 
 }

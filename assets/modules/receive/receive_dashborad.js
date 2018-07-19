@@ -42,7 +42,7 @@ $(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    return row.notice_number + "/" + row.tax_year;
+                    return row.notice_number + "/" + row.year_id;
                     // return row.tax_year;
                 },
                 "className": "text-center",
@@ -85,12 +85,12 @@ $(function () {
                     }
                     var btn =
 
-                        '<div class="btn-group ">' + 
-                        '<button type="button" onclick="getalert('+data+')"   class="btn btn-success btn-sm" title="แจ้งเตือน" style="width: 47px;">แจ้งเตือน</button>' +
+                        '<div class="btn-group ">' +
+                        '<button type="button" onclick="getalert(' + data + ')"   class="btn btn-success btn-sm" title="แจ้งเตือน" style="width: 47px;">แจ้งเตือน</button>' +
                         form +
                         '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
                         '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
-                        '<button type="button" class="btn btn-danger btn-sm " id="' + row['tax_id'] + '" data-id="' + row['tax_id'] + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
+                        '<button type="button" class="btn btn-danger btn-sm " id="' + row['notice_number'] + '" data-id="' + row['notice_number'] + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
                     '</div>';
                     return btn;
                 },
@@ -138,7 +138,7 @@ $(function () {
 });
 
 
-function getalert(value){
+function getalert(value) {
 
     $.ajax({
         method: "POST",
@@ -153,21 +153,20 @@ function getalert(value){
     $("#alertmodal").modal();
 }
 
-$('#alert-btn').click(function(){
+$('#alert-btn').click(function () {
     var value = $("input[name='alert_date']").val();
-    var notice =  $('#alert_notice').val();
+    var notice = $('#alert_notice').val();
     $.ajax({
         method: "POST",
         url: domain + 'receive/saveAlert',
         data: {
             data: value,
-            notice : notice,
+            notice: notice,
         }
     }).success(function (msg) {
-       if (msg){
+        if (msg) {
             getalert(msg.id);
-       }
+        }
 
     });
 })
-
