@@ -54,7 +54,7 @@ class export_report extends My_Controller
         // print_r($dataExport);
 
         if($this->excel){
-          $this->exportexcel->exportFhtml($dataExport);
+          $this->exportexcel->exportFhtml($dataExport,'รายงานเปรียบเทียบ ยุทธศาสตร์ปี.xls');
         }else{
           $this->exportpdf->exportFhtml($dataExport);
         }
@@ -117,7 +117,7 @@ class export_report extends My_Controller
         $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
 
         if($this->excel){
-          $this->exportexcel->exportFhtml($dataExport);
+          $this->exportexcel->exportFhtml($dataExport,'รายงานบัญชีรายรับ.xls');
         }else{
           $this->exportpdf->exportFhtml($dataExport);
         }
@@ -199,7 +199,7 @@ class export_report extends My_Controller
         // print_r($dataExport);
 
         if($this->excel){
-          $this->exportexcel->exportFhtml($dataExport);
+          $this->exportexcel->exportFhtml($dataExport,'รายงานบัญชีรายรับ.xls');
         }else{
           $this->exportpdf->exportFhtml($dataExport);
         }
@@ -255,7 +255,7 @@ class export_report extends My_Controller
         // print_r($dataExport);
 
         if($this->excel){
-          $this->exportexcel->exportFhtml($dataExport);
+          $this->exportexcel->exportFhtml($dataExport,'รายงานบัญชีรายจ่าย.xls');
         }else{
           $this->exportpdf->exportFhtml($dataExport);
         }
@@ -347,7 +347,7 @@ class export_report extends My_Controller
         // print_r($dataExport);
 
         if($this->excel){
-          $this->exportexcel->exportFhtml($dataExport);
+          $this->exportexcel->exportFhtml($dataExport,'รายงานลูกหนี้ค้างชำระ.xls');
         }else{
           $this->exportpdf->exportFhtml($dataExport);
         }
@@ -398,7 +398,7 @@ class export_report extends My_Controller
         // print_r($dataExport);
 
         if($this->excel){
-          $this->exportexcel->exportFhtml($dataExport);
+          $this->exportexcel->exportFhtml($dataExport,'รายงาน.xls');
         }else{
           $this->exportpdf->exportFhtml($dataExport);
         }
