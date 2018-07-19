@@ -7,7 +7,7 @@ class Receive extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Receive_model');
-        
+
 
         $chk = false;
         foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
@@ -90,6 +90,7 @@ class Receive extends MY_Controller
         $data['banner'] = $query->result();
 
         $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
+
         $this->setView('receive_add', $data);
         $this->publish();
     }
@@ -138,129 +139,108 @@ class Receive extends MY_Controller
     {
         $data = array();
         $input = $this->input->post();
-        // echo '<pre>';
-        // print_r($input);
 
-        for($form_key=0; $form_key<3 ; $form_key++){
-            // echo 'form_key -=- '.$form_key.'<br>';
-            if ($form_key==0) {
-                // echo 'k -=- '.$k.'<br>';
-                // $form_key = 0;
-                foreach ($input['notice_estimate'][0] as $key => $v) {
-                    // echo 'form_key -=- '.$form_key.'<br>';
-                    $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
-                    $data[$form_key][$key]['tax_id'] = 8;
+        foreach ($input['notice_number'] as $k => $value) {
 
-                    $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
-                    $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
-                    $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
-                    $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
-                    $data[$form_key][$key]['notice_date_p2'] = $this->mydate->date_thai2eng($input['notice_date_p2'][$form_key][0], -543);
-                    $data[$form_key][$key]['notice_amount'] = str_replace(',', '', $input['notice_amount'][$form_key][0]);
+            echo '<pre>';
+            print_r($value);
+
+
+            for ($form_key = 0; $form_key < 3; $form_key++) {
+                if (!empty($input['notice_number'][0][0])) {
+                    if ($form_key == 0) {
+                        foreach ($input['notice_estimate'][0] as $key => $v) {
+                            $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
+                            $data[$form_key][$key]['tax_id'] = 8;
+
+                            $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+                            $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
+                            $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
+                            $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
+                            $data[$form_key][$key]['notice_date_p2'] = $this->mydate->date_thai2eng($input['notice_date_p2'][$form_key][0], -543);
+                            $data[$form_key][$key]['notice_amount'] = str_replace(',', '', $input['notice_amount'][$form_key][0]);
 
                     // --- $form_key $key ----//
-                    $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
-                    $data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
-                    $data[$form_key][$key]['notice_address_number'] = $input['notice_address_number'][$form_key][$key];
-                    $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
-                    $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
-                    $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
-                    $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
-                    $data[$form_key][$key]['noice_type_operation'] = $input['noice_type_operation'][$form_key][$key];
-                    $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
-                    $data[$form_key][$key]['notice_annual_fee'] = str_replace(',', '', $input['notice_annual_fee'][$form_key][$key]);
+                            $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
+                            $data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
+                            $data[$form_key][$key]['notice_address_number'] = $input['notice_address_number'][$form_key][$key];
+                            $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
+                            $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+                            $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
+                            $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
+                            $data[$form_key][$key]['noice_type_operation'] = $input['noice_type_operation'][$form_key][$key];
+                            $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
+                            $data[$form_key][$key]['notice_annual_fee'] = str_replace(',', '', $input['notice_annual_fee'][$form_key][$key]);
+
+                        }
+                    }
 
                 }
-
-            } else if ($form_key==1) {
+                if (!empty($input['notice_number'][1][0])) {
+                    if ($form_key == 1) {
                 // echo 'k -=- '.$k.'<br>';
                 // $form_key = 1;
-                foreach ($input['notice_estimate'][1] as $key => $v) {
+                        foreach ($input['notice_estimate'][1] as $key => $v) {
                     // echo 'notice_estimate -=- '.$v.'<br>';
-                    $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
-                    $data[$form_key][$key]['tax_id'] = 9;
-                    $data[$form_key][$key]['tax_interest'] = $input['tax_interest'][$form_key][0];
+                            $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
+                            $data[$form_key][$key]['tax_id'] = 9;
+                            $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
 
 
-                    $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
-                    $data[$form_key][$key]['notice_date_p5'] = $this->mydate->date_thai2eng($input['notice_date_p5'][$form_key][0], -543);
-                    $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
-                    $data[$form_key][$key]['land_amount'] = str_replace(',', '', $input['land_amount'][$form_key][0]);
+                            $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+                            $data[$form_key][$key]['notice_date_p5'] = $this->mydate->date_thai2eng($input['notice_date_p5'][$form_key][0], -543);
+                            $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
+                            $data[$form_key][$key]['land_amount'] = str_replace(',', '', $input['land_amount'][$form_key][0]);
 
                     // --- $form_key $key ----//
-                    $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
-                    $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
+                            $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
+                            $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
 
 
-                    $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
-                    $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
-                    $data[$form_key][$key]['land_rai'] = str_replace(',', '', $input['land_rai'][$form_key][$key]);
-                    $data[$form_key][$key]['land_ngan'] = str_replace(',', '', $input['land_ngan'][$form_key][$key]);
-                    $data[$form_key][$key]['land_wa'] = str_replace(',', '', $input['land_wa'][$form_key][$key]);
-                    $data[$form_key][$key]['land_tax'] = str_replace(',', '', $input['land_tax'][$form_key][$key]);
-                    $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
-                    $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
-                    $data[$form_key][$key]['tax_local_year'] = $input['tax_local_year'][$form_key][$key];
+                            $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
+                            $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+                            $data[$form_key][$key]['land_rai'] = str_replace(',', '', $input['land_rai'][$form_key][$key]);
+                            $data[$form_key][$key]['land_ngan'] = str_replace(',', '', $input['land_ngan'][$form_key][$key]);
+                            $data[$form_key][$key]['land_wa'] = str_replace(',', '', $input['land_wa'][$form_key][$key]);
+                            $data[$form_key][$key]['land_tax'] = str_replace(',', '', $input['land_tax'][$form_key][$key]);
+                            $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
+                            $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
+                            $data[$form_key][$key]['tax_local_year'] = $input['tax_local_year'][$form_key][$key];
+                        }
+                    }
                 }
-            } else if ($form_key==2) {
+                if (!empty($input['notice_number'][2][0])) {
+                    if ($form_key == 2) {
                 // echo 'k -=- '.$k.'<br>';
                 // $form_key = 2;
-                foreach ($input['notice_estimate'][2] as $key => $v) {
+                        foreach ($input['notice_estimate'][2] as $key => $v) {
                     // echo 'notice_estimate -=- '.$v.'<br>';
-                    $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
-                    $data[$form_key][$key]['tax_id'] = 10;
+                            $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
+                            $data[$form_key][$key]['tax_id'] = 10;
+                            $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
 
-                    $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
-                    $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
-                    $data[$form_key][$key]['banner_amount'] = str_replace(',', '', $input['banner_amount'][$form_key][0]);
-                    $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][0];
+
+                            $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+                            $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
+                            $data[$form_key][$key]['banner_amount'] = str_replace(',', '', $input['banner_amount'][$form_key][0]);
+                            $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][0];
     
     
                         // --- $form_key $key ----//
 
                     // $data[$form_key][$key]['ban'] = $input['ban'][$form_key][$key];
-                    $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
-                    $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
-                    $data[$form_key][$key]['banner_type'] = $input['banner_type'][$form_key][$key];
-                    $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
-                    $data[$form_key][$key]['banner_width'] = str_replace(',', '', $input['banner_width'][$form_key][$key]);
-                    $data[$form_key][$key]['banner_heigth'] = str_replace(',', '', $input['banner_heigth'][$form_key][$key]);
-                    $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
+                            $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
+                            $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
+                            $data[$form_key][$key]['banner_type'] = $input['banner_type'][$form_key][$key];
+                            $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+                            $data[$form_key][$key]['banner_width'] = str_replace(',', '', $input['banner_width'][$form_key][$key]);
+                            $data[$form_key][$key]['banner_heigth'] = str_replace(',', '', $input['banner_heigth'][$form_key][$key]);
+                            $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
 
-                    // $upload_path = APPPATH . '../assets/images/banner/';
-                    // if (!file_exists($upload_path)) mkdir($upload_path);
-                    // if (!$_FILES) redirect(base_url('receive/receive_dashborad'));
-                    // $this->load->library('upload', [
-                    //     'upload_path' => $upload_path,
-                    //     'allowed_types' => 'jpg|png'
-                    // ]);
-                    // if ($this->upload->do_upload('file')) {
-                    //     $year = $this->session->userdata('year');
-                    //     $this->Receive_model->insertNotice($year, $data);
-                    //     redirect(base_url('receive/receive_dashborad'));
-
-                    // }
-                    // $config['upload_path'] = './uploads/';  // โฟลเดอร์ ตำแหน่งเดียวกับ root ของโปรเจ็ค
-                    // $config['allowed_types'] = 'gif|jpg|png'; // ปรเเภทไฟล์ 
-                    // $config['max_size'] = '1024';  // ขนาดไฟล์ (kb)  0 คือไม่จำกัด ขึ้นกับกำหนดใน php.ini ปกติไม่เกิน 2MB
-                    // $config['max_width'] = '1024';  // ความกว้างรูปไม่เกิน
-                    // $config['max_height'] = '1024'; // ความสูงรูปไม่เกิน
-
-                    // $this->load->library("upload");
-                    // $this->upload->initialize($config);
-
-                    // if ($this->upload->do_upload("picture")) {
-                    //     $data = $this->upload->data();
-                    //     print_r($data);
-                    // } else {
-                    //     echo $this->upload->display_errors();
-                    // }
-
-
-
+                        }
+                    }
 
                 }
-
             }
         }
         $year = $this->session->userdata('year');
@@ -269,7 +249,7 @@ class Receive extends MY_Controller
 
         // echo '<pre>';
         // print_r($data);
-        // exit;
+        exit;
     }
 
     public function receive_notice_update($id = '')
@@ -1400,21 +1380,23 @@ class Receive extends MY_Controller
 
 
     //get data tax alert
-    public function getalert(){
+    public function getalert()
+    {
         $data = $this->input->post('data');
         $result['data'] = $this->Receive_model->getAlert($data);
-        $this->load->view('tax_alert',$result);
-       
+        $this->load->view('tax_alert', $result);
+
     }
 
-    public function savealert(){
+    public function savealert()
+    {
         $data['alert_date'] = $this->mydate->date_thai2eng($this->input->post('data'));
         $data['notice_id'] = $this->input->post('notice');
         $data['agent_id'] = $_SESSION['user_id'];
         $result['id'] = $this->Receive_model->saveAlert($data);
         $result['id'] = $data['notice_id'];
         $this->output->set_content_type('application/json')->set_output(json_encode($result));
-       
+
     }
 
 

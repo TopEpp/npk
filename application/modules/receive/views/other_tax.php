@@ -75,7 +75,7 @@
                 </div>
 
                       <div class="x_content">
-                        <table id="tax_table" class="display" style="width:100%">
+                        <table id="tax_table" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
                                       <th style="width: 30px;">ลำดับ</th>

@@ -70,17 +70,17 @@
                 </div>
 
                  <div class="x_content">
-                    <table id="tax_table" class="table" width="100%">
+                    <table id="tax_table" class="table table-striped" style="width:100%">
                         <thead>
                           <tr>
-                            <th width="3%">ลำดับ</th>
-                            <th width="5%">เลขที่รับ/ปี</th>
-                            <th width="10%">จำนวนเงินที่ประเมิน (บาท)</th>
-                            <th width="15%">เลขประจำตัวผู้เสียภาษี</th>
-                            <th width="20%">ชื่อผู้เสียภาษี</th>
-                            <th width="10%">หมวดรายได้</th>
+                            <th>ลำดับ</th>
+                            <th>เลขที่รับ/ปี</th>
+                            <th >จำนวนเงินที่ประเมิน (บาท)</th>
+                            <th >เลขประจำตัวผู้เสียภาษี</th>
+                            <th >ชื่อผู้เสียภาษี</th>
+                            <th>หมวดรายได้</th>
                             <!-- <th width="10%">จำนวนเงินที่ชำระ (บาท)</th> -->
-                            <th width="35%">เครื่องมือ</th>
+                            <th >เครื่องมือ</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -143,7 +143,7 @@
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="hidden" id="alert_notice" name="alert_notice" value="" >
-                <input type="text" name="alert_date" value="<?php  date('d/m/Y'); ?>" class="form-control datepicker">
+                <input type="text" name="alert_date" value="<?php date('d/m/Y'); ?>" class="form-control datepicker">
             </div>
              <button type="button" class="btn btn-primary btn-sm" id="alert-btn">บันทึก</button>
           </div>

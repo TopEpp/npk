@@ -42,10 +42,15 @@ $(function () {
       {
         data: 'individual_number',
         "className": "text-center",
+
       },
 
       {
-        data: 'individual_fullname'
+        data: 'individual_fullname',
+        render: function (data, type, row) {
+          return row.individual_fullname;
+        },
+
       },
       {
         data: 'individual_type',
@@ -57,11 +62,16 @@ $(function () {
       {
         data: 'individual_id',
         render: function (data, type, row) {
+          var form = '';
+          if (row['individual_id'] == row['individual_id']) {
+            form = '<a href=\'' + domain + 'receive/receive_add/' + '' + data + '\'" id="" class="btn btn-info btn-sm" title="เพิ่มการประเมินรายรับ">ประเมิน</a>';
+          } else {
+            form = '<a href=\'' + domain + 'receive/receive_notice' + '/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="" class="btn btn-success btn-sm" title="แก้ไขการประเมินรายรับ" style="width: 47px;">ประเมิน</a>';
+          }
+
           var btn =
             '<div class="btn-group ">' +
-            '<?php if () : ?>' +
-            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_add/' + '' + data + '\'"id="" class="btn btn-info btn-sm" title="เพิ่มการประเมินรายรับ" >ประเมิน</button>' +
-            '<?php endif; ?>' +
+            form +
             '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_taxadd_popup/' + '' + data + '\'" id="edit-individual" class="btn btn-success btn-sm" style="width: 47px;" title="แก้ไข" >แก้ไข</button>' +
             '<button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>' +
             '</div>';
