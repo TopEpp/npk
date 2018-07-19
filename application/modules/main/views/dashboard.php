@@ -72,7 +72,7 @@
                   gauge.maxValue = <?php echo intval($sum_project_training);?>; // set max gauge value
                   gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
                   gauge.animationSpeed = 52; // set animation speed (32 is default value)
-                  gauge.set(<?php echo intval($sum_pay);?>); // set actual value
+                  gauge.set(<?php echo (intval($sum_pay))?intval($sum_pay):0.1;?>); // set actual value
                 </script>
               </div>
             </div>
@@ -144,7 +144,7 @@
                 gauge.maxValue = <?php echo intval($sum_estimate);?>; // set max gauge value
                 gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
                 gauge.animationSpeed = 52; // set animation speed (32 is default value)
-                gauge.set(<?php echo intval($sum_receive);?>); // set actual value
+                gauge.set(<?php echo (intval($sum_receive))?intval($sum_receive):0.1;?>); // set actual value
                 </script>
               </div>
             </div>
