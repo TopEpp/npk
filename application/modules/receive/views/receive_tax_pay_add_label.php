@@ -74,7 +74,7 @@
                             <span class="required" style="color:red"> *</span>
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" placeholder="ระบุเลขที่ใบเสร็จ" id="receipt_number" name="receipt_number" class="form-control col-md-7 col-xs-12">
+                                  <input type="text" placeholder="ระบุเลขที่ใบเสร็จ" id="receipt_no" name="receipt_no" class="form-control col-md-7 col-xs-12">
                               </div>
                   </div>
                   <div class="form-group">
@@ -82,7 +82,7 @@
                             <span class="required" style="color:red"> *</span>
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" placeholder="ระบุเล่มที่ใบเสร็จ" id="receipt_no" name="receipt_no"  class="form-control col-md-7 col-xs-12">
+                                  <input type="text" placeholder="ระบุเล่มที่ใบเสร็จ" id="receipt_number" name="receipt_number"  class="form-control col-md-7 col-xs-12">
                               </div>
                   </div>
                   <div class="form-group" style="margin-bottom: 0px;">
@@ -101,7 +101,7 @@
                           <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินที่ต้องชำระ
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" placeholder="0.00" id="tax_amount" disabled class="form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
+                                  <input type="text" placeholder="0.00" id="tax_amount" disabled class="numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
                               </div>
                   </div>
 
@@ -110,7 +110,7 @@
                             <span class="required" style="color:red"> *</span>
                          </label>
                              <div class="col-md-4 col-sm-6 col-xs-12">
-                                 <input type="text" placeholder="0.00" id="receive_amount" name="receive_amount" class="form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
+                                 <input type="text" placeholder="0.00" id="receive_amount" name="receive_amount" class="numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
                              </div>
                  </div>
 
@@ -118,7 +118,7 @@
                           <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เงินเพิ่ม
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" id="interest" name="interest" value="0.00" class="form-control col-md-7 col-xs-12">
+                                  <input type="text" id="interest" name="interest" value="0.00" class="numeric form-control col-md-7 col-xs-12">
                               </div>
                   </div>
 
@@ -126,7 +126,7 @@
                           <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">รวม
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" id="sum_amount" name="sum_amount" value="0.00" readonly class="form-control col-md-7 col-xs-12">
+                                  <input type="text" id="sum_amount" name="sum_amount" value="0.00" readonly class="numeric form-control col-md-7 col-xs-12">
                               </div>
                   </div>
                  
@@ -136,7 +136,7 @@
                         <div class="form-group">
                             <div class="text-center">
                             <br>
-                                <button type="submit" id="btnSubmit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
+                                <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                                 </button>
                                                                 
                                 <button onclick="window.location.replace('<?php echo site_url('receive/search_tax_label'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
@@ -148,7 +148,7 @@
             </form>
 
                   <br>
-                  <!-- <div class="x_content">
+                  <div class="x_content">
                       <table class="table table-bordered">
                           <thead>
                               <tr>
@@ -167,18 +167,18 @@
                                   <tr>
                                       <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
                                       <td style="text-align: center;"><?php echo $value['receive_date'] ?></td>
-                                      <td><?php echo $value['receipt_number'] ?></td>
                                       <td><?php echo $value['receipt_no'] ?></td>
+                                      <td><?php echo $value['receipt_number'] ?></td>
                                       <td><?php echo $value['tax_name'] ?></td>
-                                      <td style="text-align: right;"><?php echo $value['receive_amount'] ?></td>
-                                      <td style="text-align: right;"><?php echo $value['interest'] ?></td>
-                                      <td style="text-align: right;"><?php echo $value['sum_amount'] ?></td>
+                                      <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
+                                      <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
+                                      <td style="text-align: right;"><?php echo number_format($value['sum_amount'], 2); ?></td>
                                   </tr>
                                 <?php endforeach; ?>
 
                               </tbody>
                       </table>
-                  </div> -->
+                  </div>
 
                             </div>
                           </div>
@@ -291,4 +291,30 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+</script>
+<script>
+// check potection expenditure in
+	$('#btn-submit').click(function(){
+
+		if ($("input[name='receipt_no']").val() == '') {
+			alertify.error('กรุณาระบุ เลขที่ใบเสร็จ');
+			$("input[name='receipt_no']").focus();
+			return false;
+		}
+		if ($("input[name='receipt_number']").val() == '') {
+			alertify.error('กรุณาระบุ เล่มที่ใบเสร็จ');
+			$("input[name='receipt_number']").focus();
+			return false;
+        }
+        if ($("input[name='receive_date']").val() == '') {
+			alertify.error('กรุณาระบุ วันที่รับ');
+			$("input[name='receive_date']").focus();
+			return false;
+        }
+        if ($("input[name='receive_amount']").val() == '') {
+			alertify.error('กรุณาระบุ จำนวนภาษี');
+			$("input[name='receive_amount']").focus();
+			return false;
+		}
+    });
 </script>

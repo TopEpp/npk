@@ -406,7 +406,7 @@ class Receive_model extends CI_Model
 
             foreach ($query->result_array() as $key => $row) {
                 $row['sum_notice_estimate'] = number_format($row['sum_notice_estimate'], 2);
-                $row['year_id'] = (date("Y") + 542);
+                $row['year_id'] = (date("Y") + 543);
                 $data[] = $row;
             }
         }
