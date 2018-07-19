@@ -142,8 +142,8 @@ class Receive extends MY_Controller
 
         foreach ($input['notice_number'] as $k => $value) {
 
-            echo '<pre>';
-            print_r($value);
+            // echo '<pre>';
+            // print_r($value);
 
 
             for ($form_key = 0; $form_key < 3; $form_key++) {
@@ -237,6 +237,12 @@ class Receive extends MY_Controller
                             $data[$form_key][$key]['banner_heigth'] = str_replace(',', '', $input['banner_heigth'][$form_key][$key]);
                             $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
 
+                            // $config['upload_path'] = './assets/';
+                            // $config['allowed_types'] = '*';
+                            // $this->load->library('upload', $config);
+                            // $this->upload->do_upload('file_name');
+                            // $up_file_name = $this->upload->data();
+                            // $data = array('banner_image' => $up_file_name['file_name']);
                         }
                     }
 

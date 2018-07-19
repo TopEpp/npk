@@ -696,7 +696,7 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-btn">
                                                                     <span class="btn btn-success btn-file">
-                                                                    อัปโหลด <input type="file" id="imgInp">
+                                                                    อัปโหลด <input type="file" id="imgInp" name="file_name">
                                                                     </span>
                                                                 </span>
                                                                 <input type="text" class="form-control" readonly>
@@ -860,7 +860,7 @@
 
 
 
-<!-- <script>
+<script>
     
     $(document).ready( function() {
     	$(document).on('change', '.btn-file :file', function() {
@@ -897,7 +897,7 @@
 		    readURL(this);
 		});
 	});
-</script> -->
+</script>
 
 <script>
         $(function(){
