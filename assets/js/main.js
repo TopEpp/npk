@@ -5,6 +5,27 @@
  * Time: 11:00 AM
  * To change this template use File | Settings | File Templates.
  */
+
+//check menu active
+ $(function(){
+    if (menu == 'project_training' || menu == 'expenditure'  || menu == 'receive_outside'){
+        $("[id="+menu+"]").addClass("current-page");
+        $("[id="+menu+"]").parent().css('display', 'block');
+        $("[id="+menu+"]").parent().closest('li').addClass('active');
+
+        if( menu == 'receive_outside' && menu_child == 'outside' || menu_child == 'outside_in_form' ){
+            $("[data-child=receive_menu]").addClass("current-page");
+            $("[data-child=receive_menu]").parent().css('display', 'block');
+            $("[data-child=receive_menu]").parent().closest('li').addClass('active');
+        }else if(menu == 'receive_outside'){
+            $("[id=expenditure]").addClass("current-page");
+            $("[id=expenditure]").parent().css('display', 'block');
+            $("[id=expenditure]").parent().closest('li').addClass('active');
+        }
+    }
+   
+
+ });
 Number.prototype.formatMoney = function(c, d, t){
     var n = this,
         c = isNaN(c = Math.abs(c)) ? 2 : c,

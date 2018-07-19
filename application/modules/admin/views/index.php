@@ -16,6 +16,7 @@
                   <th>ปีงบประมาณ</th>
                   <th>งบประมาณโครงการ</th>
                   <th>ประมาณการรายรับ</th>
+                  <th>เครื่องมือ</th>
                 </tr>
               </thead>
               <tbody>
@@ -25,6 +26,11 @@
                   <td><?php echo $value->year_label; ?></td>
                   <td align="right"><?php echo number_format($value->prj_budget, 2); ?></td>
                   <td align="right"><?php echo number_format($value->tax_estimate, 2); ?></td>
+                  <td align="center">
+                    <?php if($value->year_id>date('Y')){?>
+                    <button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="<?php echo $value->year_id;?>" data-toggle="modal" data-target="#del_year" title="ลบ" onclick='del_year(this.id);' >ลบ</button>
+                    <?php }?>
+                  </td>
                 </tr>
               <?php 
             } ?>
@@ -65,6 +71,37 @@ th{
     </div>
   </div>
 </div>
+
+<div class="modal fade del_year" id="del_year" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel2">ลบปีงบประมาณ</h4>
+      </div>
+      <div class="modal-body clearfix">
+        ยืนยันลบงปีงบประมาณ : <span id="span_year"></span>
+      </div>
+      <div class="modal-footer">
+        <form method="post" action="<?php echo base_url('admin/del_year'); ?>"  >
+        <input type="hidden" name="year_id" id="year_id" value="">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+        <button type="submit" id="btn-submit-plans" class="btn btn-primary">ยืนยัน</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function  del_year(year) {
+    $('#year_id').val(year);
+    $('#span_year').html( parseInt(year)+543 ); 
+  }
+</script>
       
 
 

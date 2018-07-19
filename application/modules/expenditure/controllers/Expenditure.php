@@ -44,11 +44,36 @@ class Expenditure extends MY_Controller
         // $this->load->view('template/template', $data);
         $data = array();
         $year = $this->session->userdata('year');
-        $data['expenditure'] = $this->expenditure_model->getExpenditure($year);
+        // $data['expenditure'] = $this->expenditure_model->getExpenditure($year);
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/expenditure/search.js');
         $this->setView('expenditure_prj', $data);
         $this->publish();
+    }
+
+    public function getAjaxExpenditure()
+    {
+        $order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+        //check filter data
+        $filter = array();
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[] = $value['search']['value'];
+        }
+        $param['filter'] = $filter;
+        $results = $this->expenditure_model->getAjaxExpenditure($param);
+
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
     function search_prj()
@@ -88,6 +113,7 @@ class Expenditure extends MY_Controller
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - บันทึกการเบิกจ่าย');
         $data['prj'] = $this->expenditure_model->getPrjById($project_id);
         $data['expenses_all'] = $this->expenditure_model->getPrjExpenses($project_id);
+        // print_r($data['expenses_all']);die();
         if ($expenses != '') {
             $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id, $expenses);
 
@@ -142,6 +168,14 @@ class Expenditure extends MY_Controller
     {
         $this->expenditure_model->expenditure_del($id);
         redirect(base_url('expenditure/expenditure_prj'));
+    }
+
+    public function getExpenditureNumber(){
+        $id = $this->input->post('id');
+        $result = $this->expenditure_model->getExpenditureNumber($id);
+
+        $result->expenses_date_disburse = $this->mydate->date_db2str($result->expenses_date_disburse);
+        $this->json_publish($result);
     }
 
     public function saveExpenditureNumber()
