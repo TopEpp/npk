@@ -75,7 +75,7 @@
                 </div>
 
                       <div class="x_content">
-                        <table id="myTable" class="display" style="width:100%">
+                        <table id="tax_table" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
                                       <th style="width: 30px;">ลำดับ</th>
@@ -156,19 +156,7 @@
 th{
 text-align: center;
 }
-.dataTables_filter, .dataTables_info { display: none; }
 </style>
-
-<script>
-    // check delete on click
-    $('#btn-delpay').on('click', function (e) {
-
-    e.preventDefault();
-    var id = $(this).attr('del');
-    window.location.replace(domain + 'receive/' + 'del_other' + '/' + id);
-});
-
-</script>
 
 
         

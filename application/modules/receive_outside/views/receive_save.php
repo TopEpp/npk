@@ -17,13 +17,53 @@
               <div class="x_panel">
                 <div class="x_title">
                       <div class="col-xs-12 text-right">
-                      <button style="width: 101px;" onclick="window.location.replace('receive_outside/search_outside_prj');" type="button" class="btn btn-success" title="ชำระภาษี"><i class="fa fa-paypal"></i> เบิกจ่าย
-                        </button>
+                        <div class="btn-group">
+                          <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
+                          </button>
+                          <button style="width: 101px;" onclick="window.location.replace('receive_outside/search_outside_prj');" type="button" class="btn btn-success" title="ชำระภาษี"><i class="fa fa-paypal"></i> เบิกจ่าย
+                          </button>
+                        </div>
                       </div>
                   <div class="clearfix"></div>
                 </div>
+                <div class="collapse" id="search" class="x_content">
+                  <br />
+                  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">วันที่ชำระ
+                      </label>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                          <input type="text" name="outside_date" id="outside_date" placeholder="" class="form-control col-md-4 col-xs-12 datepicker" >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">รายการ</label>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <input type="text" id="outside_name" placeholder="" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">รายละเอียด</label>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <input type="text" id="outside_detail" placeholder="" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+  
+                    <div class="ln_solid"></div>
+                  </form>
+                  
+                  <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
+                          <br>
+                          <button type="submit" id="search_pay" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
+                          <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
+                        </div>
+                  </div>
+                </div>
+              <br/><br/>
                <div class="x_content">
-                  <table id="myTable" class="display" style="width:100%">
+                  <table  class="table table-striped" id="table_outside_pay" style="width:100%">
                     <thead>
                       <tr>
                         <th>วันที่ชำระ</th>
@@ -35,7 +75,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($out_pay as $key => $value) { ?>
+                    <!-- <?php foreach ($out_pay as $key => $value) { ?>
                          <tr>
                           <td align="center"><?php echo $this->mydate->date_eng2thai($value->outside_pay_create, 543, 'S') ?></td>
                           <td align="center"><?php echo $value->out_name; ?></td>
@@ -57,7 +97,7 @@
                           </td>
                         </tr>
                       <?php 
-                    } ?>
+                    } ?> -->
                     <tbody>
                   </table>
                 </div>
@@ -71,7 +111,7 @@
 
 
         <!-- Modal Popup -->
-          <div class="modal fade" id="delpay_modal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
+          <div class="modal fade" id="delpay_modal" tabindex="-1" role="dialog" aria-labelledby="delpay_modal" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
@@ -100,8 +140,11 @@
 
 
 <style>
-th{
-text-align: center;
-}
+  th{
+  text-align: center;
+  }
+
+  .dataTables_filter, .dataTables_info { display: none; }
+
 </style>
 

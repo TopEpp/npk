@@ -22,16 +22,18 @@ class Report_model extends CI_Model
     public  function getTaxDebt($year){
         $data = array();
         $this->db->select('tbl_tax.*,
-                           SUM(notice_estimate) AS notice_estimate');
+                           SUM(notice_estimate) AS notice_estimate,
+                           SUM(tax_interest) AS tax_interest');
         $this->db->from('tbl_tax');
-        $this->db->JOIN('tax_notice','tbl_tax.tax_id= tax_notice.tax_id');
-        $this->db->where('tax_notice.tax_year', $year);
+        $this->db->JOIN('tax_notice','tbl_tax.tax_id= tax_notice.tax_id','left');
+        $this->db->where('tax_notice.year_id', $year);
         $this->db->GROUP_BY('tbl_tax.tax_id');
 
         $query = $this->db->get();
         foreach ($query->result() as $key => $value) {
             @$data[$value->tax_id]->tax_name = $value->tax_name;
             @$data[$value->tax_id]->notice_estimate = $value->notice_estimate;
+            @$data[$value->tax_id]->interest = $value->tax_interest;
         }
 
         $this->db->select('tbl_tax.*,
@@ -41,13 +43,16 @@ class Report_model extends CI_Model
         $this->db->JOIN('tax_notice','tbl_tax.tax_id= tax_notice.tax_id');
         $this->db->JOIN('tax_receive','tax_notice.notice_id= tax_receive.notice_id');
         $this->db->where('tbl_tax.tax_parent_id',1);
-        $this->db->where('tax_notice.tax_year', $year);
+        $this->db->where('tax_notice.year_id', $year);
         $this->db->GROUP_BY('tbl_tax.tax_id');
 
         $query = $this->db->get();
         foreach ($query->result() as $key => $value) {
             @$data[$value->tax_id]->receive_amount = $value->receive_amount;
-            @$data[$value->tax_id]->interest = $value->interest;
+            if($value->interest){
+                @$data[$value->tax_id]->interest = $value->interest;
+            }
+            
         }
 
         return $data;
@@ -57,14 +62,12 @@ class Report_model extends CI_Model
         $data = array();
         $this->db->select('tbl_tax.*, tbl_individual.*,
                             SUM(notice_estimate) AS notice_estimate,
-                            SUM(receive_amount) AS receive_amount,
-                            SUM(interest) as interest');
+                            SUM(tax_interest) AS tax_interest');
         $this->db->from('tbl_tax');
         $this->db->JOIN('tax_notice','tbl_tax.tax_id= tax_notice.tax_id');
-        $this->db->JOIN('tax_receive','tax_notice.notice_id= tax_receive.notice_id','left');
         $this->db->join('tbl_individual','tbl_individual.individual_id = tax_notice.individual_id','left');
         $this->db->where('tbl_tax.tax_parent_id',1);
-        $this->db->where('tax_notice.tax_year', $year);
+        $this->db->where('tax_notice.year_id', $year);
         $this->db->GROUP_BY('tbl_individual.individual_id,tbl_tax.tax_id');
         // $this->db->having('notice_estimate > receive_amount');
         $query = $this->db->get();
@@ -74,8 +77,26 @@ class Report_model extends CI_Model
             @$data[$value->individual_id]['idcard'] = $value->individual_number;
 
             @$data[$value->individual_id][$value->tax_id]['notice_estimate'] = $value->notice_estimate; 
+            @$data[$value->individual_id][$value->tax_id]['interest'] = $value->tax_interest;
+        }
+
+        $this->db->select('tbl_tax.*, tax_receive.individual_id,
+                            SUM(receive_amount) AS receive_amount,
+                            SUM(interest) as interest');
+        $this->db->from('tbl_tax');
+        $this->db->JOIN('tax_receive','tbl_tax.tax_id= tax_receive.tax_id','left');
+        $this->db->where('tbl_tax.tax_parent_id',1);
+        $this->db->where('tax_receive.year_id', $year);
+        $this->db->GROUP_BY('tax_receive.individual_id,tbl_tax.tax_id');
+        // $this->db->having('notice_estimate > receive_amount');
+        $query = $this->db->get();
+        foreach ($query->result() as $key => $value) {
+
             @$data[$value->individual_id][$value->tax_id]['receive_amount'] = $value->receive_amount;
-            @$data[$value->individual_id][$value->tax_id]['interest'] = $value->interest;
+            if($value->interest){
+                @$data[$value->individual_id][$value->tax_id]['interest'] = $value->interest;
+            }
+            
         }
 
         return $data;
@@ -218,10 +239,11 @@ class Report_model extends CI_Model
         return $ul;
     }
 
-    public function getTreeChildProject($parent = '0', &$ul = '', $tab = '')
+    public function getTreeChildProject($parent = '0', &$ul = '', $tab = 0)
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('project_parent', $parent);
         $query = $this->db->get('tbl_project_manage');
@@ -232,11 +254,11 @@ class Report_model extends CI_Model
 
             $ul .= '<tr>';
             if (@$row->project_level == 3) {
-                $ul .= "<td>{$tab}" . $this->data_budget[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_budget[$row->project_title] . "</td>";
             } else if (@$row->project_level == 4) {
-                $ul .= "<td>{$tab}" . $this->data_cost[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_cost[$row->project_title] . "</td>";
             } else {
-                $ul .= "<td>{$tab}" . $row->project_title . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $row->project_title . "</td>";
             }
 
             $ul .= "<td align='right'>". number_format($budget['prj_budget'],2)."</td>";
@@ -258,7 +280,8 @@ class Report_model extends CI_Model
     public function getTreeChildTblProject($parent, &$ul = '', $tab = '')
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('prj_parent', $parent);
         $query = $this->db->get('tbl_project');
@@ -268,7 +291,7 @@ class Report_model extends CI_Model
             $budget = $this->getSumBudgetPrj($prj_id_array);
 
             $ul .= '<tr>';
-            $ul .= "<td>{$tab}" . $row->prj_name . "</td>";
+            $ul .= "<td style='padding-left:".$padding."px'>" . $row->prj_name . "</td>";
             $ul .= "<td align='right'>". number_format($budget['prj_budget'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['amount_minus'],2)."</td>";
             $ul .= "<td align='right'>". @number_format($budget['amount_plus'],2)."</td>";
@@ -426,10 +449,11 @@ class Report_model extends CI_Model
         return $ul;
     }
 
-    public function getTreeChildProjectYear($parent = '0', &$ul = '', $tab = '')
+    public function getTreeChildProjectYear($parent = '0', &$ul = '', $tab = '0')
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('project_parent', $parent);
         $query = $this->db->get('tbl_project_manage');
@@ -442,11 +466,11 @@ class Report_model extends CI_Model
 
             $ul .= '<tr>';
             if (@$row->project_level == 3) {
-                $ul .= "<td>{$tab}" . $this->data_budget[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_budget[$row->project_title] . "</td>";
             } else if (@$row->project_level == 4) {
-                $ul .= "<td>{$tab}" . $this->data_cost[$row->project_title] . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $this->data_cost[$row->project_title] . "</td>";
             } else {
-                $ul .= "<td>{$tab}" . $row->project_title . "</td>";
+                $ul .= "<td style='padding-left:".$padding."px'>" . $row->project_title . "</td>";
             }
 
             $ul .= "<td align='right'>". number_format(@$ref->prj_budget_sum,2)."</td>";
@@ -472,7 +496,8 @@ class Report_model extends CI_Model
     public function getTreeChildPrjYear($parent = '0', &$ul = '', $tab = '')
     {
         //tab data
-        $tab = '&emsp; ' . $tab;
+        ++$tab;
+        $padding = $tab*20;
 
         $this->db->where('prj_parent', $parent);
         $this->db->where('prj_active','1');
@@ -485,7 +510,7 @@ class Report_model extends CI_Model
             $ref = $query_ref->row();
 
             $ul .= '<tr>';
-            $ul .= "<td>{$tab}" . $row->prj_name . "</td>";
+            $ul .= "<td style='padding-left:".$padding."px'>" . $row->prj_name . "</td>";
             $ul .= "<td align='right'>". number_format(@$ref->prj_budget_sum,2)."</td>";
             $ul .= "<td align='right'>". number_format($row->prj_budget_sum,2)."</td>";
             $ul .= "<td align='right'>". number_format($row->prj_budget_sum-@$ref->prj_budget_sum,2)."</td>";
@@ -502,6 +527,22 @@ class Report_model extends CI_Model
         }
 
         return $ul;
+    }
+
+    function getPersonReceive(){
+        $data = array();
+        $year =  $this->session->userdata('year');
+
+        $this->db->select('tax_receive.*,tax_notice.*,tbl_individual.*,tbl_tax.tax_name');
+        $this->db->from('tax_receive');
+        $this->db->join('tbl_tax','tbl_tax.tax_id = tax_receive.tax_id');
+        $this->db->join('tax_notice','tax_notice.notice_id = tax_receive.notice_id');
+        $this->db->join('tbl_individual','tbl_individual.individual_id = tax_receive.individual_id');
+        $this->db->where('tax_receive.year_id',$year);
+        $query = $this->db->get();
+
+        return $query->result();
+
     }
 
 }

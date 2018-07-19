@@ -8,9 +8,9 @@
                       <div class="btn-group">
                           <!-- <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
                           </button> -->
-                          <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
+                          <button onclick="window.open('<?php echo base_url('export_report/report_yeartoyear?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                           </button>
-                          <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
+                          <button onclick="window.open('<?php echo base_url('export_report/report_yeartoyear');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
                           </button>
                       </div>
                   </div>
@@ -30,7 +30,7 @@
                    <h2>รายงานเปรียบเทียบ ยุทธศาสตร์ปี <?php echo $this->session->userdata('year') + 543 - 1 ?> - <?php echo $this->session->userdata('year') + 543 ?></h2>
                  </div>
                  <br>
-                 <table class="table table-bordered jambo_table">
+                 <table class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th rowspan="2">แผนงาน</th>

@@ -47,6 +47,13 @@ class admin extends MY_Controller
         redirect(base_url('admin'));
     }
 
+    function del_year(){
+        $year = $this->input->post('year_id');
+        $this->admin_model->del_year($year);
+
+        redirect(base_url('admin'));
+    }
+
     function import_file()
     {
         $data = array();

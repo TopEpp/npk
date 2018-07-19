@@ -26,7 +26,7 @@ $(function(){
             datasets: [{
                 label: 'รวมค้างชำระ',
                 data: data1,
-                backgroundColor: "#26B99A",
+                backgroundColor: ["#26B99A","#11CC66","#009911"],
             }]
         },
         options: {

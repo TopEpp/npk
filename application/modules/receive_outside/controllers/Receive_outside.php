@@ -236,4 +236,29 @@ class Receive_outside extends MY_Controller
         redirect('receive_outside');
     }
 
+    public function getOutsideAjax(){
+        $order_index = $this->input->get('order[0][column]');
+        $param['page_size'] = $this->input->get('length');
+        $param['start'] = $this->input->get('start');
+        $param['draw'] = $this->input->get('draw');
+        $param['keyword'] = trim($this->input->get('search[value]'));
+        $param['column'] = $this->input->get("columns[{$order_index}][data]");
+        $param['dir'] = $this->input->get('order[0][dir]');
+        //check filter data
+        $filter = array();
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[] = $value['search']['value'];
+        }
+        $param['filter'] = $filter;
+        $results = $this->Receive_outside_model->getOutsideAjax($param);
+
+        $data['draw'] = $param['draw'];
+        $data['recordsTotal'] = $results['count'];
+        $data['recordsFiltered'] = $results['count_condition'];
+        $data['data'] = $results['data'];
+        $data['error'] = $results['error_message'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+
+    }
+
 }

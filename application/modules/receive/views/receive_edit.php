@@ -18,7 +18,7 @@
                                             <div id="form_tab" class="x_panel">
                                                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                                            <li role="presentation" class="<?php echo ($tax_id == '8') ? 'active' : ''; ?>"><a href="#tab_content1" id="tab1" role="tab" data-toggle="tab" aria-expanded="true">ภาษีโรงเรือนและที่ดิน</a>
+                                                            <li role="presentation" class="<?php echo ($tax_id == '8') ? 'active' : ''; ?>"><a href="#tab_content1" role="tab" id="tab1" data-toggle="tab" aria-expanded="true">ภาษีโรงเรือนและที่ดิน</a>
                                                             </li>
                                                             <li role="presentation" class="<?php echo ($tax_id == '9') ? 'active' : ''; ?>"><a href="#tab_content2" role="tab" id="tab2" data-toggle="tab" aria-expanded="false">ภาษีบำรุงท้องที่</a>
                                                             </li>
@@ -72,10 +72,10 @@
                                                                                     </label>
                                                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                             <div class="input-group">
-                                                                                                <input type="text"  class="form-control col-md-4 col-xs-12" name="notice_amount[0][]"value="<?php echo @$tax_notice_id[0]->notice_amount; ?>" >
+                                                                                                <input type="text"  id="num_one" class="form-control col-md-4 col-xs-12" name="notice_amount[0][]"value="<?php echo @$tax_notice_id[0]->notice_amount; ?>" >
                                                                                                 <input type="hidden"  class="form-control col-md-4 col-xs-12" name="individual_id[0][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
                                                                                                 <span class="input-group-btn">
-                                                                                                    <button class="btn btn-success" type="button" style="margin-right: 0px;">
+                                                                                                    <button class="btn btn-success" type="button" id="addNum_one" style="margin-right: 0px;">
                                                                                                         <i class="fa fa-plus-square"></i>
                                                                                                     </button>
                                                                                                 </span>
@@ -276,12 +276,22 @@
                                                                                                             
                                                                                                         </div>
                                                                                                     </div>
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                                                <div class="form-group">
+                                                                                                                    <div id="targetDiv1"></div>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                    </div>
                                                                                                     <hr>
+
+                                                                                                   
                                                                                                     
                                                                                 <?php 
                                                                             }// if for
 
                                                                             ?>
+                                                                            
                                                                             <div class="row">
                                                                                 <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                         <div class="form-group">
@@ -515,6 +525,24 @@
                                                                                     </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="row">
+                                                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <h2 class="StepTitle">รวมค่าภาษีโรงเรือนและที่ดิน </h2>
+                                                                                        </div>
+                                                                                </div>
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label  > จำนวนเงินภาษี
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="sum_amount_house" id="sum_amount_house"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        
+                                                                            
+                                                                            </div>
 
                                                                 <br/>
                                                         
@@ -724,6 +752,13 @@
                                                                                             </div>
                                                                                             <br>
                                                                                         </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <div id="targetDiv2"></div>
+                                                                                            </div>
                                                                                     </div>
                                                                                 </div>
                                                                             <hr>
@@ -955,6 +990,32 @@
                                                                                 </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="row">
+                                                                            <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                    <div class="form-group">
+                                                                                        <h2 class="StepTitle">รวมค่าภาษีบำรุงท้องที่ </h2>
+                                                                                    </div>
+                                                                            </div>
+                                                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <label  > เงินเพิ่ม
+                                                                                            </label>
+                                                                                            <div >
+                                                                                                <input type="text" name="tax_interest[1][]" id="interest" placeholder="0.00" value="0.00"  class="numeric form-control col-md-7 col-xs-12" >
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <label  > จำนวนเงินภาษี
+                                                                                            </label>
+                                                                                            <div >
+                                                                                                <input type="text" name="sum_amount_local" id="sum_amount_local"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                
+                                                                        </div>
 
 
 
@@ -1118,8 +1179,31 @@
                                                                                             </div>
 
                                                                                             
+                                                                                        </div>
+                                                                                        <div class="row">   
+                                                                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                                <div class="form-group">
+                                                                                                    <label>อัปโหลดรูปภาพ</label>
+                                                                                                        <div class="input-group">
+                                                                                                            <span class="input-group-btn">
+                                                                                                                <span class="btn btn-success btn-file">
+                                                                                                                อัปโหลด <input type="file" id="imgInp0" name="picture"class="imgInp">
+                                                                                                                </span>
+                                                                                                            </span>
+                                                                                                            <input type="text" class="form-control" readonly>
+                                                                                                        </div>
+                                                                                                    <img id="img-uploadimgInp0"/>
+                                                                                                </div>
                                                                                             </div>
-                                                                                
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <div id="targetDiv3"></div>
+                                                                                                    </div>
+                                                                                            </div>
+                                                                                        </div> 
+                                                                                    <hr>
                                                                                 
                                                                                 
                                                                             <?php 
@@ -1328,6 +1412,32 @@
                                                                                     </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="row">
+                                                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <h2 class="StepTitle">รวมค่าภาษีป้าย </h2>
+                                                                                        </div>
+                                                                                </div>
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label  > เงินเพิ่ม
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="tax_interest[2][]" id="interest" placeholder="0.00" value="0.00"  class="form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label  > จำนวนเงินภาษี
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="sum_amount_label" id="sum_amount_label"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    
+                                                                            </div>
                                                                         
 
                                                                 <br/>
@@ -1351,7 +1461,7 @@
                                                 <div class="ln_solid"></div>
                                                             <div class="form-group">
                                                                 <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3 text-center">
-                                                                    <button type="submit" value="Submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
+                                                                    <button type="submit" value="Submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                                                                     </button>
                                                                     <button onclick="window.location.replace('<?php echo site_url('receive/receive_dashborad'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                                                                     </button>

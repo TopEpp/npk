@@ -48,7 +48,7 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo $this->template->stylesheet; ?>
     
 <body class="nav-md">
-  
+
   <div class="container body">
     <div class="main_container">
 
@@ -67,6 +67,8 @@ if (!isset($_SESSION['user_id'])) {
 
   <script type="text/javascript">
         var domain = '<?php echo base_url(); ?>';
+        var menu = '<?php echo $this->uri->segment(1);?>';
+        var menu_child = '<?php echo $this->uri->segment(2);?>';
     </script>
 
   <!-- jQuery -->
@@ -140,7 +142,9 @@ if (!isset($_SESSION['user_id'])) {
 					left: e.pageX,
 					top: e.pageY
 				});
-			}
+      }
+      
+
 		}
 		var idIndex = 100;
 

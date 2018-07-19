@@ -62,7 +62,7 @@
                                                 </tr>
                                                 <tbody>
                                                   <tr>
-                                                    <td>มูลค่าสินค้า/บริการ</td>
+                                                    <td><span>มูลค่าสินค้า/บริการ</span></td>
                                                     <td><input type="text" name="expenses_amount" value="<?php echo (!empty($expenses[0]->expenses_amount)) ? $expenses[0]->expenses_amount : ''; ?>" placeholder="" id="expenses_amount" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                   <tr>
@@ -78,8 +78,8 @@
                                                     <td><input type="text" name="expenses_amount_vat" value="<?php echo (!empty($expenses[0]->expenses_amount_vat)) ? $expenses[0]->expenses_amount_vat : ''; ?>" placeholder="" id="expenses_amount_vat" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                   <tr>
-                                                    <td>จำนวนเงินที่ขอเบิกทั้งสิ้น</td>
-                                                    <td><input type="text" name="expenses_amount_disburse" value="<?php echo (!empty($expenses[0]->expenses_amount_vat)) ? $expenses[0]->expenses_amount_vat : ''; ?>" placeholder="" id="expenses_amount_disburse" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
+                                                    <td> <span>จำนวนเงินที่ขอเบิกทั้งสิ้น</span></td>
+                                                    <td><input type="text" name="expenses_amount_disburse" value="<?php echo (!empty($expenses[0]->expenses_amount_disburse)) ? $expenses[0]->expenses_amount_disburse : ''; ?>" placeholder="" id="expenses_amount_disburse" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                   <tr>
                                                     <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -94,11 +94,11 @@
                                                     <td><input type="text" name="expenses_amount_tax" value="<?php echo (!empty($expenses[0]->expenses_amount_tax)) ? $expenses[0]->expenses_amount_tax : ''; ?>" placeholder="" id="expenses_amount_tax" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                   <tr>
-                                                    <td>ค่าปรับ</td>
+                                                    <td><span>ค่าปรับ</span></td>
                                                     <td><input type="text" name="expenses_amount_fine" value="<?php echo (!empty($expenses[0]->expenses_amount_fine)) ? $expenses[0]->expenses_amount_fine : ''; ?>" placeholder="" id="expenses_amount_fine" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                   <tr >
-                                                    <td>จำนวนเงินที่จ่ายสุทธิ</td>
+                                                    <td><span>จำนวนเงินที่จ่ายสุทธิ</span></td>
                                                     <td><input type="text" name="expenses_amount_result" value="<?php echo (!empty($expenses[0]->expenses_amount_result)) ? $expenses[0]->expenses_amount_result : ''; ?>" placeholder="" id="expenses_amount_result" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                   </tr>
                                                 </tbody>
@@ -155,9 +155,9 @@
           <?php foreach ($expenses_all as $key => $value) { ?>
             <tr>
               <td ><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S'); ?></td>
-              <td><?php echo $value->expenses_user ?></td>
+              <td><?php echo $value->user_firstname.' '.$value->user_lastname ?></td>
               <td><?php echo $value->expenses_detail ?></td>
-              <td class="text-right"><?php echo number_format($value->expenses_amount); ?></td>
+              <td class="text-right"><?php echo number_format($value->expenses_amount_result,2); ?></td>
               <!-- <td><?php  ?></td> -->
             </tr>
           <?php 

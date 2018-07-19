@@ -130,5 +130,14 @@ class Report extends MY_Controller
         $this->publish();
     }
 
+    function report_person_receive(){
+        $data = array();
+        $data['person'] = $this->Report_model->getPersonReceive();
+
+        $this->config->set_item('title', 'รายงาน');
+        $this->setView('report_person_receive', $data);
+        $this->publish();  
+    }
+
 
 }
