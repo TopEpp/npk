@@ -371,6 +371,13 @@ class export_report extends My_Controller
             $data['tax_type'] = $post['tax_type'];
         }
 
+        $content="<table cellspacing='0' cellpadding='0' width='100%'>
+                    <tr><td COLSPAN='7'  ALIGN='center'> รายงานรับชำระภาษี </td></tr>
+                    <tr><td COLSPAN='7'  ALIGN='center'> ข้อมูล ณ วันที่ ".$this->mydate->date_eng2thai(date('Y-m-d'),543,'S')."</td></tr>
+                  </table>";
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
 
         $person = $this->Report_model->getPersonReceive(@$data['tax_type']);
 
