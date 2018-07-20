@@ -178,10 +178,58 @@ $(function () {
 		// var expenses_amount_tax = $('#expenses_amount_tax').val();
 
 		if (expenses_amount_fine) {
-			$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax - expenses_amount_fine);
+			$('#expenses_amount_result').val(expenses_amount_disburse - expenses_amount_tax - expenses_amount_fine);
 		} else {
 			$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax);
 		}
+	});
+
+	///vat and tax keyup
+	$('#expenses_amount_vat').keyup(function () {
+		var expenses_amount = $('#expenses_amount').val();
+		
+		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+
+		var expenses_amount_vat = parseFloat(this.value);
+
+		// var expenses_amount_vat = 0;
+		var expenses_amount_tax = 0;
+		// if ($('input#amount_vat').is(':checked')) {
+		// 	vat = $('#amount_vat_val').val();
+		// expenses_amount_vat = expenses_amount * vat / 100;
+		// }
+		if ($('input#amount_tax').is(':checked')) {
+			tax = $('#amount_tax_val').val();
+			expenses_amount_tax = expenses_amount * tax / 100;
+		}
+
+		// $('#expenses_amount_vat').val(expenses_amount_vat);
+		$('#expenses_amount_disburse').val(expenses_amount + expenses_amount_vat);
+		$('#expenses_amount_tax').val(expenses_amount_tax);
+		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax);
+	});
+	$('#expenses_amount_tax').keyup(function () {
+		var expenses_amount = $('#expenses_amount').val();
+		
+		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+
+		var expenses_amount_tax = parseFloat(this.value);
+
+		// var expenses_amount_vat = 0;
+		// var expenses_amount_tax = 0;
+		if ($('input#amount_vat').is(':checked')) {
+			vat = $('#amount_vat_val').val();
+			expenses_amount_vat = expenses_amount * vat / 100;
+		}
+		// if ($('input#amount_tax').is(':checked')) {
+		// 	tax = $('#amount_tax_val').val();
+		// 	expenses_amount_tax = expenses_amount * tax / 100;
+		// }
+
+		$('#expenses_amount_vat').val(expenses_amount_vat);
+		$('#expenses_amount_disburse').val(expenses_amount + expenses_amount_vat);
+		// $('#expenses_amount_tax').val(expenses_amount_tax);
+		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax);
 	});
 
 

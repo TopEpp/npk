@@ -9,6 +9,7 @@ class Project_training extends MY_Controller
         parent::__construct();
         // $ci = &get_instance();
         $this->load->model('project_model');
+        $this->load->model('report/Report_model');
         $chk = false;
         foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
             if ($chk_permission['app_id'] == 6) :
@@ -313,7 +314,10 @@ class Project_training extends MY_Controller
                     // echo '<pre>';
                     $budget = floatval(preg_replace('/[^\d.]/', '', $value));
                     $last_budget = $this->project_model->getLastBudgetLog($key);
-                    $budget = ($budget + $last_budget->prj_amount);
+                    // print_r($last_budget);
+                    // echo $budget;
+                    // $budget = ($budget + abs($last_budget->prj_amount));
+                    // echo $budget; die();
                     if (($budget) != '0') {
 
 
@@ -468,7 +472,7 @@ class Project_training extends MY_Controller
         $prj = $this->project_model->getPrj();
         foreach ($prj as $key => $value) {
             $data['rows'][$data['total'] + $key]['id'] = $value->prj_id;
-            $data['rows'][$data['total'] + $key]['budget'] = number_format($value->prj_budget_sum, 2);
+            $data['rows'][$data['total'] + $key]['budget'] = number_format($value->budget_log, 2);
             $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->prj_name . '</p>';
             $data['rows'][$data['total'] + $key]['tools'] = "
             <div class='btn-group'><button onClick='pay_prj(" . $value->prj_id . ")' id='project_edit' class='btn btn-default btn-sm' type='button'>จ่าย</button>
@@ -498,7 +502,6 @@ class Project_training extends MY_Controller
 
 
         $this->config->set_item('title', 'ระบบบริหารโครงการ - เทศบาลตำบลหนองป่าครั่ง');
-
         //get tree prj
         $data['prj_tree'] = $this->getLastArrayPrj($parent);
         $data['prj_tree'] = array_reverse($data['prj_tree']);
@@ -513,30 +516,36 @@ class Project_training extends MY_Controller
         if (!empty($data['prj'][0]->prj_id)) {
             $data['budget_log'] = $this->project_model->getBudgetLogNotNagative($data['prj'][0]->prj_id);
 
-            // echo '<pre>';
-            // print_r($data['budget_log']);die();
             foreach ($data['budget_log'] as $key => $value) {
 
-                $tree = $this->getLastArrayPrj($value->prj_parent);
+                $prj_id_array = $this->Report_model->getPrjParent($value->prj_id);
+        
+                // echo ($prj_id_array[$cout-1]).'<br>';
+                $tree = $this->getLastArrayPrj($prj_id_array[0]);     
+                end($tree);        
+                $keys = key($tree);
+                $name_tree = $this->getLastNamePrj($keys);  
                 // print_r($tree);
                 // $keys = end($tree);
          
                 // $cout = count($keys) - 1;
-                $data['budget_log'][$key]->prj_name = $data['budget_log'][$key]->prj_name . '<span style="color:#169F85">(' . end($tree) . ')</span>';
+                $data['budget_log'][$key]->prj_name = $data['budget_log'][$key]->prj_name . '<span style="color:#169F85">(' . end($name_tree) . ')</span>';
                 $data['budget_log'][$key]->budget = $data['budget_log'][$key]->prj_budget_sum - $data['budget_log'][$key]->budget;
+                if ( $data['budget_log'][$key]->budget < 0){
+                    $data['budget_log'][$key]->budget = 0;
+                }
                 // $aa = key(($tree));
                 //  @$tree[$keys[$cout - 1]];
 
             }
         }
-        // echo '<pre>';
-        // print_r($data['budget_log']);
-        // die();
+
         $data['budget_log_all'] = $this->project_model->getBudgetLog($data['prj'][0]->prj_id);
         $data['user_log'] = $this->project_model->getPrjLog($data['prj'][0]->prj_id);
-        // echo '<pre>';
-        // print_r($data['budget_log_all']);die();
+
         $data['expenses'] = $this->expenditure_model->getPrjExpensesByPrj($id);
+        //         echo '<pre>';
+        // print_r($data['expenses']);die();
         // $data['prj_log'] = $this->project_model->getPrjLog($id);
 
         // print_r($data['budget_log']);die();
@@ -573,13 +582,20 @@ class Project_training extends MY_Controller
         $result = array();
         foreach ($data as $key => $value) {
             if ($this->input->post('id') != $value->prj_id) {
-                $tree = $this->getLastArrayPrj($value->prj_parent);
-                $value->prj_name = $value->prj_name . ' <span style="color:#169F85;">(' . end($tree) . ')</span>';
+                //get last tree prj
+                $prj_id_array = $this->Report_model->getPrjParent($value->prj_id);
+                $tree = $this->getLastArrayPrj($prj_id_array[0]);     
+                end($tree);        
+                $keys = key($tree);
+                $name_tree = $this->getLastNamePrj($keys); 
+                if (!empty(end($name_tree) && !is_numeric(end($name_tree)) )){
+                    $value->prj_name = $value->prj_name . ' <span style="color:#169F85;">(' . end($name_tree) . ')</span>';
 
-                $value->budget = number_format($value->prj_budget_sum - $value->budget, 2);
-                $value->prj_budget = number_format($value->prj_budget_sum, 2);
+                    $value->budget = number_format($value->prj_budget_sum - $value->budget, 2);
+                    $value->prj_budget = number_format($value->prj_budget_sum, 2);
 
-                $result[$key] = $value;
+                    $result[$key] = $value;
+                }
             }
         }
 
@@ -590,18 +606,23 @@ class Project_training extends MY_Controller
     {
         $val = $this->input->post('data');
         $data = $this->project_model->getPrjSelect($val);
-
-        $result = array();
+        // print_r($data);die();
+        // $result = array();
         foreach ($data as $key => $value) {
-            $tree = $this->getLastArrayPrj($value->prj_parent);
-            $value->tree = end($tree);
-            $value->expenses_amount_result = number_format($value->prj_budget - $value->expenses_amount_result, 2);
-            $value->expenses_number = $value->prj_budget - $value->expenses_amount_result;
+             //get last tree prj
+             $prj_id_array = $this->Report_model->getPrjParent($value->prj_id);
+             $tree = $this->getLastArrayPrj($prj_id_array[0]);     
+             end($tree);        
+             $keys = key($tree);
+             $name_tree = $this->getLastNamePrj($keys); 
+
+            $value->tree = end($name_tree);
+            $value->expenses_number = ($value->prj_budget_sum - $value->expenses_amount_result);
+            $value->expenses_amount_result = number_format($value->prj_budget_sum - $value->expenses_amount_result, 2); 
             $value->prj_budget = number_format($value->prj_budget, 2);
 
             $result[$key] = $value;
         }
-
         $this->json_publish($result);
 
     }
@@ -641,11 +662,11 @@ class Project_training extends MY_Controller
             $num = 0;
             foreach ($tree as $key => $value) {
                 if ($num == 1) {
-                    $tree[$key] = $data_cost[$tree[$key]];
+                    $tree[$key] = @$data_cost[$tree[$key]];
                 }
 
                 if ($num == 2) {
-                    $tree[$key] = $data_budget[$tree[$key]];
+                    $tree[$key] = @$data_budget[$tree[$key]];
                 }
 
                 $num++;
@@ -653,5 +674,11 @@ class Project_training extends MY_Controller
         }
         return $tree;
     }
-
+    public function getLastNamePrj($parent = '')
+    {
+    
+        $tree = $this->project_model->getTitleTree($parent);
+    
+        return $tree;
+    }
 }

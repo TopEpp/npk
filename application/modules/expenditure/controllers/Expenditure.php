@@ -90,12 +90,25 @@ class Expenditure extends MY_Controller
 
         $keyword = $this->input->post('keyword');
         $data['prj'] = $this->expenditure_model->getPrjByKeyword($keyword);
-        foreach ($data['prj'] as $key => $value) {
 
-            $tree = $this->getLastArrayPrj($value->prj_parent);
-            // $keys = array_keys($tree);
-            // $cout = count($keys) - 1;
-            $data['prj'][$key]->prj_name = $data['prj'][$key]->prj_name . '<span style="color:#169F85">(' . end($tree) . ')</span>';
+        $this->load->model('report/Report_model');
+
+        foreach ($data['prj'] as $key => $value) {
+            $prj_id_array = $this->Report_model->getPrjParent($value->prj_id);
+       
+            // echo ($prj_id_array[$cout-1]).'<br>';
+            $tree = $this->getLastArrayPrj($prj_id_array[0]);        
+            // print_r($tree);  
+            end($tree);        
+            $keys = key($tree);
+            // print_r($tree);die(); 
+
+            $name_tree = $this->getLastNamePrj($keys);
+            if (!empty(end($name_tree) && !is_numeric(end($name_tree)) )){
+                $data['prj'][$key]->prj_name = $data['prj'][$key]->prj_name . '<span style="color:#169F85">(' . end($name_tree) . ')</span>';
+            }else{
+                unset($data['prj'][$key]);
+            }
         }
 
         $data['keyword'] = $keyword;
@@ -113,7 +126,7 @@ class Expenditure extends MY_Controller
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - บันทึกการเบิกจ่าย');
         $data['prj'] = $this->expenditure_model->getPrjById($project_id);
         $data['expenses_all'] = $this->expenditure_model->getPrjExpenses($project_id);
-        // print_r($data['expenses_all']);die();
+        // print_r($data['prj']);die();
         if ($expenses != '') {
             $data['expenses'] = $this->expenditure_model->getPrjExpenses($project_id, $expenses);
 
@@ -198,36 +211,45 @@ class Expenditure extends MY_Controller
             '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
             'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง',
         ];
+    
+        $tree = $this->project_model->getTitleTreeChild($parent);
+       
+        // $num = 0;
+        // foreach ($tree as $key => $value) {
+        //     if ($num == 0) {
+        //         $tree[$key] = $data_cost[$tree[$key]];
+        //     }
 
+        //     if ($num == 1) {
+        //         $tree[$key] = $data_budget[$tree[$key]];
+        //     }
+
+        //     $num++;
+        // }
+        // if (empty($tree)) {
+        //     print_r($tree);
+        //     // $tree = $this->project_model->getTitleTree($parent);
+          
+        //     // $num = 0;
+        //     // foreach ($tree as $key => $value) {
+        //     //     if ($num == 1) {
+        //     //         $tree[$key] = $data_cost[$tree[$key]];
+        //     //     }
+
+        //     //     if ($num == 2) {
+        //     //         $tree[$key] = $data_budget[$tree[$key]];
+        //     //     }
+
+        //     //     $num++;
+        //     // }
+        // }
+        return $tree;
+    }
+    public function getLastNamePrj($parent = '')
+    {
+    
         $tree = $this->project_model->getTitleTree($parent);
-        $num = 0;
-        foreach ($tree as $key => $value) {
-            if ($num == 0) {
-                $tree[$key] = $data_cost[$tree[$key]];
-            }
-
-            if ($num == 1) {
-                $tree[$key] = $data_budget[$tree[$key]];
-            }
-
-            $num++;
-        }
-        if (empty($tree)) {
-            $tree = $this->project_model->getTitleTreeChild($parent);
-            // print_r($tree);die();
-            $num = 0;
-            foreach ($tree as $key => $value) {
-                if ($num == 1) {
-                    $tree[$key] = $data_cost[$tree[$key]];
-                }
-
-                if ($num == 2) {
-                    $tree[$key] = $data_budget[$tree[$key]];
-                }
-
-                $num++;
-            }
-        }
+    
         return $tree;
     }
 

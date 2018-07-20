@@ -7,19 +7,23 @@ class expenditure_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tbl_project');
 		$this->db->like('prj_name',$keyword);
+		$this->db->where('prj_active','1');
 		$this->db->where('prj_year',$this->session->userdata('year'));
-		$this->db->group_by('prj_id');
+		$this->db->group_by('prj_name,prj_parent');
 		$query = $this->db->get();
 
 		return $query->result();
 	}
 
 	function getPrjById($project_id){
-		$this->db->select('*,sum(tbl_expenses.expenses_amount_result) as amount');
-		$this->db->from('tbl_project');
-		$this->db->where('prj_id',$project_id);
-		$this->db->join('tbl_expenses','tbl_expenses.project_id = tbl_project.prj_id ','left');
-		$this->db->group_by('prj_id');
+		$this->db->select('p.*,sum(tbl_prj_budget_log.prj_amount) as budget_log,
+		(select sum(e.expenses_amount_result)  from tbl_expenses  e where e.project_id = p.prj_id) as expenses
+		');
+		$this->db->from('tbl_project p');
+		$this->db->where('p.prj_id',$project_id);
+		// $this->db->join('tbl_expenses','tbl_expenses.project_id = tbl_project.prj_id ','left');
+		$this->db->join('tbl_prj_budget_log', 'p.prj_id = tbl_prj_budget_log.prj_id', 'left');
+		$this->db->group_by('p.prj_id');
 		$query = $this->db->get();
 
 		return $query->row();
@@ -106,7 +110,7 @@ class expenditure_model extends CI_Model
 	public function insertOtherTax($year, $input)
 	{
 
-		$tax_id = $this->db->query("SELECT tax_id FROM tbl_tax WHERE tax_parent_id = '3' AND year_id = '".$year."' AND  tax_name LIKE '%ค่าปรับและค่าธรรมเนียมอื่นๆ%'")->row();
+		$tax_id = $this->db->query("SELECT tax_id FROM tbl_tax WHERE tax_parent_id = '3' AND  tax_name LIKE '%ค่าปรับการผิดสัญญา%'")->row();
 		// echo $tax_id->tax_id;die();
 		$input['tax_id'] = $tax_id->tax_id;
 		$this->db->where('year_id', $year);

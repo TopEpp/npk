@@ -445,6 +445,10 @@ class export extends My_Controller
 
     public function alert_tax($id = ''){
       $data = $this->export_model->getTaxNoticeAlert($id);
+      $subdistrict = $this->export_model->getAddressNameById($data['individual_subdistrict']);
+      // print_r($data);die();
+      $district = $this->export_model->getAddressNameById($data['individual_district']);
+      $province = $this->export_model->getAddressNameById($data['individual_provice']);
       // print_r($data);die();
       $content = '
       <style>
@@ -464,20 +468,20 @@ class export extends My_Controller
         </tr>
         <tr>
           <td colspan=2 style="width:370px;"><br/>
-            เรื่อง ให้ไปชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. '.$this->mydate->conv_th_digit($data['tax_year']+543).' แจ้งเตือนครั้งที่ '.$data['alert_id'].'
+            เรื่อง ให้ไปชำระเงินค่า'.$data['tax_name'].' ประจำปี พ.ศ. '.$this->mydate->conv_th_digit($data['tax_year']+543).' แจ้งเตือนครั้งที่ '.$this->mydate->conv_th_digit($data['alert_id']).'
           </td>
         </tr>
         <tr>
-          <td>
+          <td colspan=2>
              เรียน '.$data['individual_prename'].' '.$data['individual_fullname'].'
           </td>
         </tr>
         <tr>
-          <td colspan=2>';
+          <td colspan=3>';
           if ($data['tax_name'] == 'ภาษีป้าย' ){
-            $content .= 'อ้างอิง หนังสือแจ้งการประเมิน '.$data['tax_name'].' (ภ.ร.ด.๘) เล่มที่...เลขที่... ลงวันที่ ....';
+            $content .= 'อ้างอิง หนังสือแจ้งการประเมิน '.$data['tax_name'].' (ภ.ป.๓) เล่มที่ '.$this->mydate->conv_th_digit($data['notice_number']).' ลงวันที่ '.$this->mydate->conv_th_digit($this->mydate->date_eng2thai($data['alert_date']));
           }else if ($data['tax_name'] == 'ภาษีโรงเรือนและที่ดิน' ){
-            $content .= 'อ้างอิง ใบจ้างรายการประเมิน '.$data['tax_name'].' (ภ.ร.ด.๘) เล่มที่ '.$data['notice_no'].' เลขที่ '.$data['notice_number_p2'].' ลงวันที่ ....';
+            $content .= 'อ้างอิง ใบจ้างรายการประเมิน '.$data['tax_name'].' (ภ.ร.ด.๘) เล่มที่ '.$this->mydate->conv_th_digit($data['notice_no']).' เลขที่ '.$this->mydate->conv_th_digit($data['notice_number_p2']).' ลงวันที่ '.$this->mydate->conv_th_digit($this->mydate->date_eng2thai($data['alert_date']));
           }
 
           $content .= '</td>
@@ -560,15 +564,15 @@ class export extends My_Controller
           </td>          
           <td style="width: 200px;">
             <b>เทศบาลหนองป่าครั่ง</b><br>
-            15 หมู่ที่ 3 ตำบลหนองป่าครั่ง<br>
-            อำเภอเมือง จังหวัดเชียงใหม่ 50000<br>
+            ๑๕ หมู่ที่ ๓ ตำบลหนองป่าครั่ง<br>
+            อำเภอเมือง จังหวัดเชียงใหม่ ๕๐๐๐๐<br>
           </td>
           <td style="width: 300px;">
 
           </td>
           <td style="width: 100px; text-align:center;  border:.5mm solid black;">
             ชำระค่าฝากส่งเป็นรายเดือน
-            ใบอนุญาตที่ 17/2541
+            ใบอนุญาตที่ ๑๗/๒๕๔๑
             ปณจ.เชียงใหม่
           </td>
           
@@ -577,10 +581,10 @@ class export extends My_Controller
           <td colspan=2>
           </td>
           <td style=" text-align:left;"><br><br><br><br>
-              <b>กรุณาส่ง ...........</b><br>
-                เลขที่ .... หมู่ ...<br>
+              <b>กรุณาส่ง '.$data['individual_prename'].' '.$data['individual_fullname'].'</b><br>
+                เลขที่ '.$this->mydate->conv_th_digit($data['individual_address']).' หมู่ '.$this->mydate->conv_th_digit($data['individual_village']).'<br>
                 ตำบลหนองป่าครั่ง อำเภอเมือง <br>
-                จังหวัดเชียงใหม่ 50000
+                จังหวัดเชียงใหม่ ๕๐๐๐๐
                 <br>
                 <br>
                 <br>
@@ -589,7 +593,7 @@ class export extends My_Controller
         </tr>
         <tr>
           <td colspan=3>
-            แจ้งเตือน'.$data['tax_name'].'ครั้งที่.. ลำดับที่แจ้ง ... 
+            แจ้งเตือน'.$data['tax_name'].'ครั้งที่ '.$this->mydate->conv_th_digit($data['alert_id']).' ลำดับที่แจ้ง ... 
           </td>
           <td colspan=1 style=" text-align:right;">
             นางสาวนิตยา มณีรัตน์<br>

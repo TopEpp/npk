@@ -1,5 +1,3 @@
-
-
 <div class="right_col" role="main">
   <section class="row">
       <div class="col-md-12">
@@ -27,16 +25,16 @@
                           <tbody>
                             <tr>
                               <td>งบประมาณ</td>
-                              <td class="text-right"><?php echo number_format($prj->prj_budget_sum, 2) ?> บาท</td>
+                              <td class="text-right"><?php echo number_format($prj->budget_log, 2) ?> บาท</td>
 
                             </tr>
                             <tr>
                               <td>งบเบิกจ่าย</td>
-                              <td class="text-right"><?php echo number_format($prj->amount, 2) ?> บาท</td>
+                              <td class="text-right"><?php echo number_format($prj->expenses, 2) ?> บาท</td>
                             </tr>
                             <tr>
                               <td><b>คงเหลือที่เบิกจ่ายได้</b></td>
-                              <?php $sum_all = $prj->prj_budget_sum - $prj->amount; ?>
+                              <?php $sum_all = $prj->budget_log - $prj->expenses; ?>
                               <td class="text-right"><b><?php echo number_format($sum_all, 2); ?> บาท</b></td>
                             </tr>
                           </tbody>
@@ -122,7 +120,7 @@
                         </div>
                         <div style="text-align: center;">
                             <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
-                            <button onclick="window.location.replace('<?php echo $_SERVER['HTTP_REFERER']; ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                            <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER']; ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                             </button>
                         </div>
                       <?php 

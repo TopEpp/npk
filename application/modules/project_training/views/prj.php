@@ -124,7 +124,7 @@
 
                                     $log = false;
                                     foreach ($budget_log as $key => $value) {
-                                        if ($value->prj_budget_type == 2) {
+                                        if ($value->prj_budget_type == 2 && $value->prj_amount > 0) {
                                             $log = true;
                                         }
 
@@ -200,13 +200,13 @@
                                     <tbody id="table_select">
                                       <tr></tr>
                                       <?php foreach ($budget_log as $key => $value) {
-                                          if ($value->prj_budget_type == 2 && $value->prj_budget_parent != null) {
+                                          if ($value->prj_budget_type == 2 && $value->prj_budget_parent != null && $value->prj_amount > 0) {
                                               ?>
                                         <tr data-select="<?php echo $value->prj_budget_id; ?>" >
                                             <div class="row">
                                               <td class="text-left" style="">
-                                                <span class="col-sm-7"> <?php echo @$value->prj_name .'<br>งบเหลือจ่าย '. number_format($value->budget,2).' บาท'; ?></span>
-                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this,<?php echo $value->budget;?>)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
+                                                <span class="col-sm-7"> <?php echo @$value->prj_name .'<br>งบเหลือจ่าย '.number_format($value->budget,2).' บาท'; ?></span>
+                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this,<?php echo ($value->budget+$value->prj_amount);?>)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
                                                 <span class="col-sm-1">บาท</span>
                                                 <div class="btn-group col-sm-1"><button onclick=delSelect(<?php echo $value->prj_budget_id; ?>) class="btn btn-danger btn-sm" type="button">ลบ</button></div>
                                               </td>
@@ -670,13 +670,13 @@
                                     </span>
                                   </a>
                                 </li>
-                                <?php $expenses_sum = 0;?>
+                                <?php $expenses_sum = 0; ?>
                                   <?php foreach ($expenses as $key => $value) {
                                         $expenses_sum = ($expenses_sum + $value->expenses_amount_result);
                                     }
                                     ?>
                                 <li>
-                                  <a href="#step-2" class="<?= (!empty($expenses) &&  ($prj[0]->prj_budget_sum - $expenses_sum) != 0) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
+                                  <a href="#step-2" class="<?= (!empty($expenses) &&  ($prj[0]->budget_log - $expenses_sum) != 0) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
                                     <span class="step_no">2</span>
                                     <span class="step_descr">
                                     อยู่ระหว่างดำเนินการ
@@ -686,7 +686,7 @@
 
                                 <li>
                               
-                                  <a href="#step-3" class="<?=( !empty($expenses) && ($prj[0]->prj_budget_sum - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
+                                  <a href="#step-3" class="<?=( !empty($expenses) && ($prj[0]->budget_log - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
                                     <span class="step_no">3</span>
                                     <span class="step_descr">
                                     ดำเนินการเสร็จสิ้น
@@ -740,9 +740,9 @@
                           <?php 
                             $divv = 0;
                             if ( !empty( $expenses_sum) && !empty($prj[0]->prj_budget_sum)) {
-                              $divv = ($expenses_sum * 100) / @$prj[0]->prj_budget_sum;
+                             $divv = (@$expenses_sum * 100) / @$prj[0]->budget_log;
                           } ?>
-                            <span class="chart" data-percent="<?=$divv;?>">
+                            <span class="chart" data-percent="<?=@$divv;?>">
                                 <span class="percent"></span>
                             </span>
                           </div>
@@ -759,8 +759,7 @@
                       <tbody>
                         <tr>
                           <td>งบประมาณ</td>
-                          <td class="text-right"><?=number_format($prj[0]->prj_budget_sum, 2);?> บาท</td>
-
+                          <td class="text-right"><?=number_format($prj[0]->budget_log, 2);?> บาท</td>
                         </tr>
                         <tr>
                           <td>งบเบิกจ่าย</td>
@@ -768,7 +767,7 @@
                         </tr>
                         <tr>
                           <td>รวม</td>
-                          <td class="text-right"><?=number_format($prj[0]->prj_budget_sum - $expenses_sum);?> บาท</td>
+                          <td class="text-right"><?=number_format($prj[0]->budget_log - $expenses_sum,2);?> บาท</td>
                         </tr>
                       </tbody>
                     </table>
@@ -802,7 +801,7 @@
                               }?>
                         </td>
                         <td>
-                            <?php echo $user_log[$key]->user_firstname.' '.$user_log[$key]->user_lastname;?>
+                            <?php echo @$user_log[$key]->user_firstname.' '.@$user_log[$key]->user_lastname;?>
                         </td>
                       </tr>
                    <?php }?>

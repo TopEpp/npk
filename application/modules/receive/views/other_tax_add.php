@@ -24,7 +24,7 @@
                                         <div class="form-horizontal form-label-left">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        เลขที่ใบเสร็จ <span class="required" style="color:red">*</span>
+                                                        เลขที่ใบเสร็จ 
                                                     </label>
                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <input type="text" name="receipt_no" value="" placeholder="ระบุเลขที่ใบเสร็จ" class="form-control col-md-7 col-xs-12">
@@ -32,7 +32,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4 col-sm-3 col-xs-12">
-                                                        เล่มที่ใบเสร็จ <span class="required" style="color:red">*</span>
+                                                        เล่มที่ใบเสร็จ 
                                                     </label>
                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <input type="text" name="receipt_number" value="" placeholder="ระบุเล่มที่ใบเสร็จ" class="form-control col-md-7 col-xs-12">
@@ -130,16 +130,16 @@
 // check potection expenditure in
 	$('#btn-submit').click(function(){
 
-		if ($("input[name='receipt_no']").val() == '') {
-			alertify.error('กรุณาระบุ เลขที่ใบเสร็จ');
-			$("input[name='receipt_no']").focus();
-			return false;
-		}
-		if ($("input[name='receipt_number']").val() == '') {
-			alertify.error('กรุณาระบุ เล่มที่ใบเสร็จ');
-			$("input[name='receipt_number']").focus();
-			return false;
-        }
+		// if ($("input[name='receipt_no']").val() == '') {
+		// 	alertify.error('กรุณาระบุ เลขที่ใบเสร็จ');
+		// 	$("input[name='receipt_no']").focus();
+		// 	return false;
+		// }
+		// if ($("input[name='receipt_number']").val() == '') {
+		// 	alertify.error('กรุณาระบุ เล่มที่ใบเสร็จ');
+		// 	$("input[name='receipt_number']").focus();
+		// 	return false;
+        // }
         if ($("input[name='tax_id']").val() == '') {
 			alertify.error('กรุณา เลือกหมดรายได้');
 			$("input[name='tax_id']").focus();
