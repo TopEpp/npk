@@ -3,13 +3,19 @@
                   <div class="col-md-6 col-sm-4 col-xs-4">
                       <h3>รายงานรับชำระภาษี</h3>
                   </div>
+                  <?php 
+                    $str_export = '';
+                    if (!empty($filter_date1)) {  $str_export .= '&filter_date1='.$this->mydate->date_db2str($filter_date1, 543); }
+                    if (!empty($filter_date2)) {  $str_export .= '&filter_date2='.$this->mydate->date_db2str($filter_date2, 543); }
+                    if (!empty($tax_type)) {  $str_export .= '&tax_type='.$tax_type; }
+                  ?>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
                           <button type="button" class="btn btn-success" title="กรองข้อมูล" data-toggle="modal" data-target="#modal_filter"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
                           </button>
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person_receive?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                          <button onclick="window.open('<?php echo base_url('export_report/report_person_receive?type=pdf'.$str_export);?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                           </button>
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person_receive');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
+                          <button onclick="window.open('<?php echo base_url('export_report/report_person_receive?type=excel'.$str_export);?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
                           </button>
                       </div>
                   </div>

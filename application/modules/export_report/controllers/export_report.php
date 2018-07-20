@@ -219,7 +219,7 @@ class export_report extends My_Controller
         }
  
         // var_dump($prj[0]);die();
-        $post = $this->input->post();
+        $post = $this->input->get();
         if(!empty($post)){
             $this->Report_model->filter_date1 = $this->mydate->date_thai2eng($post['filter_date1'],-543);
             $this->Report_model->filter_date2 = $this->mydate->date_thai2eng($post['filter_date2'],-543);
@@ -360,7 +360,19 @@ class export_report extends My_Controller
 
     function report_person_receive(){
         $data = array();
-        $person = $this->Report_model->getPersonReceive();
+        $post = $this->input->get();
+        if (!empty($post)) {
+            $this->Report_model->filter_date1 = $this->mydate->date_thai2eng($post['filter_date1'], -543);
+            $this->Report_model->filter_date2 = $this->mydate->date_thai2eng($post['filter_date2'], -543);
+
+            $data['filter_date1'] = $this->Report_model->filter_date1;
+            $data['filter_date2'] = $this->Report_model->filter_date2;
+
+            $data['tax_type'] = $post['tax_type'];
+        }
+
+
+        $person = $this->Report_model->getPersonReceive(@$data['tax_type']);
 
         $content = '<table cellspacing="0" cellpadding="0" width="100%" border=1>
                         <thead>
