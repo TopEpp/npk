@@ -58,7 +58,7 @@ class admin extends MY_Controller
     {
         $data = array();
 
-        $this->config->set_item('title', 'ระบบน้ำเข้าข้อมูล');
+        $this->config->set_item('title', 'ระบบนำเข้าข้อมูล');
         $this->setView('import_file', $data);
         $this->publish();
     }
