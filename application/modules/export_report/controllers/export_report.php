@@ -396,17 +396,17 @@ class export_report extends My_Controller
                         </thead>
                         <tbody>';
                         $int =1;
-                            foreach ($person as $key => $value) { 
-                            $content .='<tr>
-                              <td>'.$int++.'</td>
-                              <td>'.$value->individual_number.'</td>
-                              <td>'.$value->individual_prename.$value->individual_fullname.'</td>
-                              <td>'.$value->notice_number.'</td>
-                              <td align="right">'.number_format($value->receive_amount,2).'</td>
-                              <td>'.$value->tax_name.'</td>
-                              <td>'.$value->receipt_no.'/'.$value->receipt_number.'</td>
-                              <td>'.$this->mydate->date_eng2thai($value->receive_date,543,'S').'</td>
-                            </tr>';
+                        foreach ($person as $key => $value) { 
+                          $content .='<tr>
+                            <td>'.$int++.'</td>
+                            <td>'.$value->individual_number.'</td>
+                            <td>'.$value->individual_prename.$value->individual_fullname.'</td>
+                            <td>'.$value->notice_number.'</td>
+                            <td align="right">'.number_format($value->receive_amount,2).'</td>
+                            <td>'.$value->tax_name.'</td>
+                            <td>'.$value->receipt_no.'/'.$value->receipt_number.'</td>
+                            <td>'.$this->mydate->date_eng2thai($value->receive_date,543,'S').'</td>
+                          </tr>';
                         } 
                     $content .='</tbody>
                         <tfoot>

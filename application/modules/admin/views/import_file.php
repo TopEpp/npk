@@ -3,7 +3,7 @@
 <div class="right_col" role="main">
   <section class="row">
     <div class="col-md-6 col-sm-4 col-xs-4">
-        <h3>ระบบน้ำเข้าข้อมูล</h3>
+        <h3>ระบบนำเข้าข้อมูล</h3>
     </div>
   </section>          
     <div class="row">
