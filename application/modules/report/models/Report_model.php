@@ -529,7 +529,7 @@ class Report_model extends CI_Model
         return $ul;
     }
 
-    function getPersonReceive(){
+    function getPersonReceive($tax_type=''){
         $data = array();
         $year =  $this->session->userdata('year');
 
@@ -539,10 +539,29 @@ class Report_model extends CI_Model
         $this->db->join('tax_notice','tax_notice.notice_id = tax_receive.notice_id');
         $this->db->join('tbl_individual','tbl_individual.individual_id = tax_receive.individual_id');
         $this->db->where('tax_receive.year_id',$year);
+
+        if($tax_type!=''){
+            $this->db->where('tax_receive.tax_id',$tax_type);
+        }
+
+        if($this->filter_date1!='' && $this->filter_date2!=''){
+            $this->db->where('tax_receive.receive_date >=', $this->filter_date1);
+            $this->db->where('tax_receive.receive_date <=', $this->filter_date2);
+        }
+
         $query = $this->db->get();
 
         return $query->result();
 
+    }
+
+    function getTaxType(){
+        $this->db->select('*');
+        $this->db->from('tbl_tax');
+        $this->db->where('tax_parent_id',1);
+        $get = $this->db->get();
+
+        return $get->result();
     }
 
 }

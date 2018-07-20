@@ -132,7 +132,22 @@ class Report extends MY_Controller
 
     function report_person_receive(){
         $data = array();
-        $data['person'] = $this->Report_model->getPersonReceive();
+        $data['tax'] = $this->Report_model->getTaxType();
+        
+
+        $post = $this->input->post();
+        if (!empty($post)) {
+            $this->Report_model->filter_date1 = $this->mydate->date_thai2eng($post['filter_date1'], -543);
+            $this->Report_model->filter_date2 = $this->mydate->date_thai2eng($post['filter_date2'], -543);
+
+            $data['filter_date1'] = $this->Report_model->filter_date1;
+            $data['filter_date2'] = $this->Report_model->filter_date2;
+
+            $data['tax_type'] = $post['tax_type'];
+        }
+
+        $data['person'] = $this->Report_model->getPersonReceive(@$data['tax_type']);
+
 
         $this->config->set_item('title', 'รายงาน');
         $this->setView('report_person_receive', $data);

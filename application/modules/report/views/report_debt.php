@@ -30,10 +30,10 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                        <tr>
-                        <td align="center">ภาษี</td>
-                        <td align="center">จำนวนเงิน</td>
-                        <td align="center">เงินเพิ่ม</td>
-                        <td align="center">รวม</td>
+                        <th align="center">ภาษี</th>
+                        <th align="center">จำนวนเงิน</th>
+                        <th align="center">เงินเพิ่ม</th>
+                        <th align="center">รวม</th>
                        </tr>
                       </thead>
                       <tbody>

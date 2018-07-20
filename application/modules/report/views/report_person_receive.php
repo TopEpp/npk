@@ -5,8 +5,8 @@
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                          <!-- <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
-                          </button> -->
+                          <button type="button" class="btn btn-success" title="กรองข้อมูล" data-toggle="modal" data-target="#modal_filter"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
+                          </button>
                           <button onclick="window.open('<?php echo base_url('export_report/report_person_receive?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                           </button>
                           <button onclick="window.open('<?php echo base_url('export_report/report_person_receive');?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
@@ -34,10 +34,10 @@
                               <th >เลขประจำตัวผู้เสียภาษี</th>
                               <th >ชื่อ - สกุล</th>
                               <th >เลขรับ</th>
-                              <th >จำนวนที่จ่าย</th>
                               <!-- <th >วันที่</th> -->
                               <th >ภาษี</th>
                               <th>เล่มที่/เลขที่ ใบเสร็จ</th>
+                              <th >จำนวนที่จ่าย</th>
                               <th>วันที่ชำระ</th>
                           </tr>
                         </thead>
@@ -49,10 +49,11 @@
                               <td><?php echo $value->individual_number;?></td>
                               <td><?php echo $value->individual_prename.$value->individual_fullname;?></td>
                               <td><?php echo $value->notice_number;?></td>
-                              <td align="right"><?php echo number_format($value->receive_amount,2);?></td>
+                              
                               <!-- <td></td> -->
                               <td><?php echo $value->tax_name;?></td>
                               <td><?php echo $value->receipt_no.'/'.$value->receipt_number;?></td>
+                              <td align="right"><?php echo number_format($value->receive_amount,2);?></td>
                               <td><?php echo $this->mydate->date_eng2thai($value->receive_date,543,'S');?></td>
                             </tr>
                         <?php } ?>
@@ -70,7 +71,7 @@
           </div>
 </div>
 <style>
-th{
+.table-striped th{
     text-align: center;
 background-color:#2A3F54;
 color: #FFF;
@@ -78,6 +79,54 @@ color: #FFF;
 
 
 </style>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="modal_filter">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <form method="post" action="<?php echo base_url('report/report_person_receive'); ?>">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel2">กรองข้อมูล</h4>
+      </div>
+      <div class="modal-body clearfix">
+       <div class="row">
+         <div class="col-md-12">
+           <label>ข้อมูลวันที่</label> 
+           <input type="text" name="filter_date1" value="<?php if (!empty($filter_date1)) {
+                                                          echo $this->mydate->date_db2str($filter_date1, 543);
+                                                        } ?>" class="form-control datepicker">
+         </div>
+       </div>
+       <div class="row" style="margin-top: 5px;">
+        <div class="col-md-12">
+          <label>ถึง วันที่</label>
+            <input type="text" name="filter_date2" value="<?php if (!empty($filter_date2)) {
+                                                            echo $this->mydate->date_db2str($filter_date2, 543);
+                                                          } ?>" class="form-control datepicker">
+         </div>
+       </div>
+       <div class="row" style="margin-top: 5px;">
+        <div class="col-md-12">
+          <label>ประเภทภาษี</label>
+            <select class="form-control" name="tax_type">
+              <option value="">ทั้งหมด</option>
+            <?php foreach ($tax as $key => $value) { ?>
+              <option value="<?php echo $value->tax_id?>"><?php echo $value->tax_name;?></option>
+            <?php } ?>
+            </select>
+         </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+        <button type="submit" id="btn-submit-plans" class="btn btn-primary">ค้นหา</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
       
 
 
