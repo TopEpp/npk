@@ -556,12 +556,16 @@ class Report_model extends CI_Model
     }
 
     function getTaxType(){
+        $data = array();
         $this->db->select('*');
         $this->db->from('tbl_tax');
         $this->db->where('tax_parent_id',1);
         $get = $this->db->get();
+        foreach ($get->result() as $key => $value) {
+            $data[$value->tax_id] = $value;
+        }
 
-        return $get->result();
+        return $data;
     }
 
 }

@@ -1,7 +1,7 @@
 <div class="right_col" role="main">
         <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
-                      <h3>รายงานลูกหนี้ค้างชำระ</h3>
+                      <h3>รายงานรับชำระภาษี</h3>
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
@@ -26,6 +26,17 @@
                      
               
                <div class="x_content">
+                <div style="text-align: center;">
+                   <h2>รายงานรับชำระภาษี <?php if(!empty($tax_type)){ echo @$tax[$tax_type]->tax_name; }?></h2>
+                   <?php if (empty($filter_date1)) { ?>
+                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
+                   <?php 
+                } else { ?>
+                   <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai($filter_date1, 543, 'S') . ' ถึง ' . $this->mydate->date_eng2thai($filter_date2, 543, 'S') ?></h5> 
+
+                   <?php 
+                } ?>
+                 </div>
                  <br>
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -112,8 +123,13 @@ color: #FFF;
           <label>ประเภทภาษี</label>
             <select class="form-control" name="tax_type">
               <option value="">ทั้งหมด</option>
-            <?php foreach ($tax as $key => $value) { ?>
-              <option value="<?php echo $value->tax_id?>"><?php echo $value->tax_name;?></option>
+            <?php foreach ($tax as $key => $value) {
+                $sel = '';
+                if($value->tax_id == @$tax_type){
+                  $sel = 'selected="selected"';
+                }
+             ?>
+              <option <?php echo $sel;?> value="<?php echo $value->tax_id?>"><?php echo $value->tax_name;?></option>
             <?php } ?>
             </select>
          </div>
