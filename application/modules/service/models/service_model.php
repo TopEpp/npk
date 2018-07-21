@@ -7,7 +7,10 @@ class service_model extends CI_Model
 		$this->db->delete('tbl_project_manage');
 
 		$this->db->where('prj_year',$year+1);
-		$this->db->delete('tbl_project');		
+		$this->db->delete('tbl_project');
+		
+		$this->db->where('out_year',$year+1);
+    	$this->db->delete('tbl_outside');
 	}
 
 	function duplicate_project($year,$parent=''){
@@ -63,6 +66,16 @@ class service_model extends CI_Model
 			$data_insert['prj_ref_id'] = $value['prj_id'];
 
 			$this->db->insert('tbl_project',$data_insert);
+
+
+			$data_log_insert = array();
+			$data_log_insert['prj_budget_parent'] = 0;
+			$data_log_insert['prj_id'] = $data_insert['prj_id'];
+			$data_log_insert['prj_budget_type'] = '1';
+			$data_log_insert['prj_amount'] = $value['prj_budget_sum'];
+			$data_log_insert['prj_log_date'] = date('Y-m-d');
+			$data_log_insert['prj_budget_status'] = '1';
+			$this->db->insert('tbl_prj_budget_log',$data_log_insert);
 
 			$this->duplicate_prj($year,$value['prj_id']);
 		}
@@ -142,6 +155,53 @@ class service_model extends CI_Model
 
         	$this->db->insert('tbl_tax_estimate',$data_insert);
         }
-    }
+	}
+	
+	// outside rec
+	function duplicate_outside($year,$parent=0,$id = 0){
+
+        $this->db->select('*');
+        $this->db->from('tbl_outside');
+		$this->db->where('out_year',$year);
+		$this->db->where('out_parent',$parent);
+		$query = $this->db->get();
+		// echo '<pre>';
+		// print_r($query->result_array());die();
+        foreach ($query->result_array() as $key => $value) {
+        	$data_insert = $value;
+			unset($data_insert['out_id']);
+			unset($data_insert['out_create']);
+			unset($data_insert['out_update']);
+
+			$data_insert['out_year'] = $year+1;
+			$data_insert['out_create'] = date('Y-m-d');
+
+			if($parent){
+				$data_insert['out_parent'] = $id;
+			}else{
+				$data_insert['out_parent'] = 0;
+			}
+
+			$this->db->insert('tbl_outside',$data_insert);
+			if(!$parent){
+				$id = $this->db->insert_id();
+			}
+			$this->duplicate_outside($year,$value['out_id'],$id);
+        }
+	}
+
+	// delete prj budget log
+	public function deletePrjBugdet($year){
+		$this->db->where('prj_year',$year);
+		$query = $this->db->get('tbl_project')->result();
+		foreach ($query as $key => $value) {
+			$this->db->where('prj_id',$value->prj_id);
+			$this->db->delete('tbl_prj_budget_log');
+		}
+
+	}
+
+	
+
 
 }

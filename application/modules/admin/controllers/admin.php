@@ -44,13 +44,16 @@ class admin extends MY_Controller
         $this->service->duplicate_estimate($maxYear);
         $this->service->duplicate_estimate_tax($maxYear);
 
+        $this->service->duplicate_outside($maxYear);
+
         redirect(base_url('admin'));
     }
 
     function del_year(){
         $year = $this->input->post('year_id');
         $this->admin_model->del_year($year);
-
+        //remove budget_log
+        $this->service->deletePrjBugdet($year);
         redirect(base_url('admin'));
     }
 

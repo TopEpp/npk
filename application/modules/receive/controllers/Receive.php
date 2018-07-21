@@ -1399,6 +1399,9 @@ class Receive extends MY_Controller
         $data['alert_date'] = $this->mydate->date_thai2eng($this->input->post('data'));
         $data['notice_id'] = $this->input->post('notice');
         $data['agent_id'] = $_SESSION['user_id'];
+        //check alert No.
+        $number = $this->Receive_model->getAlert($data['notice_id']);
+        $data['alert_order'] = (count($number) + 1);
         $result['id'] = $this->Receive_model->saveAlert($data);
         $result['id'] = $data['notice_id'];
         $this->output->set_content_type('application/json')->set_output(json_encode($result));

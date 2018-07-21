@@ -180,6 +180,9 @@ class admin_model extends CI_Model
 
 		$this->db->where('year_id',$year);
 		$this->db->delete('tax_receive');
+
+		$this->db->where('out_year',$year);
+		$this->db->delete('tbl_outside');
 	}
 
 }
