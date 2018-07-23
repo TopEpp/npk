@@ -47,19 +47,19 @@ $(function () {
             },
             {
                 data: 'individual_fullname',
-                "className": "text-center",
+
             },
             {
-                data: 'notice_estimate',
-                "className": "text-center",
+                data: 'amount',
+                "className": "text-right",
             },
             {
                 data: 'interest',
-                "className": "text-center",
+                "className": "text-right",
             },
             {
                 data: 'receive_amount',
-                "className": "text-center",
+                "className": "text-right",
             },
 
 
@@ -70,12 +70,12 @@ $(function () {
                         '<div class="btn-group ">' +
                         // '<button type="button" onclick="window.location.href=\'' + domain + '' + '' + data + '\'" id="" class="btn btn-success btn-sm " title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</button>' +
                         // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
-                        // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + '' + data + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" style="width: 47px;">แก้ไข</button>' +
-                        '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_edit_house/' + '' + row['receive_id'] + '/' + row['tax_id'] + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข">แก้ไข</button>' +
+                        '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>'
                     '</div>';
                     return btn;
                 },
-                "className": "text-center",
+                "className": "text-right",
                 orderable: false
             },
         ],

@@ -2,7 +2,7 @@
           
           <section class="row">
                   <div class="col-md-8 col-sm-4 col-xs-4">
-                      <h3>รายการข้อมูลผู้เสียภาษี</h3>
+                      <h3>ข้อมูลผู้เสียภาษี</h3>
                   </div>
                   <div class="col-md-4 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
