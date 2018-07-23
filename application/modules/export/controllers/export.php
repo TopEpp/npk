@@ -12,12 +12,20 @@ class export extends My_Controller
 
     }
 
-    public function gat1($id = '')
+    public function gat1($tax_id = '', $id = '')
     {
 
-        $gat1 = $this->export_model->getTaxNotice($id);
+        $gat1 = $this->export_model->getTaxNotice($tax_id, $id);
         $date = explode('-', $gat1['notice_date']);
-        $budget = explode('.', $gat1['notice_estimate']);
+
+        $budget_sum = 0;
+        $tax_interest_sum = 0;
+        foreach ($gat1['detail'] as $key => $value) {
+            $budget_sum = $budget_sum + $value['notice_estimate'];
+            $tax_interest_sum = $tax_interest_sum + $value['tax_interest'];
+        }
+
+        $budget = explode('.', $budget_sum);
         if ($budget[0] == '') {
             $budget[0] = '-';
         }
@@ -25,7 +33,7 @@ class export extends My_Controller
             $budget[1] = '-';
         }
 
-        $tax_interest = explode('.', $gat['tax_interest']);
+        $tax_interest = explode('.', $tax_interest_sum);
         $sum = $budget[0] + $tax_interest[0];
         $sum_str = $budget[1] + $tax_interest[1];
         if ($tax_interest[0] == '') {
@@ -97,17 +105,17 @@ class export extends My_Controller
             <td colspan="3" style="text-align: center;"><br><b><u>ใบรับ ภ.ป.๓</u></b></td>
           </tr>
           <tr>
-            <td colspan="3" style="text-align: left;"><br><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ข้าพเจ้า............................................อยู่บ้านเลขที่.......................................ตรอก...................................... <br><br>
-            ซอย...........................................ถนน.................................หมู่ที่...........................ตำบล......................................... <br><br>
-            อำเภอ.........................................จังหวัด................................เกี่ยวข้องเป็น...............................................................<br/><br/>
+            <td colspan="3" style="text-align: left;"><br><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ข้าพเจ้า.....................................................................อยู่บ้านเลขที่......................................................ตรอก...................................... <br><br>
+            ซอย...........................................ถนน...........................................หมู่ที่......................................................................ตำบล......................................... <br><br>
+            อำเภอ....................................................................................จังหวัด...................................................เกี่ยวข้องเป็น..............................................<br/><br/>
             กับเจ้าของป้าย ได้รับ ภ.ป.๓ ที่.............../๒๕........................... ลงวันที่............................เดือน..............................<br/><br>
-            พ.ศ. ๒๕...................ไว้แล้ว แต่วันที่....................พ.ศ........................
+            พ.ศ. ๒๕...................ไว้แล้ว แต่วันที่...........................................พ.ศ...........................................
             <br/><br/><br/><br/>
             </td>
           </tr>
           <tr>
           <td colspan="3" style="text-align: center;">
-            ลงชื่อ...................................................ผู้รับ ลงชื่อ.............................................ผู้ส่ง
+            ลงชื่อ...................................................ผู้รับ ลงชื่อ...................................................ผู้ส่ง
             </td>
           </tr>
           </table>';
@@ -118,12 +126,12 @@ class export extends My_Controller
 
     }
 
-    public function gat2($id = '')
+    public function gat2($tax_id = '', $id = '')
     {
 
-        $data = $this->export_model->getTaxNotice($id);
+        $data = $this->export_model->getTaxNotice($tax_id, $id);
         $detail = $this->export_model->getTaxNoticeHouse($data);
-
+        // print_r($detail);die();
         $date = explode('-', $data['notice_date']);
         $content = '<style>
                       table {
@@ -275,7 +283,7 @@ class export extends My_Controller
           <td   >';
 
         foreach ($detail as $key => $value) {
-            $content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $this->mydate->conv_th_digit($key + 1) . '. ' . $value['noice_operation_name'] . ' ' . $this->mydate->conv_th_digit($value['number']) . ' หลัง';
+            $content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $this->mydate->conv_th_digit($key + 1) . '. ' . $value['noice_operation_name'] . ' ' . $this->mydate->conv_th_digit($value['number']) . ' หลัง<br/>';
         }
 
         $content .= '</td>
@@ -296,10 +304,10 @@ class export extends My_Controller
 
     }
 
-    public function gat3($id = '')
+    public function gat3($tax_id = '', $id = '')
     {
 
-        $gat3 = $this->export_model->getTaxNotice($id);
+        $gat3 = $this->export_model->getTaxNotice($tax_id, $id);
         $data = $this->export_model->getTaxNoticeGat3($gat3);
 
         $subdistrict = $this->export_model->getAddressNameById($gat3['individual_subdistrict']);

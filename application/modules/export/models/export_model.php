@@ -3,7 +3,7 @@
 class export_model extends CI_Model
 {
 
-    public function getTaxNotice($id)
+    public function getTaxNotice($tax_id, $id)
     {
 
         $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
@@ -11,13 +11,26 @@ class export_model extends CI_Model
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
-        $this->db->where('notice_id', $id);
+        $this->db->where('tax_notice.notice_id', $id);
+        $this->db->where('tax_notice.tax_id', $tax_id);
         $query = $this->db->get();
-        return $query->row_array();
+        $data = $query->row_array();
+        $data['detail'] = $this->getNoticeSum($data['tax_id'], $data['individual_id']);
+        return $data;
+    }
+    public function getNoticeSum($tax_id, $individual_id)
+    {
+        $this->db->select('*');
+        $this->db->from('tax_notice');
+        $this->db->where('tax_id', $tax_id);
+        $this->db->where('individual_id', $individual_id);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     public function getTaxNoticeHouse($data = array())
     {
+
         $this->db->select(' count(tax_notice.tax_id) as number ,
                             sum(tax_notice.notice_estimate) as notice_estimate ,
                             sum(tax_notice.notice_annual_fee) as notice_annual_fee ,
@@ -27,7 +40,7 @@ class export_model extends CI_Model
                                 SEPARATOR "<br/>"
                               )  as notice_address_number');
         $this->db->from('tax_notice');
-        $this->db->where('year_id', $data['year_id']);
+        // $this->db->where('year_id', $data['year_id']);
         // $this->db->where('tax_year',$data['tax_year']);
         $this->db->where('tax_id', $data['tax_id']);
         $this->db->where('individual_id', $data['individual_id']);
@@ -48,7 +61,7 @@ class export_model extends CI_Model
         ');
         $this->db->from('tax_notice');
 
-        $this->db->where('year_id', $data['year_id']);
+        $this->db->where('year_id', $this->session->userdata('year'));
         $this->db->where('tax_id', $data['tax_id']);
         $this->db->where('individual_id', $data['individual_id']);
         $this->db->group_by('tax_id');
