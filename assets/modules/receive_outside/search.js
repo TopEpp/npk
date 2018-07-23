@@ -6,7 +6,7 @@ $(function () {
     $('#outside_pay_vat').prop('disabled', true);
     $('#amount_vat').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
-        outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
+        outside_pay_amount = parseFloat(outside_pay_amount.replace(/,/g,''));
 
 
         var outside_pay_amount_vat = 0;
@@ -37,7 +37,7 @@ $(function () {
     $('#outside_pay_tax').prop('disabled', true);
     $('#amount_tax').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
-        outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
+        outside_pay_amount = parseFloat(outside_pay_amount.replace(/,/g,''));
 
 
         var outside_pay_amount_vat = 0;
@@ -63,7 +63,7 @@ $(function () {
 
     $('#outside_pay_budget').keyup(function () {
         var outside_pay_amount = this.value;
-        outside_pay_amount = parseFloat(outside_pay_amount.replace(',', ''));
+        outside_pay_amount = parseFloat(outside_pay_amount.replace(/,/g,''));
 
 
         var outside_pay_amount_vat = 0;

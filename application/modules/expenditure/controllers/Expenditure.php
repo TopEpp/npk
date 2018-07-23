@@ -104,7 +104,7 @@ class Expenditure extends MY_Controller
             // print_r($tree);die(); 
 
             $name_tree = $this->getLastNamePrj($keys);
-            if (!empty(end($name_tree) && !is_numeric(end($name_tree)) )){
+            if (end($name_tree) != '' && !is_numeric(end($name_tree)) ){
                 $data['prj'][$key]->prj_name = $data['prj'][$key]->prj_name . '<span style="color:#169F85">(' . end($name_tree) . ')</span>';
             }else{
                 unset($data['prj'][$key]);

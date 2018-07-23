@@ -3,7 +3,7 @@ $(function () {
 	$('#amount_vat').on("ifChanged",function () {
 
 		var expenses_amount = $('#expenses_amount').val();
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 
 		var expenses_amount_vat = 0;
@@ -31,7 +31,7 @@ $(function () {
 	$('#amount_tax').on("ifChanged",function () {
 
 		var expenses_amount = $('#expenses_amount').val();
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 
 		var expenses_amount_vat = 0;
@@ -59,7 +59,7 @@ $(function () {
 
 	$('#expenses_amount').keyup(function () {
 		var expenses_amount = this.value;
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 
 		var expenses_amount_vat = 0;
@@ -81,7 +81,7 @@ $(function () {
 
 	$('#expenses_amount_disburse').keyup(function () {
 		var expenses_amount_disburse = this.value;
-		expenses_amount_disburse = parseFloat(expenses_amount_disburse.replace(',', ''));
+		expenses_amount_disburse = parseFloat(expenses_amount_disburse.replace(/,/g,''));
 
 		var expenses_amount_vat = 0;
 		var expenses_amount_tax = 0;
@@ -108,7 +108,7 @@ $(function () {
 
 	$('#amount_vat_val').keyup(function () {
 		var expenses_amount = this.value;
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 
 		var expenses_amount_vat = 0;
@@ -130,7 +130,7 @@ $(function () {
 
 	$('#amount_tax_val').keyup(function () {
 		var expenses_amount = this.value;
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 
 		var expenses_amount_vat = 0;
@@ -152,28 +152,28 @@ $(function () {
 
 	$('#expenses_amount_fine').keyup(function () {
 		var expenses_amount_fine = this.value;
-		expenses_amount_fine = parseFloat(expenses_amount_fine.replace(',', ''));
+		expenses_amount_fine = parseFloat(expenses_amount_fine.replace(/,/g,''));
 
 		var expenses_amount = $('#expenses_amount').val();
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 		var expenses_amount_vat = 0;
 		var expenses_amount_tax = 0;
 		if ($('input#amount_vat').is(':checked')) {
 			expenses_amount_vat = $('#amount_vat_val').val();
-			expenses_amount_vat = parseFloat(expenses_amount_vat.replace(',', ''));
+			expenses_amount_vat = parseFloat(expenses_amount_vat.replace(/,/g,''));
 		}
 
 		if ($('input#amount_tax').is(':checked')) {
 			expenses_amount_tax = $('#amount_tax_val').val();
-			expenses_amount_tax = parseFloat(expenses_amount_tax.replace(',', ''));
+			expenses_amount_tax = parseFloat(expenses_amount_tax.replace(/,/g,''));
 		}
 
 		// var expenses_amount_vat = $('#expenses_amount_vat').val();
 		// expenses_amount_vat = parseFloat(expenses_amount_vat.replace(',',''));
 
 		var expenses_amount_disburse = $('#expenses_amount_disburse').val();
-		expenses_amount_disburse = parseFloat(expenses_amount_disburse.replace(',', ''));
+		expenses_amount_disburse = parseFloat(expenses_amount_disburse.replace(/,/g,''));
 
 		// var expenses_amount_tax = $('#expenses_amount_tax').val();
 
@@ -188,7 +188,7 @@ $(function () {
 	$('#expenses_amount_vat').keyup(function () {
 		var expenses_amount = $('#expenses_amount').val();
 		
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 		var expenses_amount_vat = parseFloat(this.value);
 
@@ -211,7 +211,7 @@ $(function () {
 	$('#expenses_amount_tax').keyup(function () {
 		var expenses_amount = $('#expenses_amount').val();
 		
-		expenses_amount = parseFloat(expenses_amount.replace(',', ''));
+		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 		var expenses_amount_tax = parseFloat(this.value);
 

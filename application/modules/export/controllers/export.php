@@ -469,11 +469,11 @@ class export extends My_Controller
         </tr>
         <tr>';
         if ($data['alert_order'] != 3) {
-          $content .= '<td colspan=3 style="text-align:left;">หนังสือแจ้งเตือนครั้งที่ ' . $this->mydate->conv_th_digit($data['alert_order']) . '</td>';
-        }else{
-          $content .= '<td colspan=3 style="text-align:left;">หนังสือแจ้งเตือนครั้งสุดท้าย</td>';
+            $content .= '<td colspan=3 style="text-align:left;">หนังสือแจ้งเตือนครั้งที่ ' . $this->mydate->conv_th_digit($data['alert_order']) . '</td>';
+        } else {
+            $content .= '<td colspan=3 style="text-align:left;">หนังสือแจ้งเตือนครั้งสุดท้าย</td>';
         }
-       $content .= '</tr>
+        $content .= '</tr>
         <tr>
           <td style="text-align:left; width:100px;">ที่ ชม.๕๔๙๐๒/.............</td>
           <td  style="text-align:right;">สำนักงาน เทศบาลตำบลหนองป่าครั่ง<br/>
@@ -539,25 +539,31 @@ class export extends My_Controller
               <th width="150px">ค่าภาษี</th>
               <th width="150px">เงินเพิ่ม</th>
               <th width="150px">รวมเป็นเงิน</th>
-            </tr>
-            <tr>
-              <td style="text-align:center;">' . $this->mydate->conv_th_digit($data['tax_year'] + 543) . '</td>
-              <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'], 2)) . '</td>
-              <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($data['tax_interest'], 2)) . '</td>
-              <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . '</td>
-            </tr>
-            <tr>
+            </tr>';
+            $sum_result = 0;
+            foreach ($data['detail'] as $key => $value) {
+                $sum = $value['notice_estimate'] + $value['tax_interest'];
+                $sum_result = $sum_result + $sum;
+                $content .= '<tr>
+                  <td style="text-align:center;">' . $this->mydate->conv_th_digit($value['tax_year'] + 543) . '</td>
+                  <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($value['notice_estimate'], 2)) . '</td>
+                  <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($value['tax_interest'], 2)) . '</td>
+                  <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($sum, 2)) . '</td>
+                </tr>';
+            }
+
+            $content .= '<tr>
               <td colspan="2" style="border-left:none;border-bottom:none;"></td>
               <td style="text-align:center;">รวม
               </td>
-              <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . '</td>
+              <td style="text-align:right;">' . $this->mydate->conv_th_digit(number_format($sum_result, 2)) . '</td>
             </tr>
             </table>
           </td>
         </tr>
         <tr>
           <td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . ' บาท ('.$this->Convert($data['notice_estimate']+ $data['tax_interest']).') นั้น
+            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($sum_result, 2)) . ' บาท (' . $this->Convert($sum_result) . ') นั้น
           </td>
         </tr>
         <tr>
@@ -574,15 +580,22 @@ class export extends My_Controller
           </td>
         </tr>';
         } else {
+
+            $sum_result = 0;
+            foreach ($data['detail'] as $key => $value) {
+                $sum = $value['notice_estimate'] + $value['tax_interest'];
+                $sum_result = $sum_result + $sum;
+            }
+
             $content .= '<tr>
           <td colspan=3><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            ตามหนังสือที่อ้างถึงปรากฏว่าท่านได้ค้างชำระภาษี ' . $data['tax_name'] . ' ที่อยู่ บ้านเลขที่' . $data['individual_address'] . ' หมู่ ' . $data['individual_village'] . ' ถนน ' . $data['individual_road'] . ' ซอย ' . $data['individual_lane'] . ' ตำบล ' . $subdistrict['area_name_th'] . ' อำเภอ ' . $district['area_name_th'] . ' จังหวัด ' . $province['area_name_th'] . ' ' . $data['individual_zipcode'] .
+            ตามหนังสือที่อ้างถึงปรากฏว่าท่านได้ค้างชำระภาษี ' . $data['tax_name'] . ' ที่อยู่ ' . $this->mydate->conv_th_digit($data['individual_address']) . ' หมู่ ' . $this->mydate->conv_th_digit($data['individual_village']) . ' ถนน ' . $data['individual_road'] . ' ซอย ' . $this->mydate->conv_th_digit($data['individual_lane']) . ' ตำบล ' . $subdistrict['area_name_th'] . ' อำเภอ ' . $district['area_name_th'] . ' จังหวัด ' . $province['area_name_th'] . ' ' . $this->mydate->conv_th_digit($data['individual_zipcode']) .
             '</td>
         </tr>
 
         <tr>
           <td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . ' บาท ('.$this->Convert($data['notice_estimate']+ $data['tax_interest']).') นั้น
+            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($sum_result, 2)) . ' บาท (' . $this->Convert($sum_result) . ') นั้น
           </td>
         </tr>
         <tr>
@@ -634,60 +647,62 @@ class export extends My_Controller
         $this->exportpdf->exportFhtml($dataExport);
     }
 
+    public function Convert($amount_number)
+    {
+        $amount_number = number_format($amount_number, 2, ".", "");
+        $pt = strpos($amount_number, ".");
+        $number = $fraction = "";
+        if ($pt === false) {
+            $number = $amount_number;
+        } else {
+            $number = substr($amount_number, 0, $pt);
+            $fraction = substr($amount_number, $pt + 1);
+        }
 
-  function Convert($amount_number)
-  {
-      $amount_number = number_format($amount_number, 2, ".","");
-      $pt = strpos($amount_number , ".");
-      $number = $fraction = "";
-      if ($pt === false) 
-          $number = $amount_number;
-      else
-      {
-          $number = substr($amount_number, 0, $pt);
-          $fraction = substr($amount_number, $pt + 1);
-      }
-      
-      $ret = "";
-      $baht = $this->ReadNumber ($number);
-      if ($baht != "")
-          $ret .= $baht . "บาท";
-      
-      $satang = $this->ReadNumber($fraction);
-      if ($satang != "")
-          $ret .=  $satang . "สตางค์";
-      else 
-          $ret .= "";
-      return $ret;
-  }
+        $ret = "";
+        $baht = $this->ReadNumber($number);
+        if ($baht != "") {
+            $ret .= $baht . "บาท";
+        }
 
-  function ReadNumber($number)
-  {
-      $position_call = array("แสน", "หมื่น", "พัน", "ร้อย", "สิบ", "");
-      $number_call = array("", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า");
-      $number = $number + 0;
-      $ret = "";
-      if ($number == 0) return $ret;
-      if ($number > 1000000)
-      {
-          $ret .= $this->ReadNumber(intval($number / 1000000)) . "ล้าน";
-          $number = intval(fmod($number, 1000000));
-      }
-      
-      $divider = 100000;
-      $pos = 0;
-      while($number > 0)
-      {
-          $d = intval($number / $divider);
-          $ret .= (($divider == 10) && ($d == 2)) ? "ยี่" : 
-              ((($divider == 10) && ($d == 1)) ? "" :
-              ((($divider == 1) && ($d == 1) && ($ret != "")) ? "เอ็ด" : $number_call[$d]));
-          $ret .= ($d ? $position_call[$pos] : "");
-          $number = $number % $divider;
-          $divider = $divider / 10;
-          $pos++;
-      }
-      return $ret;
-  }
+        $satang = $this->ReadNumber($fraction);
+        if ($satang != "") {
+            $ret .= $satang . "สตางค์";
+        } else {
+            $ret .= "";
+        }
+
+        return $ret;
+    }
+
+    public function ReadNumber($number)
+    {
+        $position_call = array("แสน", "หมื่น", "พัน", "ร้อย", "สิบ", "");
+        $number_call = array("", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า");
+        $number = $number + 0;
+        $ret = "";
+        if ($number == 0) {
+            return $ret;
+        }
+
+        if ($number > 1000000) {
+            $ret .= $this->ReadNumber(intval($number / 1000000)) . "ล้าน";
+            $number = intval(fmod($number, 1000000));
+        }
+
+        $divider = 100000;
+        $pos = 0;
+        while ($number > 0) {
+            $d = intval($number / $divider);
+            $ret .= (($divider == 10) && ($d == 2)) ? "ยี่" :
+            ((($divider == 10) && ($d == 1)) ? "" :
+                ((($divider == 1) && ($d == 1) && ($ret != "")) ? "เอ็ด" : $number_call[$d]));
+            $ret .= ($d ? $position_call[$pos] : "");
+            $number = $number % $divider;
+            $divider = $divider / 10;
+            $pos++;
+        }
+        return $ret;
+    }
 
 }

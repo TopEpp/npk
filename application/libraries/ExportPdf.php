@@ -27,9 +27,9 @@ class ExportPdf
         foreach ($data as $index => $val) {
             $c .= $val['html'];
         }
-        
-        $mpdf->WriteHTML($c);
 
+        $mpdf->shrink_tables_to_fit = 0;
+        $mpdf->WriteHTML($c);
         $mpdf->Output($this->file, $this->fileAction);
     }
 }

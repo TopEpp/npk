@@ -640,7 +640,7 @@
                             <td><?=$prj[0]->prj_name;?></td>
                           </tr>
                           <tr>
-                            <td>ภายใต้</td>
+                            <td>ที่มา</td>
                             <td><?php echo $prj_tree; ?></td>
                           </tr>
                           <tr>
@@ -650,12 +650,12 @@
                           <tr>
                             <td>สร้างเมื่อ</td>
                             <?php $time = explode(' ', $prj[0]->prj_create);?>
-                            <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, 543, 'S') . ' ' . $time[1];?>  น. (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
+                            <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, 543, 'S'); ?>   (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
                           </tr>
                           <tr>
                             <td>ปรับปรุงข้อมูลล่าสุด</td>
                             <?php $time = explode(' ', $prj[0]->prj_create);?>
-                            <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, 543, 'S') . ' ' . $time[1];?> น. (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
+                            <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, 543, 'S') ;?>  (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
                           </tr>
                           <tr>
                             <td>สถานะโครงการ</td>
@@ -719,7 +719,7 @@
                     <tr>
                       <td><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S') ?></td>
                       <td><?php echo $value->expenses_detail; ?></td>
-                      <td><?php echo $value->user_firstname; ?></td>
+                      <td><?php echo $value->user_firstname .' '.$value->user_lastname; ?></td>
                       <td class="text-right"><?php echo number_format($value->expenses_amount_result, 2); ?></td>
                     </tr>
                   <?php }?>

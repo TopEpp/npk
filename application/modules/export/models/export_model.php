@@ -74,7 +74,19 @@ class export_model extends CI_Model
         $this->db->join('tax_alert', 'tax_alert.notice_id = tax_notice.notice_id');
         $this->db->where('alert_id', $id);
         $query = $this->db->get();
-        return $query->row_array();
+        $data = $query->row_array();
+        $data['detail'] = $this->getNoticeAlertDetail($data['tax_id'], $data['individual_id']);
+        return $data;
+    }
+
+    public function getNoticeAlertDetail($tax_id, $individual_id)
+    {
+        $this->db->select('*');
+        $this->db->from('tax_notice');
+        $this->db->where('tax_id', $tax_id);
+        $this->db->where('individual_id', $individual_id);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
 }

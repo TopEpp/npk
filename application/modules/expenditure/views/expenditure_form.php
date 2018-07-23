@@ -34,13 +34,13 @@
                             </tr>
                             <tr>
                               <td><b>คงเหลือที่เบิกจ่ายได้</b></td>
-                              <?php $sum_all = $prj->budget_log - $prj->expenses; ?>
+                              <?php $sum_all = $prj->budget_log - $prj->expenses;?>
                               <td class="text-right"><b><?php echo number_format($sum_all, 2); ?> บาท</b></td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
-                      <?php if ($sum_all != '0') { ?>
+                      <?php if ($sum_all != '0') {?>
                         <div id="step-1">
                                 <div class="form-group">
                                     <div class="row">
@@ -123,14 +123,14 @@
                             <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER']; ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                             </button>
                         </div>
-                      <?php 
-                    } ?>
+                      <?php
+}?>
                   </div>
 
-                 
+
               </div>
           </div>
-           
+
       </div>
       </form>
     </div>
@@ -150,16 +150,16 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach ($expenses_all as $key => $value) { ?>
+          <?php foreach ($expenses_all as $key => $value) {?>
             <tr>
               <td ><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S'); ?></td>
-              <td><?php echo $value->user_firstname.' '.$value->user_lastname ?></td>
+              <td><?php echo $value->user_firstname . ' ' . $value->user_lastname ?></td>
               <td><?php echo $value->expenses_detail ?></td>
-              <td class="text-right"><?php echo number_format($value->expenses_amount_result,2); ?></td>
-              <!-- <td><?php  ?></td> -->
+              <td class="text-right"><?php echo number_format($value->expenses_amount_result, 2); ?></td>
+              <!-- <td><?php ?></td> -->
             </tr>
-          <?php 
-        } ?>
+          <?php
+}?>
           </tbody>
         </table>
       </div>

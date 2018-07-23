@@ -588,7 +588,7 @@ class Project_training extends MY_Controller
                 end($tree);        
                 $keys = key($tree);
                 $name_tree = $this->getLastNamePrj($keys); 
-                if (!empty(end($name_tree) && !is_numeric(end($name_tree)) )){
+                if (end($name_tree) != '' && !is_numeric(end($name_tree)) ){
                     $value->prj_name = $value->prj_name . ' <span style="color:#169F85;">(' . end($name_tree) . ')</span>';
 
                     $value->budget = number_format($value->prj_budget_sum - $value->budget, 2);
