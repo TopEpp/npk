@@ -83,12 +83,22 @@ $(function () {
                     } else {
                         form = '<a href=\'' + domain + 'export/gat3/' + '' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
                     }
+                    var form1 = '';
+                    if (row['tax_id'] == '8') {
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                    } else if (row['tax_id'] == '9') {
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_local/' + '' + data + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                    } else if (row['tax_id'] == '10') {
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_label/' + '' + data + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                    }
+
                     var btn =
 
                         '<div class="btn-group ">' +
                         '<button type="button" onclick="getalert(' + data + ')"   class="btn btn-success btn-sm" title="แจ้งเตือน" >แจ้งเตือน</button>' +
                         form +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" >จ่าย</button>' +
+                        form1 +
+                        // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" >จ่าย</button>' +
                         // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" >แก้ไข</button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + row['notice_number'] + '" data-id="' + row['notice_number'] + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>'
                     '</div>';

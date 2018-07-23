@@ -20,16 +20,16 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
                             <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo ($tax_notice[0]['individual_prename'] . $tax_notice[0]['individual_firstname'] . " " . $tax_notice[0]['individual_lastname']); ?></p>
+                                    <p class="control"><?php echo ($tax_notice[0]['individual_prename'] . $tax_notice[0]['individual_fullname']); ?></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
                             <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-2 col-sm-6 col-xs-12">
                                     <p class="control"><?php echo $tax_notice[0]['individual_number'] ?></p>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
                             <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ประเภทผู้เสียภาษี
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ประเภทผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-2 col-sm-6 col-xs-12">
                                     <p class="control"><?php echo $tax_notice[0]['tax_type_name'] ?></p>
@@ -47,19 +47,20 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
                             <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เบอร์โทรศัพท์
-                                    </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $tax_notice[0]['individual_phone'] ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
-                            <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่ :
                                     </label>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . $tax_notice[0]['area_name_th'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                            <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เบอร์โทรศัพท์ :
+                                    </label>
+                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_notice[0]['individual_phone'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -98,35 +99,45 @@
 
 
                    <div class="form-group">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินที่ต้องชำระ
+                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินภาษี
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" placeholder="0.00" id="tax_amount" disabled class="numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
+                                  <input type="text" placeholder="0.00" id="amount" name="amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
                               </div>
                   </div>
 
-                  <div class="form-group">
-                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินที่ชำระ
-                            <span class="required" style="color:red"> *</span>
-                         </label>
-                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                 <input type="text" placeholder="0.00" id="receive_amount" name="receive_amount" class="numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
-                             </div>
-                 </div>
-
-                  <div class="form-group">
+                   <div class="form-group">
                           <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เงินเพิ่ม
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" id="interest" name="interest" value="0.00" class="numeric form-control col-md-7 col-xs-12">
+                                  <input type="text" id="interest" name="interest" value="" placeholder="0.00" class="cal numeric form-control col-md-7 col-xs-12">
                               </div>
                   </div>
 
                   <div class="form-group">
-                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">รวม
+                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">รวมจำนวนเงินที่ต้องชำระ
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" id="sum_amount" name="sum_amount" value="0.00" readonly class="numeric form-control col-md-7 col-xs-12">
+                                  <input type="text" placeholder="0.00" id="sum_amount" name="sum_amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>">
+                              </div>
+                  </div>
+
+
+                 <div class="form-group">
+                         <label class="control-label col-md-4 col-sm-3 col-xs-12"  for="id_tax">จำนวนเงินที่ชำระ
+                            <span class="required" style="color:red"> *</span>
+                         </label>
+                             <div class="col-md-4 col-sm-6 col-xs-12">
+                                 <input type="text" placeholder="0.00" id="receive_amount" name="receive_amount" class="cal numeric form-control col-md-7 col-xs-12" value="">
+                             </div>
+                 </div>
+                 
+
+                  <div class="form-group">
+                          <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">คงเหลือ
+                          </label>
+                              <div class="col-md-4 col-sm-6 col-xs-12">
+                                  <input type="text" placeholder="0.00" id="balance" name="balance" readonly class="cal numeric form-control col-md-7 col-xs-12" value="">
                               </div>
                   </div>
                  
@@ -139,7 +150,7 @@
                                 <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                                 </button>
                                                                 
-                                <button onclick="window.location.replace('<?php echo site_url('receive/search_tax_house'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                                <button onclick="window.location.replace('<?php echo site_url('receive/receive_dashborad'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                                 </button>
                             </div>
                         </div>   
@@ -154,25 +165,27 @@
                               <tr>
                                   <th style="background-color:#2A3F54; color: #FFF;" >ครั้งที่</th>
                                   <th style="background-color:#2A3F54; color: #FFF;">วันที่ชำระ</th>
-                                  <th style="background-color:#2A3F54; color: #FFF;">เลขที่</th>
-                                  <th style="background-color:#2A3F54; color: #FFF;">เล่มที่</th>
-                                  <th style="background-color:#2A3F54; color: #FFF;">หมวดรายได้</th>
-                                  <th style="background-color:#2A3F54; color: #FFF;">ชำระแล้ว</th>
+                                  <th style="background-color:#2A3F54; color: #FFF;">เลขที่ใบเสร็จ</th>
+                                  <th style="background-color:#2A3F54; color: #FFF;">เล่มที่ใบเสร็จ</th>
+                                  <th style="background-color:#2A3F54; color: #FFF;">ชื่อผู้เสียภาษี</th>
+                                  <th style="background-color:#2A3F54; color: #FFF;">จำนวนเงินค่าภาษี</th>
+                                  <th style="background-color:#2A3F54; color: #FFF;">จำนวนเงินที่ชำระ</th>
                                   <th style="background-color:#2A3F54; color: #FFF;">เงินเพิ่ม</th>
-                                  <th style="background-color:#2A3F54; color: #FFF;">รวม</th>
+                                  <th style="background-color:#2A3F54; color: #FFF;">คงเหลือ</th>
                               </tr>
                           </thead>
                               <tbody>
                                 <?php foreach ($tax_receive as $key => $value) : ?>
                                   <tr>
                                       <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
-                                      <td style="text-align: center;"><?php echo $value['receive_date'] ?></td>
+                                      <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
                                       <td><?php echo $value['receipt_no'] ?></td>
                                       <td><?php echo $value['receipt_number'] ?></td>
-                                      <td><?php echo $value['tax_name'] ?></td>
+                                      <td><?php echo $value['individual_prename'] . $value['individual_fullname'] ?></td>
+                                      <td style="text-align: right;"><?php echo number_format($value['amount'], 2); ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
-                                      <td style="text-align: right;"><?php echo number_format($value['sum_amount'], 2); ?></td>
+                                      <td style="text-align: right;"><?php echo number_format($value['balance'], 2); ?></td>
                                   </tr>
                                 <?php endforeach; ?>
 
@@ -184,37 +197,9 @@
                           </div>
                       </div>
 
-
             </div>
           </div>
       </div>
-
-<div class="modal" id="myModalAlert" role="dialog">
-    <div class="modal-dialog modal-sm">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">การแจ้งเตือน!</h4>
-        </div>
-        <div class="modal-body">
-            <center>
-                <h5>จำนวนเงินมากกว่าที่ต้องชำระ</h5>
-            </center>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-        <!-- <div id="myModalAlert" class="modal">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h5>จำนวนเงินมากกว่าที่ต้องชำระ</h5>
-                </div>
-            </div>
-        </div> -->
 
 
 <style>
@@ -255,24 +240,60 @@ text-align: center;
     cursor: pointer;
 }
 </style>
-<script type="text/javascript">
+
+
+
+
+<!-- <script type="text/javascript">
+  document.getElementById("receive_amount_tax").onchange = function() {getToset()};
   document.getElementById("receive_amount").onchange = function() {getToset()};
   document.getElementById("interest").onchange = function() {getToset()};
-  document.getElementById("sum_amount").value = <?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>;
+  document.getElementById("total_pay").onchange = function() {getToset()};
+  document.getElementById("sum_amount").onchange = function() {getToset()};
 
   function getToset(){
-    var tax_amount = document.getElementById("tax_amount").value;
-    var interest = document.getElementById("interest").value;
-    var receive_amount = document.getElementById("receive_amount").value;
-    var sum_all = (interest*1)+(receive_amount*1);
-    document.getElementById("sum_amount").value = sum_all;
+    
+    var tax_amount = $('#tax_amount').val();
+        tax_amount = parseFloat(tax_amount.replace(',', ''));
 
-    if((receive_amount*1)>(tax_amount*1)){
-      modal.style.display = "block";
-      document.getElementById("interest").value = "0.00";
-      document.getElementById("receive_amount").value = <?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>;
-      document.getElementById("sum_amount").value = <?php echo $tax_notice[0]['notice_estimate'] - $tax_notice[0]['tax_amount'] ?>;
+    var interest = $('#interest').val();
+        interest = parseFloat(interest.replace(',', ''));
+
+    var total_pay = $('#total_pay').val();
+        total_pay = parseFloat(total_pay.replace(',', ''));
+
+    // var receive_amount = $('#receive_amount').val(tax_amount+interest);
+    //     receive_amount = parseFloat(receive_amount.replace(',', ''));
+
+    var receive_amount_tax = $('#receive_amount_tax').val(tax_amount+interest);
+        receive_amount_tax = parseFloat(receive_amount_tax.replace(',', ''));
+
+
+    // var sum_amount = $('#sum_amount').val(receive_amount_tax-total_pay);
+    //     sum_amount = parseFloat(sum_amount.replace(',', ''));
+
+    
+    // var tax_amount = document.getElementById("tax_amount").value;
+    // var interest = document.getElementById("interest").value;
+    // var total_pay = document.getElementById("total_pay").value;
+
+    // var receive_amount = (tax_amount*1)+(interest*1);
+    // document.getElementById("receive_amount").value = receive_amount;
+
+    // $('#receive_amount').val(tax_amount + interest);
+
+
+    // var sum_amount = (receive_amount*1)-(total_pay*1);
+    // document.getElementById("sum_amount").value = sum_amount;
+
+    if((total_pay*1)>(receive_amount*1)){
+    alertify.error('จำนวนเงินมากกว่าที่ต้องชำระ');
+      document.getElementById("interest").value;
+      document.getElementById("receive_amount").value;
+      document.getElementById("total_pay").value = '';
+      document.getElementById("sum_amount").value = receive_amount;
     }
+
 
     if(document.getElementById("sum_amount").value*1==0){
       document.getElementById("btnSubmit").disabled = true;
@@ -281,40 +302,4 @@ text-align: center;
     }
   }
 
-var modal = document.getElementById('myModalAlert');
-var span = document.getElementsByClassName("close")[0];
-span.onclick = function() {
-    modal.style.display = "none";
-}
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-<script>
-// check potection expenditure in
-	$('#btn-submit').click(function(){
-
-		if ($("input[name='receipt_no']").val() == '') {
-			alertify.error('กรุณาระบุ เลขที่ใบเสร็จ');
-			$("input[name='receipt_no']").focus();
-			return false;
-		}
-		if ($("input[name='receipt_number']").val() == '') {
-			alertify.error('กรุณาระบุ เล่มที่ใบเสร็จ');
-			$("input[name='receipt_number']").focus();
-			return false;
-        }
-        if ($("input[name='receive_date']").val() == '') {
-			alertify.error('กรุณาระบุ วันที่รับ');
-			$("input[name='receive_date']").focus();
-			return false;
-        }
-        if ($("input[name='receive_amount']").val() == '') {
-			alertify.error('กรุณาระบุ จำนวนภาษี');
-			$("input[name='receive_amount']").focus();
-			return false;
-		}
-    });
-</script>
+</script> -->

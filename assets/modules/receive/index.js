@@ -63,10 +63,10 @@ $(function () {
         data: 'individual_id',
         render: function (data, type, row) {
           var form = '';
-          if (row['individual_id'] == row['individual_id']) {
+          if (row['count_notice'] == 0) {
             form = '<a href=\'' + domain + 'receive/receive_add/' + '' + data + '\'" id="" class="btn btn-info btn-sm" title="เพิ่มการประเมินรายรับ">ประเมิน</a>';
           } else {
-            form = '<a href=\'' + domain + 'receive/receive_notice' + '/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="" class="btn btn-success btn-sm" title="แก้ไขการประเมินรายรับ" style="width: 47px;">ประเมิน</a>';
+            form = '<a href=\'' + domain + 'receive/receive_notice' + '/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="" class="btn btn-success btn-sm" title="แก้ไขการประเมินรายรับ" >ประเมิน</a>';
           }
 
           var btn =
