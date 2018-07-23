@@ -15,7 +15,7 @@
                           </button>
                           <button onclick="window.open('<?php echo base_url('export_report/report_person_receive?type=pdf'.$str_export);?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                           </button>
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person_receive?type=excel'.$str_export);?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
+                          <button onclick="window.open('<?php echo base_url('export_report/report_person_receive?type=excel'.$str_export);?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-o"> </i> ส่งออก excel
                           </button>
                       </div>
                   </div>
