@@ -213,12 +213,17 @@ class Report_model extends CI_Model
     public function getTreeProjectManage($project)
     {
         $ul = '';
+        $labels_chart =  $datasets1 = $datasets2 = '';
         foreach ($project as $key => $value) {
 
             if (empty($value->project_parent)) {
 
                 $prj_id_array = $this->getAllPrjID($value->project_id);
                 $budget = $this->getSumBudgetPrj($prj_id_array);
+
+                $labels_chart .= $value->project_title.'||';
+                $datasets1 .= $budget['prj_budget'].'||';
+                $datasets2 .= $budget['expenses_amount'].'||';
 
                 $ul .= '<tbody>';
                 $ul .= '<tr><td><b>' . $value->project_title . '</b></td>
@@ -234,7 +239,13 @@ class Report_model extends CI_Model
                 $ul .= '</tbody>';
             }
 
+            
+
         }
+
+        $ul .=' <input type="hidden" id="labels_chart" value="'.$labels_chart.'">
+                    <input type="hidden" id="datasets1" value="'.$datasets1.'">
+                    <input type="hidden" id="datasets2" value="'.$datasets2.'">';
 
         return $ul;
     }

@@ -1,55 +1,69 @@
+var labels=new Array();
+var data1=new Array();
+var data2=new Array();
+var labels2=[];
 $(document).ready(function () {
-    $.ajax({
-        url: domain + 'report/getAjaxProjectManage',
-        method: "GET",
-        success: function (data) {
-            var title = [];
-            var value = [];
+    labels_chart = $('#labels_chart').val();
+    labels_chart = labels_chart.split('||');
 
-            for (var i in data) {
-                title.push(data[i].project_title);
-                value.push(data[i].prj_budget);
-            }
+    var datasets1 = $('#datasets1').val();
+    datasets1 = datasets1.split('||');
 
-            var chartdata = {
-                labels: title,
-                datasets: [{
-                    label: 'รายงานบริหารโครงการ',
-                    backgroundColor: "#26B99A",
-                    // backgroundColor: 'rgba(200, 200, 200, 0.75)',
-                    // borderColor: 'rgba(200, 200, 200, 0.75)',
-                    // hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                    // hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                    data: value
-                }]
-            };
+    var datasets2 = $('#datasets2').val();
+    datasets2 = datasets2.split('||');
 
-            var ctx = document.getElementById("report_project_manage").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: chartdata,
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                callback: function (value, index, values) {
-                                    return number_format(value);
-                                }
-                            }
-                        }]
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function (tooltipItem, chart) {
-                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                return datasetLabel + ': ' + number_format(tooltipItem.yLabel, 2);
-                            }
+
+    $.each( labels_chart, function( key, value ) {
+      labels.push(value);
+    });
+
+    $.each( datasets1, function( key, value ) {
+      data1.push( parseFloat(value) ) ;
+    });
+
+    $.each( datasets2, function( key, value ) {
+      data2.push( parseFloat(value) );
+    });
+
+    console.log(labels);
+    console.log(data1);
+    console.log(data2);
+
+    var ctx = document.getElementById("report_chart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'ตั้งไว้ ',
+                data: data1,
+                backgroundColor: "#26B99A",
+            },
+            {
+                label: 'ใช้ไป',
+                data: data2,
+                backgroundColor: "#008080",
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            return number_format(value);
                         }
                     }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, chart) {
+                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                        return datasetLabel + ': ' + number_format(tooltipItem.yLabel, 2);
+                    }
                 }
-            });
-
+            }
         }
     });
 });
