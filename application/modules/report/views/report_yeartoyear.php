@@ -22,9 +22,6 @@
                       <h5 class="inline text-right">ข้อมูล ณ วันที่ 
                         <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
                   </div>
-
-              
-          
                <div class="x_content">
                  <div style="text-align: center;">
                    <h2>รายงานเปรียบเทียบ ยุทธศาสตร์ปี <?php echo $this->session->userdata('year') + 543 - 1 ?> - <?php echo $this->session->userdata('year') + 543 ?></h2>

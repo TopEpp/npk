@@ -153,7 +153,7 @@ class Report_model extends CI_Model
         $this->db->join('tbl_individual','tbl_individual.individual_id = tax_notice.individual_id','left');
         $this->db->where('tbl_tax.tax_parent_id',1);
         $this->db->where('tbl_individual.individual_id', $id);
-        $this->db->where('tax_notice.tax_year',$year);
+        $this->db->where('tax_notice.year_id',$year);
         // $this->db->GROUP_BY('tbl_individual.individual_id,tbl_tax.tax_id,tax_notice.tax_year,tax_notice.notice_id');
         // $this->db->having('notice_estimate > receive_amount');
         $query = $this->db->get();

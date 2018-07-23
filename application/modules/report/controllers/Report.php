@@ -124,6 +124,7 @@ class Report extends MY_Controller
     {
         $data = array();
         $data['data'] = $this->Report_model->getPersonTax($id);
+        $data['id'] = $id;
 
         $this->config->set_item('title', 'ทะเบียนคุมผู้ชำระภาษี');
         $this->setView('report_person', $data);

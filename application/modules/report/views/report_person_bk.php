@@ -1,5 +1,5 @@
 
-<div class="right_col" role="main">
+<div class="right_col" role="main" style="width: 2000px;">
         <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
                       <h3>รายงานลูกหนี้ค้างชำระ</h3>
@@ -10,9 +10,7 @@
                           </button>
                           <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
                           </button> -->
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person/'.$id.'?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
-                          </button>
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person'.$id);?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-o"> </i> ส่งออก excel
+                          <button type="button" class="btn btn-success" title="พิมพ์"> <i class="glyphicon glyphicon-print"> </i> พิมพ์
                           </button>
                       </div>
                   </div>
@@ -43,6 +41,9 @@
                         <tr>
                           <th colspan="10">ภาษีโรงเรือนและที่ดิน</th>
                           <th colspan="6">ภาษีบำรุงท้องที่</th>
+                          <th colspan="6">ภาษีป้าย</th>
+                          <th colspan="7">ค่าธรรมเนียมในอนุญาตต่างๆ</th>
+                          <th rowspan="3">ลงลายมือชื่อ ว.ด.ป</th>
                         </tr> 
                         <tr>
                           <th rowspan="2">ประจำปี พ.ศ.</th>
@@ -51,6 +52,14 @@
                           <th colspan="3">ภ.ร.ด. 12</th>
                           <th colspan="3">ภ.บ.ท. 5</th>
                           <th colspan="3">ภ.บ.ท. 11</th>
+                          <th colspan="3">ภ.ป. 1</th>
+                          <th colspan="3">ภ.ป. 7</th>
+                          <th colspan="2">คำร้อง</th>
+                          <th rowspan="2">ประเภท</th>
+                          <th rowspan="2">ใบอนุญาต เล่มที่/เลขที่</th>
+                          <th rowspan="2">วัน เดือน ปี</th>
+                          <th rowspan="2">จำนวนเงิน</th>
+                          <th rowspan="2">หมายเหตุ</th>
                         </tr>
                         <tr>
                           <th>เลขที่รับ</th>
@@ -73,12 +82,20 @@
                           <th>วัน เดือน ปี</th>
                           <th>จำนวนเงินภาษี</th>
 
+                          <th>เลขที่รับ</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                          <th>เลขที่รับ</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                          <th>เลขที่</th>
+                          <th>วัน เดือน ปี</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) { 
-                            if(!empty($data['tax'][8][$i]['notice_estimate']['year'])){
-                          ?>
+                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) { ?>
                           <tr>
                             <!--  ภ.ร.ด. 2 -->
                             <td><?php echo (@$data['tax'][8][$i]['notice_estimate']['year'] + 543) ?></td>
@@ -106,49 +123,6 @@
                             <td><?php echo $this->mydate->date_eng2thai(@$data['tax'][9][$i]['tax_receive']['receive_date'], 543, 'S') ?></td>
                             <td><?php echo number_format(@$data['tax'][9][$i]['tax_receive']['receive_amount'], 2) ?></td>
 
-                          </tr>
-                        <?php }
-                      } ?>
-                        </tbody>
-                  </table>
-
-
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                          <th colspan="7">ภาษีป้าย</th>
-                          <th colspan="7">ค่าธรรมเนียมในอนุญาตต่างๆ</th>
-                          <th rowspan="3">ลงลายมือชื่อ ว.ด.ป</th>
-                        </tr> 
-                        <tr>
-                          <th rowspan="2">ประจำปี พ.ศ.</th>
-                          <th colspan="3">ภ.ป. 1</th>
-                          <th colspan="3">ภ.ป. 7</th>
-                          <th colspan="2">คำร้อง</th>
-                          <th rowspan="2">ประเภท</th>
-                          <th rowspan="2">ใบอนุญาต เล่มที่/เลขที่</th>
-                          <th rowspan="2">วัน เดือน ปี</th>
-                          <th rowspan="2">จำนวนเงิน</th>
-                          <th rowspan="2">หมายเหตุ</th>
-                        </tr>
-                        <tr>
-
-                          <th>เลขที่รับ</th>
-                          <th>วัน เดือน ปี</th>
-                          <th>จำนวนเงินภาษี</th>
-
-                          <th>เลขที่รับ</th>
-                          <th>วัน เดือน ปี</th>
-                          <th>จำนวนเงินภาษี</th>
-
-                          <th>เลขที่</th>
-                          <th>วัน เดือน ปี</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) { ?>
-                          <tr>
-                            <td><?php echo (@$data['tax'][10][$i]['notice_estimate']['year'] + 543) ?></td>
                             <!--  ภ.ป. 1 -->
                             <td><?php echo @$data['tax'][10][$i]['notice_estimate']['notice_number'] ?></td>
                             <td><?php echo $this->mydate->date_eng2thai(@$data['tax'][10][$i]['notice_estimate']['notice_date'], 543, 'S') ?></td>
@@ -172,9 +146,6 @@
                       } ?>
                         </tbody>
                   </table>
-
-
-                  
                 </div>
                     
                     
