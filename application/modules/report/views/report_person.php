@@ -155,7 +155,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) { ?>
+                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) { 
+                            if(!empty($data['tax'][10][$i]['notice_estimate']['year'])){ ?>
                           <tr>
                             <td><?php echo (@$data['tax'][10][$i]['notice_estimate']['year'] + 543) ?></td>
                             <!--  ภ.ป. 1 -->
@@ -177,7 +178,7 @@
                             <td></td>
                             <td></td>
                           </tr>
-                        <?php 
+                        <?php }
                       } ?>
                         </tbody>
                   </table>

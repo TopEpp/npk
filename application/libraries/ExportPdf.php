@@ -27,6 +27,7 @@ class ExportPdf
         foreach ($data as $index => $val) {
             $c .= $val['html'];
         }
+        
         $mpdf->WriteHTML($c);
 
         $mpdf->Output($this->file, $this->fileAction);

@@ -431,7 +431,244 @@ class export_report extends My_Controller
         $data = array();
         $data = $this->Report_model->getPersonTax($id);
 
-        
+        $content="<table cellspacing='0' cellpadding='0' width='100%'>
+                    <tr>
+                        <td width='5%'></td>
+                        <td COLSPAN='14'  ALIGN='center'> ทะเบียนคุมผู้ชำระภาษี</td>
+                        <td width='5%' ALIGN='right'> ผ.ท. 5</td></tr>
+                  </table>";
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        $content="<table cellspacing='0' cellpadding='0' width='100%'>
+                    <tr>
+                        <td width='30%'>ชื่อ - สกุล : ผู้เสียภาษี ".$data['person']['name'] ."</td>
+                        <td width='40%'> เลขที่ประจำตัวประชาชน/เลขประจำผู้เสียภาษี ".$data['person']['idcard']."</td>
+                        <td width='30%'> รหัสชื่อ</td>
+                    </tr>
+                  </table>";
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        $content="<table cellspacing='0' cellpadding='0' width='100%'>
+                    <tr>
+                        <td width='70%'>ที่อยู่ : บ้านเลขที่ ".$data['person']['address']." หมู่ที่ ".$data['person']['village']." ตำบล หนองป่าคลั่ง อำเภอ เมือง จังหวัด เชียงใหม่</td>
+                        <td width='30%'> ชื่อนิติบุคคล</td>
+                    </tr>
+                  </table>";
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        $content="<table cellspacing='0' cellpadding='0' width='100%'>
+                    <tr>
+                        <td width='20%'></td>
+                        <td width='30%' > โทร. ".$data['person']['phone']." </td>
+                        <td width='30%' > Fax. ".$data['person']['fax']." </td>
+                        <td width='20%'></td>
+                    </tr>
+                  </table>";
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        $content = '<table cellspacing="0" cellpadding="0" width="100%" border=1>
+                        <thead>
+                        <tr>
+                          <th colspan="10">ภาษีโรงเรือนและที่ดิน</th>
+                          <th colspan="6">ภาษีบำรุงท้องที่</th>
+                        </tr> 
+                        <tr>
+                          <th rowspan="2">ประจำปี พ.ศ.</th>
+                          <th colspan="3">ภ.ร.ด. 2</th>
+                          <th colspan="3">ภ.ร.ด. 8</th>
+                          <th colspan="3">ภ.ร.ด. 12</th>
+                          <th colspan="3">ภ.บ.ท. 5</th>
+                          <th colspan="3">ภ.บ.ท. 11</th>
+                        </tr>
+                        <tr>
+                          <th>เลขที่รับ</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>ค่ารายปี</th>
+
+                          <th>เล่มที่/เลขที่</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                          <th>เล่มที่/เลขที่</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                          <th>เลขที่สำรวจ</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                          <th>เลขที่สำรวจ</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>';
+
+                        for ($i = 1; $i <= $data['count_rec']; $i++) { 
+                            if(!empty($data['tax'][8][$i]['notice_estimate']['year']) || !empty($data['tax'][9][$i]['notice_estimate']['year'])){
+
+                              if( !empty($data['tax'][8][$i]['notice_estimate']['year']) ){
+                                $year = $data['tax'][8][$i]['notice_estimate']['year']+543;
+                              }
+
+                              if( !empty($data['tax'][9][$i]['notice_estimate']['year']) ){
+                                $year = $data['tax'][9][$i]['notice_estimate']['year']+543;
+                              }
+                              
+                          
+                          $content .= '<tr>
+                            <td>'.$year.'</td>
+                            <td>'.@$data['tax'][8][$i]['notice_estimate']['notice_number_p2'].'</td>
+                            <td>'.$this->mydate->date_eng2thai(@$data['tax'][8][$i]['notice_estimate']['notice_date_p2'], 543, 'S').'</td>
+                            <td>'.number_format(@$data['tax'][8][$i]['notice_estimate']['notice_annual_fee'], 2).'</td>
+
+                            <td>'.@$data['tax'][8][$i]['notice_estimate']['notice_no'] . '/' . @$data['tax'][8][$i]['notice_estimate']['notice_number'].'</td>
+                            <td>'.$this->mydate->date_eng2thai(@$data['tax'][8][$i]['notice_estimate']['notice_date'], 543, 'S').'</td>
+                            <td>'.number_format(@$data['tax'][8][$i]['notice_estimate']['notice_estimate'], 2).'</td>
+
+                            <td>'.@$data['tax'][8][$i]['tax_receive']['receipt_number'].'</td>
+                            <td>'.$this->mydate->date_eng2thai(@$data['tax'][8][$i]['tax_receive']['receive_date'], 543, 'S').'</td>
+                            <td>'.number_format(@$data['tax'][8][$i]['tax_receive']['receive_amount'], 2).'</td>
+
+                            <td>'.@$data['tax'][9][$i]['notice_estimate']['notice_number'].'</td>
+                            <td>'.$this->mydate->date_eng2thai(@$data['tax'][9][$i]['notice_estimate']['notice_date'], 543, 'S').'</td>
+                            <td>'.number_format(@$data['tax'][9][$i]['notice_estimate']['notice_estimate'], 2).'</td>
+
+                            <td>'.@$data['tax'][9][$i]['tax_receive']['receipt_number'].'</td>
+                            <td>'.$this->mydate->date_eng2thai(@$data['tax'][9][$i]['tax_receive']['receive_date'], 543, 'S').'</td>
+                            <td>'.number_format(@$data['tax'][9][$i]['tax_receive']['receive_amount'], 2).'</td>
+
+                          </tr>';
+                         }
+                      }
+
+                    $content .= '
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        </tbody>
+                  </table>';
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        $content="<table cellspacing='0' cellpadding='0' width='100%'>
+                    <tr>
+                        <td width='5%'></td>
+                        <td COLSPAN='14'  ALIGN='center'> </td>
+                        <td width='5%' ALIGN='right'> ผ.ท. 5</td></tr>
+                  </table>";
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        $content = '<table cellspacing="0" cellpadding="0" width="100%" border=1>
+                        <thead>
+                        <tr>
+                          <th colspan="7">ภาษีป้าย</th>
+                          <th colspan="7">ค่าธรรมเนียมในอนุญาตต่างๆ</th>
+                          <th rowspan="3">ลงลายมือชื่อ ว.ด.ป</th>
+                        </tr> 
+                        <tr>
+                          <th rowspan="2">ประจำปี พ.ศ.</th>
+                          <th colspan="3">ภ.ป. 1</th>
+                          <th colspan="3">ภ.ป. 7</th>
+                          <th colspan="2">คำร้อง</th>
+                          <th rowspan="2">ประเภท</th>
+                          <th rowspan="2">ใบอนุญาต เล่มที่/เลขที่</th>
+                          <th rowspan="2">วัน เดือน ปี</th>
+                          <th rowspan="2">จำนวนเงิน</th>
+                          <th rowspan="2">หมายเหตุ</th>
+                        </tr>
+                        <tr>
+
+                          <th>เลขที่รับ</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                          <th>เลขที่รับ</th>
+                          <th>วัน เดือน ปี</th>
+                          <th>จำนวนเงินภาษี</th>
+
+                          <th>เลขที่</th>
+                          <th>วัน เดือน ปี</th>
+                        </tr>
+                        </thead>
+                        <tbody>';
+
+                        for ($i = 1; $i <= $data['count_rec']; $i++) {
+                          if(!empty($data['tax'][10][$i]['notice_estimate']['year'])){
+                          $content .= '<tr>
+                            <td>'.(@$data['tax'][10][$i]['notice_estimate']['year'] + 543).'</td>
+                            <td>'.@$data['tax'][10][$i]['notice_estimate']['notice_number'].'</td>
+                            <td>'.$this->mydate->date_eng2thai(@$data['tax'][10][$i]['notice_estimate']['notice_date'], 543, 'S').'</td>
+                            <td>'.number_format(@$data['tax'][10][$i]['notice_estimate']['notice_estimate'], 2).'</td>
+
+                            <td>'.@$data['tax'][10][$i]['tax_receive']['receipt_number'].'</td>
+                            <td>'.$this->mydate->date_eng2thai(@$data['tax'][10][$i]['tax_receive']['receive_date'], 543, 'S').'</td>
+                            <td>'.number_format(@$data['tax'][10][$i]['tax_receive']['receive_amount'], 2).'</td>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>';
+                        }
+                      }
+
+                    $content .= '
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                    </tbody>
+                  </table>';
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        // echo '<pre>'; 
+        // print_r($dataExport);
+
+        if($this->excel){
+          $this->exportexcel->exportFhtml($dataExport,'รายงาน.xls');
+        }else{
+          $this->exportpdf->exportFhtml($dataExport,'A4-L');
+        }
 
     }
 }

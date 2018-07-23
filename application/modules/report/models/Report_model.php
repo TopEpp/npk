@@ -185,7 +185,7 @@ class Report_model extends CI_Model
                 $count_tax = $count_tax3;
             }
 
-            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['year'] = $value->tax_year;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['year'] = $value->year_id;
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_number_p2'] = $value->notice_number_p2;
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_date_p2'] = $value->notice_date_p2;
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_estimate'] = $value->notice_estimate;
