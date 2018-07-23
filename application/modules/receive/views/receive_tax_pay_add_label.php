@@ -169,8 +169,8 @@
                                   <th style="background-color:#2A3F54; color: #FFF;">เล่มที่ใบเสร็จ</th>
                                   <th style="background-color:#2A3F54; color: #FFF;">ชื่อผู้เสียภาษี</th>
                                   <th style="background-color:#2A3F54; color: #FFF;">จำนวนเงินภาษี</th>
-                                  <th style="background-color:#2A3F54; color: #FFF;">จำนวนเงินที่ชำระ</th>
                                   <th style="background-color:#2A3F54; color: #FFF;">เงินเพิ่ม</th>
+                                  <th style="background-color:#2A3F54; color: #FFF;">จำนวนเงินที่ชำระ</th>
                                   <th style="background-color:#2A3F54; color: #FFF;">คงเหลือ</th>
                               </tr>
                           </thead>
@@ -183,8 +183,8 @@
                                       <td><?php echo $value['receipt_number'] ?></td>
                                       <td><?php echo $value['individual_prename'] . $value['individual_fullname'] ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['amount'], 2); ?></td>
-                                      <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
+                                      <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['balance'], 2); ?></td>
                                   </tr>
                                 <?php endforeach; ?>
