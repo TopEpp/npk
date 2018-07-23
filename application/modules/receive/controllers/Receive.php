@@ -1340,53 +1340,6 @@ class Receive extends MY_Controller
 
     }
 
-    function receive_tax_pay_edit_house()
-    {
-        $id = $this->uri->segment(3);
-        $query = $this->Receive_model->get_notic_one($id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
-
-
-        $data = array();
-        $data['tax_notice'] = $query;
-        $data['tax_receive'] = $query2;
-        $data['other_tax'] = $this->Receive_model->read_Receive_Tax($id);
-
-        $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
-        $this->template->javascript->add('assets/modules/receive/tax_pay.js');
-        $this->setView('receive_tax_pay_edit_house', $data);
-        $this->publish();
-    }
-
-    function recieve_tax_update_house()
-    {
-        $input = $this->input->post();
-        $date = explode('/', $input['receive_date']);
-        $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
-
-        $value = str_replace(',', '', $this->input->post('amount'));
-        $input['amount'] = $value;
-
-
-        $value = str_replace(',', '', $this->input->post('receive_amount'));
-        $input['receive_amount'] = $value;
-
-        $value = str_replace(',', '', $this->input->post('interest'));
-        $input['interest'] = $value;
-
-        $value = str_replace(',', '', $this->input->post('sum_amount'));
-        $input['sum_amount'] = $value;
-
-        $value = str_replace(',', '', $this->input->post('balance'));
-        $input['balance'] = $value;
-
-        $year = $this->session->userdata('year');
-        $this->Receive_model->updateReceiveTax($year, $input);
-        redirect(base_url('receive/receive_save_house'));
-
-    }
-
-
     function receive_tax_pay_add_local()
     {
         $id = $this->uri->segment(3);
@@ -1433,25 +1386,6 @@ class Receive extends MY_Controller
         $this->Receive_model->recieve_tax_add($year, $input);
         redirect(base_url('receive/receive_save_local/'));
     }
-
-    function receive_tax_pay_edit_สนแฟส()
-    {
-        $id = $this->uri->segment(3);
-        $query = $this->Receive_model->get_notic_one($id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
-
-
-        $data = array();
-        $data['tax_notice'] = $query;
-        $data['tax_receive'] = $query2;
-        $data['other_tax'] = $this->Receive_model->read_Receive_Tax($id);
-
-        $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
-        $this->template->javascript->add('assets/modules/receive/tax_pay.js');
-        $this->setView('receive_tax_pay_edit_local', $data);
-        $this->publish();
-    }
-
 
     function receive_tax_pay_add_label()
     {
@@ -1521,7 +1455,6 @@ class Receive extends MY_Controller
         $this->output->set_content_type('application/json')->set_output(json_encode($result));
 
     }
-
 
 
 

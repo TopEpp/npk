@@ -2,15 +2,11 @@
 <div class="right_col" role="main">
             <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
-                      <h3>การชำระภาษี</h3>
+                      <h3>รายการการประเมินรายรับ</h3>
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
                             <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
-                            </button>
-                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก PDF
-                            </button>
-                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก Excel
                             </button>
                             <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
                             </button>
@@ -79,12 +75,11 @@
                           <tr>
                             <th>ลำดับ</th>
                             <th>เลขที่รับ/ปี</th>
+                            <th >จำนวนเงินที่ประเมิน (บาท)</th>
                             <th >เลขประจำตัวผู้เสียภาษี</th>
                             <th >ชื่อผู้เสียภาษี</th>
                             <th>หมวดรายได้</th>
-                            <th >จำนวนเงินค่าภาษี (บาท)</th>
-                            <th >เงินเพิ่ม</th>
-                            <th >คงเหลือ</th>
+                            <!-- <th width="10%">จำนวนเงินที่ชำระ (บาท)</th> -->
                             <th style="width:30%">เครื่องมือ</th>
                           </tr>
                         </thead>

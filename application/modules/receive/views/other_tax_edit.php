@@ -19,7 +19,7 @@
                             <div class="x_content">
                             <br />
 
-                                <?php echo form_open('receive/update_other_tax') ?>
+                                <?php echo form_open('Receive/update_other_tax') ?>
                                         <div class="form-horizontal form-label-left">
                                                 <input type="hidden" name="receive_id"  value="<?php echo $other_tax[0]['receive_id'] ?>">
                                                 

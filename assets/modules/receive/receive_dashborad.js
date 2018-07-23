@@ -47,7 +47,10 @@ $(function () {
                 },
                 "className": "text-center",
             },
-
+            {
+                data: 'sum_notice_estimate',
+                "className": "text-right",
+            },
             {
                 data: 'individual_number',
                 "className": "text-center",
@@ -64,18 +67,6 @@ $(function () {
             },
             {
                 data: 'tax_name',
-            },
-            {
-                data: 'sum_notice_estimate',
-                "className": "text-right",
-            },
-            {
-                data: 'sum_notice_estimate',
-                "className": "text-right",
-            },
-            {
-                data: 'sum_notice_estimate',
-                "className": "text-right",
             },
             // {
             //     data: 'tax_amount',
@@ -94,11 +85,11 @@ $(function () {
                     }
                     var form1 = '';
                     if (row['tax_id'] == '8') {
-                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
                     } else if (row['tax_id'] == '9') {
-                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_local/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_local/' + '' + data + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
                     } else if (row['tax_id'] == '10') {
-                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_label/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_label/' + '' + data + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
                     }
 
                     var btn =
