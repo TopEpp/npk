@@ -467,9 +467,13 @@ class export extends My_Controller
         <tr>
           <td colspan=3 style="text-align:center;"><img src="assets/images/logo_alert.jpg" style="width: 80px;"> </td>
         </tr>
-        <tr>
-          <td colspan=3 style="text-align:left;">หนังสือแจ้งเตือนครั้งที่ ' . $this->mydate->conv_th_digit($data['alert_order']) . '</td>
-        </tr>
+        <tr>';
+        if ($data['alert_order'] != 3) {
+          $content .= '<td colspan=3 style="text-align:left;">หนังสือแจ้งเตือนครั้งที่ ' . $this->mydate->conv_th_digit($data['alert_order']) . '</td>';
+        }else{
+          $content .= '<td colspan=3 style="text-align:left;">หนังสือแจ้งเตือนครั้งสุดท้าย</td>';
+        }
+       $content .= '</tr>
         <tr>
           <td style="text-align:left; width:100px;">ที่ ชม.๕๔๙๐๒/.............</td>
           <td  style="text-align:right;">สำนักงาน เทศบาลตำบลหนองป่าครั่ง<br/>
@@ -553,7 +557,7 @@ class export extends My_Controller
         </tr>
         <tr>
           <td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . ' บาท (....................) นั้น
+            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . ' บาท ('.$this->Convert($data['notice_estimate']+ $data['tax_interest']).') นั้น
           </td>
         </tr>
         <tr>
@@ -578,7 +582,7 @@ class export extends My_Controller
 
         <tr>
           <td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . ' บาท (....................) นั้น
+            รวมเป็นเงินค่าภาษีและเงินเพิ่มทั้งสิน ' . $this->mydate->conv_th_digit(number_format($data['notice_estimate'] + $data['tax_interest'], 2)) . ' บาท ('.$this->Convert($data['notice_estimate']+ $data['tax_interest']).') นั้น
           </td>
         </tr>
         <tr>
@@ -629,5 +633,61 @@ class export extends My_Controller
 
         $this->exportpdf->exportFhtml($dataExport);
     }
+
+
+  function Convert($amount_number)
+  {
+      $amount_number = number_format($amount_number, 2, ".","");
+      $pt = strpos($amount_number , ".");
+      $number = $fraction = "";
+      if ($pt === false) 
+          $number = $amount_number;
+      else
+      {
+          $number = substr($amount_number, 0, $pt);
+          $fraction = substr($amount_number, $pt + 1);
+      }
+      
+      $ret = "";
+      $baht = $this->ReadNumber ($number);
+      if ($baht != "")
+          $ret .= $baht . "บาท";
+      
+      $satang = $this->ReadNumber($fraction);
+      if ($satang != "")
+          $ret .=  $satang . "สตางค์";
+      else 
+          $ret .= "";
+      return $ret;
+  }
+
+  function ReadNumber($number)
+  {
+      $position_call = array("แสน", "หมื่น", "พัน", "ร้อย", "สิบ", "");
+      $number_call = array("", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า");
+      $number = $number + 0;
+      $ret = "";
+      if ($number == 0) return $ret;
+      if ($number > 1000000)
+      {
+          $ret .= $this->ReadNumber(intval($number / 1000000)) . "ล้าน";
+          $number = intval(fmod($number, 1000000));
+      }
+      
+      $divider = 100000;
+      $pos = 0;
+      while($number > 0)
+      {
+          $d = intval($number / $divider);
+          $ret .= (($divider == 10) && ($d == 2)) ? "ยี่" : 
+              ((($divider == 10) && ($d == 1)) ? "" :
+              ((($divider == 1) && ($d == 1) && ($ret != "")) ? "เอ็ด" : $number_call[$d]));
+          $ret .= ($d ? $position_call[$pos] : "");
+          $number = $number % $divider;
+          $divider = $divider / 10;
+          $pos++;
+      }
+      return $ret;
+  }
 
 }

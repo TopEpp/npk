@@ -1,6 +1,6 @@
 
 <div class="right_col" role="main">
-          
+
           <div class="page-title">
             <div class="title_left">
               <h3>ระบบบัญชีรายจ่ายในงบประมาณ</h3>
@@ -56,10 +56,10 @@
                         <input type="text" id="tax_name" placeholder="" value="" class="form-control col-md-7 col-xs-12">
                       </div>
                     </div>
-  
+
                     <div class="ln_solid"></div>
                   </form>
-                  
+
                   <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
                           <br>
@@ -68,9 +68,9 @@
                         </div>
                   </div>
                 </div>
-                
 
-              
+
+
 
                <div class="x_content">
                   <table id="table_expenditure"  class="table table-striped" style="width:100%">
@@ -86,12 +86,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <!-- <?php foreach ($expenditure as $key => $value) { ?>
+                      <!-- <?php foreach ($expenditure as $key => $value) {?>
                          <tr>
                           <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date_disburse, 543, 'S') ?></td>
                           <td align="center"><?php echo $value->expenses_number; ?></td>
                           <td align="center"><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S') ?></td>
-                          <td><?php echo $value->prj_name; ?></td>  
+                          <td><?php echo $value->prj_name; ?></td>
                           <td align="right"><?php echo number_format($value->expenses_amount_result, 2); ?></td>
                           <td align="center"><?php echo $value->user_firstname; ?></td>
                           <td>
@@ -107,17 +107,17 @@
                                         ลบ
                                     </button>
                                 </div>
-                            </center>               
+                            </center>
                           </td>
                         </tr>
-                      <?php 
-                    } ?>  -->
+                      <?php
+}?>  -->
 
                       <tbody>
                     </table>
                 </div>
-                    
-                    
+
+
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@
           </div>
       </div>
 
-<!-- Modal Popup -->          
+<!-- Modal Popup -->
 <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="delmodal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-dialog modal-sm">
@@ -135,8 +135,8 @@
                 </button>
                 <h4 class="modal-title" id="delmodal">การแจ้งเตือน!</h4>
             </div>
-            
-            
+
+
             <div class="modal-body">
                     <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
             </div>
@@ -155,7 +155,7 @@
 
 
 
-          
+
 <!-- Modal Popup -->
 
 <div class="modal fade" id="paymodal" tabindex="-1" role="dialog" aria-labelledby="paymodal" aria-hidden="true">
@@ -167,7 +167,7 @@
                   </button>
                   <h4 class="modal-title" id="delmodal">บันทึก เลขที่เช็ค/วันที่เช๊ค</h4>
               </div>
-            
+
               <div class="modal-body">
               <div class="row">
                 <div class="col-sm-12">
@@ -182,8 +182,8 @@
                   <input type="text" name="expenses_date_disburse" value="" class="form-control datepicker">
                 </div>
               </div>
-        
-                      
+
+
               </div>
 
               <div class="modal-footer">
@@ -205,8 +205,12 @@
   }
 
   .dataTables_filter, .dataTables_info { display: none; }
+  tr.group-start td{
+    background-color: #bbb;
+    cursor:pointer;
+  }
 
 </style>
-      
+
 
 

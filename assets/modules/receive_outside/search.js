@@ -198,7 +198,7 @@ $(function () {
     });
 
           // load ajax
-
+          var collapsedGroups = {};
           var table = $('#table_outside_pay').DataTable({
             pageLength: 100,
             serverSide: true,
@@ -207,15 +207,32 @@ $(function () {
             ajax: {
               url: domain + 'receive_outside/getOutsideAjax',
             },
+            orderFixed: [0, 'DESC'],
+            rowGroup: {
+                dataSrc: "outside_pay_create",
+                startRender: function (rows, group) {
+                   var collapsed = !!collapsedGroups[group];
+       
+                   rows.nodes().each(function (r) {
+                       r.style.display = collapsed ? 'none' : '';
+                   });    
+       
+                   // Add category name to the <tr>. NOTE: Hardcoded colspan
+                   return $('<tr/>')
+                       .append('<td colspan="6">' + group + '</td>')
+                       .attr('data-name', group)
+                       .toggleClass('collapsed', collapsed);
+               }
+            },
             "columnDefs": [{
               "name": "",
               "targets": 0
             }, ],
         
         
-            "order": [
-              [5, 'DESC']
-            ],
+            // "order": [
+            //   [5, 'DESC']
+            // ],
             'columns': [{
                 data: 'outside_pay_create',
                 "className": "text-center",
@@ -285,6 +302,11 @@ $(function () {
         
         
           });
+          table.on('click', 'tr.group-start', function () {
+            var name = $(this).data('name');
+            collapsedGroups[name] = !collapsedGroups[name];
+            table.draw();
+        });
         
           //search data 
           $('#search_pay').click(function () {

@@ -28,7 +28,7 @@
          window.location.replace(domain + 'receive/' + 'receive_other_delete' + '/' + id);
      });
 
-
+     var collapsedGroups = {};
      var table = $('#tax_table').DataTable({
          //  pageLength: 100,
          //  serverSide: true,
@@ -41,11 +41,6 @@
          //      "name": "",
          //      "targets": 0
          //  }, ],
-
-
-         //  "order": [
-         //      [1, 'DESC']
-         //  ],
          //  'columns': [{
          //          data: 'receive_id',
          //          "className": "text-center",
@@ -81,6 +76,23 @@
          //      }
          //  ],
          // "bSort" : false,
+         orderFixed: [1, 'asc'],
+         rowGroup: {
+             dataSrc: 1,
+             startRender: function (rows, group) {
+                var collapsed = !!collapsedGroups[group];
+    
+                rows.nodes().each(function (r) {
+                    r.style.display = collapsed ? 'none' : '';
+                });    
+    
+                // Add category name to the <tr>. NOTE: Hardcoded colspan
+                return $('<tr/>')
+                    .append('<td colspan="5">' + group + '</td>')
+                    .attr('data-name', group)
+                    .toggleClass('collapsed', collapsed);
+            }
+         },
          "bLengthChange": false,
          "bFilter": true,
          "responsive": true,
@@ -110,6 +122,11 @@
 
 
      });
+     table.on('click', 'tr.group-start', function () {
+        var name = $(this).data('name');
+        collapsedGroups[name] = !collapsedGroups[name];
+        table.draw();
+    });
 
      //search data 
      //  $('#search_receive').click(function () {

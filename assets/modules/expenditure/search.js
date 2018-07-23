@@ -79,7 +79,7 @@ $(function(){
 
     });
     
-
+    var collapsedGroups = {};
     var table = $('#table_expenditure').DataTable({
         pageLength: 100,
         serverSide: true,
@@ -88,15 +88,32 @@ $(function(){
         ajax: {
           url: domain + 'expenditure/getAjaxExpenditure',
         },
-        "columnDefs": [{
-          "name": "",
-          "targets": 0
-        }, ],
+        orderFixed: [2, 'DESC'],
+        rowGroup: {
+            dataSrc: "expenses_date",
+            startRender: function (rows, group) {
+               var collapsed = !!collapsedGroups[group];
+   
+               rows.nodes().each(function (r) {
+                   r.style.display = collapsed ? 'none' : '';
+               });    
+   
+               // Add category name to the <tr>. NOTE: Hardcoded colspan
+               return $('<tr/>')
+                   .append('<td colspan="7">' + group + '</td>')
+                   .attr('data-name', group)
+                   .toggleClass('collapsed', collapsed);
+           }
+        },
+        // "columnDefs": [{
+        //   "name": "",
+        //   "targets": 0
+        // }, ],
     
     
-        "order": [
-          [2, 'DESC']
-        ],
+        // "order": [
+        //   [2, 'DESC']
+        // ],
         'columns': [{
             data: 'expenses_date_disburse',
             "className": "text-center",
@@ -142,7 +159,8 @@ $(function(){
             },
             "className": "text-center",
             orderable: false
-          }
+          },
+          
         ],
         // "bSort" : false,
         "bLengthChange": false,
@@ -173,6 +191,11 @@ $(function(){
     
       });
     
+      table.on('click', 'tr.group-start', function () {
+            var name = $(this).data('name');
+            collapsedGroups[name] = !collapsedGroups[name];
+            table.draw();
+        });
       //search data 
       $('#search_pay').click(function () {
 

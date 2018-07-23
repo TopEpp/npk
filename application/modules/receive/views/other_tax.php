@@ -12,7 +12,7 @@
                       </div>
                   </div>
             </section>
-          
+
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel" style="top: 10px;">
@@ -56,11 +56,11 @@
                               </div>
                             </div>
                             <div class="form-group">
-                              
+
                               <div class="col-md-5 col-sm-6 col-xs-12">
-                                
+
                             </div>
-                            
+
                             <div class="form-group">
                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
                                 <br>
@@ -86,10 +86,10 @@
                               </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($other_tax as $key => $value) { ?>
+                                <?php foreach ($other_tax as $key => $value) {?>
                                     <tr>
                                       <td align="center"><?php echo $key + 1; ?></td>
-                                      <td align="center"><?php echo $this->mydate->date_eng2thai($value->receive_date, 543, 'S'); ?></td>  
+                                      <td align="center"><?php echo $this->mydate->date_eng2thai($value->receive_date, 543, 'S'); ?></td>
                                       <td ><?php echo $value->tax_name; ?></td>
                                       <td align="right"><?php echo number_format($value->receive_amount, 2); ?></td>
                                       <td>
@@ -103,13 +103,13 @@
                                                 </button>
 
                                             </div>
-                                        </center>               
+                                        </center>
                                       </td>
                                     </tr>
-                                  <?php 
-                                } ?> 
+                                  <?php
+}?>
 
-                          
+
 
                             <tbody>
                         </table>
@@ -156,9 +156,13 @@
 th{
 text-align: center;
 }
+tr.group-start td{
+  background-color: #bbb;
+  cursor:pointer;
+}
 </style>
 
 
-        
+
 
 

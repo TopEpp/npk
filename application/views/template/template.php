@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['user_id'])) {
-  redirect('login');
+    redirect('login');
 }
 ?>
 
@@ -35,7 +35,7 @@ if (!isset($_SESSION['user_id'])) {
     <!-- easyui -->
     <?php echo css_asset('../plugins/easyui/themes/material-teal/easyui.css'); ?>
     <?php echo css_asset('../plugins/easyui/themes/icon.css'); ?>
-    
+
     <!-- datepicker thai -->
     <?php echo css_asset('../plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css'); ?>
     <!-- datatable -->
@@ -46,20 +46,20 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo css_asset('../plugins/alertify/css/alertify.min.css'); ?>
 
     <?php echo $this->template->stylesheet; ?>
-    
+
 <body class="nav-md">
 
   <div class="container body">
     <div class="main_container">
 
-      <?php $this->load->view('template/slidemenu'); ?>
+      <?php $this->load->view('template/slidemenu');?>
 
-      <?php $this->load->view('template/header'); ?>
+      <?php $this->load->view('template/header');?>
 
       <?php echo $this->template->content; ?>
 
-      <?php $this->load->view('template/footer'); ?>
-      
+      <?php $this->load->view('template/footer');?>
+
 
 
     </div>
@@ -67,8 +67,8 @@ if (!isset($_SESSION['user_id'])) {
 
   <script type="text/javascript">
         var domain = '<?php echo base_url(); ?>';
-        var menu = '<?php echo $this->uri->segment(1);?>';
-        var menu_child = '<?php echo $this->uri->segment(2);?>';
+        var menu = '<?php echo $this->uri->segment(1); ?>';
+        var menu_child = '<?php echo $this->uri->segment(2); ?>';
     </script>
 
   <!-- jQuery -->
@@ -115,7 +115,7 @@ if (!isset($_SESSION['user_id'])) {
     <!-- datatable -->
     <?php echo js_asset('../js/treegrid-dnd.js'); ?>
 
-    
+
     <!-- alertify -->
     <?php echo js_asset('../plugins/alertify/alertify.min.js'); ?>
 
@@ -124,13 +124,14 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo js_asset('../js/jquery.maskedinput.min.js'); ?>
     <?php echo js_asset('../js/jquery.setformat.js'); ?>
     <?php echo js_asset('../js/main.js'); ?>
-    
+
     <?php echo $this->template->javascript; ?>
 
 
 
     <!-- datatable -->
     <?php echo js_asset('../modules/datatable/js/datatable.js'); ?>
+    <?php echo js_asset('../modules/datatable/js/rowgroup.js'); ?>
     <!-- datepicker -->
     <?php echo js_asset('../modules/datepicker/js/datepicker.js'); ?>
     <script type="text/javascript">
@@ -143,7 +144,7 @@ if (!isset($_SESSION['user_id'])) {
 					top: e.pageY
 				});
       }
-      
+
 
 		}
 		var idIndex = 100;
@@ -187,7 +188,7 @@ if (!isset($_SESSION['user_id'])) {
 				$('#tg').treegrid('expand', node.id);
 			}
     }
-    
+
     //change year
     function changeYear(val){
       $.ajax({
@@ -196,10 +197,10 @@ if (!isset($_SESSION['user_id'])) {
           data: {year:val.value},
           success: function (data) {
             if (data.success)
-              window.location.reload(true); 
+              window.location.reload(true);
             },
       })
-    
+
     }
 </script>
 

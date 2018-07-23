@@ -145,6 +145,10 @@
   }
 
   .dataTables_filter, .dataTables_info { display: none; }
+  tr.group-start td{
+    background-color: #bbb;
+    cursor:pointer;
+  }
 
 </style>
 
