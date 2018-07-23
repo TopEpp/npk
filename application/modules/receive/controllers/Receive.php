@@ -224,8 +224,8 @@ class Receive extends MY_Controller
                             $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
                             $data[$form_key][$key]['banner_amount'] = str_replace(',', '', $input['banner_amount'][$form_key][0]);
                             @$data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][0];
-    
-    
+
+
                         // --- $form_key $key ----//
 
                     // $data[$form_key][$key]['ban'] = $input['ban'][$form_key][$key];
@@ -335,8 +335,8 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
                     $data[$form_key][$key]['banner_amount'] = str_replace(',', '', $input['banner_amount'][$form_key][0]);
                     $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][0];
-    
-    
+
+
                         // --- $form_key $key ----//
                     $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
                     $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
@@ -423,8 +423,8 @@ class Receive extends MY_Controller
         $date = explode('/', $input['receive_date']);
         $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
 
-        $value = str_replace(',', '', $this->input->post('receive_amount'));
-        $input['receive_amount'] = $value;
+        $value = str_replace(',', '', $this->input->post('sum_amount'));
+        $input['sum_amount'] = $value;
 
         $year = $this->session->userdata('year');
 
@@ -445,7 +445,14 @@ class Receive extends MY_Controller
         $tax_health = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '5' ORDER BY tax_name");
         $tax_miscellaneous = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '6' ORDER BY tax_name");
         $tax_subsidy = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '7' ORDER BY tax_name");
-
+        $sql_user = "SELECT
+                    usrm_user.user_id,
+                     std_prename.prename_th,
+                     usrm_user.user_firstname,
+                     usrm_user.user_lastname
+                    FROM usrm_user INNER JOIN std_prename ON usrm_user.user_prename = std_prename.pren_id
+                    ";
+        $receive_user = $this->db->query($sql_user);
 
         $data['tax_allocate'] = $tax_allocate->result_array();
         $data['tax_fine'] = $tax_fine->result_array();
@@ -453,6 +460,7 @@ class Receive extends MY_Controller
         $data['tax_health'] = $tax_health->result_array();
         $data['tax_miscellaneous'] = $tax_miscellaneous->result_array();
         $data['tax_subsidy'] = $tax_subsidy->result_array();
+        $data['receive_user'] = $receive_user->result();
 
 
         $this->config->set_item('title', 'บันทึกรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
@@ -472,6 +480,14 @@ class Receive extends MY_Controller
         $tax_health = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '5' ORDER BY tax_name");
         $tax_miscellaneous = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '6' ORDER BY tax_name");
         $tax_subsidy = $this->db->query("SELECT * FROM tbl_tax WHERE tax_parent_id = '7' ORDER BY tax_name");
+        $sql_user = "SELECT
+                    usrm_user.user_id,
+                	   std_prename.prename_th,
+                	   usrm_user.user_firstname,
+                	   usrm_user.user_lastname
+                    FROM usrm_user INNER JOIN std_prename ON usrm_user.user_prename = std_prename.pren_id
+                    ";
+        $receive_user = $this->db->query($sql_user);
 
         $data['tax_allocate'] = $tax_allocate->result();
         $data['tax_fine'] = $tax_fine->result();
@@ -479,6 +495,7 @@ class Receive extends MY_Controller
         $data['tax_health'] = $tax_health->result();
         $data['tax_miscellaneous'] = $tax_miscellaneous->result();
         $data['tax_subsidy'] = $tax_subsidy->result();
+        $data['receive_user'] = $receive_user->result();
 
         $this->config->set_item('title', 'บันทึกรายรับภาษีอื่น - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('other_tax_add', $data);
@@ -494,8 +511,8 @@ class Receive extends MY_Controller
         $date = explode('/', $input['receive_date']);
         $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
 
-        $value = str_replace(',', '', $this->input->post('receive_amount'));
-        $input['receive_amount'] = $value;
+        $value = str_replace(',', '', $this->input->post('sum_amount'));
+        $input['sum_amount'] = $value;
 
 
         $year = $this->session->userdata('year');
@@ -511,9 +528,9 @@ class Receive extends MY_Controller
         redirect(base_url('receive/other_tax'));
 
     }
-    
 
-    
+
+
 
 
     //form individual
@@ -646,13 +663,13 @@ class Receive extends MY_Controller
             $notice_number = $this->input->post('notice_number');
             $individual_number = $this->input->post('individual_number');
         }
-  
+
     // print_r($this->input->post());
         $query = $this->Receive_model->receive_tax_pay($notice_number, $individual_number);
 
         $data = array();
         $data['receive_tax_pay'] = $query;
-        
+
     //import input mark
         $this->template->javascript->add('assets/plugins/gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js');
         $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
@@ -772,7 +789,7 @@ class Receive extends MY_Controller
     }
 
 
-    
+
 
 
 
