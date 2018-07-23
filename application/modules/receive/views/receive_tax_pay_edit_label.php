@@ -3,7 +3,7 @@
 
 <div class="page-title">
   <div class="title_left">
-    <h3>จ่ายภาษีบำรุงท้องที่</h3>
+    <h3>จ่ายภาษีป้าย</h3>
   </div>
 </div>
   <br>
@@ -68,7 +68,7 @@
                     <hr>
 
 
-  <form action="<?php echo base_url('receive/recieve_tax_update_local') ?>" method="post">
+  <form action="<?php echo base_url('receive/recieve_tax_update_label') ?>" method="post">
       <div class="form-horizontal form-label-left">
         <div class="form-group">
                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขที่ใบเสร็จ
@@ -153,7 +153,7 @@
                       <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก
                       </button>
                                                       
-                      <button onclick="window.location.replace('<?php echo site_url('receive/receive_save_local'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                      <button onclick="window.location.replace('<?php echo site_url('receive/receive_save_label'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                       </button>
                   </div>
               </div>   

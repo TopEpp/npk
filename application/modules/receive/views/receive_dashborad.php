@@ -77,15 +77,15 @@
                     <table id="tax_table" class="table table-striped" style="width:100%">
                         <thead>
                           <tr>
-                            <th>ลำดับ</th>
-                            <th>เลขที่รับ/ปี</th>
+                            <th style="width:5%">ลำดับ</th>
+                            <th style="width:10%">เลขที่รับ/ปี</th>
                             <th >เลขประจำตัวผู้เสียภาษี</th>
                             <th >ชื่อผู้เสียภาษี</th>
-                            <th>หมวดรายได้</th>
+                            <th >หมวดรายได้</th>
                             <th >จำนวนเงินค่าภาษี (บาท)</th>
                             <th >เงินเพิ่ม</th>
                             <th >คงเหลือ</th>
-                            <th style="width:30%">เครื่องมือ</th>
+                            <th style="width:25%">เครื่องมือ</th>
                           </tr>
                         </thead>
                         <tbody>

@@ -215,7 +215,6 @@ class Receive_model extends CI_Model
     {
         $this->db->select('tax_notice.*,std_area.*,sum(tax_notice.notice_estimate ) as tax_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
         $this->db->where('tax_notice.individual_id', $id);
-        // $this->db->where('');
         $this->db->from('tax_notice');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
@@ -229,6 +228,28 @@ class Receive_model extends CI_Model
 
         return $query->result_array();
     }
+
+
+    public function get_receive_pay($id, $tax_id)
+    {
+        $this->db->select('tax_notice.*,std_area.*,sum(tax_notice.notice_estimate ) as tax_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
+        $this->db->where('tax_notice.individual_id', $id);
+        $this->db->where('tax_notice.tax_id', $tax_id);
+
+        $this->db->from('tax_notice');
+        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
+        $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
+        $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
+        $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
+        // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_district', 'left');
+        // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_provice', 'left');
+
+        $query = $this->db->get();
+        // echo $this->db->last_query();
+
+        return $query->result_array();
+    }
+
 
     public function get_receive_notice($id)
     {
