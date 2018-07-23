@@ -576,9 +576,9 @@
 
                                                                     <label  > ประจำปีภาษี <span class="required" style="color:red"> *</span>
                                                                     </label>
-                                                                    <select class="form-control" name="tax_year[2][]" >
-                                                                        <?php foreach ($years as $key => $value) { ?>
-                                                                            <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
+                                                                    <select class="form-control" name="tax_year[0][]" >
+                                                                        <?php foreach ($tax_years as $key => $value) { ?>
+                                                                            <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
                                                                             <?php
 
                                                                         } ?>
