@@ -567,7 +567,7 @@ class export_report extends My_Controller
                           <td></td>
                         </tr>
                         </tbody>
-                  </table>';
+                  </table><pagebreak />';
 
         $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
 

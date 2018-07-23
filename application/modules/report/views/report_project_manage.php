@@ -1,4 +1,3 @@
-
 <div class="right_col" role="main">
           <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
@@ -38,6 +37,10 @@
                    <?php 
                 } ?>
                  </div>
+                 <div class="col-xs-12" style="text-align: right;">
+                    <a id="chart_download" download="ChartJpg.jpg" type="button" class="btn btn-success" title="ดาวน์โหลด "> <i class="fa fa-file-image-o"> </i> ดาวน์โหลด</a>
+                 </div >
+                 <canvas id="report_chart" ></canvas>
                  <br>
                  <table class="table table-bordered table-striped">
                       <thead>
