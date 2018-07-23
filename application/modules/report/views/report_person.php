@@ -77,11 +77,20 @@
                         </thead>
                         <tbody>
                         <?php for ($i = 1; $i <= $data['count_rec']; $i++) { 
-                            if(!empty($data['tax'][8][$i]['notice_estimate']['year'])){
+                            if(!empty($data['tax'][8][$i]['notice_estimate']['year']) || !empty($data['tax'][9][$i]['notice_estimate']['year'])){
+
+                              if( !empty($data['tax'][8][$i]['notice_estimate']['year']) ){
+                                $year = $data['tax'][8][$i]['notice_estimate']['year']+543;
+                              }
+
+                              if( !empty($data['tax'][9][$i]['notice_estimate']['year']) ){
+                                $year = $data['tax'][9][$i]['notice_estimate']['year']+543;
+                              }
+                              
                           ?>
                           <tr>
                             <!--  ภ.ร.ด. 2 -->
-                            <td><?php echo (@$data['tax'][8][$i]['notice_estimate']['year'] + 543) ?></td>
+                            <td><?php echo $year ?></td>
                             <td><?php echo @$data['tax'][8][$i]['notice_estimate']['notice_number_p2'] ?></td>
                             <td><?php echo $this->mydate->date_eng2thai(@$data['tax'][8][$i]['notice_estimate']['notice_date_p2'], 543, 'S') ?></td>
                             <td><?php echo number_format(@$data['tax'][8][$i]['notice_estimate']['notice_annual_fee'], 2) ?></td>

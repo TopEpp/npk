@@ -425,4 +425,13 @@ class export_report extends My_Controller
           $this->exportpdf->exportFhtml($dataExport);
         }
     }
+
+    function report_person($id)
+    {
+        $data = array();
+        $data = $this->Report_model->getPersonTax($id);
+
+        
+
+    }
 }
