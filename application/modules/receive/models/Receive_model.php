@@ -8,7 +8,6 @@ class Receive_model extends CI_Model
             $this->db->where('individual_id', $id);
         }
         $this->db->select('tbl_individual.*,tbl_tax_type.*,std_area.*');
-
         $this->db->from('tbl_individual');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
@@ -231,11 +230,15 @@ class Receive_model extends CI_Model
     public function get_receive_notice($id)
     {
         return $this->db
-            ->select('tax_receive.*,tbl_tax.*')
+
+
+            ->select('tax_receive.*,tbl_tax.*,tbl_individual.*')
             ->where('tax_receive.notice_id', $id)
-            ->order_by('tax_receive.receive_date', 'asc')
+            ->order_by('tax_receive.receive_id', 'asc')
+
             ->from('tax_receive')
             ->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left')
+            ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left')
             ->get()
             ->result_array();
     }
@@ -321,15 +324,30 @@ class Receive_model extends CI_Model
 
         }
 
+        // $this->db->select('tax_notice.*,count(tax_notice.notice_id) as count_notice,tbl_individual.*');
+        // $this->db->from('tbl_individual');
+        // $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+        // $this->db->join('tax_notice', 'tax_notice.individual_id = tbl_individual.individual_id', 'Rgiht');
+
+
+
         $this->db->where($condition);
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
         $query = $this->db->get('tbl_individual');
+        // echo $this->db->last_query();
         $data = array();
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
+
+                $results_1 = $this->getNoticeTax($row['individual_id']);
+
+                //echo 'results_1(' . $row['individual_id'] . '):' . $results_1[0]->count_notice;
+                //echo "<br/>";
+                $row['count_notice'] = $results_1[0]->count_notice;
+                $row['tax_id'] = 8;
                 $data[] = $row;
             }
         }
@@ -338,6 +356,23 @@ class Receive_model extends CI_Model
         $count = $this->db->from('tbl_individual')->count_all_results();
         $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
         return $result;
+
+    }
+
+    public function getNoticeTax($id)
+    {
+
+        $this->db->select('count(tax_notice.notice_id) as count_notice');
+        $this->db->from('tbl_individual');
+        $this->db->join('tax_notice', 'tax_notice.individual_id = tbl_individual.individual_id', 'Rgiht');
+        $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+        $this->db->where('tbl_individual.individual_id', $id);
+
+        $query = $this->db->get();
+        return $query->result();
+
+
+
 
     }
 

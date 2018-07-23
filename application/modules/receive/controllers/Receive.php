@@ -592,7 +592,7 @@ class Receive extends MY_Controller
                 $data['individual_type'] = $key + 1;
                 $data['individual_number'] = $this->input->post('individual_number')[$key];
                 $data['individual_prename'] = $this->input->post('individual_prename')[$key];
-                $data['individual_fullname'] = $this->input->post('individual_firstname')[$key] . '' . $this->input->post('individual_lastname')[$key];
+                $data['individual_fullname'] = $this->input->post('individual_prename')[$key] . '' . $this->input->post('individual_firstname')[$key] . ' ' . $this->input->post('individual_lastname')[$key];
                 $data['individual_firstname'] = $this->input->post('individual_firstname')[$key];
                 $data['individual_lastname'] = $this->input->post('individual_lastname')[$key];
                 $data['individual_address'] = $this->input->post('individual_address')[$key];
@@ -830,6 +830,12 @@ class Receive extends MY_Controller
         }
         $param['filter'] = $filter;
         $results = $this->Receive_model->getRecieveTaxAjax($param);
+        //$results_1 = $this->Receive_model->getNoticeTax(217);
+        //echo 'results_1' . $results_1[0]->count_notice;
+        /*echo "<pre>";
+        print_r($results);
+        echo "</pre>";*/
+
 
         $data['draw'] = $param['draw'];
         $data['recordsTotal'] = $results['count'];
@@ -1293,17 +1299,13 @@ class Receive extends MY_Controller
         $id = $this->uri->segment(3);
         $query = $this->Receive_model->get_notic_one($id);
         $query2 = $this->Receive_model->get_receive_notice($id);
-        foreach ($query2 as $key => $value) {
-            list($y, $m, $d) = explode('-', $value['receive_date']);
-            $query2[$key]['receive_date'] = "{$d}/{$m}/" . ($y + 543);
-        }
-        // print_r($query);
 
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
+        $this->template->javascript->add('assets/modules/receive/tax_pay.js');
         $this->setView('receive_tax_pay_add_house', $data);
         $this->publish();
     }
@@ -1311,13 +1313,31 @@ class Receive extends MY_Controller
     function recieve_tax_add_house()
     {
         $input = $this->input->post();
-        list($d, $m, $y) = explode('/', $input['receive_date']);
-        $y = $y - 543;
-        $input['receive_date'] = "{$y}/{$m}/{$d}";
-        // print_r($input);
+
+        $date = explode('/', $input['receive_date']);
+        $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
+
+        $value = str_replace(',', '', $this->input->post('amount'));
+        $input['amount'] = $value;
+
+
+        $value = str_replace(',', '', $this->input->post('receive_amount'));
+        $input['receive_amount'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('interest'));
+        $input['interest'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('sum_amount'));
+        $input['sum_amount'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('balance'));
+        $input['balance'] = $value;
+
+
         $year = $this->session->userdata('year');
         $this->Receive_model->recieve_tax_add($year, $input);
         redirect(base_url('receive/receive_save_house/'));
+
     }
 
     function receive_tax_pay_add_local()
@@ -1325,17 +1345,17 @@ class Receive extends MY_Controller
         $id = $this->uri->segment(3);
         $query = $this->Receive_model->get_notic_one($id);
         $query2 = $this->Receive_model->get_receive_notice($id);
-        foreach ($query2 as $key => $value) {
-            list($y, $m, $d) = explode('-', $value['receive_date']);
-            $query2[$key]['receive_date'] = "{$d}/{$m}/" . ($y + 543);
-        }
-        // print_r($query);
 
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
 
+        $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
+        $data['tax_years'] = $query->result();
+
+
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
+        $this->template->javascript->add('assets/modules/receive/tax_pay.js');
         $this->setView('receive_tax_pay_add_local', $data);
         $this->publish();
     }
@@ -1343,10 +1363,25 @@ class Receive extends MY_Controller
     function recieve_tax_add_local()
     {
         $input = $this->input->post();
-        list($d, $m, $y) = explode('/', $input['receive_date']);
-        $y = $y - 543;
-        $input['receive_date'] = "{$y}/{$m}/{$d}";
-        // print_r($input);
+        $date = explode('/', $input['receive_date']);
+        $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
+
+        $value = str_replace(',', '', $this->input->post('amount'));
+        $input['amount'] = $value;
+
+
+        $value = str_replace(',', '', $this->input->post('receive_amount'));
+        $input['receive_amount'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('interest'));
+        $input['interest'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('sum_amount'));
+        $input['sum_amount'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('balance'));
+        $input['balance'] = $value;
+
         $year = $this->session->userdata('year');
         $this->Receive_model->recieve_tax_add($year, $input);
         redirect(base_url('receive/receive_save_local/'));
@@ -1357,17 +1392,14 @@ class Receive extends MY_Controller
         $id = $this->uri->segment(3);
         $query = $this->Receive_model->get_notic_one($id);
         $query2 = $this->Receive_model->get_receive_notice($id);
-        foreach ($query2 as $key => $value) {
-            list($y, $m, $d) = explode('-', $value['receive_date']);
-            $query2[$key]['receive_date'] = "{$d}/{$m}/" . ($y + 543);
-        }
-        // print_r($query);
 
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
 
+
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
+        $this->template->javascript->add('assets/modules/receive/tax_pay.js');
         $this->setView('receive_tax_pay_add_label', $data);
         $this->publish();
     }
@@ -1375,10 +1407,26 @@ class Receive extends MY_Controller
     function recieve_tax_add_label()
     {
         $input = $this->input->post();
-        list($d, $m, $y) = explode('/', $input['receive_date']);
-        $y = $y - 543;
-        $input['receive_date'] = "{$y}/{$m}/{$d}";
-        // print_r($input);
+
+        $date = explode('/', $input['receive_date']);
+        $input['receive_date'] = ($date[2] - 543) . $date[1] . $date[0];
+
+        $value = str_replace(',', '', $this->input->post('amount'));
+        $input['amount'] = $value;
+
+
+        $value = str_replace(',', '', $this->input->post('receive_amount'));
+        $input['receive_amount'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('interest'));
+        $input['interest'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('sum_amount'));
+        $input['sum_amount'] = $value;
+
+        $value = str_replace(',', '', $this->input->post('balance'));
+        $input['balance'] = $value;
+
         $year = $this->session->userdata('year');
         $this->Receive_model->recieve_tax_add($year, $input);
         redirect(base_url('receive/receive_save_label/'));
