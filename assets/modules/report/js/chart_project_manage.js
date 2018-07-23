@@ -70,7 +70,7 @@ $(document).ready(function () {
 
 
 document.getElementById("chart_download").addEventListener("click", function () {
-    var url_base64 = document.getElementById("report_project_manage").toDataURL("image/jpg");
+    var url_base64 = document.getElementById("report_chart").toDataURL("image/jpg");
     this.href = url_base64;
 });
 
