@@ -47,7 +47,7 @@ $(function () {
             },
             {
                 data: 'individual_fullname',
-                "className": "text-center",
+
             },
             {
                 data: 'amount',
@@ -75,7 +75,7 @@ $(function () {
                     '</div>';
                     return btn;
                 },
-                "className": "text-center",
+                "className": "text-right",
                 orderable: false
             },
         ],
