@@ -41,12 +41,18 @@ $(function () {
                 data: 'receive_date',
                 "className": "text-center",
             },
-            // {
-            //     data: 'individual_fullname',
-            //     "className": "text-center",
-            // },
+            {
+                data: 'receipt_no',
+                render: function (data, type, row) {
+                    return row.receipt_no + "/" + row.receipt_number;
+                },
+                "className": "text-center",
+            },
             {
                 data: 'individual_fullname',
+                render: function (data, type, row) {
+                    return row.individual_prename + row.individual_fullname;
+                },
 
             },
             {

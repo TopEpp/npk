@@ -620,13 +620,14 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
-        // $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*,tax_notice.*');
         $this->db->select('tax_receive.*,tbl_individual.*,');
-
         $this->db->from('tax_receive');
         $this->db->where('tax_id= 8');
-
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
+        $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
+
+        // $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
+
         // $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left');
         // $this->db->join('tax_notice', 'tax_notice.notice_id = tax_receive.notice_id', 'left');
 
@@ -683,14 +684,11 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
-        $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*,tax_notice.*');
+        $this->db->select('tax_receive.*,tbl_individual.*,');
         $this->db->from('tax_receive');
+        $this->db->where('tax_id= 9');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
-        $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left');
-        $this->db->join('tax_notice', 'tax_notice.notice_id = tax_receive.notice_id', 'left');
-
         $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
-        $this->db->where('tbl_tax.tax_id= 9');
 
         $query = $this->db->get();
         $data = array();
@@ -739,6 +737,12 @@ class Receive_model extends CI_Model
         $this->db->where($condition);
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
+
+        // $this->db->select('tax_receive.*,tbl_individual.*,');
+        // $this->db->from('tax_receive');
+        // $this->db->where('tax_id= 10');
+        // $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
+        // $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
 
         $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*,tax_notice.*');
         $this->db->from('tax_receive');

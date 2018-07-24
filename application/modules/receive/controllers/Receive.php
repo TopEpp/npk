@@ -1208,9 +1208,9 @@ class Receive extends MY_Controller
         $param['dir'] = $this->input->get('order[0][dir]');
       //check filter data
         $filter = array();
-        // foreach ($this->input->get("columns") as $key => $value) {
-        //     $filter[] = $value['search']['value'];
-        // }
+        foreach ($this->input->get("columns") as $key => $value) {
+            $filter[] = $value['search']['value'];
+        }
         $param['filter'] = $filter;
         $results = $this->Receive_model->getRecieveTaxHouseAjax($param);
 
@@ -1548,6 +1548,8 @@ class Receive extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $tax_id = $this->uri->segment(4);
+        $receive_id = $this->uri->segment(5);
+
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
         $query2 = $this->Receive_model->get_receive_notice($id);
 
@@ -1555,7 +1557,7 @@ class Receive extends MY_Controller
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
-        $data['other_tax'] = $this->Receive_model->read_Tax_Label($id);
+        $data['tax_pay'] = $this->Receive_model->read_Tax_Label($id, $receive_id);
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');

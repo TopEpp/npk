@@ -42,12 +42,18 @@ $(function () {
                 "className": "text-center",
             },
             {
-                data: 'individual_number',
+                data: 'receipt_no',
+                render: function (data, type, row) {
+                    return row.receipt_no + "/" + row.receipt_number;
+                },
                 "className": "text-center",
             },
             {
                 data: 'individual_fullname',
-                "className": "text-center",
+                render: function (data, type, row) {
+                    return row.individual_prename + row.individual_fullname;
+                },
+
             },
             {
                 data: 'amount',
