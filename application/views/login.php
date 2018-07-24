@@ -16,13 +16,13 @@
     <!-- Custom Theme Style -->
     <?php echo css_asset('../plugins/gentelella-master/build/css/custom.min.css'); ?>
 <!-- *************** End Load gentelella-master Template *************** -->
-       
+
 
 
 <style tyle="text/css">
-            body {
+            /* body {
               background: url('<?php echo base_url(); ?>assets/images/bg.png');
-            }
+            } */
 
 			.skype {
 			background: #fff;
@@ -45,10 +45,10 @@
 
 </style>
 
-    <?php echo css_asset('../admin/css/login.css'); ?>        
+    <?php echo css_asset('../admin/css/login.css'); ?>
 
 
-      
+
 
     </head>
 
@@ -94,6 +94,6 @@
             </div>
         </div>
     </body>
-    
+
 
 </html>

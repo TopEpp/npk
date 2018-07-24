@@ -188,4 +188,24 @@ $('#alert-btn').click(function () {
         }
 
     });
+<<<<<<< HEAD
 })
+=======
+});
+
+function delAlert(val,notice){
+    $.ajax({
+        method: "POST",
+        url: domain + 'receive/delAlert',
+        data: {
+            id: val,
+            notice,notice
+        }
+    }).success(function (msg) {
+        if (msg) {
+            getalert(msg.id);
+        }
+
+    });
+}
+>>>>>>> 788b0a21a92aa44c6f464d76e37bc578e31f5d72

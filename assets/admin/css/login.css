@@ -6,6 +6,7 @@
 }
 
 body {
+  background-image: url('../../images/bg.png');
   background-repeat: no-repeat;
   /*background-position:center;*/
   background-size: cover;
@@ -13,7 +14,7 @@ body {
   -webkit-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-color: #203748;
+  /* background-color: #203748; */
   font-weight: normal;
 }
 
