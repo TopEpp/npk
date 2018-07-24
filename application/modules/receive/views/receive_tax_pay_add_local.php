@@ -24,7 +24,7 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
                                     <p class="control"><?php echo ($tax_notice[0]['individual_prename'] . $tax_notice[0]['individual_firstname'] . " " . $tax_notice[0]['individual_lastname']); ?></p>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
                                     <p class="control"><?php echo $tax_notice[0]['individual_number'] ?></p>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ประเภทผู้เสียภาษี :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
                                     <p class="control"><?php echo $tax_notice[0]['tax_type_name'] ?></p>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เบอร์โทรศัพท์ :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
                                     <p class="control"><?php echo $tax_notice[0]['individual_phone'] ?></p>
                                 </div>
                             </div>

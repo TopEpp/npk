@@ -64,15 +64,15 @@ $(function () {
         render: function (data, type, row) {
           var form = '';
           if (row['count_notice'] == 0) {
-            form = '<a href=\'' + domain + 'receive/receive_add/' + '' + data + '\'" id="" class="btn btn-info btn-sm" title="เพิ่มการประเมินรายรับ">ประเมิน</a>';
+            form = '<a href=\'' + domain + 'receive/receive_add/' + '' + data + '\'" id="" style="width: 75px;" class="btn btn-info btn-sm" title="เพิ่มการประเมินรายรับ">รอประเมิน</a>';
           } else {
-            form = '<a href=\'' + domain + 'receive/receive_notice' + '/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="" class="btn btn-success btn-sm" title="แก้ไขการประเมินรายรับ" >ประเมิน</a>';
+            form = '<a href=\'' + domain + 'receive/receive_notice' + '/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="" style="width: 75px;" class="btn btn-success btn-sm" title="แก้ไขการประเมินรายรับ" >ประเมินแล้ว</a>';
           }
 
           var btn =
             '<div class="btn-group ">' +
             form +
-            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_taxadd_popup/' + '' + data + '\'" id="edit-individual" class="btn btn-success btn-sm" style="width: 47px;" title="แก้ไข" >แก้ไข</button>' +
+            '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_taxadd_popup/' + '' + data + '\'" id="edit-individual" class="btn btn-warning btn-sm" style="width: 47px;" title="แก้ไข" >แก้ไข</button>' +
             '<button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>' +
             '</div>';
           return btn;
