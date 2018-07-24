@@ -696,14 +696,21 @@ class export_report extends My_Controller
                       </tr>
                     </thead>
                     <tbody>';
+                        $sum =0;
                         foreach ($monthname as $key => $value) { 
-                      
+                          $sum += @$data[$key];
                       $content .='<tr>
                         <td>'.$value.'</td>
                         <td align="right">'.number_format(@$data[$key],2).'</td>
                       </tr>';
                     } 
                     $content .='</tbody>
+                    <tfoot>
+                      <tr>
+                        <td align="center">รวม</td>
+                        <td align="right">'.number_format($sum,2).'</td>
+                      </tr>
+                    </tfoot>
                   </table>';
 
         $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);

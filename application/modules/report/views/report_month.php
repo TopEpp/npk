@@ -37,9 +37,11 @@
                     <tbody>
                     <?php 
                         $labels_chart = $datasets1 = '';
+                        $sum =0;
                         foreach ($monthname as $key => $value) { 
                         $labels_chart .= $value.'||';
                         $datasets1 .= @$data[$key].'||';
+                        $sum += @$data[$key];
                       ?>
                       <tr>
                         <td><?php echo $value?></td>
@@ -47,6 +49,12 @@
                       </tr>
                     <?php } ?>
                     </tbody>
+                    <tfoot>
+                      <tr>
+                        <td align="center">รวม</td>
+                        <td align="right"><?php echo number_format($sum,2)?></td>
+                      </tr>
+                    </tfoot>
                   </table>
                   </div>
                   </div>
