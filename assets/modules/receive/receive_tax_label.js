@@ -42,15 +42,21 @@ $(function () {
                 "className": "text-center",
             },
             {
-                data: 'individual_number',
+                data: 'receipt_no',
+                render: function (data, type, row) {
+                    return row.receipt_no + "/" + row.receipt_number;
+                },
                 "className": "text-center",
             },
             {
                 data: 'individual_fullname',
-                "className": "text-center",
+                render: function (data, type, row) {
+                    return row.individual_prename + row.individual_fullname;
+                },
+
             },
             {
-                data: 'notice_estimate',
+                data: 'amount',
                 "className": "text-center",
             },
             {
@@ -70,7 +76,7 @@ $(function () {
                         '<div class="btn-group ">' +
                         // '<button type="button" onclick="window.location.href=\'' + domain + '' + '' + data + '\'" id="" class="btn btn-success btn-sm " title="พิมพ์ใบแจ้งการประเมิน" style="width: 47px;">พิมพ์</button>' +
                         // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" style="width: 47px;">จ่าย</button>' +
-                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_edit_label/' + '' + row['receive_id'] + '/' + row['tax_id'] + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข">แก้ไข</button>' +
+                        '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_edit_label/' + '' + row['individual_id'] + '/' + row['tax_id'] + '/' + data + '\'" id="edit-notice" class="btn btn-warning btn-sm" title="แก้ไข">แก้ไข</button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" style="width: 47px;">ลบ</button>'
                     '</div>';
                     return btn;

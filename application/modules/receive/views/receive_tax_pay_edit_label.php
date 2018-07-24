@@ -68,7 +68,7 @@
                     <hr>
 
 
-  <!-- <form action="<?php echo base_url('receive/recieve_tax_update_label') ?>" method="post">
+  <form action="<?php echo base_url('receive/recieve_tax_update_label') ?>" method="post">
       <div class="form-horizontal form-label-left">
         <div class="form-group">
                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขที่ใบเสร็จ
@@ -159,10 +159,10 @@
               </div>   
               <hr>
       </div>
-  </form> -->
+  </form>
 
         <br>
-        <!-- <div class="x_content">
+        <div class="x_content">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -194,7 +194,7 @@
 
                     </tbody>
             </table>
-        </div> -->
+        </div>
 
                   </div>
                 </div>
