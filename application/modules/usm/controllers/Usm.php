@@ -123,7 +123,7 @@ class Usm extends MY_Controller
                 }
             }
         }
-
+        /*
         if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
             $data = substr($data, strpos($data, ',') + 1);
             $type = strtolower($type[1]); // jpg, png, gif
@@ -142,6 +142,7 @@ class Usm extends MY_Controller
         }
 
         file_put_contents("img.{$type}", $data);
+        */
 
         $data = $this->Usm_model->update_user_ajax($input);
         echo $data;
