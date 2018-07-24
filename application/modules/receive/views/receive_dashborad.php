@@ -8,12 +8,12 @@
                       <div class="btn-group">
                             <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
                             </button>
-                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                            <button style="width: 101px;" onclick="window.open('<?php echo base_url('export_report/usereEsimate') . '?type=pdf'; ?>')"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                             </button>
-                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
+                            <button style="width: 101px;"  onclick="window.open('<?php echo base_url('export_report/usereEsimate'); ?>')"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
                             </button>
-                            <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
-                            </button>
+                            <!-- <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
+                            </button> -->
                       </div>
                   </div>
             </section>
@@ -148,7 +148,7 @@
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="hidden" id="alert_notice" name="alert_notice" value="" >
-                <input type="text" name="alert_date" value="<?php date('d/m/Y'); ?>" class="form-control datepicker">
+                <input type="text" name="alert_date" value="<?php date('d/m/Y');?>" class="form-control datepicker">
             </div>
              <button type="button" class="btn btn-primary btn-sm" id="alert-btn">บันทึก</button>
           </div>
@@ -156,13 +156,13 @@
         <hr>
         <div class="row" id="list_alert">
         </div>
-       
+
 
       </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-primary">บันทึก</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button> -->
-        
+
       </div>
 
     </div>
