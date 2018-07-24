@@ -1137,7 +1137,7 @@ $(document).ready( function() {
                                                         ' <span class="required" style="color:red"> *</span>'+
                                                     '</label>'+
                                                     '<div >'+
-                                                        '<input type="text" name="notice_estimate[1][]" placeholder="0.00" class="notice_estimate_local form-control col-md-7 col-xs-12">'+
+                                                        '<input type="text" name="notice_estimate[1][]" placeholder="0.00" class="notice_estimate_local numeric form-control col-md-7 col-xs-12">'+
                                                     '</div>'+
                                                 '</div>'+
                                         '</div>'+

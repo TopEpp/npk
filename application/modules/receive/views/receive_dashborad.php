@@ -8,9 +8,9 @@
                       <div class="btn-group">
                             <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
                             </button>
-                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก PDF
+                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                             </button>
-                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก Excel
+                            <button style="width: 101px;"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-os"> </i> ส่งออก excel
                             </button>
                             <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
                             </button>
@@ -78,14 +78,14 @@
                         <thead>
                           <tr>
                             <th style="width:5%">ลำดับ</th>
-                            <th style="width:10%">เลขที่รับ/ปี</th>
-                            <th >เลขประจำตัวผู้เสียภาษี</th>
-                            <th >ชื่อผู้เสียภาษี</th>
-                            <th >หมวดรายได้</th>
-                            <th >จำนวนเงินภาษี (บาท)</th>
-                            <th >เงินเพิ่ม</th>
-                            <th >คงเหลือ</th>
-                            <th style="width:25%">เครื่องมือ</th>
+                            <th style="width:9%">เลขที่รับ/ปี</th>
+                            <th style="width:10%">เลขประจำตัวผู้เสียภาษี</th>
+                            <th style="width:16%">ชื่อผู้เสียภาษี</th>
+                            <th style="width:10%">หมวดรายได้</th>
+                            <th style="width:8%">จำนวนเงินภาษี (บาท)</th>
+                            <th style="width:8%">เงินเพิ่ม (บาท)</th>
+                            <th style="width:8%">คงเหลือ (บาท)</th>
+                            <th >เครื่องมือ</th>
                           </tr>
                         </thead>
                         <tbody>

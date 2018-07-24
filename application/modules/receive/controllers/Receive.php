@@ -58,21 +58,8 @@ class Receive extends MY_Controller
         $data = array();
 
         $id = $this->uri->segment(3);
-        $query = $this->Receive_model->get_notic_one($id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
-        foreach ($query2 as $key => $value) {
-            list($y, $m, $d) = explode('-', $value['receive_date']);
-            $query2[$key]['receive_date'] = "{$d}/{$m}/" . ($y + 543);
-        }
-        // print_r($query);
-
-        $data = array();
-        $data['tax_notice'] = $query;
-        $data['tax_receive'] = $query2;
-
-
-
-        $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
+        // $query = $this->Receive_model->get_notic_one($id);
+        // $data['tax_notice'] = $query;
 
         $data['tax_notice'] = $this->Receive_model->read_receive($id);
 
@@ -90,7 +77,7 @@ class Receive extends MY_Controller
         $data['banner'] = $query->result();
 
         $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
-
+        $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_add', $data);
         $this->publish();
     }
@@ -1345,6 +1332,7 @@ class Receive extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $tax_id = $this->uri->segment(4);
+        $receive_id = $this->uri->segment(5);
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
         $query2 = $this->Receive_model->get_receive_notice($id);
 
@@ -1352,7 +1340,7 @@ class Receive extends MY_Controller
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
-        $data['other_tax'] = $this->Receive_model->read_Receive_Tax($id);
+        $data['tax_pay'] = $this->Receive_model->read_Receive_Tax($id, $receive_id);
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');
