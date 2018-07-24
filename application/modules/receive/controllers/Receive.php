@@ -1610,6 +1610,14 @@ class Receive extends MY_Controller
 
     }
 
+    public function delAlert(){
+        $id = $this->input->post('id');
+        $result['id'] = $this->input->post('notice');
+ 
+        $status = $this->Receive_model->delAlert($id);
+        $this->output->set_content_type('application/json')->set_output(json_encode($result));
+    }
+
 
 
 

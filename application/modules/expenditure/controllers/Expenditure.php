@@ -11,19 +11,17 @@ class Expenditure extends MY_Controller
         $this->load->model('project_training/project_model');
 
         $chk = false;
-        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-            if ($chk_permission['app_id'] == 6) :
-            $chk = true;
-        break;
-        endif;
+        foreach ($_SESSION['user_permission'] as $key => $chk_permission):
+            if ($chk_permission['app_id'] == 6):
+                $chk = true;
+                break;
+            endif;
         endforeach;
         if ($chk == false) {
             redirect('main/dashborad');
         }
 
-
         // $this->project_training->ggg();
-
 
     }
     public function expenditure_menu()
@@ -33,7 +31,6 @@ class Expenditure extends MY_Controller
         $this->setView('expenditure_menu', $data);
         $this->publish();
     }
-
 
     public function expenditure_prj()
     {
@@ -76,7 +73,7 @@ class Expenditure extends MY_Controller
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
-    function search_prj()
+    public function search_prj()
     {
         $data = array();
         $this->config->set_item('title', 'ระบบบัญชีรายจ่าย - ค้นหาโครงการ');
@@ -85,7 +82,7 @@ class Expenditure extends MY_Controller
         $this->publish();
     }
 
-    function getPrj()
+    public function getPrj()
     {
 
         $keyword = $this->input->post('keyword');
@@ -95,18 +92,18 @@ class Expenditure extends MY_Controller
 
         foreach ($data['prj'] as $key => $value) {
             $prj_id_array = $this->Report_model->getPrjParent($value->prj_id);
-       
+
             // echo ($prj_id_array[$cout-1]).'<br>';
-            $tree = $this->getLastArrayPrj($prj_id_array[0]);        
-            // print_r($tree);  
-            end($tree);        
+            $tree = $this->getLastArrayPrj($prj_id_array[0]);
+            // print_r($tree);
+            end($tree);
             $keys = key($tree);
-            // print_r($tree);die(); 
+            // print_r($tree);die();
 
             $name_tree = $this->getLastNamePrj($keys);
-            if (end($name_tree) != '' && !is_numeric(end($name_tree)) ){
+            if (end($name_tree) != '' && !is_numeric(end($name_tree))) {
                 $data['prj'][$key]->prj_name = $data['prj'][$key]->prj_name . '<span style="color:#169F85">(' . end($name_tree) . ')</span>';
-            }else{
+            } else {
                 unset($data['prj'][$key]);
             }
         }
@@ -116,7 +113,7 @@ class Expenditure extends MY_Controller
         $this->load->view('table_prj', $data);
     }
 
-    function expenditure_form($project_id = '', $expenses = '')
+    public function expenditure_form($project_id = '', $expenses = '')
     {
         $data = array();
         if ($project_id == '') {
@@ -138,39 +135,40 @@ class Expenditure extends MY_Controller
         $this->publish();
     }
 
-    function saveExpenditure()
+    public function saveExpenditure()
     {
         $this->load->model('receive_outside/Receive_outside_model');
         $input = $this->input->post();
 
-
         $this->expenditure_model->saveExpenditure($input);
 
         // tax insert
-        $data = array();
-        if ($input['expenses_amount_tax'] != '' && $input['expenses_amount_tax'] != '0') {
-            $id = $this->Receive_outside_model->getIdTaxPay();
+        if (!empty($input['expenses_id'])) {
+            $data = array();
+            if ($input['expenses_amount_tax'] != '' && $input['expenses_amount_tax'] != '0') {
+                $id = $this->Receive_outside_model->getIdTaxPay();
 
-            $prj = $this->expenditure_model->getPrjById($input['project_id']);
+                $prj = $this->expenditure_model->getPrjById($input['project_id']);
 
-            $data['outside_id'] = $id->out_id;
-            $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก โครงการ' . $prj->prj_name;
-            $data['outside_pay_budget'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_tax']));
-            $data['outside_pay_create'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
-            $data['outside_pay_user'] = $_SESSION['user_id'];
-            $status = $this->Receive_outside_model->saveOutSideIn($data);
+                $data['outside_id'] = $id->out_id;
+                $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก โครงการ' . $prj->prj_name;
+                $data['outside_pay_budget'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_tax']));
+                $data['outside_pay_create'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
+                $data['outside_pay_user'] = $_SESSION['user_id'];
+                $status = $this->Receive_outside_model->saveOutSideIn($data);
 
-        }
+            }
 
-        if ($input['expenses_amount_fine'] != '' && $input['expenses_amount_fine'] != '0') {
-            $datas = array();
-            $year = $this->session->userdata('year');
-            $datas['receive_amount'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_fine']));
-            $datas['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
-            unset($data['outside_detail']);
+            if ($input['expenses_amount_fine'] != '' && $input['expenses_amount_fine'] != '0') {
+                $datas = array();
+                $year = $this->session->userdata('year');
+                $datas['sum_amount'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_fine']));
+                $datas['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
+                unset($data['outside_detail']);
+                // print_r($datas);die();
+                $this->expenditure_model->insertOtherTax($year, $datas);
 
-            $this->expenditure_model->insertOtherTax($year, $datas);
-
+            }
         }
         // die();
         redirect(base_url('expenditure/expenditure_prj'));
@@ -183,7 +181,8 @@ class Expenditure extends MY_Controller
         redirect(base_url('expenditure/expenditure_prj'));
     }
 
-    public function getExpenditureNumber(){
+    public function getExpenditureNumber()
+    {
         $id = $this->input->post('id');
         $result = $this->expenditure_model->getExpenditureNumber($id);
 
@@ -199,8 +198,6 @@ class Expenditure extends MY_Controller
         $result = $this->expenditure_model->saveExpenditureNumber($id, $input);
         $this->json_publish($result);
     }
-    
-
 
     //get last index prj
     public function getLastArrayPrj($parent = '')
@@ -211,9 +208,9 @@ class Expenditure extends MY_Controller
             '', 'เงินเดือน (ฝ่ายการเมือง)', 'เงินเดือน (ฝ่ายประจำ)', 'ค่าตอบแทน', 'ค่าใช้สอย', 'ค่าวัสดุ', 'ค่าสาธารณูปโภค',
             'ค่าครุภัณฑ์', 'ค่าที่ดินและสิ่งก่อสร้าง', 'เงินอุดหนุน', 'งบกลาง',
         ];
-    
+
         $tree = $this->project_model->getTitleTreeChild($parent);
-       
+
         // $num = 0;
         // foreach ($tree as $key => $value) {
         //     if ($num == 0) {
@@ -229,7 +226,7 @@ class Expenditure extends MY_Controller
         // if (empty($tree)) {
         //     print_r($tree);
         //     // $tree = $this->project_model->getTitleTree($parent);
-          
+
         //     // $num = 0;
         //     // foreach ($tree as $key => $value) {
         //     //     if ($num == 1) {
@@ -247,12 +244,10 @@ class Expenditure extends MY_Controller
     }
     public function getLastNamePrj($parent = '')
     {
-    
+
         $tree = $this->project_model->getTitleTree($parent);
-    
+
         return $tree;
     }
-
-
 
 }

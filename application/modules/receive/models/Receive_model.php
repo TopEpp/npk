@@ -733,4 +733,25 @@ class Receive_model extends CI_Model
         return $this->db->insert_id();
     }
 
+    public function delAlert($id)
+    {
+        $result = $this->db->query('SELECT *  FROM tax_alert  WHERE alert_id = ' . $id)->row();
+        if ($result->alert_id != '') {
+            // delete alert id
+            $this->db->where('alert_id', $id);
+            $this->db->delete('tax_alert');
+
+            //get max value and update order alert
+            $data = $this->db->query(' SELECT * FROM tax_alert ORDER BY alert_id DESC LIMIT 0, 1')->row();
+            if ($data->alert_id != '') {
+                $this->db->set('alert_order', $result->alert_order);
+                $this->db->where('alert_id', $data->alert_id);
+                $this->db->update('tax_alert');
+            }
+
+        }
+
+        return true;
+    }
+
 }

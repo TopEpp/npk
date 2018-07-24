@@ -188,4 +188,20 @@ $('#alert-btn').click(function () {
         }
 
     });
-})
+});
+
+function delAlert(val,notice){
+    $.ajax({
+        method: "POST",
+        url: domain + 'receive/delAlert',
+        data: {
+            id: val,
+            notice,notice
+        }
+    }).success(function (msg) {
+        if (msg) {
+            getalert(msg.id);
+        }
+
+    });
+}
