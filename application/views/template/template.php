@@ -18,7 +18,6 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="import" href="<?php echo base_url(); ?>assets/fonts/gl-font-2/gl-cschatthai-font.html">
     <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
-    <!-- <title><?php echo $title . ' - ' . $subtitle ?></title> -->
     <title><?php echo $this->template->title->default($this->config->item('title')); ?></title>
 
     <!-- Bootstrap -->
@@ -140,7 +139,11 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo js_asset('../modules/datatable/js/datatable.js'); ?>
     <?php echo js_asset('../modules/datatable/js/rowgroup.js'); ?>
     <!-- datepicker -->
-    <?php echo js_asset('../modules/datepicker/js/datepicker.js'); ?>
+    <?php
+    if($this->router->fetch_module() != 'usm'){
+      echo js_asset('../modules/datepicker/js/datepicker.js');
+    }
+    ?>
     <script type="text/javascript">
 				function onContextMenu(e, row) {
 			if (row) {

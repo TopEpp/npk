@@ -22,8 +22,8 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo ($other_tax[0]['individual_prename'] . $other_tax[0]['individual_fullname']); ?></p>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo ($tax_receive[0]['individual_prename'] . $tax_receive[0]['individual_fullname']); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -31,8 +31,8 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $other_tax[0]['individual_number'] ?></p>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_receive[0]['individual_number'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -40,8 +40,8 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ประเภทผู้เสียภาษี :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $other_tax[0]['tax_type_name'] ?></p>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_receive[0]['tax_type_name'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่ :
                                     </label>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $other_tax[0]['individual_address'] . " " . " หมู่" . " " . $other_tax[0]['individual_village'] . " " . " ตำบล" . $other_tax[0]['area_name_th'] ?></p>
+                                    <p class="control"><?php echo $tax_receive[0]['individual_address'] . " " . " หมู่" . " " . $tax_receive[0]['individual_village'] . " " . " ตำบล" . $tax_receive[0]['area_name_th'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -59,8 +59,8 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เบอร์โทรศัพท์ :
                                     </label>
-                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $other_tax[0]['individual_phone'] ?></p>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_receive[0]['individual_phone'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -68,14 +68,14 @@
                     <hr>
 
 
-  <form action="<?php echo base_url('receive/recieve_tax_update_label') ?>" method="post">
+  <!-- <form action="<?php echo base_url('receive/recieve_tax_update_label') ?>" method="post">
       <div class="form-horizontal form-label-left">
         <div class="form-group">
                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขที่ใบเสร็จ
                   <span class="required" style="color:red"> *</span>
                 </label>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="ระบุเลขที่ใบเสร็จ" id="receipt_no" name="receipt_no" value="<?php echo $other_tax[0]['receipt_no'] ?>" class="form-control col-md-7 col-xs-12">
+                        <input type="text" placeholder="ระบุเลขที่ใบเสร็จ" id="receipt_no" name="receipt_no" value="<?php echo $tax_pay[0]['receipt_no'] ?>" class="form-control col-md-7 col-xs-12">
                     </div>
         </div>
         <div class="form-group">
@@ -83,7 +83,7 @@
                   <span class="required" style="color:red"> *</span>
                 </label>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="ระบุเล่มที่ใบเสร็จ" id="receipt_number" name="receipt_number" value="<?php echo $other_tax[0]['receipt_number'] ?>"  class="form-control col-md-7 col-xs-12">
+                        <input type="text" placeholder="ระบุเล่มที่ใบเสร็จ" id="receipt_number" name="receipt_number" value="<?php echo $tax_pay[0]['receipt_number'] ?>"  class="form-control col-md-7 col-xs-12">
                     </div>
         </div>
         <div class="form-group" style="margin-bottom: 0px;">
@@ -92,7 +92,7 @@
             </label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class='input-group date col-md-12 col-xs-12' id='inputdatepicker'>
-                        <input type='text' name="receive_date" value="<?php echo $other_tax[0]['receive_date'] ?>" class="form-control datepicker" />
+                        <input type='text' name="receive_date" value="<?php echo $tax_pay[0]['receive_date'] ?>" class="form-control datepicker" />
                     </div>
                 </div>
         </div>
@@ -102,7 +102,7 @@
                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินภาษี
                 </label>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="0.00" id="amount" name="amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $other_tax[0]['amount'] ?>">
+                        <input type="text" placeholder="0.00" id="amount" name="amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_pay[0]['amount'] ?>">
                     </div>
         </div>
 
@@ -110,7 +110,7 @@
                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เงินเพิ่ม
                 </label>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" id="interest" name="interest" value="<?php echo $other_tax[0]['interest'] ?>" placeholder="0.00" class="cal numeric form-control col-md-7 col-xs-12">
+                        <input type="text" id="interest" name="interest" value="<?php echo $tax_pay[0]['interest'] ?>" placeholder="0.00" class="cal numeric form-control col-md-7 col-xs-12">
                     </div>
         </div>
 
@@ -118,7 +118,7 @@
                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">รวมจำนวนเงินที่ต้องชำระ
                 </label>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="0.00" id="sum_amount" value="<?php echo $other_tax[0]['sum_amount'] ?>" name="sum_amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['tax_estimate'] - $tax_notice[0]['tax_amount'] ?>">
+                        <input type="text" placeholder="0.00" id="sum_amount" value="<?php echo $tax_pay[0]['sum_amount'] ?>" name="sum_amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['tax_estimate'] - $tax_notice[0]['tax_amount'] ?>">
                     </div>
         </div>
 
@@ -128,7 +128,7 @@
                   <span class="required" style="color:red"> *</span>
                </label>
                    <div class="col-md-4 col-sm-6 col-xs-12">
-                       <input type="text" placeholder="0.00" id="receive_amount" name="receive_amount" class="cal numeric form-control col-md-7 col-xs-12"  value="<?php echo $other_tax[0]['receive_amount'] ?>" >
+                       <input type="text" placeholder="0.00" id="receive_amount" name="receive_amount" class="cal numeric form-control col-md-7 col-xs-12"  value="<?php echo $tax_pay[0]['receive_amount'] ?>" >
                    </div>
        </div>
        
@@ -141,10 +141,10 @@
                     </div>
         </div>
        
-              <input type="hidden" name="individual_id" value="<?php echo $other_tax[0]['individual_id'] ?>">
-              <input type="hidden" name="tax_id" value="<?php echo $other_tax[0]['tax_id'] ?>">
-              <input type="hidden" name="notice_id" value="<?php echo $other_tax[0]['notice_id'] ?>">
-              <input type="hidden" name="receive_id" value="<?php echo $other_tax[0]['receive_id'] ?>">
+              <input type="hidden" name="individual_id" value="<?php echo $tax_pay[0]['individual_id'] ?>">
+              <input type="hidden" name="tax_id" value="<?php echo $tax_pay[0]['tax_id'] ?>">
+              <input type="hidden" name="notice_id" value="<?php echo $tax_pay[0]['notice_id'] ?>">
+              <input type="hidden" name="receive_id" value="<?php echo $tax_pay[0]['receive_id'] ?>">
 
 
               <div class="form-group">
@@ -159,10 +159,10 @@
               </div>   
               <hr>
       </div>
-  </form>
+  </form> -->
 
         <br>
-        <div class="x_content">
+        <!-- <div class="x_content">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -178,7 +178,7 @@
                     </tr>
                 </thead>
                     <tbody>
-                      <?php foreach ($other_tax as $key => $value) : ?>
+                      <?php foreach ($tax_pay as $key => $value) : ?>
                         <tr>
                             <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
                             <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
@@ -194,7 +194,7 @@
 
                     </tbody>
             </table>
-        </div>
+        </div> -->
 
                   </div>
                 </div>

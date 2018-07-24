@@ -286,7 +286,7 @@ class Receive extends MY_Controller
             if (!empty($input['notice_number'][1][0])) {
                 $form_key = 1;
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
-                    $data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
+                    @$data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 9;
 
@@ -314,7 +314,7 @@ class Receive extends MY_Controller
             if (!empty($input['notice_number'][2][0])) {
                 $form_key = 2;
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
-                    $data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
+                    @$data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 10;
 
@@ -1208,9 +1208,9 @@ class Receive extends MY_Controller
         $param['dir'] = $this->input->get('order[0][dir]');
       //check filter data
         $filter = array();
-        foreach ($this->input->get("columns") as $key => $value) {
-            $filter[] = $value['search']['value'];
-        }
+        // foreach ($this->input->get("columns") as $key => $value) {
+        //     $filter[] = $value['search']['value'];
+        // }
         $param['filter'] = $filter;
         $results = $this->Receive_model->getRecieveTaxHouseAjax($param);
 
@@ -1357,7 +1357,7 @@ class Receive extends MY_Controller
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
-        $data['tax_pay'] = $this->Receive_model->read_Receive_Tax($id, $receive_id);
+        $data['tax_pay'] = $this->Receive_model->read_Tax_House($id, $receive_id);
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');
@@ -1446,6 +1446,8 @@ class Receive extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $tax_id = $this->uri->segment(4);
+        $receive_id = $this->uri->segment(5);
+
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
         $query2 = $this->Receive_model->get_receive_notice($id);
 
@@ -1453,7 +1455,12 @@ class Receive extends MY_Controller
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
-        $data['other_tax'] = $this->Receive_model->read_Receive_Tax($id);
+        $data['tax_pay'] = $this->Receive_model->read_Tax_Local($id, $receive_id);
+
+        $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
+        $data['tax_years'] = $query->result();
+
+
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');
@@ -1548,7 +1555,7 @@ class Receive extends MY_Controller
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
-        $data['other_tax'] = $this->Receive_model->read_Receive_Tax($id);
+        $data['other_tax'] = $this->Receive_model->read_Tax_Label($id);
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');

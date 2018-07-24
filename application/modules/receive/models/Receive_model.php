@@ -267,19 +267,63 @@ class Receive_model extends CI_Model
             ->result_array();
     }
 
-    public function read_Receive_Tax($id, $receive_id)
+    public function read_Tax_House($id, $receive_id)
     {
         return $this->db
-            ->select('tbl_individual.*,tax_receive.*,tbl_tax_type.*,std_area.*')
+            ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
-            ->where('tax_receive.receive_id', $receive_id)
             ->where('tax_receive.individual_id', $id)
-            ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.receive_id', 'left')
+            ->where('tax_receive.tax_id = 8')
+            // ->where('tax_receive.receive_id', $receive_id)
+            ->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left')
+            // ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.receive_id', 'left')
+            ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left')
             ->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left')
             ->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left')
+
             ->get()
             ->result_array();
     }
+
+    public function read_Tax_Local($id, $receive_id)
+    {
+        return $this->db
+            ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
+            ->from('tax_receive')
+            ->where('tax_receive.individual_id', $id)
+            ->where('tax_receive.tax_id = 9')
+            // ->where('tax_receive.receive_id', $receive_id)
+            ->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left')
+            // ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.receive_id', 'left')
+            ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left')
+            ->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left')
+            ->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left')
+
+            ->get()
+            ->result_array();
+    }
+
+    public function read_Tax_Label($id, $receive_id)
+    {
+        return $this->db
+            ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
+            ->from('tax_receive')
+            ->where('tax_receive.individual_id', $id)
+            ->where('tax_receive.tax_id = 10')
+            // ->where('tax_receive.receive_id', $receive_id)
+            ->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left')
+            // ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.receive_id', 'left')
+            ->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left')
+            ->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left')
+            ->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left')
+
+            ->get()
+            ->result_array();
+    }
+
+
+
+
 
     public function updateReceiveTax($year, $input)
     {
@@ -463,6 +507,7 @@ class Receive_model extends CI_Model
 
             foreach ($query->result_array() as $key => $row) {
                 $row['sum_notice_estimate'] = number_format($row['sum_notice_estimate'], 2);
+                $row['tax_interest'] = number_format($row['tax_interest'], 2);
                 $row['year_id'] = (date("Y") + 543);
                 $data[] = $row;
             }
@@ -575,14 +620,18 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
-        $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*,tax_notice.*');
-        $this->db->from('tax_receive');
-        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
-        $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left');
-        $this->db->join('tax_notice', 'tax_notice.notice_id = tax_receive.notice_id', 'left');
+        // $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*,tax_notice.*');
+        $this->db->select('tax_receive.*,tbl_individual.*,');
 
-        $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
-        $this->db->where('tbl_tax.tax_id= 8');
+        $this->db->from('tax_receive');
+        $this->db->where('tax_id= 8');
+
+        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
+        // $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left');
+        // $this->db->join('tax_notice', 'tax_notice.notice_id = tax_receive.notice_id', 'left');
+
+        // $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
+        // $this->db->where('tbl_tax.tax_id= 8');
 
         $query = $this->db->get();
         $data = array();
@@ -649,7 +698,7 @@ class Receive_model extends CI_Model
 
             foreach ($query->result_array() as $key => $row) {
                 $row['receive_amount'] = number_format($row['receive_amount'], 2);
-                $row['notice_estimate'] = number_format($row['notice_estimate'], 2);
+                $row['amount'] = number_format($row['amount'], 2);
                 $date = explode('-', $row['receive_date']);
                 $row['receive_date'] = $date[2] . '/' . $date[1] . '/' . ($date[0] + 543);
 
