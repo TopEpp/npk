@@ -70,7 +70,7 @@ $(function () {
                 "className": "text-right",
             },
             {
-                data: 'sum_notice_estimate',
+                data: 'tax_interest',
                 "className": "text-right",
             },
             {
