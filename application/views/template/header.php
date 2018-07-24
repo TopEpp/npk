@@ -50,7 +50,7 @@
                                             </span>
                                         </span>
                                     </div>
-
+<div id="b64" style="display:none;"></div>
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-4">
@@ -188,20 +188,27 @@
       }
       </style>
       <script>
-      function readURL(input) {
-          if (input.files && input.files[0]) {
-              var reader = new FileReader();
 
-              reader.onload = function (e) {
-                  $('#img-uploadimgInp0').attr('src', e.target.result);
-              }
+      function readFile() {
 
-              reader.readAsDataURL(input.files[0]);
-          }
+        if (this.files && this.files[0]) {
+
+          var FR= new FileReader();
+
+          FR.addEventListener("load", function(e) {
+            document.getElementById("img-uploadimgInp0").src  = e.target.result;
+            document.getElementById("b64").innerHTML = e.target.result;
+          });
+
+          FR.readAsDataURL( this.files[0] );
+        }
+
       }
 
+      document.getElementById("user_photo_file").addEventListener("change", readFile);
+      /*
       $("#user_photo_file").change(function(){
           readURL(this);
-      });
+      });*/
       </script>
       <!-- /top navigation -->
