@@ -16,10 +16,10 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel" style="top: 10px;">
                   
-               <?php $monthname = array( 10=>"ตุลาคม",11=>"พฤศจิกายน",12=>"ธันวาคม",1=>"มกราคม",2=>"กุมภาพันธ์",3=>"มีนาคม",4=>"เมษายน",5=>"พฤษภาคม",6=>"มิถุนายน", 7=>"กรกฎาคม",8=>"สิงหาคม",10=>"กันยายน");?>
+               <?php $monthname = array( 10=>"ตุลาคม",11=>"พฤศจิกายน",12=>"ธันวาคม",1=>"มกราคม",2=>"กุมภาพันธ์",3=>"มีนาคม",4=>"เมษายน",5=>"พฤษภาคม",6=>"มิถุนายน", 7=>"กรกฎาคม",8=>"สิงหาคม",9=>"กันยายน");?>
                <div class="x_content">
                  <div style="text-align: center;">
-                   <h2>รายงานค่าใช้จ่ายจำแนกรายเดือน ปีงบประมาณ<?php echo $this->session->userdata('year') + 543 ?></h2>
+                   <h2>รายงานค่าใช้จ่ายจำแนกรายเดือน ปีงบประมาณ <?php echo $this->session->userdata('year') + 543 ?></h2>
                    <h5>ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
                  </div>
                  <div class="col-xs-12" style="text-align: right;">
