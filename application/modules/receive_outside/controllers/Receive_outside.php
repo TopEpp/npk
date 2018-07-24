@@ -165,8 +165,8 @@ class Receive_outside extends MY_Controller
 
         $status = $this->Receive_outside_model->saveOutSidePay($data);
 
-        if ($data['outside_pay_tax'] != '' && $input['expenses_amount_tax'] != '0') {
-            // print_r($data);die();
+        if ($data['outside_pay_tax'] != '' ) {
+         
             //get Tax pay 
             $id = $this->Receive_outside_model->getIdTaxPay();
             $out = $this->Receive_outside_model->getOuts($data['outside_id']);
@@ -174,6 +174,8 @@ class Receive_outside extends MY_Controller
             $data['outside_id'] = $id->out_id;
             $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก' . $out[0]->out_name;
             $data['outside_pay_budget'] = $data['outside_pay_tax'];
+            $data['outside_pay_create'] = date('Y-m-d');
+            
             unset($data['outside_pay_budget_sum']);
             unset($data['outside_pay_vat']);
             unset($data['outside_pay_tax']);

@@ -141,10 +141,9 @@ $(function(){
           },
           {
             data: 'user_firstname',
-            // render: function (data, type, row) {
-            //   var type = ['', 'บุคคลธรรมดา', 'นิติบุคคล'];
-            //   return type[data];
-            // }
+            render: function (data, type, row) {
+                return data +' '+row['user_lastname'];
+            }
           },
           {
             data: 'expenses_id',

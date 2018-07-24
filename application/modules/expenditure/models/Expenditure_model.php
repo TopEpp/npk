@@ -162,8 +162,11 @@ class expenditure_model extends CI_Model
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
-				$row['expenses_date_disburse'] = $this->mydate->date_eng2thai($row['expenses_date_disburse'],'','S');
+				$row['expenses_date_disburse'] = $this->mydate->date_eng2thai($row['expenses_date_disburse'],543,'S');
+				// echo $row['expenses_date'];die();
 				$row['expenses_date'] = $this->mydate->date_eng2thai($row['expenses_date'],543,'S');
+
+				$row['expenses_amount_result'] = number_format($row['expenses_amount_result'],2);
                 $data[] = $row;
             }
         }

@@ -105,8 +105,11 @@ if (!isset($_SESSION['user_id'])) {
     <!-- easyui -->
     <?php echo js_asset('../plugins/easyui/jquery.easyui.min.js'); ?>
     <!-- datepicker thai -->
-    <?php echo js_asset('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker-custom.js'); ?>
-    <?php echo js_asset('../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.th.min.js'); ?>
+    <?php echo js_asset('../plugins/datepicker/js/bootstrap-datepicker.js'); ?>
+    <?php echo js_asset('../plugins/datepicker/js/bootstrap-datepicker-thai.js'); ?>
+    <?php echo js_asset('../plugins/datepicker/js/jquery.timepicker.min.js'); ?>
+    <?php echo js_asset('../plugins/datepicker/locales/bootstrap-datepicker.th.js'); ?>
+
     <!-- datatable -->
     <?php echo js_asset('../plugins/datatables/1.10.16/js/jquery.dataTables.min.js'); ?>
 

@@ -34,8 +34,8 @@
                               <td class="text-right"><?php echo number_format(@$out[0]->budget, 2) ?> บาท</td>
                             </tr>
                             <tr>
-                              <td>รวม</td>
-                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum - @$out[0]->budget, 2); ?> บาท</td>
+                              <td>รวมเหลือจ่าย</td>
+                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum-@$out[0]->budget, 2); ?> บาท</td>
                             </tr>
                           </tbody>
                         </table>
@@ -48,7 +48,7 @@
                                               <label>วันที่จัดทำ</label>
                                               <span  style="color:red">*</span>
 
-                                              <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $this->mydate->date_db2str($out_pay[0]->outside_pay_create) : date('d/m/Y'); ?>" class="form-control datepicker">
+                                              <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $this->mydate->date_db2str($out_pay[0]->outside_pay_create,543) : date('d/m/').(date('Y')+543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker">
                                           </div>
                                       </div>
                                   </div>
@@ -80,13 +80,13 @@
                                                 </tr>
                                                 <tr>
                                                   <td><span style="text-decoration: underline;">หัก</span> ภาษีหัก ณ ที่จ่าย &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                  <span class="text-right" style="">
+                                                    <span class="text-right" style="">
 
-                                                    <label>
-                                                      <input type="checkbox" id="amount_tax"  class="flat" >
-                                                    </label>
-                                                    <input id="outside_pay_tax_val" style="width:40px;text-align: center;" type="text" value="1"> %
-                                                </span>
+                                                      <label>
+                                                        <input type="checkbox" id="amount_tax"  class="flat" >
+                                                      </label>
+                                                      <input id="outside_pay_tax_val" style="width:40px;text-align: center;" type="text" value="1"> %
+                                                    </span>
                                                   </td>
                                                   <td><input type="text" name="outside_pay_tax" value="<?php echo (!empty($out_pay[0]->outside_pay_tax)) ? $out_pay[0]->outside_pay_tax : ''; ?>" placeholder="" id="outside_pay_tax" class="form-control col-md-7 col-xs-12 numeric text-right"></td>
                                                 </tr>
@@ -145,16 +145,16 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach ($out_pay_all as $key => $value) { ?>
+          <?php foreach ($out_pay_all as $key => $value) {?>
             <tr>
               <td><?php echo $this->mydate->date_eng2thai($value->outside_pay_create, 543, 'S'); ?></td>
               <td><?php echo $value->user_firstname . ' ' . $value->user_lastname ?></td>
               <td><?php echo $value->outside_detail ?></td>
-              <td class="text-right"><?php echo number_format($value->outside_pay_budget, 2); ?></td>
+              <td class="text-right"><?php echo number_format($value->outside_pay_budget_sum, 2); ?></td>
 
             </tr>
-          <?php 
-        } ?>
+          <?php
+}?>
           </tbody>
         </table>
       </div>

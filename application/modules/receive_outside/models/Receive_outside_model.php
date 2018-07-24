@@ -91,11 +91,12 @@ class Receive_outside_model extends CI_Model
     {
 
         if (!empty($data['outside_pay_id'])) {
+            // print_r($data);die();
             $id = $data['outside_pay_id'];
-
+            
             unset($data['outside_pay_id']);
             unset($data['out_id']);
-            unset($data['outside_pay_create']);
+            // unset($data['outside_pay_create']);
 
             $this->db->where('outside_pay_id', $id);
             return $this->db->update('tbl_outside_pay', $data);
@@ -178,6 +179,7 @@ class Receive_outside_model extends CI_Model
 
     public function getIdTaxPay(){
         $this->db->like('out_name','ภาษีหัก ณ ที่จ่าย');
+        $this->db->where('out_year',$this->session->userdata('year'));
         return $this->db->get('tbl_outside')->row();
     }
 
