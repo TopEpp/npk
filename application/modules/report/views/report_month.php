@@ -31,7 +31,7 @@
                     <thead>
                       <tr>
                         <th>เดือน</th>
-                        <th width="15%">ค่าใช้จ่าย</th>
+                        <th width="30%">ค่าใช้จ่าย</th>
                       </tr>
                     </thead>
                     <tbody>
