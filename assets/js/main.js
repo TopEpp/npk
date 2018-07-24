@@ -83,7 +83,7 @@
                user_position:$('#user_position').val(),
                tel_no:$('#tel_no').val(),
                email_addr:$('#email_addr').val(),
-               user_photo_file:$('#user_photo_file').val()
+               user_photo_file:$('#b64').val()
            }
    }).done(function (data) {
            if (data) {
