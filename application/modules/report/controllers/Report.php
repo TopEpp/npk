@@ -155,5 +155,16 @@ class Report extends MY_Controller
         $this->publish();  
     }
 
+    function report_month(){
+        $data = array();
+        $year =  $this->session->userdata('year');
+        $data['data'] = $this->Report_model->getPayMonth($year);
+
+        $this->config->set_item('title', 'รายงานเปรียบเทียบรายเดือน');
+        $this->template->javascript->add('assets/modules/report/js/chart_month.js');
+        $this->setView('report_month', $data);
+        $this->publish();
+    }
+
 
 }
