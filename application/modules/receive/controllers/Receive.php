@@ -1183,8 +1183,10 @@ class Receive extends MY_Controller
         $param['dir'] = $this->input->get('order[0][dir]');
       //check filter data
         $filter = array();
-        foreach ($this->input->get("columns") as $key => $value) {
-            $filter[] = $value['search']['value'];
+        if($this->input->get("columns")){
+          foreach ($this->input->get("columns") as $key => $value) {
+              $filter[] = $value['search']['value'];
+          }
         }
         $param['filter'] = $filter;
         $results = $this->Receive_model->getRecieveDashboradAjax($param);
