@@ -579,4 +579,21 @@ class Report_model extends CI_Model
         return $data;
     }
 
+    function getPayMonth($year){
+        $data = array();
+        $this->db->select('SUM(expenses_amount_result) as expenses_amount, MONTH(expenses_date) as M');
+        $this->db->from('tbl_expenses');
+        $this->db->join('tbl_project','tbl_project.prj_id = tbl_expenses.project_id');
+        $this->db->where('tbl_project.prj_active ','1');
+        $this->db->where('tbl_project.prj_year',$year);
+        $this->db->GROUP_BY('M');
+        $query = $this->db->get();
+
+        foreach ($query->result() as $key => $value) {
+           $data[$value->M] = $value->expenses_amount;
+        }
+
+        return $data;
+    }
+
 }

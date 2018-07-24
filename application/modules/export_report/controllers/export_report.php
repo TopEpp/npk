@@ -671,4 +671,57 @@ class export_report extends My_Controller
         }
 
     }
+
+    function report_month(){
+      $year =  $this->session->userdata('year');
+      $data = $this->Report_model->getPayMonth($year);
+      $monthname = array( 10=>"ตุลาคม",11=>"พฤศจิกายน",12=>"ธันวาคม",1=>"มกราคม",2=>"กุมภาพันธ์",3=>"มีนาคม",4=>"เมษายน",5=>"พฤษภาคม",6=>"มิถุนายน", 7=>"กรกฎาคม",8=>"สิงหาคม",9=>"กันยายน");
+
+      $content="<table cellspacing='0' cellpadding='0' width='100%'>
+                    <tr>
+                        <td width='100%' align='center'>รายงานค่าใช้จ่ายจำแนกรายเดือน ปีงบประมาณ ".($this->session->userdata('year') + 543)."</td>
+                      <tr>
+                      <tr>
+                        <td width='100%' align='center'>ข้อมูล ณ วันที่ ".$this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ."</td>
+                      </tr>
+                  </table>";
+
+      $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+      $content = '<table cellspacing="0" cellpadding="0" width="100%" border=1>
+                    <thead>
+                      <tr>
+                        <th>เดือน</th>
+                        <th width="30%">ค่าใช้จ่าย</th>
+                      </tr>
+                    </thead>
+                    <tbody>';
+                        $sum =0;
+                        foreach ($monthname as $key => $value) { 
+                          $sum += @$data[$key];
+                      $content .='<tr>
+                        <td>'.$value.'</td>
+                        <td align="right">'.number_format(@$data[$key],2).'</td>
+                      </tr>';
+                    } 
+                    $content .='</tbody>
+                    <tfoot>
+                      <tr>
+                        <td align="center">รวม</td>
+                        <td align="right">'.number_format($sum,2).'</td>
+                      </tr>
+                    </tfoot>
+                  </table>';
+
+        $dataExport[] = array('html' => $content, 'border' => true, 'auto' => true);
+
+        // echo '<pre>'; 
+        // print_r($dataExport);
+
+        if($this->excel){
+          $this->exportexcel->exportFhtml($dataExport,'รายงาน.xls');
+        }else{
+          $this->exportpdf->exportFhtml($dataExport);
+        }
+    }
 }
