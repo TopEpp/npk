@@ -210,9 +210,9 @@
 			$("input[name='receive_date']").focus();
 			return false;
         }
-        if ($("input[name='receive_amount']").val() == '') {
+        if ($("input[name='sum_amount']").val() == '') {
 			alertify.error('กรุณาระบุ จำนวนภาษี');
-			$("input[name='receive_amount']").focus();
+			$("input[name='sum_amount']").focus();
 			return false;
 		}
     });

@@ -99,7 +99,7 @@
                                                                                                                     <div class="form-group">
                                                                                                                             <label >วันที่ประเมิน ภ.ร.ด. 2</label>
                                                                                                                             <span class="required" style="color:red">*</span>
-                                                                                                                            <input type='text' name="notice_date_p2[0][]" value="<?php echo @$notice->notice_date_p2; ?>" id="notice_date_p2" class="form-control datepicker" />
+                                                                                                                            <input type='text' name="notice_date_p2[0][]" id="notice_date_p2" value="<?php echo $this->mydate->date_db2str($notice->notice_date_p2, 543); ?>"data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" /> 
                                                                                                                     </div>
                                                                                                             </div>
                                                                                                             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -118,7 +118,7 @@
                                                                                                                 <div class="form-group">
                                                                                                                     <label > วันที่ประเมิน ภ.ร.ด. 8</label>
                                                                                                                     <span class="required" style="color:red">*</span>
-                                                                                                                    <input type='text' name="notice_date[0][]" value="<?php echo @$notice->notice_date; ?>" id="notice_date_p8" class="form-control datepicker" />
+                                                                                                                    <input type='text' name="notice_date[0][]" id="notice_date_p8" value="<?php echo $this->mydate->date_db2str($notice->notice_date, 543); ?>"data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" /> 
                                                                                                                 </div>
                                                                                                         </div>
 
@@ -326,7 +326,7 @@
                                                                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                     <div class="input-group">
                                                                                     <input type="text" id="num_one" name="notice_amount[0][]" class="form-control col-md-4 col-xs-12" value="1" >
-                                                                                    <input type="hidden" name="individual_id[0][]" value="<?php echo @$tax_notice[0]->individual_id; ?>">
+                                                                                    <input type="hidden" name="individual_id[0][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>">
                                                                                     <span class="input-group-btn">
                                                                                         <button class="btn btn-success" type="button" id="addNum_one" style="margin-right: 0px;">
                                                                                             <i class="fa fa-plus-square"></i>
@@ -342,7 +342,7 @@
                                                                                             <div class="form-group">
                                                                                                     <label >วันที่รับ ภ.ร.ด. 2</label>
                                                                                                     <span class="required" style="color:red">*</span>
-                                                                                                    <input type='text' name="notice_date_p2[0][]" class="form-control datepicker" />
+                                                                                                    <input type='text' name="notice_date_p2[0][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                                                             </div>
                                                                                     </div>
 
@@ -364,7 +364,7 @@
                                                                                     <div class="form-group">
                                                                                                     <label > วันที่ประเมิน ภ.ร.ด. 8</label>
                                                                                                     <span class="required" style="color:red">*</span>
-                                                                                                    <input type='text' name="notice_date[0][]" class="form-control datepicker" />
+                                                                                                    <input type='text' name="notice_date[0][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                                                     </div>
                                                                             </div>
 
@@ -507,8 +507,8 @@
                                                                                             <span class="required" style="color:red">*</span>
                                                                                             </label>
                                                                                             <select class="form-control" name="tax_year[0][]" >
-                                                                                                <?php foreach ($years as $key => $value) { ?>
-                                                                                                    <option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>
+                                                                                                <?php foreach ($tax_years as $key => $value) { ?>
+                                                                                                    <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
                                                                                                     <?php
 
                                                                                                 } ?>
@@ -591,7 +591,7 @@
                                                                                                 <div class="form-group" >
 
                                                                                                         <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                                                                        <input type='text' name="notice_date[1][]"  value="<?php echo @$notice->notice_date; ?>" class="form-control datepicker" />
+                                                                                                        <input type='text' name="notice_date[1][]"  value="<?php echo $this->mydate->date_db2str($notice->notice_date, 543); ?>"data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" /> 
                                                                                                 </div>
                                                                                         </div>
                                                                                     </div>
@@ -600,7 +600,7 @@
                                                                                         <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                                 <div class="form-group" >
                                                                                                         <label >วันที่สำรวจ ภ.บ.ท. 5<span class="required" style="color:red"> *</span></label>
-                                                                                                        <input type='text' name="notice_date_p5[1][]" value="<?php echo @$notice->notice_date_p5; ?>"class="form-control datepicker" />
+                                                                                                        <input type='text' name="notice_date_p5[1][]" value="<?php echo $this->mydate->date_db2str($notice->notice_date_p5, 543); ?>"data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" /> 
                                                                                                 </div>
                                                                                         </div>
                                                                                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -824,7 +824,7 @@
                                                                                     <div class="form-group" >
 
                                                                                             <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                                                            <input type='text' name="notice_date[1][]" class="form-control datepicker" />
+                                                                                            <input type='text' name="notice_date[1][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                                                     </div>
                                                                             </div>
                                                                         </div>
@@ -834,7 +834,7 @@
                                                                                     <div class="form-group" >
 
                                                                                             <label >วันที่สำรวจ ภ.บ.ท. 5<span class="required" style="color:red"> *</span></label>
-                                                                                            <input type='text' name="notice_date_p5[1][]" class="form-control datepicker" />
+                                                                                            <input type='text' name="notice_date_p5[1][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                                                     </div>
                                                                             </div>
                                                                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -1066,7 +1066,7 @@
                                                                                                     <div class="form-group" style="margin-bottom: 0px;">
 
                                                                                                         <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                                                                        <input type='text' name="notice_date[2][]" value="<?php echo @$notice->notice_date; ?>" class="form-control datepicker" />
+                                                                                                        <input type='text' name="notice_date[2][]" value="<?php echo $this->mydate->date_db2str($notice->notice_date, 543); ?>"data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" /> 
                                                                                                     </div>
                                                                                             </div>
                                                                                             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -1270,7 +1270,7 @@
                                                                                         <div class="form-group" style="margin-bottom: 0px;">
 
                                                                                             <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                                                            <input type='text' name="notice_date[2][]" class="form-control datepicker" />
+                                                                                            <input type='text' name="notice_date[2][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                                                         </div>
                                                                                 </div>
                                                                                 <div class="col-md-3 col-sm-6 col-xs-12">

@@ -92,7 +92,7 @@
                                                         <div class="form-group">
                                                                 <label >วันที่รับ ภ.ร.ด. 2</label>
                                                                 <span class="required" style="color:red">*</span>
-                                                                <input type="text" name="notice_date_p2[0][]" class="form-control datepicker">
+                                                                <input type="text" name="notice_date_p2[0][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                         </div>
                                                 </div>
 
@@ -114,7 +114,7 @@
                                                 <div class="form-group">
                                                                 <label > วันที่ประเมิน ภ.ร.ด. 8</label>
                                                                 <span class="required" style="color:red">*</span>
-                                                                <input type='text' name="notice_date[0][]" class="form-control datepicker" />
+                                                                <input type='text' name="notice_date[0][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                 </div>
                                         </div>
 
@@ -328,7 +328,7 @@
                                                     <div class="form-group" >
 
                                                             <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                            <input type='text' name="notice_date[1][]" class="form-control datepicker" />
+                                                            <input type='text' name="notice_date[1][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                     </div>
                                             </div>
                                         </div>
@@ -338,7 +338,7 @@
                                                     <div class="form-group" >
 
                                                             <label >วันที่สำรวจ ภ.บ.ท. 5<span class="required" style="color:red"> *</span></label>
-                                                            <input type='text' name="notice_date_p5[1][]" class="form-control datepicker" />
+                                                            <input type='text' name="notice_date_p5[1][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                     </div>
                                             </div>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -558,7 +558,7 @@
                                                     <div class="form-group" style="margin-bottom: 0px;">
 
                                                         <label >วันที่ประเมิน<span class="required" style="color:red"> *</span></label>
-                                                        <input type='text' name="notice_date[2][]" class="form-control datepicker" />
+                                                        <input type='text' name="notice_date[2][]" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                     </div>
                                             </div>
                                             <div class="col-md-3 col-sm-6 col-xs-12">
