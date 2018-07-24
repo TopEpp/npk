@@ -188,9 +188,7 @@ $('#alert-btn').click(function () {
         }
 
     });
-<<<<<<< HEAD
-})
-=======
+
 });
 
 function delAlert(val,notice){
@@ -208,4 +206,3 @@ function delAlert(val,notice){
 
     });
 }
->>>>>>> 788b0a21a92aa44c6f464d76e37bc578e31f5d72
