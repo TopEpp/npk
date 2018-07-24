@@ -654,8 +654,8 @@ class Receive_model extends CI_Model
                 $row['amount'] = number_format($row['amount'], 2);
                 $row['interest'] = number_format($row['interest'], 2);
 
-                $date = explode('-', $row['receive_date']);
-                $row['receive_date'] = $date[2] . '/' . $date[1] . '/' . ($date[0] + 543);
+                $row['receive_date'] = $this->mydate->date_eng2thai($row['receive_date'], 543, 'S');
+
 
                 $data[] = $row;
             }
@@ -708,8 +708,7 @@ class Receive_model extends CI_Model
             foreach ($query->result_array() as $key => $row) {
                 $row['receive_amount'] = number_format($row['receive_amount'], 2);
                 $row['amount'] = number_format($row['amount'], 2);
-                $date = explode('-', $row['receive_date']);
-                $row['receive_date'] = $date[2] . '/' . $date[1] . '/' . ($date[0] + 543);
+                $row['receive_date'] = $this->mydate->date_eng2thai($row['receive_date'], 543, 'S');
 
                 $data[] = $row;
             }
@@ -771,8 +770,7 @@ class Receive_model extends CI_Model
             foreach ($query->result_array() as $key => $row) {
                 $row['receive_amount'] = number_format($row['receive_amount'], 2);
                 $row['notice_estimate'] = number_format($row['notice_estimate'], 2);
-                $date = explode('-', $row['receive_date']);
-                $row['receive_date'] = $date[2] . '/' . $date[1] . '/' . ($date[0] + 543);
+                $row['receive_date'] = $this->mydate->date_eng2thai($row['receive_date'], 543, 'S');
 
                 $data[] = $row;
             }

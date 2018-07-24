@@ -91,8 +91,8 @@
                   <span class="required" style="color:red"> *</span>
             </label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class='input-group date col-md-12 col-xs-12' id='inputdatepicker'>
-                        <input type='text' name="receive_date" value="<?php echo $tax_pay[0]['receive_date'] ?>" class="form-control datepicker" />
+                    <div class='input-group date col-md-12 col-xs-12'>
+                        <input type='text' name="receive_date" value="<?php echo $this->mydate->date_db2str($tax_pay[0]['receive_date'], 543); ?>"data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                     </div>
                 </div>
         </div>
