@@ -48,36 +48,42 @@
                                                                             <?php foreach ($tax_allocate as $key => $value) { ?>
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php
+
                                                                             } ?>
                                                                         </optgroup>
                                                                         <optgroup label="หมวดค่าธรรมเนียม ค่าปรับ และใบอนุญาต">
                                                                             <?php foreach ($tax_fine as $key => $value) { ?>
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php
+
                                                                             } ?>
                                                                         </optgroup>
                                                                         <optgroup label="หมวดรายได้จากทรัพย์สิน">
                                                                             <?php foreach ($tax_asset as $key => $value) { ?>
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php
+
                                                                             } ?>
                                                                         </optgroup>
                                                                         <optgroup label="หมวดรายได้สาธารณูปโภคและสาธารณสุขฯ">
                                                                             <?php foreach ($tax_health as $key => $value) { ?>
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php
+
                                                                             } ?>
                                                                         </optgroup>
                                                                         <optgroup label="หมวดรายได้เบ็ดเตล็ด">
                                                                             <?php foreach ($tax_miscellaneous as $key => $value) { ?>
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php
+
                                                                             } ?>
                                                                         </optgroup>
                                                                         <optgroup label="หมวดเงินอุดหนุน">
                                                                             <?php foreach ($tax_subsidy as $key => $value) { ?>
                                                                                 <option value="<?php echo $value->tax_id; ?>"><?php echo $value->tax_name; ?></option>
                                                                                 <?php
+
                                                                             } ?>
                                                                         </optgroup>
                                                                     </select>
@@ -90,7 +96,7 @@
                                                         </label>
                                                     <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <div class='input-group date col-md-12 col-xs-12'>
-                                                            <input type='text' name="receive_date" value="" class="form-control datepicker" />
+                                                            <input type='text' name="receive_date" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,9 +126,10 @@
                                                         <select id="receive_user_selector" name="receive_user" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
                                                             <option value="">ผู้รับเงิน</option>
                                                           <?php foreach ($receive_user as $key => $value) { ?>
-                                                              <option value="<?php echo $value->user_id; ?>"><?php echo $value->prename_th.$value->user_firstname.' '.$value->user_lastname; ?></option>
+                                                              <option value="<?php echo $value->user_id; ?>"><?php echo $value->prename_th . $value->user_firstname . ' ' . $value->user_lastname; ?></option>
                                                               <?php
-                                                          } ?>
+
+                                                            } ?>
                                                         </select>
                                                     </div>
                                                 </div>

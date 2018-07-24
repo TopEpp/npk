@@ -122,8 +122,8 @@
                                                         วันที่รับ <span class="required" style="color:red">*</span>
                                                         </label>
                                                     <div class="col-md-4 col-sm-6 col-xs-12">
-                                                        <div class='input-group date col-md-12 col-xs-12' id='inputdatepicker'>
-                                                            <input type='text' name="receive_date" value="<?php echo $other_tax[0]['receive_date'] ?>" class="form-control datepicker" />
+                                                        <div class='input-group date col-md-12 col-xs-12'>
+                                                            <input type='text' name="receive_date" value="<?php echo $this->mydate->date_db2str($other_tax[0]['receive_date'], 543); ?>"data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,9 +156,10 @@
                                                         <select id="receive_user_selector" name="receive_user" class="form-control selectpicker" data-hide-disabled="true" data-live-search="true" >
                                                             <option value="">ผู้รับเงิน</option>
                                                           <?php foreach ($receive_user as $key => $value) { ?>
-                                                              <option value="<?php echo $value->user_id; ?>" <?php echo (($value->user_id==$other_tax[0]['receive_user'])?'selected':'') ?>><?php echo $value->prename_th.$value->user_firstname.' '.$value->user_lastname; ?></option>
+                                                              <option value="<?php echo $value->user_id; ?>" <?php echo (($value->user_id == $other_tax[0]['receive_user']) ? 'selected' : '') ?>><?php echo $value->prename_th . $value->user_firstname . ' ' . $value->user_lastname; ?></option>
                                                               <?php
-                                                          } ?>
+
+                                                            } ?>
                                                         </select>
                                                     </div>
                                                 </div>
