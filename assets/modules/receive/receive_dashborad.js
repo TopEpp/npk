@@ -28,7 +28,7 @@ $(function () {
         }, ],
 
         "order": [
-            [1, 'asc'],
+            [0, 'desc'],
         ],
 
         'columns': [{

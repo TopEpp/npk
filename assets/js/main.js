@@ -8,24 +8,112 @@
 
 //check menu active
  $(function(){
-    if (menu == 'project_training' || menu == 'expenditure'  || menu == 'receive_outside'){
-        $("[id="+menu+"]").addClass("current-page");
-        $("[id="+menu+"]").parent().css('display', 'block');
-        $("[id="+menu+"]").parent().closest('li').addClass('active');
+        if (menu == 'project_training' || menu == 'expenditure'  || menu == 'receive_outside'){
+            $("[id="+menu+"]").addClass("current-page");
+            $("[id="+menu+"]").parent().css('display', 'block');
+            $("[id="+menu+"]").parent().closest('li').addClass('active');
 
-        if( menu == 'receive_outside' && menu_child == 'outside' || menu_child == 'outside_in_form' ){
-            $("[data-child=receive_menu]").addClass("current-page");
-            $("[data-child=receive_menu]").parent().css('display', 'block');
-            $("[data-child=receive_menu]").parent().closest('li').addClass('active');
-        }else if(menu == 'receive_outside'){
-            $("[id=expenditure]").addClass("current-page");
-            $("[id=expenditure]").parent().css('display', 'block');
-            $("[id=expenditure]").parent().closest('li').addClass('active');
+            if( menu == 'receive_outside' && menu_child == 'outside' || menu_child == 'outside_in_form' ){
+                $("[data-child=receive_menu]").addClass("current-page");
+                $("[data-child=receive_menu]").parent().css('display', 'block');
+                $("[data-child=receive_menu]").parent().closest('li').addClass('active');
+            }else if(menu == 'receive_outside'){
+                $("[id=expenditure]").addClass("current-page");
+                $("[id=expenditure]").parent().css('display', 'block');
+                $("[id=expenditure]").parent().closest('li').addClass('active');
+            }
         }
-    }
-   
+
+
 
  });
+
+ function getUserInfo() {
+   //console.log('msg');
+   $.ajax({
+           method: "POST",
+           url: domain + '/usm/getUserInfo',
+           data: {}
+   }).done(function (data) {
+           if (data) {
+               //console.log(data);
+               $('#user_id').val(data.user_id);
+               $('#pid').val(data.pid);
+               $('#org_title').val(data.org_title);
+               $('#passcode').val(data.passcode);
+               $('#user_prename').val(data.user_prename);
+               $('#user_firstname').val(data.user_firstname);
+               $('#user_lastname').val(data.user_lastname);
+               $('#date_of_birth').val(data.date_of_birth);
+               $('#user_position').val(data.user_position);
+               $('#tel_no').val(data.tel_no);
+               $('#email_addr').val(data.email_addr);
+               if(data.user_gender == 1){
+                 $('#user_gender1').attr('checked',true);
+               }else if(data.user_gender == 2){
+                 $('#user_gender2').attr('checked',true);
+               }
+               $('#update_datetime').html(data.update_datetime);
+           }
+   });
+ }
+
+ function getUserUpdate() {
+   //console.log('msg');
+   if($('#user_gender1').is(':checked')){
+     gender = 1;
+   }
+   if($('#user_gender2').is(':checked')){
+     gender = 2;
+   }
+   //console.log('user_gender:'+gender);
+   $.ajax({
+           method: "POST",
+           url: domain + '/usm/update_user_ajax',
+           data: {
+               user_id:$('#user_id').val(),
+               pid:$('#pid').val(),
+               org_title:$('#org_title').val(),
+               passcode:$('#passcode').val(),
+               user_prename:$('#user_prename').val(),
+               user_firstname:$('#user_firstname').val(),
+               user_lastname:$('#user_lastname').val(),
+               user_gender:gender,
+               date_of_birth:$('#date_of_birth').val(),
+               user_position:$('#user_position').val(),
+               tel_no:$('#tel_no').val(),
+               email_addr:$('#email_addr').val(),
+               user_photo_file:$('#user_photo_file').val()
+           }
+   }).done(function (data) {
+           if (data) {
+               console.log(data);
+               if(data == 1){
+                  window.location.reload();
+               }
+               /*
+               $('#pid').val(data.pid);
+               $('#org_title').val(data.org_title);
+               $('#passcode').val(data.passcode);
+               $('#user_prename').val(data.user_prename);
+               $('#user_firstname').val(data.user_firstname);
+               $('#user_lastname').val(data.user_lastname);
+               $('#date_of_birth').val(data.date_of_birth);
+               $('#user_position').val(data.user_position);
+               $('#tel_no').val(data.tel_no);
+               $('#email_addr').val(data.email_addr);
+               if(data.user_gender == 1){
+                 $('#user_gender1').attr('checked',true);
+               }else if(data.user_gender == 2){
+                 $('#user_gender2').attr('checked',true);
+               }
+               $('#update_datetime').html(data.update_datetime);*/
+           }
+   });
+ }
+
+ getUserInfo();
+
 Number.prototype.formatMoney = function(c, d, t){
     var n = this,
         c = isNaN(c = Math.abs(c)) ? 2 : c,

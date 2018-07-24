@@ -109,6 +109,29 @@ class Usm extends MY_Controller
         $this->set_permission($input['user_id']);
         $this->json_publish($data);
     }
+
+    function update_user_ajax()
+    {
+        $input = $this->input->post();
+
+        $photo_file = @$input['user_photo_file'];
+        if (@$photo_file) {
+            $to = 'assets/uploads/images/usm/' . basename($photo_file);
+            if (!is_file(FCPATH . $to)) {
+                if (copy(FCPATH . $photo_file, FCPATH . $to)) {
+                    $input['user_photo_file'] = $to;
+                }
+            }
+        }
+
+        $data = $this->Usm_model->update_user_ajax($input);
+        echo $data;
+        /*echo "<pre>";
+        print_r($input);
+        echo "</pre>";*/
+
+    }
+
     function remove_org()
     {
         $input = $this->input->post();
@@ -210,5 +233,11 @@ class Usm extends MY_Controller
         unset($_SESSION['user_permission']);
         $_SESSION['user_permission'] = $query_user_per;
 
+    }
+
+    function getUserInfo(){
+      $user_id = $_SESSION['user_id'];
+      $data = $this->Usm_model->userById($user_id);
+      $this->json_publish($data);
     }
 }

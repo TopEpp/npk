@@ -78,7 +78,6 @@
             </div>
           </div>
 
-          <div class="row tile_count">
             <div class="x_panel">
               <div class="x_title">
               <h2><i class="fa fa-shirtsinbulk"></i> รายรับ</h2></span>
@@ -148,12 +147,10 @@
                 </script>
               </div>
             </div>
+
+
+
           </div>
-
-            <div class="row">
-
-          </div>
-
         </div>
 
         <!-- /page content -->

@@ -19,13 +19,13 @@
 			<td style="text-align: center;"><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['notice_number']); ?>/<?php echo $value['tax_year'] + 543 ?></td>
 			<td style="text-align: center;"><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['individual_number']); ?></td>
 			<td ><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['individual_prename'] . $value['individual_fullname']); ?></td>
-			<td style="text-align: right;"><?php echo number_format($value['notice_estimate'], 2); ?></td>
+			<td style="text-align: right;"><?php echo number_format($value['sum_notice_estimate'], 2); ?></td>
 			<td style="text-align: right;"><?php echo number_format($value['tax_interest'], 2); ?></td>
 			<td style="text-align: right;"><?php echo number_format($value['tax_amount'], 2); ?></td>
-			<td style="text-align: right;"><?php echo number_format($value['notice_estimate'] - $value['tax_amount'], 2); ?></td>
+			<td style="text-align: right;"><?php echo number_format($value['sum_notice_estimate'] - $value['tax_amount'], 2); ?></td>
 			<td style="text-align: center;">
-			<?php if (($value['notice_estimate'] - $value['tax_amount']) > 0) : ?>
-                 <a title="จ่าย" class="btn btn-success btn-sm" href="<?php echo base_url('receive/receive_tax_pay_add_label/' . $value['notice_id']) ?>">ชำระภาษี</a>
+			<?php if (($value['sum_notice_estimate'] - $value['tax_amount']) > 0) : ?>
+                 <a title="จ่าย" class="btn btn-success btn-sm" href="<?php echo base_url('receive/receive_tax_pay_add_label/' . $value['individual_id'] . '/' . $value['tax_id']) ?>">ชำระภาษี</a>
 			<?php endif; ?>
 			</td>
 

@@ -217,6 +217,46 @@ class Usm_model extends CI_Model
         }
     }
 
+    function update_user_ajax($data)
+    {
+        //$this->db->trans_begin();
+        /*echo "<pre>";
+        print_r($data);
+        echo "</pre>";*/
+        $this->db->set('pid', $data['pid']);
+        $this->db->set('passcode', $data['passcode']);
+        $this->db->set('user_prename', @$data['user_prename']);
+        $this->db->set('user_firstname', @$data['user_firstname']);
+        $this->db->set('user_lastname', @$data['user_lastname']);
+        $this->db->set('user_gender', @$data['user_gender']);
+        list($d, $m, $y) = explode('/', $data['date_of_birth']);
+        $data['date_of_birth'] = ($y - 543) . "-{$m}-{$d}";
+        $this->db->set('date_of_birth', @$data['date_of_birth']);
+        $this->db->set('user_position', @$data['user_position']);
+        $this->db->set('tel_no', @$data['tel_no']);
+        $this->db->set('email_addr', @$data['email_addr']);
+        $this->db->set('user_photo_file', @$data['user_photo_file']);
+
+        if ($data['user_id']) {// on update
+            $this->db->set('update_user_id', '');
+            $this->db->set('update_org_id', '');
+            $this->db->set('update_datetime', date('Y-m-d H:i:s'));
+            $this->db->where('user_id', $data['user_id']);
+            $this->db->update('usrm_user');
+            $user_id = $data['user_id'];
+        }
+        //echo $this->db->last_query();
+
+        if ($this->db->trans_status() === false) {
+            return '0';
+        } else {
+            $this->db->trans_commit();
+            $user = $this->userById($user_id);
+            return '1';
+        }
+
+    }
+
 
     function idOrgAllChildren($id, &$ids)
     {
