@@ -30,7 +30,7 @@ class service_model extends CI_Model
 			$data_insert['project_year'] = $year+1;
 			$data_insert['project_level'] = $value['project_level'];
 			$data_insert['project_title'] = $value['project_title'];
-			$data_insert['prj_budget_sum'] = $value['prj_budget_sum'];
+			$data_insert['prj_budget_sum'] = '';//$value['prj_budget_sum'];
 			$data_insert['project_ref_id'] = $value['project_id'];
 
 			$this->db->insert('tbl_project_manage',$data_insert);
@@ -57,8 +57,8 @@ class service_model extends CI_Model
 			}
 			$data_insert['prj_year'] = $year+1;
 			$data_insert['prj_name'] = $value['prj_name'];
-			$data_insert['prj_budget'] = $value['prj_budget'];
-			$data_insert['prj_budget_sum'] = $value['prj_budget_sum'];
+			$data_insert['prj_budget'] = '';//$value['prj_budget'];
+			$data_insert['prj_budget_sum'] = '';//$value['prj_budget_sum'];
 			$data_insert['prj_owner'] = $value['prj_owner'];
 			// $data_insert['prj_status'] = 0;
 			$data_insert['prj_type'] = '1';
@@ -68,14 +68,14 @@ class service_model extends CI_Model
 			$this->db->insert('tbl_project',$data_insert);
 
 
-			$data_log_insert = array();
-			$data_log_insert['prj_budget_parent'] = 0;
-			$data_log_insert['prj_id'] = $data_insert['prj_id'];
-			$data_log_insert['prj_budget_type'] = '1';
-			$data_log_insert['prj_amount'] = $value['prj_budget_sum'];
-			$data_log_insert['prj_log_date'] = date('Y-m-d');
-			$data_log_insert['prj_budget_status'] = '1';
-			$this->db->insert('tbl_prj_budget_log',$data_log_insert);
+			// $data_log_insert = array();
+			// $data_log_insert['prj_budget_parent'] = 0;
+			// $data_log_insert['prj_id'] = $data_insert['prj_id'];
+			// $data_log_insert['prj_budget_type'] = '1';
+			// $data_log_insert['prj_amount'] = $value['prj_budget_sum'];
+			// $data_log_insert['prj_log_date'] = date('Y-m-d');
+			// $data_log_insert['prj_budget_status'] = '1';
+			// $this->db->insert('tbl_prj_budget_log',$data_log_insert);
 
 			$this->duplicate_prj($year,$value['prj_id']);
 		}
