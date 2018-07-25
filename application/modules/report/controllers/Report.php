@@ -149,7 +149,6 @@ class Report extends MY_Controller
 
         $data['person'] = $this->Report_model->getPersonReceive(@$data['tax_type']);
 
-
         $this->config->set_item('title', 'รายงานรับชำระภาษี');
         $this->setView('report_person_receive', $data);
         $this->publish();  
