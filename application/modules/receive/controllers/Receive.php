@@ -139,6 +139,11 @@ class Receive extends MY_Controller
                         foreach ($input['notice_estimate'][0] as $key => $v) {
                             $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                             $data[$form_key][$key]['tax_id'] = 8;
+                            $data[$form_key][$key]['annual'] = str_replace(',', '', $input['annual'][$form_key][0]);
+                            $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+                            $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
+
 
                             $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
                             $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
@@ -172,6 +177,8 @@ class Receive extends MY_Controller
                             $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                             $data[$form_key][$key]['tax_id'] = 9;
                             $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+                            $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
 
 
                             $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
@@ -205,6 +212,7 @@ class Receive extends MY_Controller
                             $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                             $data[$form_key][$key]['tax_id'] = 10;
                             $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+                            $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
 
 
                             $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
@@ -317,6 +325,9 @@ class Receive extends MY_Controller
                     @$data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 10;
+                    $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+                    $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
 
                     $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
                     $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
@@ -594,6 +605,7 @@ class Receive extends MY_Controller
         foreach ($check_num as $key => $value) {
             if (!empty($this->input->post('individual_number')[$key])) {
                 $data['individual_type'] = $key + 1;
+                $data['code_name'] = $this->input->post('code_name')[$key];
                 $data['individual_number'] = $this->input->post('individual_number')[$key];
                 $data['individual_prename'] = $this->input->post('individual_prename')[$key];
                 $data['individual_fullname'] = $this->input->post('individual_prename')[$key] . '' . $this->input->post('individual_firstname')[$key] . ' ' . $this->input->post('individual_lastname')[$key];
@@ -1183,10 +1195,10 @@ class Receive extends MY_Controller
         $param['dir'] = $this->input->get('order[0][dir]');
       //check filter data
         $filter = array();
-        if($this->input->get("columns")){
-          foreach ($this->input->get("columns") as $key => $value) {
-              $filter[] = $value['search']['value'];
-          }
+        if ($this->input->get("columns")) {
+            foreach ($this->input->get("columns") as $key => $value) {
+                $filter[] = $value['search']['value'];
+            }
         }
         $param['filter'] = $filter;
         $results = $this->Receive_model->getRecieveDashboradAjax($param);
@@ -1621,10 +1633,11 @@ class Receive extends MY_Controller
 
     }
 
-    public function delAlert(){
+    public function delAlert()
+    {
         $id = $this->input->post('id');
         $result['id'] = $this->input->post('notice');
- 
+
         $status = $this->Receive_model->delAlert($id);
         $this->output->set_content_type('application/json')->set_output(json_encode($result));
     }

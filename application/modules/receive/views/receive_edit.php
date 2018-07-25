@@ -300,10 +300,29 @@
                                                                                 </div>
                                                                                         <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                             <div class="form-group">
+                                                                                                <label  > ค่ารายปี
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="annual[0][]" value="<?php echo @$notice->annual; ?>"  id="annual" placeholder="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
+                                                                                                <label  > เงินเพิ่ม
+                                                                                                </label>
+                                                                                                <div >
+                                                                                                    <input type="text" name="tax_interest[0][]" value="<?php echo @$notice->tax_interest; ?>" id="interest" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                            <div class="form-group">
                                                                                                 <label  > จำนวนเงินภาษี
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="sum_amount_house" id="sum_amount_house"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                    <input type="text" name="sum_amount_tax[0][]" value="<?php echo @$notice->sum_amount_tax; ?>" id="sum_amount_house" readonly class="numeric form-control col-md-7 col-xs-12" >
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -531,15 +550,34 @@
                                                                                             <h2 class="StepTitle">รวมค่าภาษีโรงเรือนและที่ดิน </h2>
                                                                                         </div>
                                                                                 </div>
-                                                                                        <div class="col-md-3 col-sm-6 col-xs-12">
-                                                                                            <div class="form-group">
-                                                                                                <label  > จำนวนเงินภาษี
-                                                                                                </label>
-                                                                                                <div >
-                                                                                                    <input type="text" name="sum_amount_house" id="sum_amount_house"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
-                                                                                                </div>
+                                                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <label  > ค่ารายปี
+                                                                                            </label>
+                                                                                            <div >
+                                                                                                <input type="text" name="annual[0][]" id="annual" placeholder="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
                                                                                             </div>
                                                                                         </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                    <div class="form-group">
+                                                                                        <label  > เงินเพิ่ม
+                                                                                        </label>
+                                                                                        <div >
+                                                                                            <input type="text" name="tax_interest[0][]" id="interest" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12" >
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                                    <div class="form-group">
+                                                                                        <label  > จำนวนเงินภาษี
+                                                                                        </label>
+                                                                                        <div >
+                                                                                            <input type="text" name="sum_amount_tax[0][]" id="sum_amount_house"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
                                                                                         
                                                                             
                                                                             </div>
@@ -726,12 +764,12 @@
                                                                                                         <div class="col-md-5 col-sm-6 col-xs-12" style="padding-left: 0px;">
                                                                                                         
                                                                                                             <select class="form-control" name="tax_year[1][]" type="text" >
-                                                                                                                <?php foreach ($years as $key => $value) { ?>
+                                                                                                                <?php foreach ($tax_years as $key => $value) { ?>
 
                                                                                                                         <?php if ($notice->tax_year == $value->year_id) : ?>
-                                                                                                                            <option  selected value="<?php echo $value->year_id ?>"> <?php echo $value->year_label ?></option>
+                                                                                                                            <option  selected value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
                                                                                                                         <?php else : ?>
-                                                                                                                        <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
+                                                                                                                        <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
                                                                                                                         <?php endif; ?>
                                                                                                                     <?php
 
@@ -741,11 +779,16 @@
                                                                                                         <div class="col-md-2 col-sm-6 col-xs-12" align="center"><label>ถึง</label></div>
                                                                                                         <div class="col-md-5 col-sm-6 col-xs-12" style="padding-right: 0px;">
                                                                                                             <select class="form-control" name="tax_local_year[1][]" type="text" >
-                                                                                                                    <?php foreach ($years as $key => $value) { ?>
-                                                                                                                        <option value="<?= $value->year_id ?>"><?= $value->year_label + 3 ?></option>
-                                                                                                                        <?php
+                                                                                                            <?php foreach ($tax_years as $key => $value) { ?>
 
-                                                                                                                    } ?>
+                                                                                                                    <?php if ($notice->tax_year == $value->year_id) : ?>
+                                                                                                                        <option  selected value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
+                                                                                                                    <?php else : ?>
+                                                                                                                    <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
+                                                                                                                    <?php endif; ?>
+                                                                                                                    <?php
+
+                                                                                                                } ?>
                                                                                                                 </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -776,7 +819,7 @@
                                                                                             <label  > เงินเพิ่ม
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="tax_interest[1][]" id="interest" placeholder="0.00" value="0.00"  class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                <input type="text" name="tax_interest[1][]" value="<?php echo @$notice->tax_interest; ?>" id="interest" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12" >
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -785,7 +828,7 @@
                                                                                             <label  > จำนวนเงินภาษี
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="sum_amount_local" id="sum_amount_local"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                <input type="text" name="sum_amount_tax[1][]" value="<?php echo @$notice->sum_amount_tax; ?>" id="sum_amount_local" readonly class="numeric form-control col-md-7 col-xs-12" >
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -896,7 +939,7 @@
                                                                                     </div>
                                                                             </div>
                                                                         <div class="row">
-                                                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                            <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                 <div class="form-group" >
 
                                                                                     <label  > เนื้อที่ดิน (ไร่) <span class="required" style="color:red"> *</span>
@@ -907,7 +950,7 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                            <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                 <div class="form-group" >
 
                                                                                     <label  > เนื้อที่ดิน (งาน) <span class="required" style="color:red"> *</span>
@@ -918,7 +961,7 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                            <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                 <div class="form-group" >
 
                                                                                     <label  > เนื้อที่ดิน (วา) <span class="required" style="color:red"> *</span>
@@ -932,7 +975,7 @@
 
                                                                     <div class="form-group">
                                                                         <div class="row">
-                                                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                            <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                 <div class="form-group" style="margin-bottom: 0px;">
 
                                                                                 <label for="middle-name" class="" for="name"> เนื้อที่ดินที่ต้องชำระภาษี<span class="required" style="color:red"> *</span>
@@ -942,7 +985,7 @@
                                                                                 </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                            <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                     <div class="form-group" style="margin-bottom: 0px;">
                                                                                         <label  > จำนวนภาษีที่ประเมิน <span class="required" style="color:red"> *</span>
                                                                                         </label>
@@ -961,8 +1004,8 @@
                                                                                         <div >
                                                                                             <div class="col-md-5 col-sm-6 col-xs-12" style="padding-left: 0px;">
                                                                                                 <select class="form-control" name="tax_year[1][]" type="text" >
-                                                                                                    <?php foreach ($years as $key => $value) { ?>
-                                                                                                            <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
+                                                                                                    <?php foreach ($tax_years as $key => $value) { ?>
+                                                                                                        <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
                                                                                                         <?php
 
                                                                                                     } ?>
@@ -971,11 +1014,11 @@
                                                                                             <div class="col-md-2 col-sm-6 col-xs-12" align="center"><label>ถึง</label></div>
                                                                                             <div class="col-md-5 col-sm-6 col-xs-12" style="padding-right: 0px;">
                                                                                                 <select class="form-control" name="tax_local_year[1][]" type="text" >
-                                                                                                        <?php foreach ($years as $key => $value) { ?>
-                                                                                                            <option value="<?= $value->year_id ?>"><?= $value->year_label + 3 ?></option>
-                                                                                                            <?php
+                                                                                                    <?php foreach ($tax_years as $key => $value) { ?>
+                                                                                                        <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label + 4 ?></option>
+                                                                                                        <?php
 
-                                                                                                        } ?>
+                                                                                                    } ?>
                                                                                                     </select>
                                                                                             </div>
                                                                                         </div>
@@ -1084,15 +1127,15 @@
                                                                                                         </label>
                                        
                                                                                                         <select class="form-control" name="tax_year[2][]" type="text">
-                                                                                                            <?php foreach ($years as $key => $value) { ?>
-                                                                                                                <?php if ($notice->tax_year == $value->year_id) : ?>
-                                                                                                                            <option  selected value="<?php echo $value->year_id ?>"> <?php echo $value->year_label ?></option>
-                                                                                                                        <?php else : ?>
-                                                                                                                <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
-                                                                                                                <?php endif; ?>
-                                                                                                                    <?php
+                                                                                                        <?php foreach ($tax_years as $value) : ?>
 
-                                                                                                                } ?>
+                                                                                                            <?php if ($notice->tax_year == $value->tax_year_id) : ?>
+                                                                                                                <option  selected value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
+                                                                                                            <?php else : ?>
+                                                                                                                <option value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
+                                                                                                            <?php endif; ?>
+
+                                                                                                        <?php endforeach; ?>
                                                                                                         </select>
                                                                                                     </div>
                                                                                             </div>
@@ -1220,7 +1263,7 @@
                                                                                                 <label  > เงินเพิ่ม
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="tax_interest[2][]" id="interest" placeholder="0.00" value="0.00"  class="form-control col-md-7 col-xs-12" >
+                                                                                                    <input type="text" name="tax_interest[2][]" value="<?php echo @$notice->tax_interest; ?>"id="interest" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12" >
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -1229,7 +1272,7 @@
                                                                                                 <label  > จำนวนเงินภาษี
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="sum_amount_label" id="sum_amount_label"value="0.00" readonly class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                    <input type="text" name="sum_amount_tax[2][]" value="<?php echo @$notice->sum_amount_tax; ?>" id="sum_amount_label" readonly class="numeric form-control col-md-7 col-xs-12" >
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -1289,8 +1332,8 @@
                                                                                                         <label  > ประจำปีภาษี <span class="required" style="color:red"> *</span>
                                                                                                         </label>
                                                                                                         <select class="form-control" name="tax_year[2][]" >
-                                                                                                            <?php foreach ($years as $key => $value) { ?>
-                                                                                                                <option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>
+                                                                                                            <?php foreach ($tax_years as $key => $value) { ?>
+                                                                                                                <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
                                                                                                                 <?php
 
                                                                                                             } ?>
@@ -1502,11 +1545,12 @@
     width: 100%;
 }
 </style>
-
-
 <script>
-    $(document).ready( function() {
-        $(document).on('change', '.notice_estimate_house', function() {
+function setScript(){
+    auto_setformat();
+    
+
+    $(document).on('change', '.notice_estimate_house', function() {
                 var sum = 0;
                 console.log( "house" );
                 $(".notice_estimate_house").each(function() {
@@ -1553,15 +1597,53 @@
                 $('#sum_amount_label').val(sum);
                 });
             });
-        
+
+        $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+
+        });
+        function readURL(input,id=0) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-upload_'+id).attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".imgInp").change(function(){
+            var form_id = this.id;
+            var id = form_id.split('_');
+            readURL(this,id[1]);
+        });
+}
+
+$(document).ready( function() {
+     setScript();
                 
 });
-
 </script>
 
+
 <script>
-  $(function(){
-        $('#addNum_one').bind('click',function(){
+        $(function(){
+            $('#addNum_one').bind('click',function(){
               var n = $('#num_one').val(), // number of groups to add
               group = '<div>' + // create group template
               '<hr/>'+
@@ -1664,7 +1746,7 @@
                                                         '<span class="required" style="color:red"> *</span>'+
                                                         '</label>'+
                                                         '<div >'+
-                                                            '<input type="text" name="notice_estimate[0][]" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12" >'+
+                                                            '<input type="text" name="notice_estimate[0][]" placeholder="0.00" class="notice_estimate_house numeric form-control col-md-7 col-xs-12" >'+
                                                         '</div>'+
                                                     '</div>'+
                                                 '</div>'+
@@ -1675,8 +1757,8 @@
                             '                </label>'+
                             '                <div >'+
                                                     '<select class="form-control" name="tax_year[0][]" >'+
-                                                            '<?php foreach ($years as $key => $value) { ?>'+
-                                                                '<option value="<?= $value->year_id ?>">ปีงบประมาณ <?= $value->year_label ?></option>'+
+                                                    '<?php foreach ($tax_years as $key => $value) { ?>'+
+                                                                '<option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>'+
                                                                 '<?php
 
                                                             } ?>'+
@@ -1697,330 +1779,296 @@
               }
               // append groups to target div
               $('#targetDiv1').append(groups);
+
+              setScript();
         });
     
         $(function(){
-        // bind a click event to addNumOfXYZ button
-        $('#addNum2').bind('click',function(){
-              var n = $('#num2').val(), // number of groups to add
-              group = '<div>' + // create group template
-              '<hr/>'+
-              '<br>'+
-              '<h2 class="StepTitle">ภาษีบำรุงท้องที่ </h2>'+
+            // bind a click event to addNumOfXYZ button
+            $('#addNum2').bind('click',function(){
+                var n = $('#num2').val(), // number of groups to add
+                group = '<div>' + // create group template
+                '<hr/>'+
+                '<br>'+
+                '<h2 class="StepTitle">ภาษีบำรุงท้องที่ </h2>'+
+
+                                    '<div class="row">'+
+                                            '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                            '<div class="form-group" >'+
+                                                '<label  > เลขที่โฉนด</label>'+
+                                                '<div >'+
+                                                    '<input type="text" name="land_deed_number[1][]"  placeholder="ระบุเลขที่โฉนด" class="form-control col-md-7 col-xs-12" >'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '</div>'+
+                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                            '<div class="form-group">'+
+                                            ' <label  > จุดสังเกต'+
+                                                '</label>'+
+                                                '<div >'+
+                                                        '<input type="text" name="notice_mark[1][]" placeholder="ระบุจุดสังเกต" class="form-control col-md-7 col-xs-12" >'+
+                                            ' </div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                                '<div class="form-group" style="margin-bottom: 0px;">'+
+                                                    '<label for="middle-name" > หมู่ที่'+
+                                                    '</label>'+
+                                                    '<div >'+
+                                                        '<input type="text" name="notice_address_moo[1][]" placeholder="หมู่ที่ตั้งที่ดิน" class="form-control col-md-7 col-xs-12">'+
+                                                    '</div>'+
+                                                '</div>'+
+                                        '</div>'+
+                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                                '<div class="form-group" style="margin-bottom: 0px;">'+
+                                                    '<label for="middle-name" > ตำบล'+
+                                                    '</label>'+
+                                                    '<div >'+
+                                                    ' <input type="text" name="notice_address_subdistrict[1][]" value="หนองป่าครั่ง" disabled  class="form-control col-md-7 col-xs-12" >'+
+                                                    '</div>'+
+                                                '</div>'+
+                                        '</div>'+
+                                '</div>'+
+                                '<div class="row">'+
+                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                            '<div class="form-group">'+
+                                            ' <label  > เนื้อที่ดิน (ไร่)'+
+                                            ' <span class="required" style="color:red"> *</span>'+
+                                                '</label>'+
+                                                '<div >'+
+                                                    '<input type="text" name="land_rai[1][]" placeholder="ระบุเนื้อที่ดิน (ไร่)" class="form-control col-md-7 col-xs-12">'+
+                                            ' </div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                                '<div class="form-group" style="margin-bottom: 0px;">'+
+                                                    '<label for="middle-name" > เนื้อที่ดิน (งาน)'+
+                                                    ' <span class="required" style="color:red"> *</span>'+
+                                                    '</label>'+
+                                                    '<div >'+
+                                                        '<input type="text" name="land_ngan[1][]" placeholder="ระบุเนื้อที่ดิน (งาน)" class="form-control col-md-7 col-xs-12">'+
+                                                    '</div>'+
+                                                '</div>'+
+                                        '</div>'+
+                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                                '<div class="form-group" style="margin-bottom: 0px;">'+
+                                                    '<label for="middle-name" > เนื้อที่ดิน (วา)'+
+                                                    ' <span class="required" style="color:red"> *</span>'+
+                                                    '</label>'+
+                                                    '<div >'+
+                                                        '<input type="text" name="land_wa[1][]" placeholder="ระบุเนื้อที่ดิน (วา)" class="form-control col-md-7 col-xs-12">'+
+                                                    '</div>'+
+                                                '</div>'+
+                                        '</div>'+
+                                '</div>'+
 
                                 '<div class="row">'+
                                         '<div class="col-md-3 col-sm-6 col-xs-12">'+
-                                          '<div class="form-group" >'+
-                                            '<label  > เลขที่โฉนด</label>'+
-                                            '<div >'+
-                                                '<input type="text" name="land_deed_number[1][]"  placeholder="ระบุเลขที่โฉนด" class="form-control col-md-7 col-xs-12" >'+
-                                            '</div>'+
-                                          '</div>'+
-                                        '</div>'+
-                                    '<div class="col-md-3 col-sm-6 col-xs-12">'+
-                                        '<div class="form-group">'+
-                                           ' <label  > จุดสังเกต'+
-                                            '</label>'+
-                                            '<div >'+
-                                                    '<input type="text" name="notice_mark[1][]" placeholder="ระบุจุดสังเกต" class="form-control col-md-7 col-xs-12" >'+
-                                           ' </div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                    '<div class="col-md-3 col-sm-6 col-xs-12">'+
-                                              '<div class="form-group" style="margin-bottom: 0px;">'+
-                                                '<label for="middle-name" > หมู่ที่'+
+                                            '<div class="form-group">'+
+                                            ' <label  > เนื้อที่ดินที่ต้องชำระภาษี'+
+                                            ' <span class="required" style="color:red"> *</span>'+
                                                 '</label>'+
                                                 '<div >'+
-                                                    '<input type="text" name="notice_address_moo[1][]" placeholder="หมู่ที่ตั้งที่ดิน" class="form-control col-md-7 col-xs-12">'+
-                                                '</div>'+
+                                                    '<input type="text" name="land_tax[1][]" placeholder="ระบุเนื้อที่ดินที่ต้องชำระภาษี" class="form-control col-md-7 col-xs-12">'+
+                                            ' </div>'+
                                             '</div>'+
-                                      '</div>'+
-                                      '<div class="col-md-3 col-sm-6 col-xs-12">'+
-                                              '<div class="form-group" style="margin-bottom: 0px;">'+
-                                                '<label for="middle-name" > ตำบล'+
-                                                '</label>'+
-                                                '<div >'+
-                                                   ' <input type="text" name="notice_address_subdistrict[1][]" value="หนองป่าครั่ง" disabled  class="form-control col-md-7 col-xs-12" >'+
-                                                '</div>'+
-                                            '</div>'+
-                                      '</div>'+
-                            '</div>'+
-                            '<div class="row">'+
-                                    '<div class="col-md-4 col-sm-6 col-xs-12">'+
-                                        '<div class="form-group">'+
-                                           ' <label  > เนื้อที่ดิน (ไร่)'+
-                                          ' <span class="required" style="color:red"> *</span>'+
-                                            '</label>'+
-                                            '<div >'+
-                                                '<input type="text" name="land_rai[1][]" placeholder="ระบุเนื้อที่ดิน (ไร่)" class="form-control col-md-7 col-xs-12">'+
-                                           ' </div>'+
                                         '</div>'+
-                                    '</div>'+
-                                    '<div class="col-md-4 col-sm-6 col-xs-12">'+
-                                              '<div class="form-group" style="margin-bottom: 0px;">'+
-                                                '<label for="middle-name" > เนื้อที่ดิน (งาน)'+
-                                                ' <span class="required" style="color:red"> *</span>'+
-                                                '</label>'+
-                                                '<div >'+
-                                                    '<input type="text" name="land_ngan[1][]" placeholder="ระบุเนื้อที่ดิน (งาน)" class="form-control col-md-7 col-xs-12">'+
+                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                                '<div class="form-group" style="margin-bottom: 0px;">'+
+                                                    '<label for="middle-name" > จำนวนภาษีที่ประเมิน'+
+                                                        ' <span class="required" style="color:red"> *</span>'+
+                                                    '</label>'+
+                                                    '<div >'+
+                                                        '<input type="text" name="notice_estimate[1][]" placeholder="0.00" class="notice_estimate_local numeric form-control col-md-7 col-xs-12">'+
+                                                    '</div>'+
                                                 '</div>'+
-                                            '</div>'+
-                                      '</div>'+
-                                      '<div class="col-md-4 col-sm-6 col-xs-12">'+
-                                            '<div class="form-group" style="margin-bottom: 0px;">'+
-                                                '<label for="middle-name" > เนื้อที่ดิน (วา)'+
-                                                ' <span class="required" style="color:red"> *</span>'+
-                                                '</label>'+
-                                                '<div >'+
-                                                    '<input type="text" name="land_wa[1][]" placeholder="ระบุเนื้อที่ดิน (วา)" class="form-control col-md-7 col-xs-12">'+
-                                                '</div>'+
-                                            '</div>'+
-                                      '</div>'+
-                            '</div>'+
-
-                            '<div class="row">'+
-                                    '<div class="col-md-4 col-sm-6 col-xs-12">'+
-                                        '<div class="form-group">'+
-                                           ' <label  > เนื้อที่ดินที่ต้องชำระภาษี'+
-                                          ' <span class="required" style="color:red"> *</span>'+
-                                            '</label>'+
-                                            '<div >'+
-                                                '<input type="text" name="land_tax[1][]" placeholder="ระบุเนื้อที่ดินที่ต้องชำระภาษี" class="form-control col-md-7 col-xs-12">'+
-                                           ' </div>'+
                                         '</div>'+
-                                    '</div>'+
-                                    '<div class="col-md-4 col-sm-6 col-xs-12">'+
-                                              '<div class="form-group" style="margin-bottom: 0px;">'+
-                                                '<label for="middle-name" > จำนวนภาษีที่ประเมิน'+
+                                        '<div class="col-md-4 col-sm-6 col-xs-12">'+
+                                                '<div class="form-group" style="margin-bottom: 0px;">'+
+                                                    '<label for="middle-name" > ชำระภาษีบำรุงท้องที่ปี'+
                                                     ' <span class="required" style="color:red"> *</span>'+
-                                                '</label>'+
-                                                '<div >'+
-                                                    '<input type="text" name="notice_estimate[1][]" placeholder="0.00" class="form-control col-md-7 col-xs-12">'+
-                                                '</div>'+
-                                            '</div>'+
-                                      '</div>'+
-                                      '<div class="col-md-4 col-sm-6 col-xs-12">'+
-                                            '<div class="form-group" style="margin-bottom: 0px;">'+
-                                                '<label for="middle-name" > ชำระภาษีบำรุงท้องที่ปี'+
-                                                ' <span class="required" style="color:red"> *</span>'+
-                                                '</label>'+
-                                                '<div >'+
-                                                            '<div class="col-md-5 col-sm-6 col-xs-12" style="padding-left: 0px;">'+
-                                                                '<select class="form-control" name="tax_year[1][]" type="text" >'+
-                                                                    '<?php foreach ($years as $key => $value) { ?>'+
-                                                                            '<option value="<?= $value->year_id ?>"><?= $value->year_label ?></option>'+
-                                                                        '<?php
+                                                    '</label>'+
+                                                    '<div >'+
+                                                                '<div class="col-md-5 col-sm-6 col-xs-12" style="padding-left: 0px;">'+
+                                                                    '<select class="form-control" name="tax_year[1][]" type="text" >'+
+                                                                    '<?php foreach ($tax_years as $key => $value) { ?>'+
+                                                                        '<option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>'+
+                                                                       ' <?php
 
                                                                     } ?>'+
-                                                               ' </select>'+
-                                                            '</div>'+
-                                                            '<div class="col-md-2 col-sm-6 col-xs-12" align="center"><label>ถึง</label></div>'+
-                                                            '<div class="col-md-5 col-sm-6 col-xs-12" style="padding-right: 0px;">'+
-                                                                '<select class="form-control" name="tax_local_year[1][]" type="text" >'+
-                                                                        '<?php foreach ($years as $key => $value) { ?>'+
-                                                                            '<option value="<?= $value->year_id ?>"><?= $value->year_label + 3 ?></option>'+
-                                                                           ' <?php
+                                                                ' </select>'+
+                                                                '</div>'+
+                                                                '<div class="col-md-2 col-sm-6 col-xs-12" align="center"><label>ถึง</label></div>'+
+                                                                '<div class="col-md-5 col-sm-6 col-xs-12" style="padding-right: 0px;">'+
+                                                                    '<select class="form-control" name="tax_local_year[1][]" type="text" >'+
+                                                                        '<?php foreach ($tax_years as $key => $value) { ?>'+
+                                                                        '<option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label + 4 ?></option>'+
+                                                                       ' <?php
 
-                                                                        } ?>'+
-                                                                    '</select>'+
-                                                            '</div>'+
-                                                '<div >'+
-                                                    
-                                                '</div>'+
-                                            '</div>'+
-                                      '</div>'+
-                            '</div>'+
-                      ' </div>';
-                      
-              // loop and create n groups
-              var groups;
-              for ( var i = 1; i < n ; i++ ) {
-                    // get copy of template
-                    var tmp = group;
-                    // modify copy to make ID's unique
-                    // here we are replacing XYZ and XYZ-input with XYZ-i and XYZ-input-i to keep them unique
-                    tmp = tmp.replace(/(XYZ|XYZ-input)/g,'$1-'+i);
-                    // append tmp to groups
-                    groups = groups ? groups + tmp : tmp;
-              }
-              // append groups to target div
-              $('#targetDiv2').append(groups);
-        });
-  });
-
-      $(function(){
-        // bind a click event to addNumOfXYZ button
-        $('#addNum3').bind('click',function(){
-              var n = $('#num3').val(), // number of groups to add
-              group = '<div>' + // create group template
-              '<hr/>'+
-              '<br>'+
-			  '<h2 class="StepTitle">ภาษีป้าย </h2>'+
-										'<div class="row">'+
-
-                                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
-													'<div class="form-group" >'+
-														'<label  > จุดสังเกต</label>'+
-															'<div >'+
-																'<input type="text" name="notice_mark[2][]" placeholder="ระบุจุดสังเกต" class="form-control col-md-7 col-xs-12" >'+																															
-																'</div>'+
-													'</div>'+
-												'</div>'+
-
-											'<div class="col-md-3 col-sm-6 col-xs-12">'+
-													'<div class="form-group" >'+
-														'<label  > ตำบล</label>'+
-															'<div >'+
-																'<input type="text" name="notice_address_subdistrict[2][]" value="หนองป่าครั่ง" disabled  class="form-control col-md-7 col-xs-12" >'+																															
-																'</div>'+
-													'</div>'+
-												'</div>'+
-												
-												'<div class="col-md-3 col-sm-6 col-xs-12">'+
-													'<div class="form-group" >'+
-														'<label  > ชื่อสถานประกอบการค้าหรือกิจการอื่น</label>'+
-															'<div >'+
-															'<input type="text" name="noice_name_operation[2][]" placeholder="ระบุชื่อสถานประกอบการค้าหรือกิจการอื่น" class="form-control col-md-7 col-xs-12">'+																															
-															'</div>'+
-													'</div>'+
-												'</div>'+
-
-											'<div class="col-md-3 col-sm-6 col-xs-12">'+
-                                            '<div class="form-group" >'+
-                                            '</div>'+
-											'</div>'+
-											
-
-										' </div>'+
-
-                                            '<div class="col-md-3 col-sm-6 col-xs-12" style="padding-left: 0px;">'+
-													'<div class="form-group" >'+
-														'<label  > ประเภทป้าย</label>'+
-														'<span class="required" style="color:red"> *</span>'+
-															'<div >'+
-                                                            '<select class="form-control" name="banner_type[2][]" type="text" >'+
-                                                                        '<?php foreach ($banner as $key => $value) { ?>'+
-                                                                            '<option value="<?= $value->banner_id ?>"><?= $value->banner_name ?></option>'+
-                                                                            '<?php
-
-                                                                        } ?>'+
-                                                                '</select>'+																'</div>'+
-													'</div>'+
-												'</div>'+
-                                        
-
-											'<div class="col-md-3 col-sm-6 col-xs-12">'+
-													'<div class="form-group" >'+
-														'<label  > ความกว้าง</label>'+
-														'<span class="required" style="color:red"> *</span>'+
-															'<div >'+
-																'<input type="text" name="banner_width[2][]" placeholder="ระบุความกว้าง" class="form-control col-md-7 col-xs-12">'+																															
-																'</div>'+
-													'</div>'+
-												'</div>'+
-												
-												'<div class="col-md-3 col-sm-6 col-xs-12">'+
-													'<div class="form-group" >'+
-														'<label  > ความสูง</label>'+
-														'<span class="required" style="color:red"> *</span>'+
-															'<div >'+
-															'<input type="text" name="banner_heigth[2][]" placeholder=ระบุความสูง class="form-control col-md-7 col-xs-12">'+																															
-															'</div>'+
-													'</div>'+
-												'</div>'+
-
-												'<div class="col-md-3 col-sm-6 col-xs-12">'+
-													'<div class="form-group" >'+
-														'<label  > จำนวนภาษีที่ประเมิน</label>'+
-														'<span class="required" style="color:red"> *</span>'+
-															'<div >'+
-															'<input type="text" name="notice_estimate[2][]" placeholder="0.00" class="form-control col-md-7 col-xs-12" >'+																															
-															'</div>'+
-													'</div>'+
-												'</div>'+
-												
-
-												
-												'</div>'+
-
-										'<div class="row">'+
-                                                '<div class="col-md-3 col-sm-6 col-xs-12">'+
-                                                    '<div class="form-group">'+
-                                                        '<label>อัปโหลดรูปภาพ</label>'+
-                                                            '<div class="input-group">'+
-                                                                '<span class="input-group-btn">'+
-                                                                    '<span class="btn btn-success btn-file">'+
-                                                                    'อัปโหลด <input type="file" id="imgInp">'+
-                                                                    '</span>'+
-                                                                '</span>'+
-                                                                '<input type="text" class="form-control" readonly>'+
-                                                            '</div>'+
-                                                        '<img id="img-upload"/>'+
+                                                                    } ?>'+
+                                                                        '</select>'+
+                                                                '</div>'+
+                                                    '<div >'+
+                                                        
                                                     '</div>'+
-                                    		'</div>'+
-										'</div>'+
-												
-												
+                                                '</div>'+
+                                        '</div>'+
+                                '</div>'+
+                        ' </div>';
+                        
+                // loop and create n groups
+                var groups;
+                for ( var i = 1; i < n ; i++ ) {
+                        // get copy of template
+                        var tmp = group;
+                        // modify copy to make ID's unique
+                        // here we are replacing XYZ and XYZ-input with XYZ-i and XYZ-input-i to keep them unique
+                        tmp = tmp.replace(/(XYZ|XYZ-input)/g,'$1-'+i);
+                        // append tmp to groups
+                        groups = groups ? groups + tmp : tmp;
+                }
+                // append groups to target div
+                $('#targetDiv2').append(groups);
+                setScript();
+            });
+        });
 
-                                
-                      ' </div>';
-                      
-              // loop and create n groups
-              var groups;
-              for ( var i = 1; i < n ; i++ ) {
-                    // get copy of template
-                    var tmp = group;
-                    // modify copy to make ID's unique
-                    // here we are replacing XYZ and XYZ-input with XYZ-i and XYZ-input-i to keep them unique
-                    tmp = tmp.replace(/(XYZ|XYZ-input)/g,'$1-'+i);
-                    // append tmp to groups
-                    groups = groups ? groups + tmp : tmp;
-              }
-              // append groups to target div
-              $('#targetDiv3').append(groups);
+        $(function(){
+        // bind a click event to addNumOfXYZ button
+            $('#addNum3').bind('click',function(){
+                var n = $('#num3').val(); // number of groups to add
+                
+                        
+                // loop and create n groups
+                var groups;
+                for ( var i = 1; i < n ; i++ ) {
+                        // get copy of template
+                        var tmp = getGroup3(i);
+                        // modify copy to make ID's unique
+                        // here we are replacing XYZ and XYZ-input with XYZ-i and XYZ-input-i to keep them unique
+                        tmp = tmp.replace(/(XYZ|XYZ-input)/g,'$1-'+i);
+                        // append tmp to groups
+                        groups = groups ? groups + tmp : tmp;
+                }
+                // append groups to target div
+                $('#targetDiv3').append(groups);
+                setScript();
+            });
         });
   });
-  });
 
 
+function getGroup3(id){
+    var group = '<div>' + // create group template
+                '<hr/>'+
+                '<br>'+
+                '<h2 class="StepTitle">ภาษีป้าย </h2>'+
+                    '<div class="row">'+
+
+                    '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                '<div class="form-group" >'+
+                                    '<label  > จุดสังเกต</label>'+
+                                        '<div >'+
+                                            '<input type="text" name="notice_mark[2][]" placeholder="ระบุจุดสังเกต" class="form-control col-md-7 col-xs-12" >'+                                                                                                                         
+                                            '</div>'+
+                                '</div>'+
+                            '</div>'+
+
+                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                '<div class="form-group" >'+
+                                    '<label  > ตำบล</label>'+
+                                        '<div >'+
+                                            '<input type="text" name="notice_address_subdistrict[2][]" value="หนองป่าครั่ง" disabled  class="form-control col-md-7 col-xs-12" >'+                                                                                                                           
+                                            '</div>'+
+                                '</div>'+
+                            '</div>'+
+                            
+                            '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                '<div class="form-group" >'+
+                                    '<label  > ชื่อสถานประกอบการค้าหรือกิจการอื่น</label>'+
+                                        '<div >'+
+                                        '<input type="text" name="noice_name_operation[2][]" placeholder="ระบุชื่อสถานประกอบการค้าหรือกิจการอื่น" class="form-control col-md-7 col-xs-12">'+                                                                                                                            
+                                        '</div>'+
+                                '</div>'+
+                            '</div>'+
+
+                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                        '<div class="form-group" >'+
+                        '</div>'+
+                        '</div>'+
+                        
+
+                    ' </div>'+
+
+                        '<div class="col-md-3 col-sm-6 col-xs-12" style="padding-left: 0px;">'+
+                                '<div class="form-group" >'+
+                                    '<label  > ประเภทป้าย</label>'+
+                                    '<span class="required" style="color:red"> *</span>'+
+                                        '<div >'+
+                                        '<select class="form-control" name="banner_type[2][]" type="text" >'+
+                                                    '<?php foreach ($banner as $key => $value) { ?>'+
+                                                        '<option value="<?= $value->banner_id ?>"><?= $value->banner_name ?></option>'+
+                                                        '<?php
+
+                                                    } ?>'+
+                                            '</select>'+                                                                '</div>'+
+                                '</div>'+
+                            '</div>'+
+                    
+
+                        '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                '<div class="form-group" >'+
+                                    '<label  > ความกว้าง</label>'+
+                                    '<span class="required" style="color:red"> *</span>'+
+                                        '<div >'+
+                                            '<input type="text" name="banner_width[2][]" placeholder="ระบุความกว้าง" class="form-control col-md-7 col-xs-12">'+                                                                                                                         
+                                            '</div>'+
+                                '</div>'+
+                            '</div>'+
+                            
+                            '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                '<div class="form-group" >'+
+                                    '<label  > ความสูง</label>'+
+                                    '<span class="required" style="color:red"> *</span>'+
+                                        '<div >'+
+                                        '<input type="text" name="banner_heigth[2][]" placeholder=ระบุความสูง class="form-control col-md-7 col-xs-12">'+                                                                                                                            
+                                        '</div>'+
+                                '</div>'+
+                            '</div>'+
+
+                            '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                '<div class="form-group" >'+
+                                    '<label  > จำนวนภาษีที่ประเมิน</label>'+
+                                    '<span class="required" style="color:red"> *</span>'+
+                                        '<div >'+
+                                        '<input type="text" name="notice_estimate[2][]" placeholder="0.00" class="notice_estimate_label form-control col-md-7 col-xs-12" >'+                                                                                                                            
+                                        '</div>'+
+                                '</div>'+
+                            '</div>'+
+                            
+
+                            
+                            '</div>'+
+
+                    '<div class="row">'+
+                            '<div class="col-md-3 col-sm-6 col-xs-12">'+
+                                '<div class="form-group">'+
+                                    '<label>อัปโหลดรูปภาพ</label>'+
+                                        '<div class="input-group">'+
+                                            '<span class="input-group-btn">'+
+                                                '<span class="btn btn-success btn-file">'+
+                                                'อัปโหลด <input type="file" id="imgInp_'+id+'" class="imgInp">'+
+                                                '</span>'+
+                                            '</span>'+
+                                            '<input type="text" class="form-control" readonly>'+
+                                        '</div>'+
+                                    '<img class="img-upload" id="img-upload_'+id+'"/>'+
+                                '</div>'+
+                        '</div>'+
+                    '</div>'+
+        ' </div>';
+
+    return group;
+}
 
 </script>
-
-<script>
-    $(document).ready( function() {
-
-            $(document).on('change', '.btn-file :file', function() {
-            var input = $(this),
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            input.trigger('fileselect', [label]);
-            });
-
-            $('.btn-file :file').on('fileselect', function(event, label) {
-
-                var input = $(this).parents('.input-group').find(':text'),
-                    log = label;
-
-                if( input.length ) {
-                    input.val(log);
-                } else {
-                    if( log ) alert(log);
-                }
-
-            });
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('#img-upload').attr('src', e.target.result);
-                    }
-
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            $("#imgInp").change(function(){
-                readURL(this);
-            });
-        });
-</script> 
