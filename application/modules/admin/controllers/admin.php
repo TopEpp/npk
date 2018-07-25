@@ -51,9 +51,11 @@ class admin extends MY_Controller
 
     function del_year(){
         $year = $this->input->post('year_id');
+         //remove budget_log
+         $this->service->deletePrjBugdet($year);
+         
         $this->admin_model->del_year($year);
-        //remove budget_log
-        $this->service->deletePrjBugdet($year);
+       
         redirect(base_url('admin'));
     }
 

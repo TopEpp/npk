@@ -730,7 +730,12 @@ class export_report extends My_Controller
         $data = $this->Receive_model->read_dashborad();
         // print_r($data);die();
 
-        $content = ' <table cellspacing="0" cellpadding="0" border="1" style="width:100%">
+        $content = "<table cellspacing='0' cellpadding='0' width='100%'>
+            <tr><td COLSPAN='7'  ALIGN='center'> รายงานการประเมินภาษี </td></tr>
+            <tr><td COLSPAN='7'  ALIGN='center'> ข้อมูล ณ วันที่ " . $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') . "</td></tr>
+        </table>";
+
+        $content .= ' <table cellspacing="0" cellpadding="0" border="1" style="width:100%">
             <thead>
               <tr>
                 <th >ลำดับ</th>
