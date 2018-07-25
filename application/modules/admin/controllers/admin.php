@@ -171,8 +171,8 @@ class admin extends MY_Controller
                 $dataImport['individual_firstname'] = $value->tmp_firstname;
                 $dataImport['individual_lastname'] = $value->tmp_lastname;
                 $dataImport['individual_number'] = $value->tmp_Identification;
-                $dataImport['individual_address'] = $value->tmp_number;
-                $dataImport['individual_village'] = $value->tmp_village;
+                $dataImport['individual_address'] = $value->tmp_number_send;
+                $dataImport['individual_village'] = $value->tmp_village_send;
                 $dataImport['individual_subdistrict'] = $value->tmp_subdistrict;
                 $dataImport['individual_send_address'] = $value->tmp_number_send;
                 $dataImport['individual_send_village'] = $value->tmp_village_send;
