@@ -89,7 +89,7 @@
                                 <?php foreach ($other_tax as $key => $value) {?>
                                     <tr>
                                       <td align="center"><?php echo $key + 1; ?></td>
-                                      <td align="center"><?php echo $this->mydate->date_eng2thai($value->receive_date, 543, 'S'); ?></td>
+                                      <td align="center"><?php echo $this->mydate->date_eng2thai($value->receive_date, 'S'); ?></td>
                                       <td ><?php echo $value->tax_name; ?></td>
                                       <td align="right"><?php echo number_format($value->sum_amount, 2); ?></td>
                                       <td>

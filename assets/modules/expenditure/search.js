@@ -35,7 +35,7 @@ $(function(){
         });
     });
 
-    // check delete on click
+    // check pay on click
     $('#btn-pay').on('click', function (e) {
         e.preventDefault();
         var id = $(this).attr('pay');
@@ -88,9 +88,9 @@ $(function(){
         ajax: {
           url: domain + 'expenditure/getAjaxExpenditure',
         },
-        orderFixed: [2, 'DESC'],
+        orderFixed: [1, 'ASC'],
         rowGroup: {
-            dataSrc: "expenses_date",
+            dataSrc: "expenses_date_disburse",
             startRender: function (rows, group) {
                var collapsed = !!collapsedGroups[group];
    
@@ -136,7 +136,7 @@ $(function(){
           },
     
           {
-            data: 'expenses_amount_result',
+            data: 'expenses_amount_disburse',
             "className": "text-right",
           },
           {

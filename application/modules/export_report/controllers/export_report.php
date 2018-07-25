@@ -730,7 +730,7 @@ class export_report extends My_Controller
         $data = $this->Receive_model->read_dashborad();
         // print_r($data);die();
 
-        $content = ' <table border="1" style="width:100%">
+        $content = ' <table cellspacing="0" cellpadding="0" border="1" style="width:100%">
             <thead>
               <tr>
                 <th >ลำดับ</th>

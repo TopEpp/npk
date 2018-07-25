@@ -149,6 +149,8 @@ class Project_training extends MY_Controller
             }
             $data['prj_year'] = $this->session->userdata('year');
             //insert project to table prj
+
+      
             $id_insert = $this->project_model->insertPrj($data);
 
             //insert log budget
@@ -472,7 +474,8 @@ class Project_training extends MY_Controller
         $prj = $this->project_model->getPrj();
         foreach ($prj as $key => $value) {
             $data['rows'][$data['total'] + $key]['id'] = $value->prj_id;
-            $data['rows'][$data['total'] + $key]['budget'] = number_format($value->budget_log, 2);
+            // $data['rows'][$data['total'] + $key]['budget'] = number_format($value->budget_log, 2);
+             $data['rows'][$data['total'] + $key]['budget'] = number_format($value->prj_budget_sum, 2);
             $data['rows'][$data['total'] + $key]['name'] = "<p style='color:#73899f;'>" . $value->prj_name . '</p>';
             $data['rows'][$data['total'] + $key]['tools'] = "
             <div class='btn-group'><button onClick='pay_prj(" . $value->prj_id . ")' id='project_edit' class='btn btn-default btn-sm' type='button'>จ่าย</button>
@@ -545,7 +548,7 @@ class Project_training extends MY_Controller
 
         $data['expenses'] = $this->expenditure_model->getPrjExpensesByPrj($id);
         //         echo '<pre>';
-        // print_r($data['expenses']);die();
+        // print_r($data['user_log']);die();
         // $data['prj_log'] = $this->project_model->getPrjLog($id);
 
         // print_r($data['budget_log']);die();

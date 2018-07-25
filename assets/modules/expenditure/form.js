@@ -51,10 +51,13 @@ $(function () {
 			$('#amount_tax_val').prop('disabled', true);
 		}
 
+		var expenses_amount_fine = $('#expenses_amount_fine').val();
+		expenses_amount_fine = parseFloat(expenses_amount_fine.replace(/,/g,''));
+
 		$('#expenses_amount_vat').val(expenses_amount_vat);
 		$('#expenses_amount_disburse').val(expenses_amount + expenses_amount_vat);
 		$('#expenses_amount_tax').val(expenses_amount_tax);
-		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax);
+		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax - expenses_amount_fine);
 	});
 
 	$('#expenses_amount').keyup(function () {
@@ -107,7 +110,7 @@ $(function () {
 	});
 
 	$('#amount_vat_val').keyup(function () {
-		var expenses_amount = this.value;
+		var expenses_amount = $('#expenses_amount').val();
 		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 
@@ -129,7 +132,7 @@ $(function () {
 	});
 
 	$('#amount_tax_val').keyup(function () {
-		var expenses_amount = this.value;
+		var expenses_amount = $('#expenses_amount').val();
 		expenses_amount = parseFloat(expenses_amount.replace(/,/g,''));
 
 
@@ -144,10 +147,13 @@ $(function () {
 			expenses_amount_tax = expenses_amount * tax / 100;
 		}
 
+		var expenses_amount_fine = $('#expenses_amount_fine').val();
+		expenses_amount_fine = parseFloat(expenses_amount_fine.replace(/,/g,''));
+
 		$('#expenses_amount_vat').val(expenses_amount_vat);
 		$('#expenses_amount_disburse').val(expenses_amount + expenses_amount_vat);
 		$('#expenses_amount_tax').val(expenses_amount_tax);
-		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax);
+		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax - expenses_amount_fine);
 	});
 
 	$('#expenses_amount_fine').keyup(function () {
@@ -160,12 +166,12 @@ $(function () {
 		var expenses_amount_vat = 0;
 		var expenses_amount_tax = 0;
 		if ($('input#amount_vat').is(':checked')) {
-			expenses_amount_vat = $('#amount_vat_val').val();
+			expenses_amount_vat = $('#expenses_amount_vat').val();
 			expenses_amount_vat = parseFloat(expenses_amount_vat.replace(/,/g,''));
 		}
 
 		if ($('input#amount_tax').is(':checked')) {
-			expenses_amount_tax = $('#amount_tax_val').val();
+			expenses_amount_tax = $('#expenses_amount_tax').val();
 			expenses_amount_tax = parseFloat(expenses_amount_tax.replace(/,/g,''));
 		}
 
@@ -176,7 +182,9 @@ $(function () {
 		expenses_amount_disburse = parseFloat(expenses_amount_disburse.replace(/,/g,''));
 
 		// var expenses_amount_tax = $('#expenses_amount_tax').val();
-
+		// console.log(expenses_amount_disburse)
+		// console.log(expenses_amount_tax)
+		// console.log(expenses_amount_fine)
 		if (expenses_amount_fine) {
 			$('#expenses_amount_result').val(expenses_amount_disburse - expenses_amount_tax - expenses_amount_fine);
 		} else {

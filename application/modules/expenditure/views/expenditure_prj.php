@@ -179,7 +179,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label> วันที่ลงเช๊ค</label><span style="color:red">*</span>
-                  <input type="text" name="expenses_date_disburse" value="" class="form-control datepicker">
+                  <input type="text" name="expenses_date_disburse" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker">
                 </div>
               </div>
 

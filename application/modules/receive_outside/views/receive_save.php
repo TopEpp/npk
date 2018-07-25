@@ -49,10 +49,10 @@
                         <input type="text" id="outside_detail" placeholder="" class="form-control col-md-7 col-xs-12">
                       </div>
                     </div>
-  
+
                     <div class="ln_solid"></div>
                   </form>
-                  
+
                   <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
                           <br>
@@ -66,6 +66,8 @@
                   <table  class="table table-striped" id="table_outside_pay" style="width:100%">
                     <thead>
                       <tr>
+                        <th width="10%">วันที่ลงเช๊ค</th>
+                        <th width="15%">เลขที่เช็ค/ฎีกา</th>
                         <th>วันที่ชำระ</th>
                         <th>รายการ</th>
                         <th>รายละเอียด</th>
@@ -75,7 +77,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <!-- <?php foreach ($out_pay as $key => $value) { ?>
+                    <!-- <?php foreach ($out_pay as $key => $value) {?>
                          <tr>
                           <td align="center"><?php echo $this->mydate->date_eng2thai($value->outside_pay_create, 543, 'S') ?></td>
                           <td align="center"><?php echo $value->out_name; ?></td>
@@ -96,8 +98,8 @@
                             </center>
                           </td>
                         </tr>
-                      <?php 
-                    } ?> -->
+                      <?php
+}?> -->
                     <tbody>
                   </table>
                 </div>
@@ -137,6 +139,49 @@
               </div>
             </div>
           </div>
+
+
+<!-- Modal Popup -->
+
+<div class="modal fade" id="paymodal" tabindex="-1" role="dialog" aria-labelledby="paymodal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title" id="delmodal">บันทึก เลขที่เช็ค/วันที่เช๊ค</h4>
+              </div>
+
+              <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label> เลขที่เช๊ค</label><span style="color:red">*</span>
+                  <input type="text" name="expenses_number" class="form-control">
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-sm-12">
+                  <label> วันที่ลงเช๊ค</label><span style="color:red">*</span>
+                  <input type="text" name="expenses_date_disburse" value="<?php echo date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker">
+                </div>
+              </div>
+
+
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" id="btn-outsidepay"  class="btn btn-primary"></i> บันทึก
+                  </button>
+
+                  <button type="button" class="btn btn-default" data-dismiss="modal"></i> ยกเลิก
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 
 <style>

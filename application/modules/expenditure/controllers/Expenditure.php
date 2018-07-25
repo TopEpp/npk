@@ -159,16 +159,16 @@ class Expenditure extends MY_Controller
 
             }
 
-            if ($input['expenses_amount_fine'] != '' && $input['expenses_amount_fine'] != '0') {
-                $datas = array();
-                $year = $this->session->userdata('year');
-                $datas['sum_amount'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_fine']));
-                $datas['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
-                unset($data['outside_detail']);
-                // print_r($datas);die();
-                $this->expenditure_model->insertOtherTax($year, $datas);
+            // if ($input['expenses_amount_fine'] != '' && $input['expenses_amount_fine'] != '0') {
+            //     $datas = array();
+            //     $year = $this->session->userdata('year');
+            //     $datas['sum_amount'] = floatval(preg_replace('/[^\d.]/', '', $input['expenses_amount_fine']));
+            //     $datas['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date'], -543);
+            //     unset($data['outside_detail']);
+            //     // print_r($datas);die();
+            //     $this->expenditure_model->insertOtherTax($year, $datas);
 
-            }
+            // }
         }
         // die();
         redirect(base_url('expenditure/expenditure_prj'));

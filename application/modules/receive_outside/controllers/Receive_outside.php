@@ -8,11 +8,11 @@ class Receive_outside extends MY_Controller
         parent::__construct();
         $this->load->model('Receive_outside_model');
         $chk = false;
-        foreach ($_SESSION['user_permission'] as $key => $chk_permission) :
-            if ($chk_permission['app_id'] == 6) :
-            $chk = true;
-        break;
-        endif;
+        foreach ($_SESSION['user_permission'] as $key => $chk_permission):
+            if ($chk_permission['app_id'] == 6):
+                $chk = true;
+                break;
+            endif;
         endforeach;
         if ($chk == false) {
             redirect('main/dashborad');
@@ -86,9 +86,10 @@ class Receive_outside extends MY_Controller
         $data = array();
         $data['out'] = $this->Receive_outside_model->getOut($id);
         $data['out_rec_all'] = $this->Receive_outside_model->getOutRec($id);
-        if ($pay_id != '')
+        if ($pay_id != '') {
             $data['out_pay'] = $this->Receive_outside_model->getOutPay($id, $pay_id);
-            
+        }
+
         // }
         // print_r($data['out_pay_all']);die();
 
@@ -105,8 +106,9 @@ class Receive_outside extends MY_Controller
         $data = array();
         $data['out'] = $this->Receive_outside_model->getOut($id);
         $data['out_pay_all'] = $this->Receive_outside_model->getOutPay($id);
-        if ($pay_id != '')
+        if ($pay_id != '') {
             $data['out_pay'] = $this->Receive_outside_model->getOutPay($id, $pay_id);
+        }
 
         // }
         // print_r($data['out_pay']);die();
@@ -152,7 +154,6 @@ class Receive_outside extends MY_Controller
     public function saveOutSidePay()
     {
         $data = $this->input->post();
-
         $data['outside_pay_create'] = $this->mydate->date_thai2eng($data['outside_pay_create'], -543);
         $data['outside_pay_user'] = $_SESSION['user_id'];
 
@@ -161,26 +162,31 @@ class Receive_outside extends MY_Controller
         $data['outside_pay_vat'] = floatval(preg_replace('/[^\d.]/', '', $data['outside_pay_vat']));
         $data['outside_pay_budget_sum'] = floatval(preg_replace('/[^\d.]/', '', $data['outside_pay_budget_sum']));
 
+        $data['outside_pay_amount_disburse'] = floatval(preg_replace('/[^\d.]/', '', $data['outside_pay_amount_disburse']));
+        $data['outside_pay_amount_fine'] = floatval(preg_replace('/[^\d.]/', '', $data['outside_pay_amount_fine']));
+
         $data['outside_detail'] = trim($data['outside_detail']);
 
         $status = $this->Receive_outside_model->saveOutSidePay($data);
 
-        if ($data['outside_pay_tax'] != '' ) {
-         
-            //get Tax pay 
-            $id = $this->Receive_outside_model->getIdTaxPay();
-            $out = $this->Receive_outside_model->getOuts($data['outside_id']);
+        if (empty($data['outside_pay_id'])) {
+            if ($data['outside_pay_tax'] != '') {
+                $datas = array();
+                //get Tax pay
+                $id = $this->Receive_outside_model->getIdTaxPay();
+                $out = $this->Receive_outside_model->getOuts($data['outside_id']);
 
-            $data['outside_id'] = $id->out_id;
-            $data['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก' . $out[0]->out_name;
-            $data['outside_pay_budget'] = $data['outside_pay_tax'];
-            $data['outside_pay_create'] = date('Y-m-d');
-            
-            unset($data['outside_pay_budget_sum']);
-            unset($data['outside_pay_vat']);
-            unset($data['outside_pay_tax']);
+                $datas['outside_id'] = $id->out_id;
+                $datas['outside_detail'] = 'หัก ภาษี ณ ที่จ่าย จาก' . $out[0]->out_name;
+                $datas['outside_pay_budget'] = $data['outside_pay_tax'];
+                $datas['outside_pay_create'] = date('Y-m-d');
 
-            $this->saveOutSideIn($data, true);
+                // unset($data['outside_pay_budget_sum']);
+                // unset($data['outside_pay_vat']);
+                // unset($data['outside_pay_tax']);
+
+                $this->saveOutSideIn($datas, true);
+            }
         }
         redirect('receive_outside');
     }
@@ -198,8 +204,10 @@ class Receive_outside extends MY_Controller
         $data['outside_detail'] = trim($data['outside_detail']);
 
         $status = $this->Receive_outside_model->saveOutSideIn($data);
-        if ($return)
+        if ($return) {
             redirect('receive_outside/outside');
+        }
+
         redirect('receive_outside/outside');
 
     }
@@ -238,7 +246,8 @@ class Receive_outside extends MY_Controller
         redirect('receive_outside');
     }
 
-    public function getOutsideAjax(){
+    public function getOutsideAjax()
+    {
         $order_index = $this->input->get('order[0][column]');
         $param['page_size'] = $this->input->get('length');
         $param['start'] = $this->input->get('start');
@@ -261,6 +270,24 @@ class Receive_outside extends MY_Controller
         $data['error'] = $results['error_message'];
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
 
+    }
+
+    public function getOutsideNumber()
+    {
+        $id = $this->input->post('id');
+        $result = $this->Receive_outside_model->getOutsideNumber($id);
+
+        $result->outside_date_disburse = $this->mydate->date_db2str($result->outside_date_disburse);
+        $this->json_publish($result);
+    }
+
+    public function saveOutsideNumber()
+    {
+        $id = $this->input->post('id');
+        $input['outside_number'] = $this->input->post('expenses_number');
+        $input['outside_date_disburse'] = $this->input->post('expenses_date_disburse');
+        $result = $this->Receive_outside_model->saveOutsideNumber($id, $input);
+        $this->json_publish($result);
     }
 
 }

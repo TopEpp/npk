@@ -59,18 +59,18 @@
                             <div class="checkbox" style="border:none;">
                               <label>
                               <?php
-                                $log = false;
-                                    foreach ($budget_log as $key => $value) {
-                                        if ($value->prj_budget_type == 1) {
-                                            $log = true;
-                                        }
+$log = false;
+    foreach ($budget_log as $key => $value) {
+        if ($value->prj_budget_type == 1) {
+            $log = true;
+        }
 
-                                    }
-                                    // if (!empty($prj[0]->prj_budget)) {
-                                    //     $log = true;
-                                    // }
+    }
+    // if (!empty($prj[0]->prj_budget)) {
+    //     $log = true;
+    // }
 
-                                    ?>
+    ?>
                                 <input type="checkbox" <?=($log) ? 'checked' : '';?>  name="prj_budget_inside" id="prj_budget_inside" value="1" class="flat" > งบประมาณที่ได้รับ
                               </label>
                             </div>
@@ -87,17 +87,16 @@
 
 
                           <div class="col-md-3 col-sm-3 col-xs-6 ">
-                           <?php
-                              $prj_bud_in = 0;
-                                  foreach ($budget_log as $key => $value) {
-                                      if ($value->prj_budget_type == 1 && $value->prj_budget_parent != null) {
-                                          $prj_bud_in = $prj_bud_in + $value->prj_amount;
-                                      }
+                           <?php $prj_bud_in = 0;
+    foreach ($budget_log as $key => $value) {
+        if ($value->prj_budget_type == 1 && $value->prj_budget_parent != null) {
+            $prj_bud_in = $prj_bud_in + $value->prj_amount;
+        }
 
-                                  }?>
+    }?>
                           <?php if (@$prj_bud_in > 0) {?>
                             <input class="form-control numeric" id="prj_budget" value="<?php echo $prj_bud_in; ?>" name="prj_budget" placeholder="จำนวน" type="text">
-                          <?php } else{?>
+                          <?php } else {?>
                              <input class="form-control numeric" id="prj_budget" value="" name="prj_budget" placeholder="จำนวน" type="text">
                           <?php }?>
                           </div>
@@ -122,14 +121,14 @@
                               <label>
                                 <?php
 
-                                    $log = false;
-                                    foreach ($budget_log as $key => $value) {
-                                        if ($value->prj_budget_type == 2 && $value->prj_amount > 0) {
-                                            $log = true;
-                                        }
+    $log = false;
+    foreach ($budget_log as $key => $value) {
+        if ($value->prj_budget_type == 2 && $value->prj_amount > 0) {
+            $log = true;
+        }
 
-                                    }
-                                    ?>
+    }
+    ?>
                                 <input type="checkbox" <?=($log) ? 'checked' : '';?>  name="prj_budget_convert" id="prj_budget_convert"  value="1" class="flat" > แปลงงบประมาณ
                               </label>
                             </div>
@@ -200,13 +199,13 @@
                                     <tbody id="table_select">
                                       <tr></tr>
                                       <?php foreach ($budget_log as $key => $value) {
-                                          if ($value->prj_budget_type == 2 && $value->prj_budget_parent != null && $value->prj_amount > 0) {
-                                              ?>
+        if ($value->prj_budget_type == 2 && $value->prj_budget_parent != null && $value->prj_amount > 0) {
+            ?>
                                         <tr data-select="<?php echo $value->prj_budget_id; ?>" >
                                             <div class="row">
                                               <td class="text-left" style="">
-                                                <span class="col-sm-7"> <?php echo @$value->prj_name .'<br>งบเหลือจ่าย '.number_format($value->budget,2).' บาท'; ?></span>
-                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this,<?php echo ($value->budget+$value->prj_amount);?>)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
+                                                <span class="col-sm-7 text-right"> <?php echo @$value->prj_name . '<br>งบเหลือจ่าย ' . number_format($value->budget, 2) . ' บาท'; ?></span>
+                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this,<?php echo ($value->budget + $value->prj_amount); ?>)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
                                                 <span class="col-sm-1">บาท</span>
                                                 <div class="btn-group col-sm-1"><button onclick=delSelect(<?php echo $value->prj_budget_id; ?>) class="btn btn-danger btn-sm" type="button">ลบ</button></div>
                                               </td>
@@ -296,12 +295,12 @@
                                 <select style="width: 100%;" class="form-control" name="prj_type_connect" id="prj_type_connect">
                                   <option value=""  >เลือก</option>
                                   <?php foreach ($prj_name as $key => $value) {
-                                      $data_select = '';
-                                      if (@$prj[0]->prj_type_connect == $value->prj_id) {
-                                          $data_select = 'selected';
-                                      }
+        $data_select = '';
+        if (@$prj[0]->prj_type_connect == $value->prj_id) {
+            $data_select = 'selected';
+        }
 
-                                    ?>
+        ?>
                                     <option <?php echo $data_select; ?> value="<?php echo $value->prj_id; ?>"><?php echo $value->prj_name; ?> </option>
                                   <?php }?>
                                 </select>
@@ -315,7 +314,7 @@
                     <div class="form-group">
                       <div style="text-align: center;">
                       <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
-                      <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                      <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER']; ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                       </button>
 
                       </div>
@@ -590,12 +589,12 @@
                                 <select style="width: 100%;" class="form-control" name="prj_type_connect" id="prj_type_connect">
                                   <option value=""  >เลือก</option>
                                   <?php foreach ($prj_name as $key => $value) {
-                                        $data_province = '';
-                                        // if (@$individual[0]->individual_send_province == $value->area_code) {
-                                        //   $data_province = 'selected';
-                                        // }
+    $data_province = '';
+    // if (@$individual[0]->individual_send_province == $value->area_code) {
+    //   $data_province = 'selected';
+    // }
 
-                                        ?>
+    ?>
                                     <option <?php echo $data_province; ?> value="<?php echo $value->prj_id; ?>"><?php echo $value->prj_name; ?> </option>
                                   <?php }?>
                                 </select>
@@ -609,7 +608,7 @@
                     <div class="form-group">
                       <div style="text-align: center;">
                         <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
-                        <button onclick="window.location.replace('<?php  echo base_url('project_training/project');?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+                        <button onclick="window.location.replace('<?php echo base_url('project_training/project'); ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
                         </button>
 
                       </div>
@@ -650,12 +649,12 @@
                           <tr>
                             <td>สร้างเมื่อ</td>
                             <?php $time = explode(' ', $prj[0]->prj_create);?>
-                            <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, 543, 'S'); ?>   (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
+                            <td> <?=$this->mydate->date_eng2thai($prj[0]->prj_create, 543, 'S');?>   (<?php echo @$user_all[$prj[0]->prj_owner]; ?>)</td>
                           </tr>
                           <tr>
                             <td>ปรับปรุงข้อมูลล่าสุด</td>
                             <?php $time = explode(' ', $prj[0]->prj_create);?>
-                            <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, 543, 'S') ;?>  (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
+                            <td><?=$this->mydate->date_eng2thai($prj[0]->prj_update, 543, 'S');?>  (<?php echo @$user_all[$prj[0]->prj_owner_update]; ?> )</td>
                           </tr>
                           <tr>
                             <td>สถานะโครงการ</td>
@@ -670,13 +669,13 @@
                                     </span>
                                   </a>
                                 </li>
-                                <?php $expenses_sum = 0; ?>
+                                <?php $expenses_sum = 0;?>
                                   <?php foreach ($expenses as $key => $value) {
-                                        $expenses_sum = ($expenses_sum + $value->expenses_amount_result);
-                                    }
-                                    ?>
+    $expenses_sum = ($expenses_sum + $value->expenses_amount_disburse);
+}
+    ?>
                                 <li>
-                                  <a href="#step-2" class="<?= (!empty($expenses) &&  ($prj[0]->budget_log - $expenses_sum) != 0) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
+                                  <a href="#step-2" class="<?=(!empty($expenses) && ($prj[0]->budget_log - $expenses_sum) != 0) ? 'selected' : 'disabled'?>" isdone="0" rel="2">
                                     <span class="step_no">2</span>
                                     <span class="step_descr">
                                     อยู่ระหว่างดำเนินการ
@@ -685,8 +684,8 @@
                                 </li>
 
                                 <li>
-                              
-                                  <a href="#step-3" class="<?=( !empty($expenses) && ($prj[0]->budget_log - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
+
+                                  <a href="#step-3" class="<?=(!empty($expenses) && ($prj[0]->budget_log - $expenses_sum) == 0) ? 'selected' : 'disabled'?>" isdone="0" rel="3">
                                     <span class="step_no">3</span>
                                     <span class="step_descr">
                                     ดำเนินการเสร็จสิ้น
@@ -715,12 +714,12 @@
                         <tbody>
 
                         <?php foreach ($expenses as $key => $value) {
-                    ?>
+        ?>
                     <tr>
                       <td><?php echo $this->mydate->date_eng2thai($value->expenses_date, 543, 'S') ?></td>
                       <td><?php echo $value->expenses_detail; ?></td>
-                      <td><?php echo $value->user_firstname .' '.$value->user_lastname; ?></td>
-                      <td class="text-right"><?php echo number_format($value->expenses_amount_result, 2); ?></td>
+                      <td><?php echo $value->user_firstname . ' ' . $value->user_lastname; ?></td>
+                      <td class="text-right"><?php echo number_format($value->expenses_amount_disburse, 2); ?></td>
                     </tr>
                   <?php }?>
 
@@ -737,11 +736,11 @@
                         <div class="x_content">
 
                           <div style="text-align: center; margin-bottom: 17px">
-                          <?php 
-                            $divv = 0;
-                            if ( !empty( $expenses_sum) && !empty($prj[0]->prj_budget_sum)) {
-                             $divv = (@$expenses_sum * 100) / @$prj[0]->budget_log;
-                          } ?>
+                          <?php
+$divv = 0;
+    if (!empty($expenses_sum) && !empty($prj[0]->prj_budget_sum)) {
+        $divv = (@$expenses_sum * 100) / @$prj[0]->budget_log;
+    }?>
                             <span class="chart" data-percent="<?=@$divv;?>">
                                 <span class="percent"></span>
                             </span>
@@ -767,7 +766,7 @@
                         </tr>
                         <tr>
                           <td>รวม</td>
-                          <td class="text-right"><?=number_format($prj[0]->budget_log - $expenses_sum,2);?> บาท</td>
+                          <td class="text-right"><?=number_format($prj[0]->budget_log - $expenses_sum, 2);?> บาท</td>
                         </tr>
                       </tbody>
                     </table>
@@ -792,16 +791,16 @@
                         <td class="text-right"><?=number_format($value->prj_amount, 2);?></td>
                         <td>
                             <?php if (@$value->prj_amount > 0 && $value->prj_name != '') {
-                                  echo 'แปลงงบประมาณมาจาก ' . $value->prj_name;
-                              } else if (@$value->prj_amount < 0) {
-                                  echo  ' ดึงงบประมาณให้ '.$value->prj_name ;
-                              } else if ($value->prj_name == '') {
-                                  echo 'งบประมาณที่ได้รับ';
+        echo 'แปลงงบประมาณมาจาก ' . $value->prj_name;
+    } else if (@$value->prj_amount < 0) {
+        echo ' ดึงงบประมาณให้ ' . $value->prj_name;
+    } else if ($value->prj_name == '') {
+        echo 'งบประมาณที่ได้รับ';
 
-                              }?>
+    }?>
                         </td>
                         <td>
-                            <?php echo @$user_log[$key]->user_firstname.' '.@$user_log[$key]->user_lastname;?>
+                            <?php echo @$user_log[$key]->user_firstname . ' ' . @$user_log[$key]->user_lastname; ?>
                         </td>
                       </tr>
                    <?php }?>

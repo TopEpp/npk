@@ -21,7 +21,8 @@ class Receive_outside_model extends CI_Model
         return $query->result();
     }
 
-    public function getOuts($id =''){
+    public function getOuts($id = '')
+    {
         if (!empty($id)) {
             $this->db->where('out_id', $id);
         }
@@ -32,13 +33,13 @@ class Receive_outside_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    
+
     public function getOut($id = '')
     {
         if (!empty($id)) {
             $this->db->where('out_id', $id);
         }
-        $this->db->select('tbl_outside.*,sum(tbl_outside_pay.outside_pay_budget_sum) as budget');
+        $this->db->select('tbl_outside.*,sum(tbl_outside_pay.outside_pay_amount_disburse) as budget');
         // $this->db->where("out_parent != '0' ",null,false);
         $this->db->where('out_year', $this->session->userdata('year'));
         $this->db->from('tbl_outside');
@@ -50,11 +51,11 @@ class Receive_outside_model extends CI_Model
     public function getOutPay($id = '', $pay_id = '')
     {
         if (!empty($id)) {
-          
+
             $this->db->where('outside_id', $id);
         }
         if (!empty($pay_id)) {
-    
+
             $this->db->where('outside_pay_id', $pay_id);
         }
         $this->db->where('tbl_outside.out_year', $this->session->userdata('year'));
@@ -71,11 +72,11 @@ class Receive_outside_model extends CI_Model
     public function getOutRec($id = '', $pay_id = '')
     {
         if (!empty($id)) {
-          
+
             $this->db->where('outside_id', $id);
         }
         if (!empty($pay_id)) {
-    
+
             $this->db->where('outside_pay_id', $pay_id);
         }
         $this->db->select('tbl_outside_in_log.*,usrm_user.user_firstname,usrm_user.user_lastname,tbl_outside.out_name');
@@ -93,7 +94,7 @@ class Receive_outside_model extends CI_Model
         if (!empty($data['outside_pay_id'])) {
             // print_r($data);die();
             $id = $data['outside_pay_id'];
-            
+
             unset($data['outside_pay_id']);
             unset($data['out_id']);
             // unset($data['outside_pay_create']);
@@ -109,16 +110,15 @@ class Receive_outside_model extends CI_Model
         $query = $this->db->query('select sum(out_budget_sum) as budget from tbl_outside where out_id  = ' . $data['outside_id'])->row();
         $id = $data['outside_id'];
         $sum['out_budget_sum'] = $query->budget + $data['outside_pay_budget'];
-        $this->updateOutSide($id,$sum);
+        $this->updateOutSide($id, $sum);
         return $this->db->insert('tbl_outside_in_log', $data);
     }
-    public function updateOutSide($id,$data){
+    public function updateOutSide($id, $data)
+    {
 
-        $this->db->where('out_id',$id);
-        $this->db->update('tbl_outside',$data);
+        $this->db->where('out_id', $id);
+        $this->db->update('tbl_outside', $data);
     }
-
-  
 
     public function editOutside($id, $data)
     {
@@ -177,14 +177,15 @@ class Receive_outside_model extends CI_Model
         return $PrjManage;
     }
 
-    public function getIdTaxPay(){
-        $this->db->like('out_name','ภาษีหัก ณ ที่จ่าย');
-        $this->db->where('out_year',$this->session->userdata('year'));
+    public function getIdTaxPay()
+    {
+        $this->db->like('out_name', 'ภาษีหัก ณ ที่จ่าย');
+        $this->db->where('out_year', $this->session->userdata('year'));
         return $this->db->get('tbl_outside')->row();
     }
 
     //ajax index
-	public function getOutsideAjax($param)
+    public function getOutsideAjax($param)
     {
         $keyword = $param['keyword'];
         $this->db->select('*');
@@ -192,11 +193,11 @@ class Receive_outside_model extends CI_Model
         $condition = "1=1";
 
         if (!empty($param['filter'])) {
-			$filter = $param['filter'];
-			// print_r($filter);die();
-		
-			if (!empty($filter[0])) {
-                $this->db->like('outside_pay_create', $this->mydate->date_thai2eng($filter[0],-543));
+            $filter = $param['filter'];
+            // print_r($filter);die();
+
+            if (!empty($filter[0])) {
+                $this->db->like('outside_pay_create', $this->mydate->date_thai2eng($filter[0], -543));
             }
             if (!empty($filter[2])) {
                 $this->db->like('outside_detail', $filter[2]);
@@ -215,17 +216,18 @@ class Receive_outside_model extends CI_Model
         // $this->db->join('tbl_outside','tbl_outside.out_id = tbl_outside_pay.out_id');
         $this->db->where($condition);
         $this->db->limit($param['page_size'], $param['start']);
-		$this->db->order_by($param['column'], $param['dir']);
-		
-	
-		$query = $this->db->get();
-		// $this->db->order_by('expenses_id DESC','expenses_date_disburse DESC');
+        $this->db->order_by($param['column'], $param['dir']);
+
+        $query = $this->db->get();
+        // $this->db->order_by('expenses_id DESC','expenses_date_disburse DESC');
         $data = array();
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
-				$row['outside_pay_budget_sum'] = number_format($row['outside_pay_budget_sum'],2);
-				$row['outside_pay_create'] = $this->mydate->date_eng2thai($row['outside_pay_create'],543,'S');
+                $row['outside_pay_amount_disburse'] = number_format($row['outside_pay_amount_disburse'], 2);
+                $row['outside_pay_create'] = $this->mydate->date_eng2thai($row['outside_pay_create'], 543, 'S');
+                $row['outside_date_disburse'] = $this->mydate->date_eng2thai($row['outside_date_disburse'], 'S');
+
                 $data[] = $row;
             }
         }
@@ -234,6 +236,44 @@ class Receive_outside_model extends CI_Model
         $count = $this->db->from('tbl_expenses')->count_all_results();
         $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
         return $result;
+
+    }
+
+    public function getOutsideNumber($id)
+    {
+        return $this->db->query("SELECT * FROM tbl_outside_pay WHERE outside_pay_id = " . $id)->row();
+    }
+
+    public function saveOutsideNumber($id, $input)
+    {
+        $expenses = $this->db->query("SELECT outside_pay_amount_fine FROM tbl_outside_pay WHERE outside_pay_id = " . $id)->row();
+        if ($expenses->outside_pay_amount_fine > 0) {
+            $datas = array();
+            $year = $this->session->userdata('year');
+            $datas['sum_amount'] = $expenses->outside_pay_amount_fine;
+            $datas['receive_date'] = $this->mydate->date_thai2eng($input['outside_date_disburse']);
+            // print_r($datas);die();
+            $this->insertOtherTax($year, $datas);
+        }
+
+        $input['outside_date_disburse'] = $this->mydate->date_thai2eng($input['outside_date_disburse']);
+        $this->db->where('outside_pay_id', $id);
+        return $this->db->update('tbl_outside_pay', $input);
+
+    }
+
+    //other_tax_add
+    public function insertOtherTax($year, $input)
+    {
+
+        $tax_id = $this->db->query("SELECT tax_id FROM tbl_tax WHERE tax_parent_id = '3' AND  tax_name LIKE '%ค่าปรับการผิดสัญญา%'")->row();
+
+        $input['tax_id'] = $tax_id->tax_id;
+        $this->db->where('year_id', $year);
+        $this->db->set('year_id', $year);
+        $this->db->set('sum_amount', $input['sum_amount']);
+        $this->db->set('receive_date', $input['receive_date']);
+        $this->db->insert('tax_receive', $input);
 
     }
 

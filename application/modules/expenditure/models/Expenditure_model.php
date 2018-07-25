@@ -18,7 +18,7 @@ class expenditure_model extends CI_Model
     public function getPrjById($project_id)
     {
         $this->db->select('p.*,sum(tbl_prj_budget_log.prj_amount) as budget_log,
-		(select sum(e.expenses_amount_result)  from tbl_expenses  e where e.project_id = p.prj_id) as expenses
+		(select sum(e.expenses_amount_disburse)  from tbl_expenses  e where e.project_id = p.prj_id) as expenses
 		');
         $this->db->from('tbl_project p');
         $this->db->where('p.prj_id', $project_id);
@@ -106,6 +106,16 @@ class expenditure_model extends CI_Model
 
     public function saveExpenditureNumber($id, $input)
     {
+        $expenses = $this->db->query("SELECT expenses_amount_fine FROM tbl_expenses WHERE expenses_id = " . $id)->row();
+        if ($expenses->expenses_amount_fine > 0) {
+            $datas = array();
+            $year = $this->session->userdata('year');
+            $datas['sum_amount'] = $expenses->expenses_amount_fine;
+            $datas['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date_disburse']);
+            // print_r($datas);die();
+            $this->insertOtherTax($year, $datas);
+        }
+
         $input['expenses_date_disburse'] = $this->mydate->date_thai2eng($input['expenses_date_disburse']);
         $this->db->where('expenses_id', $id);
         return $this->db->update('tbl_expenses', $input);
@@ -169,11 +179,11 @@ class expenditure_model extends CI_Model
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
-                $row['expenses_date_disburse'] = $this->mydate->date_eng2thai($row['expenses_date_disburse'], 543, 'S');
+                $row['expenses_date_disburse'] = $this->mydate->date_eng2thai($row['expenses_date_disburse'], 'S');
                 // echo $row['expenses_date'];die();
                 $row['expenses_date'] = $this->mydate->date_eng2thai($row['expenses_date'], 543, 'S');
 
-                $row['expenses_amount_result'] = number_format($row['expenses_amount_result'], 2);
+                $row['expenses_amount_disburse'] = number_format($row['expenses_amount_disburse'], 2);
                 $data[] = $row;
             }
         }
