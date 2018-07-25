@@ -72,6 +72,7 @@ $(function () {
           var btn =
             '<div class="btn-group ">' +
             form +
+            '<button type="button" onclick="window.location.href=\'' + domain + 'report/report_person/' + '' + data + '\'" id="edit-individual" class="btn btn-success btn-sm" title="ทะเบียนคุมผู้ชำระภาษี" >ทะเบียน</button>' +
             '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_taxadd_popup/' + '' + data + '\'" id="edit-individual" class="btn btn-warning btn-sm" style="width: 47px;" title="แก้ไข" >แก้ไข</button>' +
             '<button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="' + data + '" data-id="' + data + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>' +
             '</div>';

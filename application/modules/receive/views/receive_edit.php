@@ -515,7 +515,7 @@
                                                                                             <span class="required" style="color:red">*</span>
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="notice_estimate[0][]" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12" >
+                                                                                                <input type="text" name="notice_estimate[0][]" placeholder="0.00" class="notice_estimate_house numeric form-control col-md-7 col-xs-12" >
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -990,7 +990,7 @@
                                                                                         <label  > จำนวนภาษีที่ประเมิน <span class="required" style="color:red"> *</span>
                                                                                         </label>
                                                                                             <div >
-                                                                                                <input type="text" name="notice_estimate[1][]" placeholder="0.00" class="numeric form-control col-md-7 col-xs-12">
+                                                                                                <input type="text" name="notice_estimate[1][]" placeholder="0.00" class="notice_estimate_local numeric form-control col-md-7 col-xs-12">
                                                                                             </div>
                                                                                     </div>
                                                                             </div>
@@ -1422,7 +1422,7 @@
                                                                                                 <label  > จำนวนภาษีที่ประเมิน <span class="required" style="color:red"> *</span>
                                                                                                 </label>
                                                                                                 <div>
-                                                                                                    <input type="text" name="notice_estimate[2][]" placeholder="0.00"class="numeric form-control col-md-7 col-xs-12">
+                                                                                                    <input type="text" name="notice_estimate[2][]" placeholder="0.00"class="notice_estimate_label numeric form-control col-md-7 col-xs-12">
                                                                                                 </div>
                                                                                             </div>
 

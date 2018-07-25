@@ -2,7 +2,7 @@
 <div class="right_col" role="main">
         <section class="row">
                   <div class="col-md-6 col-sm-4 col-xs-4">
-                      <h3>รายงานลูกหนี้ค้างชำระ</h3>
+                      <h3>ทะเบียนคุมผู้ชำระภาษี</h3>
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
@@ -10,9 +10,9 @@
                           </button>
                           <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
                           </button> -->
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person/'.$id.'?type=pdf');?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                          <button onclick="window.open('<?php echo base_url('export_report/report_person/' . $id . '?type=pdf'); ?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                           </button>
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person'.$id);?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-o"> </i> ส่งออก excel
+                          <button onclick="window.open('<?php echo base_url('export_report/report_person' . $id); ?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-o"> </i> ส่งออก excel
                           </button>
                       </div>
                   </div>
@@ -24,7 +24,7 @@
                           <h5 class="inline text-right">ข้อมูล ณ วันที่ <?php echo $this->mydate->date_eng2thai(date('Y-m-d'), 543, 'S') ?></h5> 
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <span style="text-align: center;"><h3>ทะเบียนคุมผู้ชำระภาษี</h3></span>
+                      <span style="text-align: center;"><h3>ทะเบียนคุมผู้ชำระภาษี (ผ.ท. 5)</h3></span>
                       <br>
                       <span> ชื่อ - สกุล : ผู้เสียภาษี <?php echo $data['person']['name'] ?></span>
                       <br>
@@ -76,18 +76,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) { 
-                            if(!empty($data['tax'][8][$i]['notice_estimate']['year']) || !empty($data['tax'][9][$i]['notice_estimate']['year'])){
+                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) {
+                          if (!empty($data['tax'][8][$i]['notice_estimate']['year']) || !empty($data['tax'][9][$i]['notice_estimate']['year'])) {
 
-                              if( !empty($data['tax'][8][$i]['notice_estimate']['year']) ){
-                                $year = $data['tax'][8][$i]['notice_estimate']['year']+543;
-                              }
+                            if (!empty($data['tax'][8][$i]['notice_estimate']['year'])) {
+                              $year = $data['tax'][8][$i]['notice_estimate']['year'] + 543;
+                            }
 
-                              if( !empty($data['tax'][9][$i]['notice_estimate']['year']) ){
-                                $year = $data['tax'][9][$i]['notice_estimate']['year']+543;
-                              }
-                              
-                          ?>
+                            if (!empty($data['tax'][9][$i]['notice_estimate']['year'])) {
+                              $year = $data['tax'][9][$i]['notice_estimate']['year'] + 543;
+                            }
+
+                            ?>
                           <tr>
                             <!--  ภ.ร.ด. 2 -->
                             <td><?php echo $year ?></td>
@@ -116,8 +116,9 @@
                             <td><?php echo number_format(@$data['tax'][9][$i]['tax_receive']['receive_amount'], 2) ?></td>
 
                           </tr>
-                        <?php }
-                      } ?>
+                        <?php 
+                      }
+                    } ?>
                         </tbody>
                   </table>
 
@@ -155,8 +156,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) { 
-                            if(!empty($data['tax'][10][$i]['notice_estimate']['year'])){ ?>
+                        <?php for ($i = 1; $i <= $data['count_rec']; $i++) {
+                          if (!empty($data['tax'][10][$i]['notice_estimate']['year'])) { ?>
                           <tr>
                             <td><?php echo (@$data['tax'][10][$i]['notice_estimate']['year'] + 543) ?></td>
                             <!--  ภ.ป. 1 -->
@@ -178,8 +179,9 @@
                             <td></td>
                             <td></td>
                           </tr>
-                        <?php }
-                      } ?>
+                        <?php 
+                      }
+                    } ?>
                         </tbody>
                   </table>
 
