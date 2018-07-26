@@ -206,9 +206,12 @@
 
   .dataTables_filter, .dataTables_info { display: none; }
   tr.group-start td{
-    background-color: #bbb;
+    background-color: #2A3F54;
     cursor:pointer;
+    color: #fff;
   }
+
+
 
 </style>
 

@@ -217,6 +217,7 @@ class Receive_outside extends MY_Controller
     {
         $data = array();
         $out = $this->Receive_outside_model->getOuts();
+        // print_r($out);die();
         // $data['total'] = count($out);
 
         foreach ($out as $key => $value) {

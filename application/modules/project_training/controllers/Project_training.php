@@ -543,8 +543,8 @@ class Project_training extends MY_Controller
             }
         }
 
-        $data['budget_log_all'] = $this->project_model->getBudgetLog($data['prj'][0]->prj_id);
-        $data['user_log'] = $this->project_model->getPrjLog($data['prj'][0]->prj_id);
+        $data['budget_log_all'] = $this->project_model->getBudgetLog(@$data['prj'][0]->prj_id);
+        $data['user_log'] = $this->project_model->getPrjLog(@$data['prj'][0]->prj_id);
 
         $data['expenses'] = $this->expenditure_model->getPrjExpensesByPrj($id);
         //         echo '<pre>';

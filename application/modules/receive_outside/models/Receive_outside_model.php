@@ -224,9 +224,15 @@ class Receive_outside_model extends CI_Model
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
+                
                 $row['outside_pay_amount_disburse'] = number_format($row['outside_pay_amount_disburse'], 2);
                 $row['outside_pay_create'] = $this->mydate->date_eng2thai($row['outside_pay_create'], 543, 'S');
-                $row['outside_date_disburse'] = $this->mydate->date_eng2thai($row['outside_date_disburse'], 'S');
+                if ( $row['outside_date_disburse'] == ''){
+                    $row['outside_date_disburse'] = '&nbsp';
+                }else{
+                    $row['outside_date_disburse'] = $this->mydate->date_eng2thai($row['outside_date_disburse'], 'S');
+                }
+              
 
                 $data[] = $row;
             }

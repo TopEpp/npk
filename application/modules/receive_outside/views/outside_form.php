@@ -71,7 +71,7 @@
                                                     <span class="text-right" style="">
 
                                                         <label>
-                                                          <input  id="amount_vat" type="checkbox" class="flat" >
+                                                          <input  id="amount_vat" type="checkbox" <?php echo (!empty($out_pay[0]->outside_pay_vat)) ? 'checked' : ''; ?> class="flat" >
                                                         </label>
                                                         <input id="outside_pay_vat_val" style="width:40px;text-align: center;" type="text" value="7"> %
                                                     </span>
@@ -89,7 +89,7 @@
                                                     <span class="text-right" style="">
 
                                                       <label>
-                                                        <input type="checkbox" id="amount_tax"  class="flat" >
+                                                        <input type="checkbox" id="amount_tax" <?php echo (!empty($out_pay[0]->outside_pay_tax)) ? 'checked' : ''; ?>  class="flat" >
                                                       </label>
                                                       <input id="outside_pay_tax_val" style="width:40px;text-align: center;" type="text" value="1"> %
                                                     </span>

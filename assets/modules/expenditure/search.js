@@ -88,7 +88,7 @@ $(function(){
         ajax: {
           url: domain + 'expenditure/getAjaxExpenditure',
         },
-        orderFixed: [1, 'ASC'],
+        orderFixed: [0, 'DESC'],
         rowGroup: {
             dataSrc: "expenses_date_disburse",
             startRender: function (rows, group) {
@@ -102,6 +102,7 @@ $(function(){
                return $('<tr/>')
                    .append('<td colspan="7">' + group + '</td>')
                    .attr('data-name', group)
+                //    .addClass('tess')
                    .toggleClass('collapsed', collapsed);
            }
         },

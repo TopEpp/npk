@@ -1,9 +1,15 @@
 $(function () {
 
 
-
-    $('#outside_pay_vat_val').prop('disabled', true);
-    $('#outside_pay_vat').prop('disabled', true);
+    // check if value
+    if ($('#outside_pay_vat').val() != ''){
+        $('#outside_pay_vat_val').prop('disabled', false);
+        $('#outside_pay_vat').prop('disabled', false);
+    }
+   else{
+        $('#outside_pay_vat_val').prop('disabled', true);
+        $('#outside_pay_vat').prop('disabled', true);
+   }
     $('#amount_vat').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
         outside_pay_amount = parseFloat(outside_pay_amount.replace(/,/g,''));
@@ -34,8 +40,15 @@ $(function () {
         $('#outside_pay_budget_sum').val(outside_pay_amount + outside_pay_amount_vat - outside_pay_amount_tax);
     });
 
-    $('#outside_pay_tax_val').prop('disabled', true);
-    $('#outside_pay_tax').prop('disabled', true);
+    if ($('#outside_pay_tax').val() != ''){
+        $('#outside_pay_tax_val').prop('disabled', false);
+        $('#outside_pay_tax').prop('disabled', false);
+
+    }else{
+        $('#outside_pay_tax_val').prop('disabled', true);
+        $('#outside_pay_tax').prop('disabled', true);
+    }
+   
     $('#amount_tax').on("ifChanged", function () {
         var outside_pay_amount = $('#outside_pay_budget').val();
         outside_pay_amount = parseFloat(outside_pay_amount.replace(/,/g,''));
@@ -237,7 +250,7 @@ $(function () {
 		// }
 
 		$('#outside_pay_amount_vat').val(outside_pay_amount_vat);
-		$('#expenses_amount_disburse').val(expenses_amount + outside_pay_amount_vat);
+		$('#outside_pay_amount_disburse').val(outside_pay_budget + outside_pay_amount_vat);
 		// $('#outside_pay_tax').val(outside_pay_tax);
 		$('#outside_pay_budget_sum').val(outside_pay_budget + outside_pay_amount_vat - outside_pay_tax);
 	});
@@ -415,7 +428,7 @@ $(function () {
             ajax: {
               url: domain + 'receive_outside/getOutsideAjax',
             },
-            orderFixed: [1, 'ASC'],
+            orderFixed: [0, 'DESC'],
             rowGroup: {
                 dataSrc: "outside_date_disburse",
                 startRender: function (rows, group) {
