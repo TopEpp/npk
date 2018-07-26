@@ -173,6 +173,7 @@ class Report_model extends CI_Model
             @$data['person']['village'] = $value->individual_village;
             @$data['person']['phone'] = $value->individual_phone;
             @$data['person']['fax'] = '';
+            @$data['person']['code_name'] = $value->code_name;
 
             if($value->tax_id==8){
                 $count_tax1++;
@@ -186,6 +187,7 @@ class Report_model extends CI_Model
             }
 
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['year'] = $value->year_id;
+            @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['tax_year'] = $value->tax_year;
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_number_p2'] = $value->notice_number_p2;
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_date_p2'] = $value->notice_date_p2;
             @$data['tax'][$value->tax_id][$count_tax]['notice_estimate']['notice_estimate'] = $value->notice_estimate;

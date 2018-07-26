@@ -26,7 +26,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <span style="text-align: center;"><h3>ทะเบียนคุมผู้ชำระภาษี (ผ.ท. 5)</h3></span>
                       <br>
-                      <span> ชื่อ - สกุล : ผู้เสียภาษี <?php echo $data['person']['name'] ?></span>
+                      <span> ชื่อ - สกุล : ผู้เสียภาษี <?php echo $data['person']['name'] ?></span> <span style="padding-left: 20px;"> รหัสชื่อ : <?php echo $data['person']['code_name'] ?></span>
                       <br>
                       <span> เลขที่ประจำตัวประชาชน/เลขประจำผู้เสียภาษี  <?php echo $data['person']['idcard'] ?></span>
                       <br>
@@ -87,11 +87,22 @@
                               $year = $data['tax'][9][$i]['notice_estimate']['year'] + 543;
                             }
 
+                            $tax_year8 = $tax_year9 = '';
+                            if (!empty($data['tax'][8][$i]['notice_estimate']['tax_year'])) {
+                                $tax_year8 = $data['tax'][8][$i]['notice_estimate']['year'] + 543;
+                                $tax_year8 = '/'.substr($tax_year8,2,2);
+                            }
+
+                            if (!empty($data['tax'][9][$i]['notice_estimate']['tax_year'])) {
+                                $tax_year9 = $data['tax'][9][$i]['notice_estimate']['year'] + 543;
+                                $tax_year9 = '/'.substr($tax_year9,2,2);
+                            }
+
                             ?>
                           <tr>
                             <!--  ภ.ร.ด. 2 -->
                             <td><?php echo $year ?></td>
-                            <td><?php echo @$data['tax'][8][$i]['notice_estimate']['notice_number_p2'] ?></td>
+                            <td><?php echo @$data['tax'][8][$i]['notice_estimate']['notice_number_p2'].$tax_year8 ?></td>
                             <td><?php echo $this->mydate->date_eng2thai(@$data['tax'][8][$i]['notice_estimate']['notice_date_p2'], 543, 'S') ?></td>
                             <td><?php echo number_format(@$data['tax'][8][$i]['notice_estimate']['notice_annual_fee'], 2) ?></td>
 
@@ -157,11 +168,19 @@
                         </thead>
                         <tbody>
                         <?php for ($i = 1; $i <= $data['count_rec']; $i++) {
-                          if (!empty($data['tax'][10][$i]['notice_estimate']['year'])) { ?>
+                          if (!empty($data['tax'][10][$i]['notice_estimate']['year'])) { 
+
+                            $tax_year10 = '';
+                            if (!empty($data['tax'][10][$i]['notice_estimate']['tax_year'])) {
+                                $tax_year10 = $data['tax'][10][$i]['notice_estimate']['year'] + 543;
+                                $tax_year10 = '/'.substr($tax_year10,2,2);
+                            }
+
+                            ?>
                           <tr>
                             <td><?php echo (@$data['tax'][10][$i]['notice_estimate']['year'] + 543) ?></td>
                             <!--  ภ.ป. 1 -->
-                            <td><?php echo @$data['tax'][10][$i]['notice_estimate']['notice_number'] ?></td>
+                            <td><?php echo @$data['tax'][10][$i]['notice_estimate']['notice_number'].$tax_year10 ?></td>
                             <td><?php echo $this->mydate->date_eng2thai(@$data['tax'][10][$i]['notice_estimate']['notice_date'], 543, 'S') ?></td>
                             <td><?php echo number_format(@$data['tax'][10][$i]['notice_estimate']['notice_estimate'], 2) ?></td>
 
