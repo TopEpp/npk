@@ -95,13 +95,17 @@ function addCommas(n)
 
     var sum = 0;
     $('input.'+node).each(function(index,data){
+      if($(data).val()){
         sum = sum+parseFloat($(data).val());
+      }
     });
     $('#'+node).html(addCommas(sum));
 
     sum_all = 0;
     $("input.numeric").each(function(index,data){
-        sum_all = sum_all+parseFloat($(data).val());
+        if($(data).val()){
+          sum_all = sum_all+parseFloat($(data).val());
+        }
     });
     $("#sum_all").html(addCommas(sum_all));
 
