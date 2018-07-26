@@ -1,21 +1,21 @@
 
 <div class="right_col" role="main">
         <section class="row">
-                  <div class="col-md-6 col-sm-4 col-xs-4">
-                      <h3>ทะเบียนคุมผู้ชำระภาษี</h3>
-                  </div>
-                  <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
-                      <div class="btn-group">
-                          <!-- <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
-                          </button>
-                          <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
-                          </button> -->
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person/' . $id . '?type=pdf'); ?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
-                          </button>
-                          <button onclick="window.open('<?php echo base_url('export_report/report_person' . $id); ?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-o"> </i> ส่งออก excel
-                          </button>
-                      </div>
-                  </div>
+            <div class="col-md-6 col-sm-4 col-xs-4">
+                <h3>ทะเบียนคุมผู้ชำระภาษี</h3>
+            </div>
+            <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
+                <div class="btn-group">
+                    <!-- <button type="button" class="btn btn-success" title="กรองข้อมูล"><i class="glyphicon glyphicon-filter"> </i> ตัวกรอง
+                    </button>
+                    <button type="button" class="btn btn-success" title="ส่งออกข้อมูล"> <i class="fa fa-upload"> </i> ส่งออกข้อมูล
+                    </button> -->
+                    <button onclick="window.open('<?php echo base_url('export_report/report_person/' . $id . '?type=pdf'); ?>');" type="button" class="btn btn-success" title="ส่งออก pdf"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
+                    </button>
+                    <button onclick="window.open('<?php echo base_url('export_report/report_person/' . $id); ?>');" type="button" class="btn btn-success" title="ส่งออก excel"> <i class="fa fa-file-excel-o"> </i> ส่งออก excel
+                    </button>
+                </div>
+            </div>
         </section>    
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
