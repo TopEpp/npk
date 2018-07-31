@@ -94,15 +94,10 @@ function addCommas(n)
 
     var sum = 0;
     $('input.'+node).each(function(index,data){
-<<<<<<< HEAD
-      if($(data).val()){
-        sum = sum+parseFloat($(data).val());
-=======
       if($(data).val() > 0){
         sum = sum+parseFloat($(data).val());
       }else{
         sum = sum+parseFloat(0);
->>>>>>> Dev-kidsana
       }
     });
 
@@ -110,18 +105,12 @@ function addCommas(n)
 
     sum_all = 0;
     $("input.numeric").each(function(index,data){
-<<<<<<< HEAD
-        if($(data).val()){
-          sum_all = sum_all+parseFloat($(data).val());
-        }
-=======
         if($(data).val() > 0){
           sum_all = sum_all+parseFloat($(data).val());
         }else{
           sum_all = sum_all+parseFloat(0);
         }
 
->>>>>>> Dev-kidsana
     });
     $("#sum_all").html(addCommas(sum_all));
 
