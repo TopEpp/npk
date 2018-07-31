@@ -36,7 +36,7 @@
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี
                       </label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                          <input type="text" name="number_tax" id="number_tax" placeholder="เลขประจำตัว 10 หรือ 13 หลัก" class="form-control col-md-4 col-xs-12" data-inputmask="'mask': '9999999999999'">
+                          <input type="text" name="number_tax" id="number_tax" placeholder="เลขประจำตัว 10 หรือ 13 หลัก" class="form-control col-md-4 col-xs-12">
                       </div>
                     </div>
                     <div class="form-group">
