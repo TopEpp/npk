@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                               <td>รวม</td>
-                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum + @$out[0]->out_budget_sum, 2); ?> บาท</td>
+                              <td class="text-right"><?php echo number_format(@$out[0]->out_budget_sum+@$out[0]->out_budget_sum, 2); ?> บาท</td>
                             </tr>
                           </tbody>
                         </table> -->
@@ -44,7 +44,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">วันที่จัดทำ <span style="color:red">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $this->mydate->date_db2str($out_pay[0]->outside_pay_create) : date('d/m/Y'); ?>" class="form-control datepicker">
+                            <input type="text" name="outside_pay_create" value="<?php echo (!empty($out_pay[0]->outside_pay_create)) ? $this->mydate->date_db2str($out_pay[0]->outside_pay_create) : date('d/m/') . (date('Y') + 543); ?>" data-provide="datepicker" data-date-language="th-th" class="form-control  datepicker">
                             </div>
                           </div>
                           <div class="form-group">
@@ -60,7 +60,7 @@
                             <textarea  class="form-control" name="outside_detail"><?php echo (!empty($out_pay[0]->outside_detail)) ? $out_pay[0]->outside_detail : ''; ?></textarea>
                             </div>
                           </div>
-                             
+
                           <br>
                       </div>
                   </div>
@@ -68,7 +68,7 @@
           </div>
            <div style="text-align: center;">
            <button type="submit" id="btn-submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>
-            <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER'];?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
+            <button onclick="window.location.replace('<?php echo @$_SERVER['HTTP_REFERER']; ?>');" type="button" class="btn btn-warning"><i class="fa fa-close"></i> ยกเลิก
             </button>
           </div>
       </div>

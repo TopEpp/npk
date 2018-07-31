@@ -143,7 +143,8 @@ class Expenditure extends MY_Controller
         $this->expenditure_model->saveExpenditure($input);
 
         // tax insert
-        if (!empty($input['expenses_id'])) {
+        // print_r($input);die();
+        if (empty($input['expenses_id'])) {
             $data = array();
             if ($input['expenses_amount_tax'] != '' && $input['expenses_amount_tax'] != '0') {
                 $id = $this->Receive_outside_model->getIdTaxPay();

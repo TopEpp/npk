@@ -95,9 +95,9 @@ $log = false;
 
     }?>
                           <?php if (@$prj_bud_in > 0) {?>
-                            <input class="form-control numeric" id="prj_budget" value="<?php echo $prj_bud_in; ?>" name="prj_budget" placeholder="จำนวน" type="text">
+                            <input class="form-control numeric text-right" id="prj_budget" value="<?php echo $prj_bud_in; ?>" name="prj_budget" placeholder="จำนวน" type="text">
                           <?php } else {?>
-                             <input class="form-control numeric" id="prj_budget" value="" name="prj_budget" placeholder="จำนวน" type="text">
+                             <input class="form-control numeric text-right" id="prj_budget" value="" name="prj_budget" placeholder="จำนวน" type="text">
                           <?php }?>
                           </div>
 
@@ -204,8 +204,8 @@ $log = false;
                                         <tr data-select="<?php echo $value->prj_budget_id; ?>" >
                                             <div class="row">
                                               <td class="text-left" style="">
-                                                <span class="col-sm-7 text-right"> <?php echo @$value->prj_name . '<br>งบเหลือจ่าย ' . number_format($value->budget, 2) . ' บาท'; ?></span>
-                                                <span class="col-sm-3"><input class="form-control numeric budget_item" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this,<?php echo ($value->budget + $value->prj_amount); ?>)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
+                                                <span class="col-sm-7 text-left"> <?php echo @$value->prj_name . '<br>งบเหลือจ่าย ' . number_format($value->budget, 2) . ' บาท'; ?></span>
+                                                <span class="col-sm-3 "><input class="form-control numeric budget_item text-right" value="<?php echo $value->prj_amount; ?>" onkeyup="integerInRange(this,<?php echo ($value->budget + $value->prj_amount); ?>)" name="prj_selects[<?php echo $value->prj_ref_id; ?>]" type="text"></span>
                                                 <span class="col-sm-1">บาท</span>
                                                 <div class="btn-group col-sm-1"><button onclick=delSelect(<?php echo $value->prj_budget_id; ?>) class="btn btn-danger btn-sm" type="button">ลบ</button></div>
                                               </td>

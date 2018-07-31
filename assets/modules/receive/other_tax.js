@@ -76,7 +76,7 @@
          //      }
          //  ],
          // "bSort" : false,
-         orderFixed: [1, 'asc'],
+         orderFixed: [0, 'ASC'],
          rowGroup: {
              dataSrc: 1,
              startRender: function (rows, group) {

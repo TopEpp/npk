@@ -4,11 +4,12 @@ class expenditure_model extends CI_Model
 
     public function getPrjByKeyword($keyword)
     {
-        $this->db->select('*');
+        $this->db->select('tbl_project.*,sum(tbl_expenses.expenses_amount_disburse) as expenses_amount_disburse');
         $this->db->from('tbl_project');
         $this->db->like('prj_name', $keyword);
         $this->db->where('prj_active', '1');
         $this->db->where('prj_year', $this->session->userdata('year'));
+        $this->db->join('tbl_expenses', 'tbl_expenses.project_id = tbl_project.prj_id','left');
         $this->db->group_by('prj_name,prj_parent');
         $query = $this->db->get();
 
@@ -112,10 +113,9 @@ class expenditure_model extends CI_Model
             $year = $this->session->userdata('year');
             $datas['sum_amount'] = $expenses->expenses_amount_fine;
             $datas['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date_disburse']);
-            // print_r($datas);die();
             $this->insertOtherTax($year, $datas);
         }
-
+   
         $input['expenses_date_disburse'] = $this->mydate->date_thai2eng($input['expenses_date_disburse']);
         $this->db->where('expenses_id', $id);
         return $this->db->update('tbl_expenses', $input);

@@ -5,11 +5,13 @@ class Receive_outside_model extends CI_Model
 
     public function getPrjByKeyword($keyword)
     {
-        $this->db->select('*');
+        $this->db->select('tbl_outside.*,sum(tbl_outside_pay.outside_pay_amount_disburse) as outside_pay_amount_disburse');
         $this->db->from('tbl_outside');
         // $this->db->where("out_parent != '0' ", null, false);
         $this->db->like('out_name', $keyword);
         $this->db->where('out_year', $this->session->userdata('year'));
+        $this->db->join('tbl_outside_pay', 'tbl_outside.out_id = tbl_outside_pay.outside_id','left');
+        $this->db->group_by('out_name');
         $query = $this->db->get();
 
         return $query->result();

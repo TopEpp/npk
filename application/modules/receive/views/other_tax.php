@@ -157,7 +157,8 @@ th{
 text-align: center;
 }
 tr.group-start td{
-  background-color: #bbb;
+  background-color: #2A3F54;
+  color: #fff;
   cursor:pointer;
 }
 </style>

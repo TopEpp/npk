@@ -40,6 +40,7 @@ $(function () {
 			vat = $('#amount_vat_val').val();
 			expenses_amount_vat = expenses_amount * vat / 100;
 		}
+	
 		if ($('input#amount_tax').is(':checked')) {
 			tax = $('#amount_tax_val').val();
 			expenses_amount_tax = expenses_amount * tax / 100;
@@ -50,14 +51,14 @@ $(function () {
 			$('#expenses_amount_tax').prop('disabled', true);
 			$('#amount_tax_val').prop('disabled', true);
 		}
-
-		var expenses_amount_fine = $('#expenses_amount_fine').val();
+		var expenses_amount_fine = $('#expenses_amount_disburse').val();
 		expenses_amount_fine = parseFloat(expenses_amount_fine.replace(/,/g,''));
 
 		$('#expenses_amount_vat').val(expenses_amount_vat);
 		$('#expenses_amount_disburse').val(expenses_amount + expenses_amount_vat);
 		$('#expenses_amount_tax').val(expenses_amount_tax);
-		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax - expenses_amount_fine);
+
+		$('#expenses_amount_result').val(expenses_amount + expenses_amount_vat - expenses_amount_tax);
 	});
 
 	$('#expenses_amount').keyup(function () {
