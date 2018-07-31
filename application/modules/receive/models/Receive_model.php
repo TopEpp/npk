@@ -498,6 +498,7 @@ class Receive_model extends CI_Model
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
+
         $this->db->group_by('notice_number');
         $this->db->group_by('tax_notice.tax_id');
 
@@ -514,7 +515,7 @@ class Receive_model extends CI_Model
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
-                $row['sum_notice_estimate'] = number_format($row['sum_notice_estimate'], 2);
+                $row['sum_amount_tax'] = number_format($row['sum_amount_tax'], 2);
                 $row['tax_interest'] = number_format($row['tax_interest'], 2);
                 $row['year_id'] = (date("Y") + 543);
                 $data[] = $row;

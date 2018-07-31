@@ -386,13 +386,14 @@
                                       <div class="col-md-2">
                                         <label>ข้อมูลนิติบุคคล</label>
                                       </div>
-                                    </div>
+                                  </div>
                                   <div class="form-group">
                                       <label class="control-label col-md-4 col-sm-3 col-xs-12" >
                                         เลขประจำตัวผู้เสียภาษี <span class="required" style="color:red">*</span>
                                       </label>
                                       <div class="col-md-4 col-sm-6 col-xs-12">
                                           <input type="text" name="individual_number[1]"  value="<?php echo @$individual[0]->individual_number; ?>" placeholder="เลขประจำตัว 10 หรือ 13 หลัก" id="tab_2" class="form-control col-md-7 col-xs-12" maxlength="13" onKeyUp="if(this.value*1!=this.value) this.value='' ;">
+                                      </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-md-4 col-sm-3 col-xs-12" >
@@ -401,8 +402,8 @@
                                       <div class="col-md-4 col-sm-6 col-xs-12">
                                           <input type="text" name="code_name[1]"  type="text" value="<?php echo @$individual[0]->code_name; ?>" placeholder="ระบุรหัสชื่อ" id="tab_2" class="form-control col-md-7 col-xs-12">
                                       </div>
-                                    </div>
                                   </div>
+                                    
                                   <hr/>
 
 

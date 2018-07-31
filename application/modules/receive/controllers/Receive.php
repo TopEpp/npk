@@ -23,7 +23,6 @@ class Receive extends MY_Controller
 
     }
 
-
     public function receive_menu()
     {
         $data = array();
@@ -82,64 +81,19 @@ class Receive extends MY_Controller
         $this->publish();
     }
 
-    public function receive_notice($id = '', $tax_id)
-    {
-        $data = array();
-
-        if (!empty($id)) {
-            $data['notice'] = $this->Receive_model->getNoticeAll($id);
-
-            foreach ($data['notice'] as $key => $notice) {
-                $data['tax_notice'][$notice->tax_id][] = $notice;
-            }
-            // echo ("<pre>");
-            // print_r($data['tax_notice']);
-            // echo ("</pre>");
-
-        }
-        $data['tax_notice_read'] = $this->Receive_model->read_receive($id);
-        $data['tax_notice_id'] = $this->Receive_model->getNoticeAll($id);
-        $data['tax_id'] = $tax_id;
-
-        $query = $this->db->query("SELECT * FROM tbl_operation");
-        $data['operation'] = $query->result();
-
-        $query = $this->db->query("SELECT * FROM tbl_year");
-        $data['years'] = $query->result();
-
-        $query = $this->db->query("SELECT * FROM tbl_banner");
-        $data['banner'] = $query->result();
-
-        $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
-        $data['tax_years'] = $query->result();
-
-
-
-        $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
-        $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
-        $this->setView('receive_edit', $data);
-        $this->publish();
-
-    }
-
     public function receive_notice_save($id = '')
     {
         $data = array();
         $input = $this->input->post();
 
         foreach ($input['notice_number'] as $k => $value) {
-
-            // echo '<pre>';
-            // print_r($value);
-
-
             for ($form_key = 0; $form_key < 3; $form_key++) {
                 if (!empty($input['notice_number'][0][0])) {
                     if ($form_key == 0) {
                         foreach ($input['notice_estimate'][0] as $key => $v) {
                             $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                             $data[$form_key][$key]['tax_id'] = 8;
-                            $data[$form_key][$key]['annual'] = str_replace(',', '', $input['annual'][$form_key][0]);
+                            $data[$form_key][$key]['total_estimate'] = str_replace(',', '', $input['total_estimate'][$form_key][0]);
                             $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
                             $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
 
@@ -151,7 +105,7 @@ class Receive extends MY_Controller
                             $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
                             $data[$form_key][$key]['notice_date_p2'] = $this->mydate->date_thai2eng($input['notice_date_p2'][$form_key][0], -543);
                             $data[$form_key][$key]['notice_amount'] = str_replace(',', '', $input['notice_amount'][$form_key][0]);
-
+                            
                     // --- $form_key $key ----//
                             $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
                             $data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
@@ -170,10 +124,7 @@ class Receive extends MY_Controller
                 }
                 if (!empty($input['notice_number'][1][0])) {
                     if ($form_key == 1) {
-                // echo 'k -=- '.$k.'<br>';
-                // $form_key = 1;
                         foreach ($input['notice_estimate'][1] as $key => $v) {
-                    // echo 'notice_estimate -=- '.$v.'<br>';
                             $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                             $data[$form_key][$key]['tax_id'] = 9;
                             $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
@@ -205,10 +156,7 @@ class Receive extends MY_Controller
                 }
                 if (!empty($input['notice_number'][2][0])) {
                     if ($form_key == 2) {
-                // echo 'k -=- '.$k.'<br>';
-                // $form_key = 2;
                         foreach ($input['notice_estimate'][2] as $key => $v) {
-                    // echo 'notice_estimate -=- '.$v.'<br>';
                             $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                             $data[$form_key][$key]['tax_id'] = 10;
                             $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
@@ -246,32 +194,70 @@ class Receive extends MY_Controller
         }
         $year = $this->session->userdata('year');
         $this->Receive_model->insertNotice($year, $data);
-        redirect(base_url('receive/receive_dashborad'));
+        // redirect(base_url('receive/receive_dashborad'));
 
-        // echo '<pre>';
-        // print_r($data);
+        echo '<pre>';
+        print_r($data);
         exit;
     }
+
+
+    public function receive_notice($id = '', $tax_id)
+    {
+        $data = array();
+
+        if (!empty($id)) {
+            $data['notice'] = $this->Receive_model->getNoticeAll($id);
+
+            foreach ($data['notice'] as $key => $notice) {
+                $data['tax_notice'][$notice->tax_id][] = $notice;
+            }
+        }
+        $data['tax_notice_read'] = $this->Receive_model->read_receive($id);
+        $data['tax_notice_id'] = $this->Receive_model->getNoticeAll($id);
+        $data['tax_id'] = $tax_id;
+
+        $query = $this->db->query("SELECT * FROM tbl_operation");
+        $data['operation'] = $query->result();
+
+        $query = $this->db->query("SELECT * FROM tbl_year");
+        $data['years'] = $query->result();
+
+        $query = $this->db->query("SELECT * FROM tbl_banner");
+        $data['banner'] = $query->result();
+
+        $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
+        $data['tax_years'] = $query->result();
+
+
+        $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
+        $this->config->set_item('title', 'บันทึกรายการประเมิน - เทศบาลตำบลหนองป่าครั่ง');
+        $this->setView('receive_edit', $data);
+        $this->publish();
+
+    }
+
 
     public function receive_notice_update($id = '')
     {
         $data = array();
         $input = $this->input->post();
-        // echo '<pre>';
-        // print_r($input);
 
         foreach ($input['notice_number'] as $k => $value) {
             if (!empty($input['notice_number'][0][0])) {
                 $form_key = 0;
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
                     $data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
-
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 8;
+                    $data[$form_key][$key]['total_estimate'] = str_replace(',', '', $input['total_estimate'][$form_key][0]);
+                    $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+                    $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
 
                     $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
                     $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
-                    $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
+                    $data[$form_key][$key]['notice_number_p8'] = $input['notice_number_p8'][$form_key][0];
                     $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
                     $data[$form_key][$key]['notice_date_p2'] = $this->mydate->date_thai2eng($input['notice_date_p2'][$form_key][0], -543);
                     $data[$form_key][$key]['notice_amount'] = str_replace(',', '', $input['notice_amount'][$form_key][0]);
@@ -297,6 +283,10 @@ class Receive extends MY_Controller
                     @$data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 9;
+                    $data[$form_key][$key]['total_estimate'] = str_replace(',', '', $input['total_estimate'][$form_key][0]);
+                    $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+                    $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
 
                     $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
                     $data[$form_key][$key]['notice_date_p5'] = $this->mydate->date_thai2eng($input['notice_date_p5'][$form_key][0], -543);
@@ -325,6 +315,7 @@ class Receive extends MY_Controller
                     @$data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 10;
+                    $data[$form_key][$key]['total_estimate'] = str_replace(',', '', $input['total_estimate'][$form_key][0]);
                     $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
                     $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
 
@@ -350,11 +341,6 @@ class Receive extends MY_Controller
         }
         foreach ($data as $form_key => $val_data) {
             foreach ($data[$form_key] as $key => $value) {
-                // echo "------form " . $form_key . "------<br>";
-                // echo '<pre>';
-                // print_r($value);
-                // echo '</pre>';
-
                 if (($data[$form_key][$key]['notice_id'] != '')) {
                     $year = $this->session->userdata('year');
                     $this->Receive_model->updateNotice($year, $value);
@@ -366,17 +352,10 @@ class Receive extends MY_Controller
 
             }
         }
-
-
-
-
         redirect(base_url('receive/receive_dashborad'));
-
         // echo '<pre>';
         // print_r($data);
-        // print_r($input);
         // exit;
-
 
     }
 
