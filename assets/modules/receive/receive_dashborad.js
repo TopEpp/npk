@@ -66,7 +66,7 @@ $(function () {
                 data: 'tax_name',
             },
             {
-                data: 'sum_notice_estimate',
+                data: 'sum_amount_tax',
                 "className": "text-right",
             },
             {
@@ -86,11 +86,11 @@ $(function () {
                 render: function (data, type, row) {
                     var form = '';
                     if (row['tax_name'] == 'ภาษีป้าย') {
-                        form = '<a href=\'' + domain + 'export/gat1/' +row['tax_id']+ '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
+                        form = '<a href=\'' + domain + 'export/gat1/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
                     } else if (row['tax_name'] == 'ภาษีโรงเรือนและที่ดิน') {
-                        form = '<a href=\'' + domain + 'export/gat2/' +row['tax_id']+ '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
+                        form = '<a href=\'' + domain + 'export/gat2/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
                     } else {
-                        form = '<a href=\'' + domain + 'export/gat3/' +row['tax_id']+ '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
+                        form = '<a href=\'' + domain + 'export/gat3/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
                     }
                     var form1 = '';
                     if (row['tax_id'] == '8') {
@@ -191,13 +191,14 @@ $('#alert-btn').click(function () {
 
 });
 
-function delAlert(val,notice){
+function delAlert(val, notice) {
     $.ajax({
         method: "POST",
         url: domain + 'receive/delAlert',
         data: {
             id: val,
-            notice,notice
+            notice,
+            notice
         }
     }).success(function (msg) {
         if (msg) {
