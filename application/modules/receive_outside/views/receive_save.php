@@ -61,7 +61,7 @@
                         </div>
                   </div>
                 </div>
-              <br/><br/>
+              <!-- <br/><br/> -->
                <div class="x_content">
                   <table  class="table table-striped" id="table_outside_pay" style="width:100%">
                     <thead>
