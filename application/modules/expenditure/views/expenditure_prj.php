@@ -41,13 +41,13 @@
                     <div class="form-group">
                       <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">วันที่ลงเช๊ค</label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" id="check_date_tax" placeholder="" value="" class="form-control col-md-7 col-xs-12 datepicker">
+                        <input type="text" id="check_date_tax" placeholder="" value="" data-provide="datepicker" data-date-language="th-th" class="form-control col-md-7 col-xs-12 datepicker">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="middle-name" class="control-label col-md-4 col-sm-3 col-xs-12" for="name_tax">วันที่ชำระ</label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" id="pay_date_tax" placeholder="" value="" class="form-control col-md-7 col-xs-12 datepicker">
+                        <input type="text" id="pay_date_tax" placeholder="" value="" data-provide="datepicker" data-date-language="th-th" class="form-control col-md-7 col-xs-12 datepicker">
                       </div>
                     </div>
                     <div class="form-group">

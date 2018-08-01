@@ -34,7 +34,7 @@
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">วันที่ชำระ
                       </label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                          <input type="text" name="outside_date" id="outside_date" placeholder="" class="form-control col-md-4 col-xs-12 datepicker" >
+                          <input type="text" name="outside_date" id="outside_date" placeholder="" data-provide="datepicker" data-date-language="th-th" class="form-control col-md-4 col-xs-12 datepicker" >
                       </div>
                     </div>
                     <div class="form-group">

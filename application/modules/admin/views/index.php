@@ -3,7 +3,7 @@
     <div class="col-md-6 col-sm-4 col-xs-4">
         <h3>ระบบจัดการปีงบประมาณ</h3>
     </div>
-  </section>          
+  </section>
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel" style="top: 10px;">
@@ -21,19 +21,19 @@
               </thead>
               <tbody>
               <?php foreach ($year as $key => $value) {
-                $maxYear = $value->year_label; ?>
+    $maxYear = $value->year_label;?>
                 <tr>
                   <td><?php echo $value->year_label; ?></td>
                   <td align="right"><?php echo number_format($value->prj_budget, 2); ?></td>
                   <td align="right"><?php echo number_format($value->tax_estimate, 2); ?></td>
                   <td align="center">
-                    <?php if($value->year_id>date('Y')){?>
-                    <button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="<?php echo $value->year_id;?>" data-toggle="modal" data-target="#del_year" title="ลบ" onclick='del_year(this.id);' >ลบ</button>
+                    <?php if ($value->year_id > date('Y')) {?>
+                    <button type="button" class="btn btn-danger btn-sm" style="width: 47px;" id="<?php echo $value->year_id; ?>" data-toggle="modal" data-target="#del_year" title="ลบ" onclick='del_year(this.id);' >ลบ</button>
                     <?php }?>
                   </td>
                 </tr>
-              <?php 
-            } ?>
+              <?php
+}?>
               </tbody>
             </table>
           </div>
@@ -99,9 +99,9 @@ th{
 <script type="text/javascript">
   function  del_year(year) {
     $('#year_id').val(year);
-    $('#span_year').html( parseInt(year)+543 ); 
+    $('#span_year').html( parseInt(year)+543 );
   }
 </script>
-      
+
 
 
