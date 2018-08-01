@@ -240,7 +240,7 @@
                                                                                                                     <span class="required" style="color:red">*</span>
                                                                                                                     </label>
                                                                                                                     <div >
-                                                                                                                        <input type="text" name="notice_annual_fee[0][]" value="<?php echo @$notice->notice_annual_fee; ?>" onkeyup="calculate(<?php echo $key ?>)" class="notice_estimate_house<?php echo $key ?> form-control col-md-7 col-xs-12 numeric text-right">
+                                                                                                                        <input type="text" name="notice_annual_fee[0][]" value="<?php echo @$notice->notice_annual_fee; ?>" onkeyup="calculate_estimate_house(this,<?php echo $key ?>)" id="notice_estimate_house<?php echo $key ?>" class="notice_estimate_house<?php echo $key ?> form-control col-md-7 col-xs-12 numeric text-right">
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                         </div>
@@ -251,7 +251,7 @@
                                                                                                                         <span class="required" style="color:red">*</span>
                                                                                                                         </label>
                                                                                                                         <div >
-                                                                                                                            <input type="text" name="notice_estimate[0][]" value="<?php echo @$notice->notice_estimate; ?>" class="estimate<?php echo $key ?> form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                                            <input type="text" name="notice_estimate[0][]" value="<?php echo @$notice->notice_estimate; ?>" onkeyup="calculate(this,<?php echo $key ?>)" id="estimate<?php echo $key ?>" class="estimate<?php echo $key ?> form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </div>
@@ -306,7 +306,7 @@
                                                                                                 <label  > จำนวนภาษีที่ประเมิน
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="total_estimate[0][]" value="<?php echo @$notice->total_estimate; ?>" onkeyup="calculate()" class="total_estimate form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                    <input type="text" readonly name="total_estimate[0][]" value="<?php echo @$notice->total_estimate; ?>" onkeyup="calculate(this,0)" class="total_estimate form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -316,7 +316,7 @@
                                                                                                 <label  > ค่าปรับ
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="tax_interest[0][]" value="<?php echo @$notice->tax_interest; ?>" onkeyup="calculate()" class="interest form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                    <input type="text" name="tax_interest[0][]" value="<?php echo @$notice->tax_interest; ?>" onkeyup="calculate(this,0)" class="interest_house form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -325,7 +325,7 @@
                                                                                                 <label  > จำนวนเงินภาษี/ค่าปรับ
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="sum_amount_tax[0][]" value="<?php echo @$notice->sum_amount_tax; ?>" onkeyup="calculate()" class="total form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                    <input type="text" readonly name="sum_amount_tax[0][]" value="<?php echo @$notice->sum_amount_tax; ?>" onkeyup="calculate(this,0)" class="total form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -516,7 +516,7 @@
                                                                                         <span class="required" style="color:red">*</span>
                                                                                         </label>
                                                                                         <div >
-                                                                                            <input type="text" name="notice_annual_fee[0][]"  onkeyup="calculate(0)"  class="notice_estimate_house0 form-control col-md-7 col-xs-12 numeric text-right">
+                                                                                            <input type="text" name="notice_annual_fee[0][]"  onkeyup="calculate_estimate_house(this,0)"  id="notice_estimate_house0" class="notice_estimate_house0 form-control col-md-7 col-xs-12 numeric text-right">
                                                                                         </div>
                                                                                     </div>
                                                                             </div>
@@ -527,7 +527,7 @@
                                                                                             <span class="required" style="color:red">*</span>
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="notice_estimate[0][]"   class="estimate0 form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                <input type="text" name="notice_estimate[0][]"  onkeyup="calculate(this,0)" id="estimate0" class="estimate0 form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -569,7 +569,7 @@
                                                                                             <label  > จำนวนภาษีที่ประเมิน
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="total_estimate[0][]" onkeyup="calculate()" class="total_estimate form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                <input type="text" readonly name="total_estimate[0][]" onkeyup="calculate(this,0)" class="total_estimate form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                             </div>
                                                                                         </div>
                                                                                 </div>
@@ -579,7 +579,7 @@
                                                                                         <label  > ค่าปรับ
                                                                                         </label>
                                                                                         <div >
-                                                                                            <input type="text" name="tax_interest[0][]" onkeyup="calculate()" class="interest form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                            <input type="text" name="tax_interest[0][]" onkeyup="calculate(this,0)" class="interest_house form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -588,7 +588,7 @@
                                                                                         <label  > จำนวนเงินภาษี/ค่าปรับ
                                                                                         </label>
                                                                                         <div >
-                                                                                            <input type="text" name="sum_amount_tax[0][]" onkeyup="calculate()" class="total form-control col-md-7 col-xs-12 numeric text-right">
+                                                                                            <input type="text" readonly name="sum_amount_tax[0][]" onkeyup="calculate(this,0)" class="total form-control col-md-7 col-xs-12 numeric text-right">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -718,7 +718,7 @@
                                                                                             <label  > เนื้อที่ดิน (ไร่) <span class="required" style="color:red"> *</span>
                                                                                             </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="land_rai[1][]" value="<?php echo @$notice->land_rai; ?>" placeholder="ระบุเนื้อที่ดิน (ไร่)" class="land_rai land form-control col-md-7 col-xs-12">
+                                                                                                    <input type="text" name="land_rai[1][]" value="<?php echo @$notice->land_rai; ?>" placeholder="ระบุเนื้อที่ดิน (ไร่)" onkeyup="land(<?php echo $key ?>)" class="land_rai<?php echo $key ?> form-control col-md-7 col-xs-12">
                                                                                                 </div>
                                                                                         </div>
                                                                                     </div>
@@ -729,7 +729,7 @@
                                                                                             <label  > เนื้อที่ดิน (งาน) <span class="required" style="color:red"> *</span>
                                                                                             </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="land_ngan[1][]" value="<?php echo @$notice->land_ngan; ?>" placeholder="ระบุเนื้อที่ดิน (งาน)" class="land_ngan land form-control col-md-7 col-xs-12">
+                                                                                                    <input type="text" name="land_ngan[1][]" value="<?php echo @$notice->land_ngan; ?>" placeholder="ระบุเนื้อที่ดิน (งาน)" onkeyup="land(<?php echo $key ?>)" class="land_ngan<?php echo $key ?> form-control col-md-7 col-xs-12">
                                                                                                 </div>
                                                                                         </div>
                                                                                     </div>
@@ -740,7 +740,7 @@
                                                                                             <label  > เนื้อที่ดิน (วา) <span class="required" style="color:red"> *</span>
                                                                                             </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="land_wa[1][]" value="<?php echo @$notice->land_wa; ?>" placeholder="ระบุเนื้อที่ดิน (วา)" class="land_wa land form-control col-md-7 col-xs-12">
+                                                                                                    <input type="text" name="land_wa[1][]" value="<?php echo @$notice->land_wa; ?>" placeholder="ระบุเนื้อที่ดิน (วา)" onkeyup="land(<?php echo $key ?>)" class="land_wa<?php echo $key ?> form-control col-md-7 col-xs-12">
                                                                                                 </div>
                                                                                         </div>
                                                                                     </div>
@@ -754,7 +754,7 @@
                                                                                             <label for="middle-name" class="" for="name"> เนื้อที่ดินที่ต้องชำระภาษี<span class="required" style="color:red"> *</span>
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="land_tax[1][]" value="<?php echo @$notice->land_tax; ?>" placeholder="ระบุเนื้อที่ดินที่ต้องชำระภาษี" class="total_land land form-control col-md-7 col-xs-12">
+                                                                                                <input type="text" readonly name="land_tax[1][]" value="<?php echo @$notice->land_tax; ?>"  onkeyup="land(<?php echo $key ?>)" class="total_land<?php echo $key ?> form-control col-md-7 col-xs-12">
                                                                                             </div>
                                                                                             </div>
                                                                                         </div>
@@ -833,7 +833,7 @@
                                                                                                 <label  > จำนวนภาษีที่ประเมิน
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="total_estimate[1][]" value="<?php echo @$notice->total_estimate; ?>" onkeyup="calculate_1()" class="total_estimate_local form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                    <input type="text" readonly name="total_estimate[1][]" value="<?php echo @$notice->total_estimate; ?>" onkeyup="calculate_1()" class="total_estimate_local form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                 </div>
                                                                                             </div>
                                                                                     </div>
@@ -852,7 +852,7 @@
                                                                                             <label  > จำนวนเงินภาษี/เงินเพิ่ม
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="sum_amount_tax[1][]" value="<?php echo @$notice->sum_amount_tax; ?>" onkeyup="calculate_1()" class="total_local form-control col-md-7 col-xs-12 numeric text-right">
+                                                                                                <input type="text" readonly name="sum_amount_tax[1][]" value="<?php echo @$notice->sum_amount_tax; ?>" onkeyup="calculate_1()" class="total_local form-control col-md-7 col-xs-12 numeric text-right">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -968,7 +968,7 @@
                                                                                     <label  > เนื้อที่ดิน (ไร่) <span class="required" style="color:red"> *</span>
                                                                                     </label>
                                                                                         <div >
-                                                                                            <input type="text" name="land_rai[1][]" placeholder="ระบุเนื้อที่ดิน (ไร่)" class="land_rai land form-control col-md-7 col-xs-12">
+                                                                                            <input type="text" name="land_rai[1][]" placeholder="ระบุเนื้อที่ดิน (ไร่)" onkeyup="land(0)" class="land_rai0 form-control col-md-7 col-xs-12">
                                                                                         </div>
                                                                                 </div>
                                                                             </div>
@@ -979,7 +979,7 @@
                                                                                     <label  > เนื้อที่ดิน (งาน) <span class="required" style="color:red"> *</span>
                                                                                     </label>
                                                                                         <div >
-                                                                                            <input type="text" name="land_ngan[1][]" placeholder="ระบุเนื้อที่ดิน (งาน)" class="land_ngan land form-control col-md-7 col-xs-12">
+                                                                                            <input type="text" name="land_ngan[1][]" placeholder="ระบุเนื้อที่ดิน (งาน)" onkeyup="land(0)" class="land_ngan0 form-control col-md-7 col-xs-12">
                                                                                         </div>
                                                                                 </div>
                                                                             </div>
@@ -990,7 +990,7 @@
                                                                                     <label  > เนื้อที่ดิน (วา) <span class="required" style="color:red"> *</span>
                                                                                     </label>
                                                                                         <div >
-                                                                                            <input type="text" name="land_wa[1][]" placeholder="ระบุเนื้อที่ดิน (วา)" class="land_wa land form-control col-md-7 col-xs-12">
+                                                                                            <input type="text" name="land_wa[1][]" placeholder="ระบุเนื้อที่ดิน (วา)" onkeyup="land(0)" class="land_wa0 form-control col-md-7 col-xs-12">
                                                                                         </div>
                                                                                 </div>
                                                                             </div>
@@ -1004,7 +1004,7 @@
                                                                                 <label for="middle-name" class="" for="name"> เนื้อที่ดินที่ต้องชำระภาษี<span class="required" style="color:red"> *</span>
                                                                                 </label>
                                                                                 <div >
-                                                                                    <input type="text" name="land_tax[1][]" placeholder="ระบุเนื้อที่ดินที่ต้องชำระภาษี" class="total_land form-control col-md-7 col-xs-12">
+                                                                                    <input type="text" readonly name="land_tax[1][]"  onkeyup="land(0)" class="total_land0 form-control col-md-7 col-xs-12">
                                                                                 </div>
                                                                                 </div>
                                                                             </div>
@@ -1069,7 +1069,7 @@
                                                                                                 <label  > จำนวนภาษีที่ประเมิน
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="total_estimate[1][]" onkeyup="calculate_1()" class="total_estimate_local form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                    <input type="text" readonly name="total_estimate[1][]" onkeyup="calculate_1()" class="total_estimate_local form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                 </div>
                                                                                             </div>
                                                                                     </div>
@@ -1088,7 +1088,7 @@
                                                                                             <label  > จำนวนเงินภาษี/เงินเพิ่ม
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="sum_amount_tax[1][]" onkeyup="calculate_1()" class="total_local form-control col-md-7 col-xs-12 numeric text-right">
+                                                                                                <input type="text" readonly name="sum_amount_tax[1][]" onkeyup="calculate_1()" class="total_local form-control col-md-7 col-xs-12 numeric text-right">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1259,6 +1259,7 @@
 
                                                                                             
                                                                                         </div>
+
                                                                                         <div class="row">   
                                                                                             <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                                 <div class="form-group">
@@ -1266,15 +1267,16 @@
                                                                                                         <div class="input-group">
                                                                                                             <span class="input-group-btn">
                                                                                                                 <span class="btn btn-success btn-file">
-                                                                                                                อัปโหลด <input type="file" id="imgInp" name="picture"class="imgInp">
+                                                                                                                อัปโหลด <input type="file" id="imgInp_<?php echo $key_label ?>" class="imgInp">
                                                                                                                 </span>
                                                                                                             </span>
                                                                                                             <input type="text" class="form-control" readonly>
                                                                                                         </div>
-                                                                                                    <img id="img-uploadimgInp0"/>
+                                                                                                        <img class="img-upload" id="img-upload_<?php echo $key_label ?>"/>
                                                                                                 </div>
                                                                                             </div>
-                                                                                        </div>
+                                                                                        </div> 
+
                                                                                         <div class="row">
                                                                                             <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                                     <div class="form-group">
@@ -1300,7 +1302,7 @@
                                                                                                     <label  > จำนวนภาษีที่ประเมิน
                                                                                                     </label>
                                                                                                     <div >
-                                                                                                        <input type="text" name="total_estimate[2][]" value="<?php echo @$notice->total_estimate; ?>" onkeyup="calculate_2()" class="total_estimate_label form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                        <input type="text" readonly name="total_estimate[2][]" value="<?php echo @$notice->total_estimate; ?>" onkeyup="calculate_2()" class="total_estimate_label form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                     </div>
                                                                                                 </div>
                                                                                         </div>
@@ -1315,10 +1317,10 @@
                                                                                         </div>
                                                                                         <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                             <div class="form-group">
-                                                                                                <label  > จำนวนเงินภาษี
+                                                                                                <label  > จำนวนเงินภาษี/เงินเพิ่ม
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="sum_amount_tax[2][]" value="<?php echo @$notice->sum_amount_tax; ?>" onkeyup="calculate_2()" class="total_label form-control col-md-7 col-xs-12 numeric text-right">
+                                                                                                    <input type="text" readonly name="sum_amount_tax[2][]" value="<?php echo @$notice->sum_amount_tax; ?>" onkeyup="calculate_2()" class="total_label form-control col-md-7 col-xs-12 numeric text-right">
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -1514,7 +1516,7 @@
                                                                                                 <label  > จำนวนภาษีที่ประเมิน
                                                                                                 </label>
                                                                                                 <div >
-                                                                                                    <input type="text" name="total_estimate[2][]" onkeyup="calculate_2()" class="total_estimate_label form-control col-md-7 col-xs-12 numeric text-right" >
+                                                                                                    <input type="text" readonly name="total_estimate[2][]" onkeyup="calculate_2()" class="total_estimate_label form-control col-md-7 col-xs-12 numeric text-right" >
                                                                                                 </div>
                                                                                             </div>
                                                                                     </div>
@@ -1533,7 +1535,7 @@
                                                                                             <label  > จำนวนเงินภาษี/เงินเพิ่ม
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" name="sum_amount_tax[2][]" onkeyup="calculate_2()" class="total_label form-control col-md-7 col-xs-12 numeric text-right">
+                                                                                                <input type="text" readonly name="sum_amount_tax[2][]" onkeyup="calculate_2()" class="total_label form-control col-md-7 col-xs-12 numeric text-right">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1623,89 +1625,6 @@
 </script> -->
 
 <script>
-
-$(function() {
-
-$('.land').keyup(function() {
-    var land_rai = $('.land_rai').val();
-    var land_ngan = $('.land_ngan').val();
-    var land_wa = $('.land_wa').val();
-
-
-    var total = land_rai+'-'+land_ngan+'-'+land_wa;
-
-    $('.total_land').val(total);
-
-});
-});
-
-
-function calculate(id) {
-                var sum =  cal();
-                var interest = $('.interest').val();
-                console.log(interest);
-
-                var notice_annual_fee = $('.notice_estimate_house'+id).val();
-                var annual_estimate = notice_annual_fee*12.5/100;
-                var annual_fee = sum*12.5/100;
-                var total_interest = (interest*1)+(annual_fee*1);
-
-                $('.estimate'+id).val(annual_estimate);
-                $('.total_estimate').val(annual_fee);
-                $('.total').val(total_interest);
-}
-function cal(){
-    var sum =0 ;
-    for(i = 0; i< $('#num_one').val();i++){
-        var notice_annual_fee = $('.notice_estimate_house'+i).val();
-        sum = (sum*1)+(notice_annual_fee*1);
-    }
-    return sum;
-}
-
-function calculate_1(id) {
-                var sum_1 = cal1();
-                var notice_estimate_local = $('.notice_estimate_local'+id).val();
-                var interest_local = $('.interest_local').val();
-                var total_interest = (sum_1*1)+(interest_local*1);
-
-                $('.total_estimate_local').val(sum_1);
-                $('.total_local').val(total_interest);
-
-}
-function cal1(){
-    var sum_1 =0 ;
-    for(i = 0; i< $('#num_two').val();i++){
-        var notice_estimate_local = $('.notice_estimate_local'+i).val();
-        sum_1 = (sum_1*1)+(notice_estimate_local*1);
-        console.log(sum_1);
-    }
-    return sum_1;
-}
-
-function calculate_2(id) {
-                var sum_2 = cal2();
-                var notice_estimate_label = $('.notice_estimate_label'+id).val();
-                var interest_label = $('.interest_label').val();
-                var total_interest = (sum_2*1)+(interest_label*1);
-
-                $('.total_estimate_label').val(sum_2);
-                $('.total_label').val(total_interest);
-
-}
-function cal2(){
-    var sum_2 =0 ;
-    for(i = 0; i< $('#num_three').val();i++){
-        var notice_estimate_label = $('.notice_estimate_label'+i).val();
-        sum_2 = (sum_2*1)+(notice_estimate_label*1);
-        console.log(sum_2);
-    }
-    return sum_2;
-}
-
-
-
-
 
 function setScript(){
     auto_setformat();
@@ -1858,7 +1777,7 @@ function setScript(){
                                                         '<span class="required" style="color:red"> *</span>'+
                                                     ' </label>'+
                                                         '<div >'+
-                                                            '<input type="text" name="notice_annual_fee[0][]" onkeyup="calculate('+id+')" class="notice_estimate_house'+id+' form-control col-md-7 col-xs-12 numeric text-right" >'+
+                                                            '<input type="text" name="notice_annual_fee[0][]" onkeyup="calculate_estimate_house(this,'+id+')" id="notice_estimate_house'+id+'" class="notice_estimate_house'+id+' form-control col-md-7 col-xs-12 numeric text-right" >'+
                                                         '</div>'+
                                                     '</div>'+
                                         '</div>'+
@@ -1869,7 +1788,7 @@ function setScript(){
                                                             '<span class="required" style="color:red"> *</span>'+
                                                             '</label>'+
                                                             '<div >'+
-                                                                '<input type="text" name="notice_estimate[0][]" onkeyup="calculate('+id+')" class="estimate'+id+' form-control col-md-7 col-xs-12 numeric text-right" >'+
+                                                                '<input type="text" name="notice_estimate[0][]" onkeyup="calculate(this,'+id+')" id="estimate'+id+'" class="estimate'+id+' form-control col-md-7 col-xs-12 numeric text-right" >'+
                                                             '</div>'+
                                                         '</div>'+
                                                     '</div>'+
@@ -1965,7 +1884,7 @@ function setScript(){
                                                          ' <span class="required" style="color:red"> *</span>'+
                                                              '</label>'+
                                                              '<div >'+
-                                                                 '<input type="text" name="land_rai[1][]" placeholder="ระบุเนื้อที่ดิน (ไร่)" class="land_rai land form-control col-md-7 col-xs-12">'+
+                                                                 '<input type="text" name="land_rai[1][]" placeholder="ระบุเนื้อที่ดิน (ไร่)" onkeyup="land('+id+')" class="land_rai'+id+' form-control col-md-7 col-xs-12">'+
                                                          ' </div>'+
                                                          '</div>'+
                                                      '</div>'+
@@ -1975,7 +1894,7 @@ function setScript(){
                                                                  ' <span class="required" style="color:red"> *</span>'+
                                                                  '</label>'+
                                                                  '<div >'+
-                                                                     '<input type="text" name="land_ngan[1][]" placeholder="ระบุเนื้อที่ดิน (งาน)" class="land_ngan land form-control col-md-7 col-xs-12">'+
+                                                                     '<input type="text" name="land_ngan[1][]" placeholder="ระบุเนื้อที่ดิน (งาน)" onkeyup="land('+id+')" class="land_ngan'+id+' form-control col-md-7 col-xs-12">'+
                                                                  '</div>'+
                                                              '</div>'+
                                                      '</div>'+
@@ -1985,7 +1904,7 @@ function setScript(){
                                                                  ' <span class="required" style="color:red"> *</span>'+
                                                                  '</label>'+
                                                                  '<div >'+
-                                                                     '<input type="text" name="land_wa[1][]" placeholder="ระบุเนื้อที่ดิน (วา)" class="land_wa land form-control col-md-7 col-xs-12">'+
+                                                                     '<input type="text" name="land_wa[1][]" placeholder="ระบุเนื้อที่ดิน (วา)" onkeyup="land('+id+')" class="land_wa'+id+' form-control col-md-7 col-xs-12">'+
                                                                  '</div>'+
                                                              '</div>'+
                                                      '</div>'+
@@ -1998,7 +1917,7 @@ function setScript(){
                                                          ' <span class="required" style="color:red"> *</span>'+
                                                              '</label>'+
                                                              '<div >'+
-                                                                 '<input type="text" name="land_tax[1][]" placeholder="ระบุเนื้อที่ดินที่ต้องชำระภาษี" class="total_land land form-control col-md-7 col-xs-12">'+
+                                                                 '<input type="text" readonly name="land_tax[1][]"  onkeyup="land('+id+')" class="total_land'+id+' form-control col-md-7 col-xs-12">'+
                                                          ' </div>'+
                                                          '</div>'+
                                                      '</div>'+
