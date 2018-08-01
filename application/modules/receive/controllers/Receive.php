@@ -231,6 +231,9 @@ class Receive extends MY_Controller
 
 
         $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
+        $this->template->javascript->add('assets/modules/receive/receive_edit.js');
+
+
         $this->config->set_item('title', 'บันทึกรายการประเมิน - เทศบาลตำบลหนองป่าครั่ง');
         $this->setView('receive_edit', $data);
         $this->publish();
