@@ -517,7 +517,7 @@ class Receive_model extends CI_Model
             foreach ($query->result_array() as $key => $row) {
                 $row['sum_amount_tax'] = number_format($row['sum_amount_tax'], 2);
                 $row['tax_interest'] = number_format($row['tax_interest'], 2);
-                $row['year_id'] = (date("Y") + 543);
+                $row['tax_year'] = ($row['tax_year'] + 543);
                 $data[] = $row;
             }
         }
