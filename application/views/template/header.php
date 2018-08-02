@@ -12,7 +12,14 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="<?php echo base_url(); ?>assets/plugins/gentelella-master/production/images/user.png" alt=""><?php echo $_SESSION['user_name'] ?>                 <span class=" fa fa-angle-down"></span>
+                  <?php
+                  if($_SESSION['user_image']!=''){
+                    $user_image = $_SESSION['user_image'];
+                  }else{
+                    $user_image = 'assets/plugins/gentelella-master/production/images/user.png';
+                  }
+                  ?>
+                  <img src="<?php echo base_url().$user_image; ?>" alt=""><?php echo $_SESSION['user_name'] ?>                 <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                   <li>
@@ -42,7 +49,7 @@
                         <div class="row">
                           <div class="col-md-4 col-sm-4 col-xs-4 text-center">
                             <div class="form-group">
-                                <label><img id="img-uploadimgInp0" src="<?php echo base_url(); ?>assets/plugins/gentelella-master/production/images/user.png" alt="" style="width:120px;height:140px;"></label>
+                                <label><img id="img-uploadimgInp0" src="<?php echo base_url().$user_image; ?>" alt="" style="width:120px;height:140px;"></label>
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-success btn-file-user">
@@ -50,7 +57,7 @@
                                             </span>
                                         </span>
                                     </div>
-<div id="b64" style="display:none;"></div>
+                                    <div id="b64" style="display:none;"></div>
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-4">
@@ -115,7 +122,7 @@
                           <div class="col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group">
                               <label>วันเดือนปีเกิด</label>
-                              <input type="text" id="date_of_birth" value="" class="form-control datepicker" />
+                              <input type="text" id="date_of_birth" value="" data-provide="datepicker" data-date-language="th-th" class="form-control datepicker" />
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-4">

@@ -37,6 +37,8 @@
    }).done(function (data) {
            if (data) {
                //console.log(data);
+               arr_date_of_birth = data.date_of_birth.split('-');
+               date_of_birth = arr_date_of_birth[2]+'/'+arr_date_of_birth[1]+'/'+arr_date_of_birth[0];
                $('#user_id').val(data.user_id);
                $('#pid').val(data.pid);
                $('#org_title').val(data.org_title);
@@ -83,7 +85,7 @@
                user_position:$('#user_position').val(),
                tel_no:$('#tel_no').val(),
                email_addr:$('#email_addr').val(),
-               user_photo_file:$('#b64').val()
+               user_photo_file:$('#b64').html()
            }
    }).done(function (data) {
            if (data) {
