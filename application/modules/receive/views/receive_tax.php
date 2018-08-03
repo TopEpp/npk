@@ -6,9 +6,9 @@
                   </div>
                   <div class="col-md-4 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                        <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
+                        <button style="width: 115px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
                           </button>
-                          <button style="width: 101px;" onclick="window.location.replace('receive_taxadd_popup');" type="button" class="btn btn-success" title="เพิ่มข้อมูล"> <i class="fa fa-plus-square" ></i> เพิ่มข้อมูล
+                          <button style="width: 115px;" onclick="window.location.replace('receive_taxadd_popup');" type="button" class="btn btn-success" title="เพิ่มข้อมูล"> <i class="fa fa-plus-square" ></i> เพิ่มข้อมูล
                           </button>
                       </div>
                   </div>

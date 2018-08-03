@@ -8,9 +8,9 @@
                       <div class="btn-group">
                             <button style="width: 115px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
                             </button>
-                            <button style="width: 115px;" onclick="window.open('<?php echo base_url('export_report/usereEsimate') . '?type=pdf'; ?>')"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก Pdf
+                            <button style="width: 115px;" onclick="window.open('<?php echo base_url('export_report/usereEsimate') . '?type=pdf'; ?>')"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                             </button>
-                            <button style="width: 115px;"  onclick="window.open('<?php echo base_url('export_report/usereEsimate'); ?>')"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> ส่งออก Excel
+                            <button style="width: 115px;"  onclick="window.open('<?php echo base_url('export_report/usereEsimate'); ?>')"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> ส่งออก excel
                             </button>
                             <!-- <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
                             </button> -->
