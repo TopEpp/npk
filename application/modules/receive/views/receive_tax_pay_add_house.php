@@ -102,7 +102,7 @@
                           <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">จำนวนเงินภาษี
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" placeholder="0.00" id="amount" name="amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['tax_estimate'] - $tax_notice[0]['tax_amount'] ?>">
+                                  <input type="text" placeholder="0.00" id="amount" name="amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['sum_amount_tax'] + $tax_notice[0]['tax_interest'] - $tax_notice[0]['tax_amount'] ?>">
                               </div>
                   </div>
 
@@ -118,7 +118,7 @@
                           <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">รวมจำนวนเงินที่ต้องชำระ
                           </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <input type="text" placeholder="0.00" id="sum_amount" name="sum_amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['tax_estimate'] - $tax_notice[0]['tax_amount'] ?>">
+                                  <input type="text" placeholder="0.00" id="sum_amount" name="sum_amount" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_notice[0]['sum_amount_tax'] + $tax_notice[0]['tax_interest'] - $tax_notice[0]['tax_amount'] ?>">
                               </div>
                   </div>
 

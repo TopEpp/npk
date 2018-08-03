@@ -32,7 +32,7 @@ $(function () {
         ],
 
         'columns': [{
-                data: 'notice_id',
+                data: null,
                 "className": "text-center",
                 render: function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
@@ -40,25 +40,17 @@ $(function () {
 
             },
             {
-                data: null,
+                data: 'notice_number',
                 render: function (data, type, row) {
                     return row.notice_number + "/" + row.tax_year;
-                    // return row.tax_year;
                 },
                 "className": "text-center",
             },
 
             {
-                data: 'individual_number',
+                data: 'tbl_individual_individual_number',
                 "className": "text-center",
             },
-            // {
-            //     data: null,
-            //     render: function (data, type, row) {
-
-            //         return row.individual_prename + " " + row.individual_fullname;
-            //     },
-            // },
             {
                 data: 'individual_fullname',
             },
@@ -74,39 +66,44 @@ $(function () {
                 "className": "text-right",
             },
             {
-                data: 'sum_notice_estimate',
+                data: 'tax_balance',
                 "className": "text-right",
             },
-            // {
-            //     data: 'tax_amount',
-            // },
-
             {
                 data: 'notice_id',
                 render: function (data, type, row) {
                     var form = '';
                     if (row['tax_name'] == 'ภาษีป้าย') {
-                        form = '<a href=\'' + domain + 'export/gat1/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
+                        form = '<a href=\'' + domain + 'export/gat1/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-info btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
                     } else if (row['tax_name'] == 'ภาษีโรงเรือนและที่ดิน') {
-                        form = '<a href=\'' + domain + 'export/gat2/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
+                        form = '<a href=\'' + domain + 'export/gat2/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-info btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
                     } else {
-                        form = '<a href=\'' + domain + 'export/gat3/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-success btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
+                        form = '<a href=\'' + domain + 'export/gat3/' + row['tax_id'] + '/' + data + '\'" id="" target="_blank" class="btn btn-info btn-sm  btn-sm" title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
                     }
                     var form1 = '';
                     if (row['tax_id'] == '8') {
-                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-info btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
                     } else if (row['tax_id'] == '9') {
-                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_local/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_local/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-info btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
                     } else if (row['tax_id'] == '10') {
-                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_label/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                        form1 = '<a href=\'' + domain + 'receive/receive_tax_pay_add_label/' + '' + row['individual_id'] + '/' + row['tax_id'] + '\'" class="btn btn-info btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</a>';
+                    }
+                    var form2 = '';
+                    if (row['tax_balance'] != 0) {
+                        form2 = '<button type="button" onclick="getalert(' + data + ')"   class="btn btn-info btn-sm" title="แจ้งเตือน" >แจ้งเตือน</button>';
+                    } else if (row['tax_balance'] == 0) {
+                        form = '<button type="button" disabled class="btn btn-success btn-sm title="พิมพ์ใบแจ้งการประเมิน" >พิมพ์</a>';
+                        form1 = '<button type="button" disabled class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</button>';
+                        form2 = '<button type="button" onclick="getalert(' + data + ')"  disabled class="btn btn-success btn-sm" title="แจ้งเตือน" >แจ้งเตือน</button>';
                     }
 
                     var btn =
 
                         '<div class="btn-group ">' +
-                        '<button type="button" onclick="getalert(' + data + ')"   class="btn btn-success btn-sm" title="แจ้งเตือน" >แจ้งเตือน</button>' +
+                        form2 +
                         form +
                         form1 +
+                        // '<button type="button" onclick="getalert(' + data + ')"   class="btn btn-info btn-sm" title="แจ้งเตือน" >แจ้งเตือน</button>' +
                         // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" >จ่าย</button>' +
                         // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" >แก้ไข</button>' +
                         '<button type="button" class="btn btn-danger btn-sm " id="' + row['notice_number'] + '" data-id="' + row['notice_number'] + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>'
