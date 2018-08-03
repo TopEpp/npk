@@ -357,6 +357,9 @@ class Receive_model extends CI_Model
         $this->db->group_by('notice_number', 'tax_id');
 
         $query = $this->db->get();
+                // echo $this->db->last_query();
+        // echo "<hr>";
+
         return $query->result_array();
     }
 
@@ -478,7 +481,7 @@ class Receive_model extends CI_Model
                 $this->db->like('individual_type', $filter[1]);
             }
             if (!empty($filter[2])) {
-                $this->db->like('individual_number', $filter[2]);
+                $this->db->like('tbl_individual.individual_number', $filter[2]);
             }
             if (!empty($filter[3])) {
                 $this->db->like('individual_fullname', $filter[3]);
@@ -488,45 +491,66 @@ class Receive_model extends CI_Model
             }
 
         }
-
-
-
-        $this->db->select('tax_notice.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*,sum(notice_estimate) as sum_notice_estimate');
+        $this->db->select('tax_notice.*,tax_receive.*,tbl_individual.individual_number as tbl_individual_individual_number,tbl_individual.*,tbl_tax_type.*,tbl_tax.*,sum(notice_estimate) as sum_notice_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest');
         $this->db->from('tax_notice');
         $this->db->where($condition);
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
+        $this->db->join('tax_receive', 'tax_receive.notice_id = tax_notice.notice_id', 'left');
+
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
 
         $this->db->group_by('notice_number');
         $this->db->group_by('tax_notice.tax_id');
 
-
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
+
+
         $query = $this->db->get();
-        //echo $this->db->last_query();
-        //echo "<hr>";
-        //$count = $this->db->count_all_results();
-        //$count_condition  = $this->db->count_all_results();
+
+        // echo $this->db->last_query();
+        // echo "<hr>";
+
         $data = array();
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
-                $row['sum_amount_tax'] = number_format($row['sum_amount_tax'], 2);
-                $row['tax_interest'] = number_format($row['tax_interest'], 2);
                 $row['tax_year'] = ($row['tax_year'] + 543);
+                $row['sum_amount_tax'] = number_format($row['sum_amount_tax'], 2);
+                $value = str_replace(',', '', $row['sum_amount_tax']);
+                $row['sum'] = $value;
+                // echo ("SUM");
+                // echo ($row['sum']);
+                // echo ("  ");
+
+                $row['tax_interest'] = number_format($row['tax_interest'], 2);
+                $value = str_replace(',', '', $row['tax_interest']);
+                $row['interest'] = $value;
+                // echo ("Interest");
+                // echo ($row['interest']);
+                // echo ("  ");
+
+                $row['tax_amount'] = number_format($row['tax_amount'], 2);
+                $value = str_replace(',', '', $row['tax_amount']);
+                $row['amount'] = $value;
+                // echo ("Amount");
+                // echo ($row['amount']);
+                // echo ("  ");
+
+                $row['t_bal'] = $row['sum'] + $row['interest'] - $row['amount'];
+                $row['tax_balance'] = number_format($row['t_bal'], 2);
+                // echo ("Tax_balance");
+                // echo ($row['tax_balance']);
+                // echo ("  ");
                 $data[] = $row;
             }
         }
 
         $count_condition = $this->db->from('tax_notice')->where($condition)->count_all_results();
         $count = $this->db->from('tax_notice')->count_all_results();
-        //echo $this->db->last_query();
-        //$count_condition = count($data);
-        //$count = count($data);
         $result = array('count' => $count, 'count_condition' => $count_condition, 'data' => $data, 'error_message' => '');
         return $result;
 
@@ -538,20 +562,6 @@ class Receive_model extends CI_Model
         $this->db->select('*');
 
         $condition = "1=1";
-
-        // if (!empty($param['filter'])) {
-        //     $filter = $param['filter'];
-        //     if (!empty($filter[1])) {
-        //         $this->db->like('individual_type', $filter[1]);
-        //     }
-        //     if (!empty($filter[2])) {
-        //         $this->db->like('individual_number', $filter[2]);
-        //     }
-        //     if (!empty($filter[3])) {
-        //         $this->db->like('individual_fullname', $filter[3]);
-        //     }
-
-        // }
 
         $this->db->where($condition);
         $this->db->limit($param['page_size'], $param['start']);

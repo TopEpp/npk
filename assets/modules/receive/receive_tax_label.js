@@ -51,7 +51,7 @@ $(function () {
             {
                 data: 'individual_fullname',
                 render: function (data, type, row) {
-                    return row.individual_prename + row.individual_fullname;
+                    return row.individual_fullname;
                 },
 
             },
