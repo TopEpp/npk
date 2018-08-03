@@ -1,30 +1,34 @@
 
 <div class="right_col" role="main">
 
-          <div class="page-title">
+    <section class="row">
+        <div class="col-md-6 col-sm-4 col-xs-4">
+            <h3>ระบบบัญชีรายจ่ายในงบประมาณ</h3>
+        </div>
+        <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
+            <div class="btn-group">
+              <button style="width: 115px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
+              </button>
+              <button style="width: 115px;" type="button" class="btn btn-success"  onclick="window.location.href='<?php echo base_url('expenditure/search_prj'); ?>'" title="เบิกจ่าย"><i class="fa fa-paypal"> เบิกจ่าย</i>
+              </button>
+            </div>
+        </div>
+
+      </section>
+
+          <!-- <div class="page-title">
             <div class="title_left">
               <h3>ระบบบัญชีรายจ่ายในงบประมาณ</h3>
             </div>
           </div>
 
             <br>
-            <br>
+            <br> -->
 
           <div class="clearfix"></div>
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
-                <div class="x_title">
-                      <div class="col-xs-12 text-right">
-                        <div class="btn-group">
-                          <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
-                          </button>
-                          <button type="button" class="btn btn-success"  onclick="window.location.href='<?php echo base_url('expenditure/search_prj'); ?>'" title="เบิกจ่าย"><i class="fa fa-paypal"> เบิกจ่าย</i>
-                          </button>
-                        </div>
-                      </div>
-                  <div class="clearfix"></div>
-                </div>
 
 
                 <div class="collapse" id="search" class="x_content">
