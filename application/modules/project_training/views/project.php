@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
           <div class="btn-group">
-            <button style="width: 115px;" type="button" class="btn btn-success" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus-square"></i> เพิ่มแผนงาน</button>
+            <button style="width: 130px;" type="button" class="btn btn-success" data-toggle="modal" data-target=".create_plan"><i class="fa fa-plus-square"></i> เพิ่มแผนงาน</button>
           </div>
       </div>
 
