@@ -20,14 +20,14 @@
                             <table id="tax_table" class="table table-striped" style="width:100%">
                                 <thead>
                                   <tr>
-                                    <th width="5%">ลำดับ</th>
-                                    <th width="5%">วันที่ชำระ</th>
-                                    <th width="5%">เลขที่/เล่มที่ใบเสร็จ</th>
-                                    <th width="10%">ชื่อผู้เสียภาษี</th>
-                                    <th width="5%">จำนวนเงินที่ประเมิน (บาท)</th>
-                                    <th width="5%">เงินเพิ่ม (บาท)</th>
-                                    <th width="5%">จำนวนเงินที่ชำระ (บาท)</th>
-                                    <th width="10%">เครื่องมือ</th>
+                                    <th style="width:5%">ลำดับ</th>
+                                    <th style="width:10%">วันที่ชำระ</th>
+                                    <th style="width:9%">เลขที่/เล่มที่ใบเสร็จ</th>
+                                    <th style="width:18%">ชื่อผู้เสียภาษี</th>
+                                    <th style="width:10%">จำนวนเงินภาษี (บาท)</th>
+                                    <th style="width:10%">เงินเพิ่ม (บาท)</th>
+                                    <th style="width:10%">จำนวนเงินที่ชำระ (บาท)</th>
+                                    <th style="width:15%">เครื่องมือ</th>
                                   </tr>
                                 </thead>
                                 <tbody>
