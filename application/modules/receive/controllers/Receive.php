@@ -44,12 +44,17 @@ class Receive extends MY_Controller
     }
 
     //delete notice
-    public function receive_notice_delete($id)
+    public function receive_notice_delete()
     {
-        $this->Receive_model->del_notice($id);
+        $input['status_note_del'] = $this->input->post('data');
+        $input['notice_number'] = $this->input->post('id');
+        $input['status'] = $this->input->post('status');
+
+        $this->Receive_model->update_del_notice($input);
         redirect(base_url('receive/receive_dashborad'));
 
     }
+
 
 
     public function receive_add($id = '')
@@ -194,11 +199,11 @@ class Receive extends MY_Controller
         }
         $year = $this->session->userdata('year');
         $this->Receive_model->insertNotice($year, $data);
-        // redirect(base_url('receive/receive_dashborad'));
+        redirect(base_url('receive/receive_dashborad'));
 
-        echo '<pre>';
-        print_r($data);
-        exit;
+        // echo '<pre>';
+        // print_r($data);
+        // exit;
     }
 
 

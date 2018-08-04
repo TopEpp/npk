@@ -38,6 +38,7 @@ class Receive_model extends CI_Model
         if (!empty($id)) {
             $this->db->where('individual_id', $id)
                 ->where('year_id', $this->session->userdata('year'))
+                ->where('status = ', 'Active')
                 ->order_by('notice_id');
             // echo ("year_id " . $this->session->userdata('year'));
             // ->where('year_id', $year);
@@ -80,10 +81,11 @@ class Receive_model extends CI_Model
         // }
     }
 
-    public function del_notice($id)
+    public function update_del_notice($input)
     {
-        $this->db->where('notice_number', $id);
-        return $this->db->delete('tax_notice');
+        $this->db->where('notice_number', $input['notice_number']);
+        $this->db->update('tax_notice', $input);
+
     }
 
     ///////////////////////////////////////////////////
@@ -235,12 +237,14 @@ class Receive_model extends CI_Model
         $this->db->select('tax_notice.*,std_area.*,sum(tax_notice.notice_estimate ) as tax_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
         $this->db->where('tax_notice.individual_id', $id);
         $this->db->where('tax_notice.tax_id', $tax_id);
+        $this->db->where('tax_notice.status = ', 'active');
 
         $this->db->from('tax_notice');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
         $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
+        $this->db->group_by('tax_notice.notice_id');
         // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_district', 'left');
         // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_provice', 'left');
 
@@ -427,8 +431,10 @@ class Receive_model extends CI_Model
         // $this->db->join('tax_notice', 'tax_notice.individual_id = tbl_individual.individual_id', 'Rgiht');
 
         $this->db->where($condition);
+
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
+
 
         $query = $this->db->get('tbl_individual');
         // echo $this->db->last_query();
@@ -462,7 +468,7 @@ class Receive_model extends CI_Model
         $this->db->join('tax_notice', 'tax_notice.individual_id = tbl_individual.individual_id', 'Rgiht');
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
         $this->db->where('tbl_individual.individual_id', $id);
-
+        $this->db->where('status = ', 'Active');
         $query = $this->db->get();
         return $query->result();
 
@@ -489,12 +495,24 @@ class Receive_model extends CI_Model
             if (!empty($filter[4])) {
                 $this->db->like('tax_name', $filter[4]);
             }
+            if (!empty($filter[5]) && $filter[5] != '') {
+                if ($filter[5] == 'All') {
+                    $this->db->like('status', 'Active');
+                } else {
+                    $this->db->where('status = ', $filter[5]);
+                }
+            } else {
+                $this->db->where('status = ', 'Active');
+            }
 
+        } else {
+            $this->db->where('status = ', 'Active');
         }
         $this->db->select('tax_notice.*,tax_receive.*,tbl_individual.individual_number as tbl_individual_individual_number,tbl_individual.*,tbl_tax_type.*,tbl_tax.*,sum(notice_estimate) as sum_notice_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest');
         $this->db->from('tax_notice');
         $this->db->where($condition);
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+        // $this->db->where('tax_notice.status', 'Active');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tax_receive', 'tax_receive.notice_id = tax_notice.notice_id', 'left');
 
@@ -522,29 +540,17 @@ class Receive_model extends CI_Model
                 $row['sum_amount_tax'] = number_format($row['sum_amount_tax'], 2);
                 $value = str_replace(',', '', $row['sum_amount_tax']);
                 $row['sum'] = $value;
-                // echo ("SUM");
-                // echo ($row['sum']);
-                // echo ("  ");
 
                 $row['tax_interest'] = number_format($row['tax_interest'], 2);
                 $value = str_replace(',', '', $row['tax_interest']);
                 $row['interest'] = $value;
-                // echo ("Interest");
-                // echo ($row['interest']);
-                // echo ("  ");
 
                 $row['tax_amount'] = number_format($row['tax_amount'], 2);
                 $value = str_replace(',', '', $row['tax_amount']);
                 $row['amount'] = $value;
-                // echo ("Amount");
-                // echo ($row['amount']);
-                // echo ("  ");
 
                 $row['t_bal'] = $row['sum'] + $row['interest'] - $row['amount'];
                 $row['tax_balance'] = number_format($row['t_bal'], 2);
-                // echo ("Tax_balance");
-                // echo ($row['tax_balance']);
-                // echo ("  ");
                 $data[] = $row;
             }
         }

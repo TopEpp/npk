@@ -1,12 +1,7 @@
-
-        <!-- page content -->
-        <!-- gauge.js -->
-        <script src="<?php echo base_url(); ?>/assets/plugins/gauge.js/dist/gauge.min.js"></script>
-        <div class="right_col" role="main">
-          <!-- top tiles -->
-          <!-- /top tiles -->
+<script src="<?php echo base_url(); ?>/assets/plugins/gauge.js/dist/gauge.min.js"></script>
+        
+    <div class="right_col" role="main">
           <br />
-          <div class="row tile_count">
             <div class="x_panel">
               <div class="x_title">
               <h2><i class="fa fa-shirtsinbulk"></i> งบประมาณรายจ่าย</h2></span>
@@ -78,7 +73,7 @@
             </div>
           </div>
 
-            <div class="x_panel">
+          <div class="x_panel">
               <div class="x_title">
               <h2><i class="fa fa-shirtsinbulk"></i> รายรับ</h2></span>
                 <div class="clearfix"></div>
@@ -147,10 +142,6 @@
                 </script>
               </div>
             </div>
-
-
-
           </div>
         </div>
-
-        <!-- /page content -->
+    </div>
