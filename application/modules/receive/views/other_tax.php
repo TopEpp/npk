@@ -6,7 +6,7 @@
                   </div>
                   <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                            <button style="width: 116px;"type="button" onclick="window.location.href='<?php echo base_url('receive/other_tax_add/') ?>'" id="" class="btn btn-success " title="บันทึกรายรับภาษีอื่น">
+                            <button style="width: 130px;" type="button" onclick="window.location.href='<?php echo base_url('receive/other_tax_add/') ?>'" id="" class="btn btn-success " title="บันทึกรายรับภาษีอื่น">
                                 <i class="fa fa-plus-square"></i> บันทึกรายรับ
                             </button>
                       </div>

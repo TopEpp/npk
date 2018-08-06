@@ -6,9 +6,9 @@
                   </div>
                   <div class="col-md-4 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-                        <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
+                        <button style="width: 115px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
                           </button>
-                          <button style="width: 101px;" onclick="window.location.replace('receive_taxadd_popup');" type="button" class="btn btn-success" title="เพิ่มข้อมูล"> <i class="fa fa-plus-square" ></i> เพิ่มข้อมูล
+                          <button style="width: 115px;" onclick="window.location.replace('receive_taxadd_popup');" type="button" class="btn btn-success" title="เพิ่มข้อมูล"> <i class="fa fa-plus-square" ></i> เพิ่มข้อมูล
                           </button>
                       </div>
                   </div>
@@ -25,8 +25,8 @@
                       <label class="control-label col-md-4 col-sm-3 col-xs-12" for="type_tax">ประเภทผู้เสียภาษี
                       </label>
                       <div class="col-md-4 col-sm-6 col-xs-12">
-                        <select class="form-control selectpicker" type="text" id="type_tax">
-                          <option value="">เลือก</option>
+                        <select class="type_tax selectpicker form-control" type="text" id="type_tax">
+                          <option value="0">ทั้งหมด</option>
                           <option value="1">บุคคลธรรมดา</option>
                           <option value="2">นิติบุคคล</option>
                         </select>
@@ -51,14 +51,15 @@
                   
                   <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
-                          <br>
                           <button type="submit" id="search_receive" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
-                          <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
+                          <button type="reset"  onclick="reset()" class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
+
                         </div>
                   </div>
                 </div>
 
                <div class="x_content">
+               <br>
                   <table id="tax_table" class="table table-striped" style="width:100%">
                       <thead>
                         <tr>

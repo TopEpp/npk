@@ -44,12 +44,17 @@ class Receive extends MY_Controller
     }
 
     //delete notice
-    public function receive_notice_delete($id)
+    public function receive_notice_delete()
     {
-        $this->Receive_model->del_notice($id);
+        $input['status_note_del'] = $this->input->post('data');
+        $input['notice_number'] = $this->input->post('id');
+        $input['status'] = $this->input->post('status');
+
+        $this->Receive_model->update_del_notice($input);
         redirect(base_url('receive/receive_dashborad'));
 
     }
+
 
 
     public function receive_add($id = '')
@@ -194,11 +199,11 @@ class Receive extends MY_Controller
         }
         $year = $this->session->userdata('year');
         $this->Receive_model->insertNotice($year, $data);
-        // redirect(base_url('receive/receive_dashborad'));
+        redirect(base_url('receive/receive_dashborad'));
 
-        echo '<pre>';
-        print_r($data);
-        exit;
+        // echo '<pre>';
+        // print_r($data);
+        // exit;
     }
 
 
@@ -330,6 +335,7 @@ class Receive extends MY_Controller
 
 
                         // --- $form_key $key ----//
+                    // $data[$form_key][$key]['banner_image'] = $input['banner_image'][$form_key][$key];
                     $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
                     $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
                     $data[$form_key][$key]['banner_type'] = $input['banner_type'][$form_key][$key];
@@ -348,7 +354,21 @@ class Receive extends MY_Controller
                     $year = $this->session->userdata('year');
                     $this->Receive_model->updateNotice($year, $value);
                 } else {
-                        // echo ($form_key . ':' . $data[$form_key][$key]['notice_id']);
+
+                    // $config['upload_path'] = './uploads/';
+                    // $config['allowed_types'] = 'gif|jpg|png';
+                    // $config['max_size'] = 0;
+                    // $config['max_width'] = 0;
+                    // $config['max_height'] = 0;
+                    // $config['encrypt_name'] = true;
+
+                    // $this->load->library('upload', $config);
+                    // $this->upload->do_upload('banner_image');
+                    // $data = array(
+                    //     'banner_image' => $this->upload->data('file_name'),
+                    // );
+
+
                     $year = $this->session->userdata('year');
                     $this->Receive_model->insertNoticeFormUpdate($year, $value);
                 }
@@ -1354,6 +1374,7 @@ class Receive extends MY_Controller
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
         $data['tax_pay'] = $this->Receive_model->read_Tax_House($id, $receive_id);
+        $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_House_Pay($id, $receive_id);
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');
@@ -1452,6 +1473,8 @@ class Receive extends MY_Controller
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
         $data['tax_pay'] = $this->Receive_model->read_Tax_Local($id, $receive_id);
+        $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_Local_Pay($id, $receive_id);
+
 
         $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
         $data['tax_years'] = $query->result();
@@ -1554,6 +1577,7 @@ class Receive extends MY_Controller
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
         $data['tax_pay'] = $this->Receive_model->read_Tax_Label($id, $receive_id);
+        $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_Label_Pay($id, $receive_id);
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');

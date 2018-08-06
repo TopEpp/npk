@@ -97,17 +97,25 @@
                 </div>
         </div>
         <div class="form-group">
-                         <label class="control-label col-md-4 col-sm-3 col-xs-12"  for="id_tax"> ปีภาษี
+                         <label class="control-label col-md-4 col-sm-3 col-xs-12"  for="id_tax"> ชำระภาษีบำรุงท้องที่ปี
                          </label>
                              <div class="col-md-4 col-sm-6 col-xs-12">
                                     <select class="form-control" name="year_receive" >
+
                                         <?php foreach ($tax_years as $key => $value) { ?>
-                                             <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
+
+                                            <?php if ($tax_pay->tax_year == $value->year_id) : ?>
+                                                <option  selected value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
+                                            <?php else : ?>
+                                            <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
+                                            <?php endif; ?>
                                             <?php
 
                                         } ?>
+
                                     </select>
                              </div>
+                             <input type="text" value="<?php echo $tax_pay[0]['year_receive'] ?>">
                  </div>
 
 
@@ -191,7 +199,7 @@
                     </tr>
                 </thead>
                     <tbody>
-                      <?php foreach ($tax_pay as $key => $value) : ?>
+                      <?php foreach ($tax_tabel_pay as $key => $value) : ?>
                         <tr>
                             <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
                             <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       

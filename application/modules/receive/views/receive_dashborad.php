@@ -8,12 +8,10 @@
                       <div class="btn-group">
                             <button style="width: 115px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"> </i> ค้นหา
                             </button>
-                            <button style="width: 115px;" onclick="window.open('<?php echo base_url('export_report/usereEsimate') . '?type=pdf'; ?>')"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก Pdf
+                            <button style="width: 115px;" onclick="window.open('<?php echo base_url('export_report/usereEsimate') . '?type=pdf'; ?>')"  type="button" class="btn btn-success" title="ส่งออก PDF"> <i class="fa fa-file-pdf-o"> </i> ส่งออก pdf
                             </button>
-                            <button style="width: 115px;"  onclick="window.open('<?php echo base_url('export_report/usereEsimate'); ?>')"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> ส่งออก Excel
+                            <button style="width: 115px;"  onclick="window.open('<?php echo base_url('export_report/usereEsimate'); ?>')"  type="button" class="btn btn-success" title="ส่งออก Excel"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> ส่งออก excel
                             </button>
-                            <!-- <button style="width: 101px;" onclick="window.location.replace('');" type="button" class="btn btn-success" title="พิมพ์ใบแจ้งรายการการประเมิน"><i class="glyphicon glyphicon-print"></i> พิมพ์
-                            </button> -->
                       </div>
                   </div>
             </section>
@@ -22,14 +20,14 @@
                 <div class="x_panel" style="top: 10px;">
                   <div class="collapse" id="search" class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="form_reset" data-parsley-validate class="form-horizontal form-label-left">
 
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-3 col-xs-12" for="type_tax">ประเภทผู้เสียภาษี
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                          <select class="form-control selectpicker" type="text" id="type_tax">
-                            <option value="">เลือก</option>
+                          <select class="type_tax selectpicker form-control" type="text" id="type_tax">
+                            <option value="0">ทั้งหมด</option>
                             <option value="1">บุคคลธรรมดา</option>
                             <option value="2">นิติบุคคล</option>
                           </select>
@@ -52,28 +50,38 @@
                               <label class="control-label col-md-4 col-sm-3 col-xs-12" for="tax_type_id">หมวดรายได้
                               </label>
                               <div class="col-md-4 col-sm-6 col-xs-12">
-                                <select class="form-control selectpicker" type="text" id="tax_type_id">
-                                        <option value="">เลือก</option>
+                                <select class="tax_type_id selectpicker form-control" type="text" id="tax_type_id">
+                                        <option value="0">ทั้งหมด</option>
                                         <option value="ภาษีโรงเรือนและที่ดิน">ภาษีโรงเรือนและที่ดิน</option>
                                         <option value="ภาษีบำรุงท้องที่">ภาษีบำรุงท้องที่</option>
                                         <option value="ภาษีป้าย">ภาษีป้าย</option>
                                 </select>
                               </div>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                              <label class="control-label col-md-4 col-sm-3 col-xs-12">รายการ
+                              </label>
+                              <div class="col-md-4 col-sm-6 col-xs-12">
+                                <select class="tax_del selectpicker form-control" type="text" id="tax_del">
+                                        <option value="All">ทั้งหมด</option>
+                                        <option selected value="Active">รายการที่ประเมิน</option>
+                                        <option value="Inactive">รายการที่ถูกลบ</option>
+                                </select>
+                              </div>
+                        </div>
+
 
                       <div class="ln_solid"></div>
                     </form>
-
                     <div class="form-group">
                           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 text-center">
-                            <br>
                             <button type="submit" id="search_receive" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;ค้นหา</button>
-                            <button type="reset"  class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
+                            <button type="reset"  id="resetForm" onclick="reset()" class="btn btn-warning" ><i class="fa fa-refresh"></i>&nbsp;คืนค่า</button>
                           </div>
                     </div>
                 </div>
-
                  <div class="x_content">
+                 <br>
                     <table id="tax_table" class="table table-striped" style="width:100%">
                         <thead>
                           <tr>
@@ -116,11 +124,16 @@
 
 
             <div class="modal-body">
-                    <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                    <h5>ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                    <hr>
+                    <label >หมายเหตุ<span class="required" style="color:red"> *</span></label>
+                    <br>
+                    <textarea name="status_note_del" id="status_note_del" cols="30" rows="3" class="form-contorl" style="width:265px"></textarea>
+                    <input type="hidden" name="status" value="Inactive">
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="btn-del"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                <button type="submit"  id="btn-del" class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
                 </button>
 
                 <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
@@ -177,3 +190,6 @@ text-align: center;
 }
 .dataTables_filter, .dataTables_info { display: none; }
 </style>
+
+
+

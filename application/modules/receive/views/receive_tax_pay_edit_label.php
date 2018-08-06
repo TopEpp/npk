@@ -178,7 +178,7 @@
                     </tr>
                 </thead>
                     <tbody>
-                      <?php foreach ($tax_pay as $key => $value) : ?>
+                      <?php foreach ($tax_tabel_pay as $key => $value) : ?>
                         <tr>
                             <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
                             <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
