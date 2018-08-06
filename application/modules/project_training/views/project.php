@@ -276,6 +276,11 @@
 </div>
 <!-- end modal -->
 
+<style>
+.datagrid-header-row {
+    visibility: collapse;
+}
+</style>
 
 
 

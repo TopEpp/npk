@@ -65,6 +65,10 @@ $(function () {
 
     });
 
+    //color header
+    // var header = $('.panel-header');
+    // header.css('background', 'RGB(42, 63, 84)');
+
 
     //add plan data
     $('#btn-submit-plans').click(function () {

@@ -105,13 +105,13 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo js_asset('../plugins/easyui/jquery.easyui.min.js'); ?>
     <!-- datepicker thai -->
     <?php
-    if($this->router->fetch_module() != 'usm'){
-      echo js_asset('../plugins/datepicker/js/bootstrap-datepicker.js');
-      echo js_asset('../plugins/datepicker/js/bootstrap-datepicker-thai.js');
-      echo js_asset('../plugins/datepicker/js/jquery.timepicker.min.js');
-      echo js_asset('../plugins/datepicker/locales/bootstrap-datepicker.th.js');
-    }
-    ?>
+if ($this->router->fetch_module() != 'usm') {
+    echo js_asset('../plugins/datepicker/js/bootstrap-datepicker.js');
+    echo js_asset('../plugins/datepicker/js/bootstrap-datepicker-thai.js');
+    echo js_asset('../plugins/datepicker/js/jquery.timepicker.min.js');
+    echo js_asset('../plugins/datepicker/locales/bootstrap-datepicker.th.js');
+}
+?>
 
     <!-- datatable -->
     <?php echo js_asset('../plugins/datatables/1.10.16/js/jquery.dataTables.min.js'); ?>
@@ -140,10 +140,10 @@ if (!isset($_SESSION['user_id'])) {
     <?php echo js_asset('../modules/datatable/js/rowgroup.js'); ?>
     <!-- datepicker -->
     <?php
-    if($this->router->fetch_module() != 'usm'){
-      echo js_asset('../modules/datepicker/js/datepicker.js');
-    }
-    ?>
+if ($this->router->fetch_module() != 'usm') {
+    echo js_asset('../modules/datepicker/js/datepicker.js');
+}
+?>
     <script type="text/javascript">
 				function onContextMenu(e, row) {
 			if (row) {
