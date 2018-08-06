@@ -243,6 +243,14 @@ class Usm extends MY_Controller
             $_SESSION['user_id'] = $query[0]['user_id'];
             $_SESSION['user_name'] = $query[0]['user_firstname'] . ' ' . $query[0]['user_lastname'];
 
+            $data = $this->Usm_model->userById($query[0]['user_id']);
+            $user_photo_file_name = $data->user_photo_file;
+            if($user_photo_file_name != ''){
+              $_SESSION['user_image'] = 'assets/uploads/images/usm/'.$user_photo_file_name;
+            }else{
+              $_SESSION['user_image'] = 'assets/plugins/gentelella-master/production/images/user.png';
+            }
+
             $this->set_permission($query[0]['user_id']);
             // print_r($_SESSION['user_permission']);
             redirect('main/dashborad');
