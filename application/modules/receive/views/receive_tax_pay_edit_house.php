@@ -177,12 +177,7 @@
                     </tr>
                 </thead>
                     <tbody>
-                      <?php foreach ($tax_pay as $key => $value) : ?>
-                      <!-- <?php if (($value['receive_id']) == 194) : ?>
-                            <p>123</p>
-                            <?php else : ?>
-                                <p>1666</p>
-                        <?php endif; ?> -->
+                      <?php foreach ($tax_tabel_pay as $key => $value) : ?>
                         <tr>
                             <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
                             <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
@@ -195,11 +190,7 @@
                             <td style="text-align: right;"><?php echo number_format($value['balance'], 2); ?></td>
                         </tr>
                          
-                        <!-- <?php
-                            echo ('<pre>');
-                            print_r($value);
-                            echo ('</pre>');
-                            ?> -->
+
                       <?php endforeach; ?>
                       
 
