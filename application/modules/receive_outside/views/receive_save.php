@@ -1,31 +1,24 @@
 
 <div class="right_col" role="main">
             <section class="row">
-                  <div class="col-md-8 col-sm-4 col-xs-4">
+                  <div class="col-md-6 col-sm-4 col-xs-4">
                       <h3>ระบบบัญชีรายจ่ายนอกงบประมาณ</h3>
                   </div>
-                  <!-- <div class="col-md-4 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
+                  <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
                       <div class="btn-group">
-
+                        <button style="width: 115px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
+                        </button>
+                        <button style="width: 115px;" onclick="window.location.replace('receive_outside/search_outside_prj');" type="button" class="btn btn-success" title="ชำระภาษี"><i class="fa fa-paypal"></i> เบิกจ่าย
+                        </button>
                       </div>
-                  </div> -->
+                  </div>
             </section>
 
 
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
-                <div class="x_title">
-                      <div class="col-xs-12 text-right">
-                        <div class="btn-group">
-                          <button style="width: 101px;" type="button" class="btn btn-success"  data-toggle="collapse" data-target="#search" title="ค้นหา"><i class="fa fa-search"></i> ค้นหา
-                          </button>
-                          <button style="width: 101px;" onclick="window.location.replace('receive_outside/search_outside_prj');" type="button" class="btn btn-success" title="ชำระภาษี"><i class="fa fa-paypal"></i> เบิกจ่าย
-                          </button>
-                        </div>
-                      </div>
-                  <div class="clearfix"></div>
-                </div>
+
                 <div class="collapse" id="search" class="x_content">
                   <br />
                   <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">

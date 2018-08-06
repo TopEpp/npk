@@ -443,7 +443,7 @@ class export_report extends My_Controller
                     <tr>
                         <td width='30%'>ชื่อ - สกุล : ผู้เสียภาษี " . $data['person']['name'] . "</td>
                         <td width='40%'> เลขที่ประจำตัวประชาชน/เลขประจำผู้เสียภาษี " . $data['person']['idcard'] . "</td>
-                        <td width='30%'> รหัสชื่อ ".$data['person']['code_name']."</td>
+                        <td width='30%'> รหัสชื่อ " . $data['person']['code_name'] . "</td>
                     </tr>
                   </table>";
 
@@ -522,17 +522,17 @@ class export_report extends My_Controller
                 $tax_year8 = $tax_year9 = '';
                 if (!empty($data['tax'][8][$i]['notice_estimate']['tax_year'])) {
                     $tax_year8 = $data['tax'][8][$i]['notice_estimate']['year'] + 543;
-                    $tax_year8 = '/'.substr($tax_year8,2,2);
+                    $tax_year8 = '/' . substr($tax_year8, 2, 2);
                 }
 
                 if (!empty($data['tax'][9][$i]['notice_estimate']['tax_year'])) {
                     $tax_year9 = $data['tax'][9][$i]['notice_estimate']['year'] + 543;
-                    $tax_year9 = '/'.substr($tax_year9,2,2);
+                    $tax_year9 = '/' . substr($tax_year9, 2, 2);
                 }
 
                 $content .= '<tr>
                             <td>' . $year . '</td>
-                            <td>' . @$data['tax'][8][$i]['notice_estimate']['notice_number_p2'] .$tax_year8. '</td>
+                            <td>' . @$data['tax'][8][$i]['notice_estimate']['notice_number_p2'] . $tax_year8 . '</td>
                             <td>' . $this->mydate->date_eng2thai(@$data['tax'][8][$i]['notice_estimate']['notice_date_p2'], 543, 'S') . '</td>
                             <td>' . number_format(@$data['tax'][8][$i]['notice_estimate']['notice_annual_fee'], 2) . '</td>
 
@@ -628,12 +628,12 @@ class export_report extends My_Controller
                 $tax_year10 = '';
                 if (!empty($data['tax'][10][$i]['notice_estimate']['tax_year'])) {
                     $tax_year10 = $data['tax'][10][$i]['notice_estimate']['year'] + 543;
-                    $tax_year10 = '/'.substr($tax_year10,2,2);
+                    $tax_year10 = '/' . substr($tax_year10, 2, 2);
                 }
 
                 $content .= '<tr>
                             <td>' . (@$data['tax'][10][$i]['notice_estimate']['year'] + 543) . '</td>
-                            <td>' . @$data['tax'][10][$i]['notice_estimate']['notice_number'] .$tax_year10. '</td>
+                            <td>' . @$data['tax'][10][$i]['notice_estimate']['notice_number'] . $tax_year10 . '</td>
                             <td>' . $this->mydate->date_eng2thai(@$data['tax'][10][$i]['notice_estimate']['notice_date'], 543, 'S') . '</td>
                             <td>' . number_format(@$data['tax'][10][$i]['notice_estimate']['notice_estimate'], 2) . '</td>
 
@@ -770,7 +770,7 @@ class export_report extends My_Controller
             $content .= '
             <tr>
               <td>' . ($key + 1) . '</td>
-              <td>' . $value['notice_number'] . '/' . $value['year_id'] . '</td>
+              <td>' . $value['notice_number'] . '/' . ($value['year_id'] + 543) . '</td>
               <td>' . $value['individual_number'] . '</td>
               <td>' . $value['individual_fullname'] . '</td>
               <td>' . $value['tax_name'] . '</td>

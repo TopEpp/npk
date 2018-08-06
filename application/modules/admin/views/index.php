@@ -3,13 +3,17 @@
     <div class="col-md-6 col-sm-4 col-xs-4">
         <h3>ระบบจัดการปีงบประมาณ</h3>
     </div>
+    <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
+        <div class="btn-group">
+              <button style="width: 130px;" type="button" class="btn btn-success" data-toggle="modal" data-target=".create_year"><i class="fa fa-plus"></i> เพิ่มปีงบประมาณ</button>
+        </div>
+    </div>
+
   </section>
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel" style="top: 10px;">
-            <div class="nav navbar-right panel_toolbox">
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target=".create_year"><i class="fa fa-plus"></i> เพิ่มปีงบประมาณ</button>
-            </div>
+
             <table class="table table-bordered jambo_table">
               <thead>
                 <tr>
