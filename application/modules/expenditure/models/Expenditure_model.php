@@ -9,7 +9,7 @@ class expenditure_model extends CI_Model
         $this->db->like('prj_name', $keyword);
         $this->db->where('prj_active', '1');
         $this->db->where('prj_year', $this->session->userdata('year'));
-        $this->db->join('tbl_expenses', 'tbl_expenses.project_id = tbl_project.prj_id','left');
+        $this->db->join('tbl_expenses', 'tbl_expenses.project_id = tbl_project.prj_id', 'left');
         $this->db->group_by('prj_name,prj_parent');
         $query = $this->db->get();
 
@@ -112,10 +112,10 @@ class expenditure_model extends CI_Model
             $datas = array();
             $year = $this->session->userdata('year');
             $datas['sum_amount'] = $expenses->expenses_amount_fine;
-            $datas['receive_date'] = $this->mydate->date_thai2eng($input['expenses_date_disburse']);
+            $date_tmp = explode('/', $input['expenses_date_disburse']);
+            $datas['receive_date'] = ($date_tmp[2]-543).'-'.$date_tmp[1].'-'.$date_tmp[0];
             $this->insertOtherTax($year, $datas);
         }
-   
         $input['expenses_date_disburse'] = $this->mydate->date_thai2eng($input['expenses_date_disburse']);
         $this->db->where('expenses_id', $id);
         return $this->db->update('tbl_expenses', $input);
@@ -179,12 +179,12 @@ class expenditure_model extends CI_Model
         if ($query->num_rows() > 0) {
 
             foreach ($query->result_array() as $key => $row) {
-                if ($row['expenses_date_disburse'] == ''){
+                if ($row['expenses_date_disburse'] == '') {
                     $row['expenses_date_disburse'] = '&nbsp;';
-                }else{
+                } else {
                     $row['expenses_date_disburse'] = $this->mydate->date_eng2thai($row['expenses_date_disburse'], 'S');
                 }
-              
+
                 // echo $row['expenses_date'];die();
                 $row['expenses_date'] = $this->mydate->date_eng2thai($row['expenses_date'], 543, 'S');
 
