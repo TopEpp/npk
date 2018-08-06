@@ -92,6 +92,13 @@
                console.log(data);
                if(data == 1){
                   window.location.reload();
+                  /*var url = window.location.href;
+                  if (url.indexOf('?') > -1){
+                     url += '&t='+Math.floor(Math.random() * 100);
+                  }else{
+                     url += '?t='+Math.floor(Math.random() * 100);
+                  }
+                  window.location.href = url;*/
                }
                /*
                $('#pid').val(data.pid);

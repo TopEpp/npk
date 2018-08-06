@@ -113,38 +113,50 @@ class Usm extends MY_Controller
     function update_user_ajax()
     {
         $input = $this->input->post();
+        /*echo "<pre>";
+        print_r($input);
+        echo "</pre>";*/
+        if(isset($input['user_photo_file']) && $input['user_photo_file'] != ''){
+          $data_photo = $input['user_photo_file'];
+          if($data_photo != ''){
+            if (preg_match('/^data:image\/(\w+);base64,/', $data_photo, $type)) {
+                $data_photo = substr($data_photo, strpos($data_photo, ',') + 1);
+                $type = strtolower($type[1]); // jpg, png, gif
 
-        $data_photo = $input['user_photo_file'];
-        if($data_photo != ''){
-          if (preg_match('/^data:image\/(\w+);base64,/', $data_photo, $type)) {
-              $data_photo = substr($data_photo, strpos($data_photo, ',') + 1);
-              $type = strtolower($type[1]); // jpg, png, gif
+                if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                    throw new \Exception('invalid image type');
+                }
 
-              if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
-                  throw new \Exception('invalid image type');
-              }
+                $data_photo = base64_decode($data_photo);
 
-              $data_photo = base64_decode($data_photo);
+                if ($data_photo === false) {
+                    throw new \Exception('base64_decode failed');
+                }
+            } else {
+                throw new \Exception('did not match data URI with image data');
+            }
 
-              if ($data_photo === false) {
-                  throw new \Exception('base64_decode failed');
-              }
-          } else {
-              throw new \Exception('did not match data URI with image data');
+            $user_photo_file_name = $input['user_id'].'.'.$type;
+            file_put_contents("assets/uploads/images/usm/".$user_photo_file_name, $data_photo);
+
+            $input['user_photo_file'] = $user_photo_file_name;
+
+            if($user_photo_file_name != ''){
+              $_SESSION['user_image'] = 'assets/uploads/images/usm/'.$user_photo_file_name;
+            }else{
+              $_SESSION['user_image'] = 'assets/plugins/gentelella-master/production/images/user.png';
+            }
+          }else{
+            unset($input['user_photo_file']);
           }
-
-          $user_photo_file_name = $input['user_id'].'_'.time().'.'.$type;
-          file_put_contents("assets/uploads/images/usm/".$user_photo_file_name, $data_photo);
-
-          $input['user_photo_file'] = $user_photo_file_name;
+        }else{
+          unset($input['user_photo_file']);
         }
         $data = $this->Usm_model->update_user_ajax($input);
 
 
         echo $data;
-        /*echo "<pre>";
-        print_r($input);
-        echo "</pre>";*/
+
 
     }
 
@@ -254,12 +266,6 @@ class Usm extends MY_Controller
     function getUserInfo(){
       $user_id = $_SESSION['user_id'];
       $data = $this->Usm_model->userById($user_id);
-
-      if($data->user_photo_file != ''){
-        $_SESSION['user_image'] = 'assets/uploads/images/usm/'.$data->user_photo_file;
-      }else{
-        $_SESSION['user_image'] = 'assets/plugins/gentelella-master/production/images/user.png';
-      }
 
       $this->json_publish($data);
     }

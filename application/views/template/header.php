@@ -13,7 +13,7 @@
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <?php
-                  if($_SESSION['user_image']!=''){
+                  if(isset($_SESSION['user_image']) && $_SESSION['user_image']!=''){
                     $user_image = $_SESSION['user_image'];
                   }else{
                     $user_image = 'assets/plugins/gentelella-master/production/images/user.png';
