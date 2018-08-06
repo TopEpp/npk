@@ -6,12 +6,35 @@ $(function () {
     });
 
     // check delete on click
-    $('#btn-del').on('click', function (e) {
-        e.preventDefault();
+    $('#btn-del').click(function () {
 
+        if ($("textarea[name='status_note_del']").val() == '') {
+            alertify.error('กรุณาระบุ หมายเหตุการลบข้อมูล');
+            $("textarea[name='status_note_del']").focus();
+            return false;
+        }
+
+        var value = $("textarea[name='status_note_del']").val();
+        var value_status = $("input[name='status']").val();
 
         var id = $(this).attr('del');
-        window.location.replace(domain + 'receive/' + 'receive_notice_delete' + '/' + id);
+        console.log($("textarea[name='status_note_del']").val());
+        console.log($(this).attr('del'));
+        $.ajax({
+            method: "POST",
+            url: domain + 'receive/receive_notice_delete',
+            data: {
+                data: value,
+                status: value_status,
+                id: id,
+            }
+        }).success(function (msg) {
+            if (msg) {
+                window.location.replace(domain + 'receive/receive_dashborad');
+            }
+
+        });
+
     });
 
     var table = $('#tax_table').DataTable({
@@ -96,19 +119,28 @@ $(function () {
                         form1 = '<button type="button" disabled class="btn btn-success btn-sm  btn-sm" title="จ่ายภาษี" >จ่าย</button>';
                         form2 = '<button type="button" onclick="getalert(' + data + ')"  disabled class="btn btn-success btn-sm" title="แจ้งเตือน" >แจ้งเตือน</button>';
                     }
+                    // var form3 = '';
+                    // if (row['status'] == 'Inactive') {
+                    //     form3 = '<label>(หมายเหตุ)</label>' + ' ' + row['status_note_del'];
+                    // }
 
-                    var btn =
-
-                        '<div class="btn-group ">' +
-                        form2 +
-                        form +
-                        form1 +
-                        // '<button type="button" onclick="getalert(' + data + ')"   class="btn btn-info btn-sm" title="แจ้งเตือน" >แจ้งเตือน</button>' +
-                        // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_tax_pay_add_house/' + '' + data + '\'" id="notice-id" class="btn btn-success btn-sm" title="จ่ายภาษี" >จ่าย</button>' +
-                        // '<button type="button" onclick="window.location.href=\'' + domain + 'receive/receive_notice/' + row['individual_id'] + '/' + row['tax_id'] + '\'" id="edit-notice" class="btn btn-success btn-sm" title="แก้ไข" >แก้ไข</button>' +
-                        '<button type="button" class="btn btn-danger btn-sm " id="' + row['notice_number'] + '" data-id="' + row['notice_number'] + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>'
-                    '</div>';
-                    return btn;
+                    if (row['status'] == 'Inactive') {
+                        form3 = '<label style="color:#E74C3C">(หมายเหตุ)</label>' + '&nbsp;&nbsp;' + row['status_note_del'];
+                        var btn =
+                            '<div class="btn-group pull-left ">' +
+                            form3 +
+                            '</div>';
+                        return btn;
+                    } else {
+                        var btn =
+                            '<div class="btn-group">' +
+                            form2 +
+                            form +
+                            form1 +
+                            '<button type="button" class="btn btn-danger btn-sm " id="' + row['notice_number'] + '" data-id="' + row['notice_number'] + '" data-toggle="modal" data-target="#delmodal" title="ลบ" >ลบ</button>'
+                        '</div>';
+                        return btn;
+                    }
                 },
                 "className": "text-center",
                 orderable: false
@@ -149,6 +181,8 @@ $(function () {
         table.columns(2).search($('#number_tax').val()).draw();
         table.columns(3).search($('#name_tax').val()).draw();
         table.columns(4).search($('#tax_type_id').val()).draw();
+        table.columns(5).search($('#tax_del').val()).draw();
+
     });
 
 });
@@ -203,4 +237,14 @@ function delAlert(val, notice) {
         }
 
     });
+}
+
+function reset() {
+    document.getElementById("form_reset").reset();
+
+    $('.selectpicker').selectpicker();
+    $('.type_tax').selectpicker('val', '0');
+    $('.tax_type_id').selectpicker('val', '0');
+    $('.tax_del').selectpicker('val', 'Active');
+
 }

@@ -125,3 +125,11 @@ $(function () {
   });
 
 });
+
+function reset() {
+  document.getElementById("demo-form2").reset();
+
+  $('.selectpicker').selectpicker();
+  $('.type_tax').selectpicker('val', '0');
+
+}

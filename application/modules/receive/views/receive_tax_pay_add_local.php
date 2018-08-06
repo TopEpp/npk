@@ -99,7 +99,7 @@
                           </div>
                   </div>
                   <div class="form-group">
-                         <label class="control-label col-md-4 col-sm-3 col-xs-12"  for="id_tax"> ปีภาษี
+                         <label class="control-label col-md-4 col-sm-3 col-xs-12"  for="id_tax"> ชำระภาษีบำรุงท้องที่ปี
                          </label>
                              <div class="col-md-4 col-sm-6 col-xs-12">
                                     <select class="form-control" name="year_receive" >
