@@ -745,7 +745,7 @@ class export_report extends My_Controller
     {
         $this->load->model('receive/Receive_model');
         $data = $this->Receive_model->read_dashborad();
-        print_r($data);die();
+        // print_r($data);die();
 
         $content = "<table cellspacing='0' cellpadding='0' width='100%'>
             <tr><td COLSPAN='7'  ALIGN='center'> รายงานการประเมินภาษี </td></tr>

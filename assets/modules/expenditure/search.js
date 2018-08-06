@@ -58,8 +58,8 @@ $(function(){
                 expenses_date_disburse : date
             }
         }).success(function (msg) {
-            // if (msg)
-            //     window.location.reload();
+            if (msg)
+                window.location.reload();
         });
     });
 
