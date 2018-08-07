@@ -1670,6 +1670,12 @@ class Receive extends MY_Controller
         $this->output->set_content_type('application/json')->set_output(json_encode($result));
     }
 
+    public function checkDupIndividual(){
+        $data =$this->input->post('data');
+        $result = $this->Receive_model->checkDupIndividual($data);
+        $this->output->set_content_type('application/json')->set_output(json_encode($result));
+    }
+
 
 
 
