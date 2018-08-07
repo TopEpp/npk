@@ -23,7 +23,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo ($tax_receive[0]['individual_prename'] . $tax_receive[0]['individual_fullname']); ?></p>
+                                    <p class="control"><?php echo ($tax_receive[0]['individual_fullname']); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                             <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
                             <td><?php echo $value['receipt_no'] ?></td>
                             <td><?php echo $value['receipt_number'] ?></td>
-                            <td><?php echo $value['individual_prename'] . $value['individual_fullname'] ?></td>
+                            <td><?php echo $value['individual_fullname'] ?></td>
                             <td style="text-align: right;"><?php echo number_format($value['amount'], 2); ?></td>
                             <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
                             <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
@@ -193,6 +193,17 @@
                       <?php endforeach; ?>
 
                     </tbody>
+                    <tr>
+                        <th >ยอดรวม</th>
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_amount'], 2) ?></th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_interest'], 2) ?> </th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_receive_amount'], 2) ?></th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_balance'], 2) ?></th>
+                    </tr>
             </table>
         </div>
 

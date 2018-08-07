@@ -1318,12 +1318,16 @@ class Receive extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $tax_id = $this->uri->segment(4);
+        $receive_id = $this->uri->segment(5);
+
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
+        $query2 = $this->Receive_model->get_house_pay($id);
 
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
+        $data['tabel_pay'] = $this->Receive_model->tabel_pay_house($id, $receive_id);
+
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');
@@ -1367,7 +1371,7 @@ class Receive extends MY_Controller
         $tax_id = $this->uri->segment(4);
         $receive_id = $this->uri->segment(5);
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
+        $query2 = $this->Receive_model->get_house_pay($id);
 
 
         $data = array();
@@ -1375,6 +1379,8 @@ class Receive extends MY_Controller
         $data['tax_receive'] = $query2;
         $data['tax_pay'] = $this->Receive_model->read_Tax_House($id, $receive_id);
         $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_House_Pay($id, $receive_id);
+        $data['tabel_pay'] = $this->Receive_model->tabel_pay_house($id, $receive_id);
+
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');
@@ -1415,12 +1421,20 @@ class Receive extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $tax_id = $this->uri->segment(4);
+        $receive_id = $this->uri->segment(5);
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
+        $query2 = $this->Receive_model->get_local_pay($id);
+        $query3 = $this->Receive_model->tabel_pay_local($id, $receive_id);
+
+
 
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
+        $data['tabel_pay'] = $query3;
+
+
+
 
         $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
         $data['tax_years'] = $query->result();
@@ -1454,6 +1468,7 @@ class Receive extends MY_Controller
         $value = str_replace(',', '', $this->input->post('balance'));
         $input['balance'] = $value;
 
+
         $year = $this->session->userdata('year');
         $this->Receive_model->recieve_tax_add($year, $input);
         redirect(base_url('receive/receive_save_local/'));
@@ -1466,7 +1481,7 @@ class Receive extends MY_Controller
         $receive_id = $this->uri->segment(5);
 
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
+        $query2 = $this->Receive_model->get_local_pay($id);
 
 
         $data = array();
@@ -1474,10 +1489,11 @@ class Receive extends MY_Controller
         $data['tax_receive'] = $query2;
         $data['tax_pay'] = $this->Receive_model->read_Tax_Local($id, $receive_id);
         $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_Local_Pay($id, $receive_id);
-
+        $data['tabel_pay'] = $this->Receive_model->tabel_pay_local($id, $receive_id);
 
         $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
         $data['tax_years'] = $query->result();
+
 
 
 
@@ -1521,12 +1537,16 @@ class Receive extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $tax_id = $this->uri->segment(4);
+        $receive_id = $this->uri->segment(5);
+
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
+        $query2 = $this->Receive_model->get_label_pay($id);
+
 
         $data = array();
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
+        $data['tabel_pay'] = $this->Receive_model->tabel_pay_label($id, $receive_id);
 
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
@@ -1570,7 +1590,7 @@ class Receive extends MY_Controller
         $receive_id = $this->uri->segment(5);
 
         $query = $this->Receive_model->get_receive_pay($id, $tax_id);
-        $query2 = $this->Receive_model->get_receive_notice($id);
+        $query2 = $this->Receive_model->get_label_pay($id);
 
 
         $data = array();
@@ -1578,6 +1598,8 @@ class Receive extends MY_Controller
         $data['tax_receive'] = $query2;
         $data['tax_pay'] = $this->Receive_model->read_Tax_Label($id, $receive_id);
         $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_Label_Pay($id, $receive_id);
+        $data['tabel_pay'] = $this->Receive_model->tabel_pay_label($id, $receive_id);
+
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');

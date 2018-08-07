@@ -23,7 +23,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo ($tax_receive[0]['individual_prename'] . $tax_receive[0]['individual_fullname']); ?></p>
+                                    <p class="control"><?php echo ($tax_receive[0]['individual_fullname']); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่ :
                                     </label>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $tax_receive[0]['individual_address'] . " " . " หมู่" . " " . $tax_receive[0]['individual_village'] . " " . " ตำบล" . $tax_receive[0]['area_name_th'] ?></p>
+                                    <p class="control"><?php echo $tax_receive[0]['individual_address'] . " " . " หมู่" . " " . $tax_receive[0]['individual_village'] . " " . " ตำบล" . $tax_receive[0]['area_name_th'] . " " . "อำเภอ" . $tax_receive[0]['area_name_th'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -101,21 +101,16 @@
                          </label>
                              <div class="col-md-4 col-sm-6 col-xs-12">
                                     <select class="form-control" name="year_receive" >
-
-                                        <?php foreach ($tax_years as $key => $value) { ?>
-
-                                            <?php if ($tax_pay->tax_year == $value->year_id) : ?>
+                                        <?php foreach ($tax_years as $value) : ?>
+                                            <?php if ($tax_pay->tax_year == $value->tax_year_id) : ?>
                                                 <option  selected value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
                                             <?php else : ?>
-                                            <option value="<?= $value->tax_year_id ?>">พ.ศ. <?= $value->tax_year_label ?></option>
+                                                <option value="<?php echo $value->tax_year_id ?>">พ.ศ. <?php echo $value->tax_year_label ?></option>
                                             <?php endif; ?>
-                                            <?php
 
-                                        } ?>
-
+                                        <?php endforeach; ?>
                                     </select>
                              </div>
-                             <input type="text" value="<?php echo $tax_pay[0]['year_receive'] ?>">
                  </div>
 
 
@@ -201,19 +196,44 @@
                     <tbody>
                       <?php foreach ($tax_tabel_pay as $key => $value) : ?>
                         <tr>
-                            <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
-                            <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
-                            <td><?php echo $value['receipt_no'] ?></td>
-                            <td><?php echo $value['receipt_number'] ?></td>
-                            <td><?php echo $value['individual_prename'] . $value['individual_fullname'] ?></td>
-                            <td style="text-align: right;"><?php echo number_format($value['amount'], 2); ?></td>
-                            <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
-                            <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
-                            <td style="text-align: right;"><?php echo number_format($value['balance'], 2); ?></td>
+                            <?php if (($value['receive_id']) == 365) : ?>
+                                        <td scope="row" style="text-align: center;"><span style="color: red;"><?php echo $key + 1 ?></td>
+                                        <td align="center"><span style="color: red;"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
+                                        <td><span style="color: red;"><?php echo $value['receipt_no'] ?></td>
+                                        <td><span style="color: red;"><?php echo $value['receipt_number'] ?></td>
+                                        <td><span style="color: red;"><?php echo $value['individual_fullname'] ?></td>
+                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['amount'], 2); ?></td>
+                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['interest'], 2); ?></td>
+                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['receive_amount'], 2); ?></td>
+                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['balance'], 2); ?></span></td>
+                                
+                                <?php else : ?> 
+                                        <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
+                                        <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
+                                        <td><?php echo $value['receipt_no'] ?></td>
+                                        <td><?php echo $value['receipt_number'] ?></td>
+                                        <td><?php echo $value['individual_fullname'] ?></td>
+                                        <td style="text-align: right;"><?php echo number_format($value['amount'], 2); ?></td>
+                                        <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
+                                        <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
+                                        <td style="text-align: right;"><?php echo number_format($value['balance'], 2); ?></span></td>
+                            <?php endif; ?>
+                           
                         </tr>
                       <?php endforeach; ?>
 
                     </tbody>
+                    <tr>
+                        <th >ยอดรวม</th>
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_amount'], 2) ?></th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_interest'], 2) ?> </th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_receive_amount'], 2) ?></th>
+                        <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_balance'], 2) ?></th>
+                    </tr>
             </table>
         </div>
 

@@ -93,7 +93,7 @@ $(function () {
                 "className": "text-right",
             },
             {
-                data: 'notice_id',
+                data: 'id',
                 render: function (data, type, row) {
                     var form = '';
                     if (row['tax_name'] == 'ภาษีป้าย') {

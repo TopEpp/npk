@@ -23,7 +23,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo ($tax_notice[0]['individual_prename'] . $tax_notice[0]['individual_fullname']); ?></p>
+                                    <p class="control"><?php echo ($tax_notice[0]['individual_fullname']); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                                       <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
                                       <td><?php echo $value['receipt_no'] ?></td>
                                       <td><?php echo $value['receipt_number'] ?></td>
-                                      <td><?php echo $value['individual_prename'] . $value['individual_fullname'] ?></td>
+                                      <td><?php echo $value['individual_fullname'] ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['amount'], 2); ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
                                       <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
@@ -190,6 +190,17 @@
                                 <?php endforeach; ?>
 
                               </tbody>
+                                <tr>
+                                    <th >ยอดรวม</th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th ></th>
+                                    <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_amount'], 2) ?></th>
+                                    <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_interest'], 2) ?> </th>
+                                    <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_receive_amount'], 2) ?></th>
+                                    <th style="text-align: right;"><?php echo number_format($tabel_pay[0]['total_balance'], 2) ?></th>
+                                </tr>
                       </table>
                   </div>
 
@@ -240,66 +251,3 @@ text-align: center;
     cursor: pointer;
 }
 </style>
-
-
-
-
-<!-- <script type="text/javascript">
-  document.getElementById("receive_amount_tax").onchange = function() {getToset()};
-  document.getElementById("receive_amount").onchange = function() {getToset()};
-  document.getElementById("interest").onchange = function() {getToset()};
-  document.getElementById("total_pay").onchange = function() {getToset()};
-  document.getElementById("sum_amount").onchange = function() {getToset()};
-
-  function getToset(){
-    
-    var tax_amount = $('#tax_amount').val();
-        tax_amount = parseFloat(tax_amount.replace(',', ''));
-
-    var interest = $('#interest').val();
-        interest = parseFloat(interest.replace(',', ''));
-
-    var total_pay = $('#total_pay').val();
-        total_pay = parseFloat(total_pay.replace(',', ''));
-
-    // var receive_amount = $('#receive_amount').val(tax_amount+interest);
-    //     receive_amount = parseFloat(receive_amount.replace(',', ''));
-
-    var receive_amount_tax = $('#receive_amount_tax').val(tax_amount+interest);
-        receive_amount_tax = parseFloat(receive_amount_tax.replace(',', ''));
-
-
-    // var sum_amount = $('#sum_amount').val(receive_amount_tax-total_pay);
-    //     sum_amount = parseFloat(sum_amount.replace(',', ''));
-
-    
-    // var tax_amount = document.getElementById("tax_amount").value;
-    // var interest = document.getElementById("interest").value;
-    // var total_pay = document.getElementById("total_pay").value;
-
-    // var receive_amount = (tax_amount*1)+(interest*1);
-    // document.getElementById("receive_amount").value = receive_amount;
-
-    // $('#receive_amount').val(tax_amount + interest);
-
-
-    // var sum_amount = (receive_amount*1)-(total_pay*1);
-    // document.getElementById("sum_amount").value = sum_amount;
-
-    if((total_pay*1)>(receive_amount*1)){
-    alertify.error('จำนวนเงินมากกว่าที่ต้องชำระ');
-      document.getElementById("interest").value;
-      document.getElementById("receive_amount").value;
-      document.getElementById("total_pay").value = '';
-      document.getElementById("sum_amount").value = receive_amount;
-    }
-
-
-    if(document.getElementById("sum_amount").value*1==0){
-      document.getElementById("btnSubmit").disabled = true;
-    }else{
-      document.getElementById("btnSubmit").disabled = false;
-    }
-  }
-
-</script> -->
