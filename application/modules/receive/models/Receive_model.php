@@ -871,4 +871,13 @@ class Receive_model extends CI_Model
         return true;
     }
 
+    public function checkDupIndividual($input){
+        $this->db->where('individual_number',$input);
+        $query = $this->db->get('tbl_individual');
+        if ($query->num_rows() > 0){
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -189,6 +189,43 @@ $(function(){
             });
             return false;
         });
+
+
+        //potection form
+        $('#tab_1').blur(function(){
+            var data = $('#tab_1').val();
+            $.ajax({
+                'type':'POST',
+                'url':domain+'receive/checkDupIndividual',
+                'cache':false,
+                'data':{data:data},
+                'success':function(data){
+                    if (data){
+                        alertify.error('เลขประจำตัวผู้เสียภาษีมีผู้อื่นใช้แล้ว');
+                        $("#tab_1").val('');
+                        $("#tab_1").focus();
+                        return false;
+                    }
+                }
+          });
+        });
+        $('#tab_2').blur(function(){
+            var data = $('#tab_2').val();
+            $.ajax({
+                'type':'POST',
+                'url':domain+'receive/checkDupIndividual',
+                'cache':false,
+                'data':{data:data},
+                'success':function(data){
+                    if (data){
+                        alertify.error('เลขประจำตัวผู้เสียภาษีมีผู้อื่นใช้แล้ว');
+                        $("#tab_2").val('');
+                        $("#tab_2").focus();
+                        return false;
+                    }
+                }
+          });
+        });
        
   
     
