@@ -10,7 +10,7 @@ class budget_year
         $ci = &get_instance();
         $year = $ci->session->userdata('year');
         if (empty($year)) {
-            $ci->session->set_userdata('year', date('Y') - 1);
+            $ci->session->set_userdata('year', date('Y'));
         }
 
     }

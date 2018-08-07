@@ -120,10 +120,13 @@ $(function () {
 			tax = $('#outside_pay_tax_val').val();
 			outside_pay_amount_tax = outside_pay_budget * tax / 100;
         }
-        
-        var outside_pay_amount_fine = $('#outside_pay_amount_fine').val();
-		outside_pay_amount_fine = parseFloat(outside_pay_amount_fine.replace(/,/g,''));
 
+      
+        var outside_pay_amount_fine = $('#outside_pay_amount_fine').val();
+        outside_pay_amount_fine = parseFloat(outside_pay_amount_fine.replace(/,/g,''));
+        if (isNaN(outside_pay_amount_fine)){
+            outside_pay_amount_fine = '0';
+        }
 
 		$('#outside_pay_budget').val(outside_pay_budget);
 		$('#outside_pay_vat').val(outside_pay_amount_vat);
