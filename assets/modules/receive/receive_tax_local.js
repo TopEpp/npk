@@ -27,7 +27,7 @@ $(function () {
         }, ],
 
         "order": [
-            [2, 'asc'],
+            [0, 'desc'],
         ],
         'columns': [{
                 data: 'receive_id',

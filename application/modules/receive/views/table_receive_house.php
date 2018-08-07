@@ -18,7 +18,7 @@
 		<tr>
 			<td style="text-align: center;"><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['notice_number']); ?>/<?php echo $value['tax_year'] + 543 ?></td>
 			<td style="text-align: center;"><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['individual_number']); ?></td>
-			<td ><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['individual_prename'] . $value['individual_fullname']); ?></td>
+			<td ><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['individual_fullname']); ?></td>
 			<td style="text-align: right;"><?php echo number_format($value['sum_amount_tax'], 2); ?></td>
 			<td style="text-align: right;"><?php echo number_format($value['tax_interest'], 2); ?></td>
 			<td style="text-align: right;"><?php echo number_format($value['tax_amount'], 2); ?></td>
