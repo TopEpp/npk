@@ -1327,7 +1327,9 @@ class Receive extends MY_Controller
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
         $data['tabel_pay'] = $this->Receive_model->tabel_pay_house($id, $receive_id);
-
+        $data['individual_subdistrict'] = $this->Receive_model->address($data['tax_notice'][0]['individual_subdistrict']);
+        $data['individual_district'] = $this->Receive_model->address($data['tax_notice'][0]['individual_district']);
+        $data['individual_provice'] = $this->Receive_model->address($data['tax_notice'][0]['individual_provice']);
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
         $this->template->javascript->add('assets/modules/receive/tax_pay.js');
@@ -1380,6 +1382,10 @@ class Receive extends MY_Controller
         $data['tax_pay'] = $this->Receive_model->read_Tax_House($id, $receive_id);
         $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_House_Pay($id, $receive_id);
         $data['tabel_pay'] = $this->Receive_model->tabel_pay_house($id, $receive_id);
+        $data['individual_subdistrict'] = $this->Receive_model->address($data['tax_notice'][0]['individual_subdistrict']);
+        $data['individual_district'] = $this->Receive_model->address($data['tax_notice'][0]['individual_district']);
+        $data['individual_provice'] = $this->Receive_model->address($data['tax_notice'][0]['individual_provice']);
+
 
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
@@ -1432,6 +1438,9 @@ class Receive extends MY_Controller
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
         $data['tabel_pay'] = $query3;
+        $data['individual_subdistrict'] = $this->Receive_model->address($data['tax_notice'][0]['individual_subdistrict']);
+        $data['individual_district'] = $this->Receive_model->address($data['tax_notice'][0]['individual_district']);
+        $data['individual_provice'] = $this->Receive_model->address($data['tax_notice'][0]['individual_provice']);
 
 
 
@@ -1490,6 +1499,10 @@ class Receive extends MY_Controller
         $data['tax_pay'] = $this->Receive_model->read_Tax_Local($id, $receive_id);
         $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_Local_Pay($id, $receive_id);
         $data['tabel_pay'] = $this->Receive_model->tabel_pay_local($id, $receive_id);
+        $data['individual_subdistrict'] = $this->Receive_model->address($data['tax_notice'][0]['individual_subdistrict']);
+        $data['individual_district'] = $this->Receive_model->address($data['tax_notice'][0]['individual_district']);
+        $data['individual_provice'] = $this->Receive_model->address($data['tax_notice'][0]['individual_provice']);
+
 
         $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
         $data['tax_years'] = $query->result();
@@ -1547,6 +1560,10 @@ class Receive extends MY_Controller
         $data['tax_notice'] = $query;
         $data['tax_receive'] = $query2;
         $data['tabel_pay'] = $this->Receive_model->tabel_pay_label($id, $receive_id);
+        $data['individual_subdistrict'] = $this->Receive_model->address($data['tax_notice'][0]['individual_subdistrict']);
+        $data['individual_district'] = $this->Receive_model->address($data['tax_notice'][0]['individual_district']);
+        $data['individual_provice'] = $this->Receive_model->address($data['tax_notice'][0]['individual_provice']);
+
 
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
@@ -1599,6 +1616,10 @@ class Receive extends MY_Controller
         $data['tax_pay'] = $this->Receive_model->read_Tax_Label($id, $receive_id);
         $data['tax_tabel_pay'] = $this->Receive_model->read_Tax_Label_Pay($id, $receive_id);
         $data['tabel_pay'] = $this->Receive_model->tabel_pay_label($id, $receive_id);
+        $data['individual_subdistrict'] = $this->Receive_model->address($data['tax_notice'][0]['individual_subdistrict']);
+        $data['individual_district'] = $this->Receive_model->address($data['tax_notice'][0]['individual_district']);
+        $data['individual_provice'] = $this->Receive_model->address($data['tax_notice'][0]['individual_provice']);
+
 
 
         $this->config->set_item('title', 'ชำระภาษี - เทศบาลตำบลหนองป่าครั่ง');
@@ -1670,8 +1691,9 @@ class Receive extends MY_Controller
         $this->output->set_content_type('application/json')->set_output(json_encode($result));
     }
 
-    public function checkDupIndividual(){
-        $data =$this->input->post('data');
+    public function checkDupIndividual()
+    {
+        $data = $this->input->post('data');
         $result = $this->Receive_model->checkDupIndividual($data);
         $this->output->set_content_type('application/json')->set_output(json_encode($result));
     }

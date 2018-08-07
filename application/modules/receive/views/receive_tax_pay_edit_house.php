@@ -29,6 +29,15 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
                             <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">รหัสชื่อ :
+                                    </label>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_notice[0]['code_name'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                            <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">เลขประจำตัวผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -49,8 +58,8 @@
                             <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่ :
                                     </label>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $tax_receive[0]['individual_address'] . " " . " หมู่" . " " . $tax_receive[0]['individual_village'] . " " . " ตำบล" . $tax_receive[0]['area_name_th'] ?></p>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . $individual_subdistrict[0]['area_name_th'] . " " . " อำเภอ" . $individual_district[0]['area_name_th'] . " " . " จังหวัด" . $individual_provice[0]['area_name_th'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +146,7 @@
                 <label class="control-label col-md-4 col-sm-3 col-xs-12" for="id_tax">คงเหลือ
                 </label>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <input style="text-align: right;" type="text" placeholder="0.00" id="balance" name="balance" readonly class="cal numeric form-control col-md-7 col-xs-12" value="">
+                        <input style="text-align: right;" type="text" placeholder="0.00" id="balance" name="balance" readonly class="cal numeric form-control col-md-7 col-xs-12" value="<?php echo $tax_pay[0]['balance'] ?>">
                     </div>
         </div>
        

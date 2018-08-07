@@ -230,6 +230,7 @@ class Receive_model extends CI_Model
         $this->db->where('tax_notice.tax_id', $tax_id);
         $this->db->where('tax_notice.status = ', 'active');
 
+
         $this->db->from('tax_notice');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
@@ -240,7 +241,6 @@ class Receive_model extends CI_Model
 
         return $query->result_array();
     }
-
 
     public function get_house_pay($id)
     {
@@ -920,6 +920,15 @@ class Receive_model extends CI_Model
 
     }
 
+    public function address($code_id)
+    {
+        $this->db->select('area_name_th');
+        $this->db->where('area_code', $code_id);
+        return $this->db->get('std_area')->result_array();
+
+    }
+
+
     public function getAlert($data)
     {
         $this->db->where('notice_id', $data);
@@ -954,10 +963,11 @@ class Receive_model extends CI_Model
         return true;
     }
 
-    public function checkDupIndividual($input){
-        $this->db->where('individual_number',$input);
+    public function checkDupIndividual($input)
+    {
+        $this->db->where('individual_number', $input);
         $query = $this->db->get('tbl_individual');
-        if ($query->num_rows() > 0){
+        if ($query->num_rows() > 0) {
             return true;
         }
         return false;
