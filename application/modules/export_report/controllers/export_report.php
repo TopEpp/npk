@@ -167,7 +167,7 @@ class export_report extends My_Controller
                           </tr>';
 
             foreach (@$getrec[$title->tax_id] as $key => $title2) {
-                $diff = @$title2->receive_amount-@$title2->tax_estimate;
+                $diff = @$title2->receive_amount - @$title2->tax_estimate;
                 $color = '';
                 if ($diff < 0) {
                     $color = 'color: red;';
@@ -306,27 +306,27 @@ class export_report extends My_Controller
         $int = 1;
         $sum1 = $sum2 = $sum3 = $sum4 = $sum5 = $sum6 = 0;
         foreach ($person as $key => $value) {
-            if ((@$value[8]['notice_estimate']-@$value[8]['receive_amount']) + (@$value[9]['notice_estimate']-@$value[9]['receive_amount']) + (@$value[10]['notice_estimate']-@$value[10]['receive_amount'])+@$value[8]['interest']+@$value[9]['interest']+@$value[10]['interest'] > 0) {
-                $sum1 += (@$value[8]['notice_estimate']-@$value[8]['receive_amount']);
+            if ((@$value[8]['notice_estimate'] - @$value[8]['receive_amount']) + (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']) + (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'] > 0) {
+                $sum1 += (@$value[8]['notice_estimate'] - @$value[8]['receive_amount']);
                 $sum2 += (@$value[8]['interest']);
 
-                $sum3 += (@$value[9]['notice_estimate']-@$value[9]['receive_amount']);
+                $sum3 += (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']);
                 $sum4 += (@$value[9]['interest']);
 
-                $sum5 += (@$value[10]['notice_estimate']-@$value[10]['receive_amount']);
+                $sum5 += (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']);
                 $sum6 += (@$value[10]['interest']);
 
                 $content .= '<tr>
                                 <td align="center">' . $int++ . '</td>
                                 <td align="center">' . $value['idcard'] . '</td>
                                 <td>' . $value['name'] . '</td>
-                                <td align="right">' . number_format(@$value[8]['notice_estimate']-@$value[8]['receive_amount'], 2) . '</td>
+                                <td align="right">' . number_format(@$value[8]['notice_estimate'] - @$value[8]['receive_amount'], 2) . '</td>
                                 <td align="right">' . number_format(@$value[8]['interest'], 2) . '</td>
-                                <td align="right">' . number_format(@$value[9]['notice_estimate']-@$value[9]['receive_amount'], 2) . '</td>
+                                <td align="right">' . number_format(@$value[9]['notice_estimate'] - @$value[9]['receive_amount'], 2) . '</td>
                                 <td align="right">' . number_format(@$value[9]['interest'], 2) . '</td>
-                                <td align="right">' . number_format(@$value[10]['notice_estimate']-@$value[10]['receive_amount'], 2) . '</td>
+                                <td align="right">' . number_format(@$value[10]['notice_estimate'] - @$value[10]['receive_amount'], 2) . '</td>
                                 <td align="right">' . number_format(@$value[10]['interest'], 2) . '</td>
-                                <td align="right">' . number_format((@$value[8]['notice_estimate']-@$value[8]['receive_amount']) + (@$value[9]['notice_estimate']-@$value[9]['receive_amount']) + (@$value[10]['notice_estimate']-@$value[10]['receive_amount'])+@$value[8]['interest']+@$value[9]['interest']+@$value[10]['interest'], 2) . '</td>
+                                <td align="right">' . number_format((@$value[8]['notice_estimate'] - @$value[8]['receive_amount']) + (@$value[9]['notice_estimate'] - @$value[9]['receive_amount']) + (@$value[10]['notice_estimate'] - @$value[10]['receive_amount']) + @$value[8]['interest'] + @$value[9]['interest'] + @$value[10]['interest'], 2) . '</td>
                             </tr>';
             }
         }
@@ -770,13 +770,13 @@ class export_report extends My_Controller
             $content .= '
             <tr>
               <td>' . ($key + 1) . '</td>
-              <td>' . $value['notice_number'] . '/' . ($value['year_id'] + 543) . '</td>
+              <td>' . $value['notice_number'] . '/' . ($value['tax_year'] + 543) . '</td>
               <td>' . $value['individual_number'] . '</td>
               <td>' . $value['individual_fullname'] . '</td>
               <td>' . $value['tax_name'] . '</td>
               <td>' . number_format($value['sum(notice_estimate)'], 2) . '</td>
-              <td>' . number_format($value['sum(notice_estimate)'], 2) . '</td>
-              <td>' . number_format($value['sum(notice_estimate)'], 2) . '</td>
+              <td>' . number_format($value['tax_interest'], 2) . '</td>
+              <td>' . number_format($value['sum_amount_tax'] + $value['tax_interest'] - $value['tax_amount'], 2) . '</td>
             </tr>';
         }
 
