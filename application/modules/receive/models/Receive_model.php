@@ -23,6 +23,8 @@ class Receive_model extends CI_Model
         $this->db->select('tax_notice.*,tax_receive.*,tbl_individual.*,tbl_tax_type.*,tbl_tax.*,sum(notice_estimate),(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount');
         $this->db->from('tax_notice');
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+        $this->db->where('tax_notice.status = ', 'active');
+
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_notice.individual_id', 'left');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('tbl_tax', 'tbl_tax.tax_id = tax_notice.tax_id', 'left');
@@ -472,6 +474,7 @@ class Receive_model extends CI_Model
         $this->db->select('tax_notice.*,sum(notice_estimate) as sum_notice_estimate,(select sum(receive_amount)-tax_notice.notice_estimate from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
         $this->db->from('tax_notice');
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+        $this->db->where('tax_notice.status = ', 'active');
         $this->db->where('tbl_tax.tax_id = 8');
         $this->db->where("(`notice_number` LIKE '%" . $keyword . "%' ESCAPE '!'
                             OR `individual_number` LIKE '%" . $keyword . "%' ESCAPE '!'
@@ -493,6 +496,7 @@ class Receive_model extends CI_Model
         $this->db->select('tax_notice.*,sum(notice_estimate) as sum_notice_estimate,(select sum(receive_amount)-tax_notice.notice_estimate from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
         $this->db->from('tax_notice');
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+        $this->db->where('tax_notice.status = ', 'active');
         $this->db->where('tbl_tax.tax_id = 9');
         $this->db->where("(`notice_number` LIKE '%" . $keyword . "%' ESCAPE '!'
                             OR `individual_number` LIKE '%" . $keyword . "%' ESCAPE '!'
@@ -511,6 +515,7 @@ class Receive_model extends CI_Model
         $this->db->select('tax_notice.*,sum(notice_estimate) as sum_notice_estimate,(select sum(receive_amount)-tax_notice.notice_estimate from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
         $this->db->from('tax_notice');
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+        $this->db->where('tax_notice.status = ', 'active');
         $this->db->where('tbl_tax.tax_id = 10');
         $this->db->where("(`notice_number` LIKE '%" . $keyword . "%' ESCAPE '!'
                             OR `individual_number` LIKE '%" . $keyword . "%' ESCAPE '!'
@@ -767,11 +772,14 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
-        $this->db->select('tax_receive.*,tbl_individual.*,');
+        $this->db->select('tax_receive.*,tax_notice.*,tbl_individual.*,');
         $this->db->from('tax_receive');
-        $this->db->where('tax_id= 8');
-        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
+        $this->db->where('tax_receive.tax_id= 8');
+        $this->db->where('tax_notice.status = ', 'active');
         $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
+        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
+        $this->db->join('tax_notice', 'tax_notice.notice_id = tax_receive.notice_id', 'left');
+
 
         // $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
 
@@ -831,11 +839,14 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
-        $this->db->select('tax_receive.*,tbl_individual.*,');
+        $this->db->select('tax_receive.*,tax_notice.*,tbl_individual.*,');
         $this->db->from('tax_receive');
-        $this->db->where('tax_id= 9');
-        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
+        $this->db->where('tax_receive.tax_id= 9');
+        $this->db->where('tax_notice.status = ', 'active');
         $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
+
+        $this->db->join('tax_notice', 'tax_notice.notice_id = tax_receive.notice_id', 'left');
+        $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
 
         $query = $this->db->get();
         $data = array();
@@ -886,12 +897,6 @@ class Receive_model extends CI_Model
         $this->db->limit($param['page_size'], $param['start']);
         $this->db->order_by($param['column'], $param['dir']);
 
-        // $this->db->select('tax_receive.*,tbl_individual.*,');
-        // $this->db->from('tax_receive');
-        // $this->db->where('tax_id= 10');
-        // $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
-        // $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
-
         $this->db->select('tax_receive.*,tbl_individual.*,tbl_tax.*,tax_notice.*');
         $this->db->from('tax_receive');
         $this->db->join('tbl_individual', 'tbl_individual.individual_id = tax_receive.individual_id', 'left');
@@ -899,7 +904,8 @@ class Receive_model extends CI_Model
         $this->db->join('tax_notice', 'tax_notice.notice_id = tax_receive.notice_id', 'left');
 
         $this->db->where('tax_receive.year_id', $this->session->userdata('year'));
-        $this->db->where('tbl_tax.tax_id= 10');
+        $this->db->where('tax_notice.status = ', 'active');
+        $this->db->where('tax_receive.tax_id= 10');
 
         $query = $this->db->get();
         $data = array();
