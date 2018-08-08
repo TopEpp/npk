@@ -774,9 +774,9 @@ class export_report extends My_Controller
               <td>' . $value['individual_number'] . '</td>
               <td>' . $value['individual_fullname'] . '</td>
               <td>' . $value['tax_name'] . '</td>
-              <td>' . number_format($value['sum(notice_estimate)'], 2) . '</td>
-              <td>' . number_format($value['tax_interest'], 2) . '</td>
-              <td>' . number_format($value['sum_amount_tax'] + $value['tax_interest'] - $value['tax_amount'], 2) . '</td>
+              <td>' . number_format($value['sum_amount_tax'], 2) . '</td>
+              <td>' . number_format($value['interest'], 2) . '</td>
+              <td>' . number_format($value['sum_amount_tax'] + $value['interest'] - $value['tax_amount'], 2) . '</td>
             </tr>';
         }
 
