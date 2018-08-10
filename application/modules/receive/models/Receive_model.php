@@ -162,9 +162,69 @@ class Receive_model extends CI_Model
     {
         $this->db->where('receive_id', $id);
         return $this->db->delete('tax_receive');
-
     }
 
+    public function del_receive_edit_local($id, $individual_id, $tax_id)
+    {
+        $this->db->where('notice_id', $id);
+        $result = $this->db->delete('tax_notice');
+
+        $data_update = $this->update_receive_edit($individual_id, $tax_id);
+        $input['land_amount'] = $data_update->land_amount - 1;
+        $input['total_estimate'] = $data_update->total_estimate;
+        $input['sum_amount_tax'] = $data_update->total_estimate + $data_update->tax_interest;
+        $this->db
+            ->where('individual_id', $individual_id)
+            ->where('tax_id', $tax_id)
+            ->where('year_id', $this->session->userdata('year'))
+            ->update('tax_notice', $input);
+    }
+
+    public function del_receive_edit_label($id, $individual_id, $tax_id)
+    {
+        $this->db->where('notice_id', $id);
+        $result = $this->db->delete('tax_notice');
+
+        $data_update = $this->update_receive_edit($individual_id, $tax_id);
+        $input['banner_amount'] = $data_update->banner_amount - 1;
+        $input['total_estimate'] = $data_update->total_estimate;
+        $input['sum_amount_tax'] = $data_update->total_estimate + $data_update->tax_interest;
+        $this->db
+            ->where('individual_id', $individual_id)
+            ->where('tax_id', $tax_id)
+            ->where('year_id', $this->session->userdata('year'))
+            ->update('tax_notice', $input);
+    }
+    public function del_receive_edit_house($id, $individual_id, $tax_id)
+    {
+        $this->db->where('notice_id', $id);
+        $result = $this->db->delete('tax_notice');
+
+        $data_update = $this->update_receive_edit($individual_id, $tax_id);
+        $input['notice_amount'] = $data_update->notice_amount - 1;
+        $input['total_estimate'] = $data_update->total_estimate;
+        $input['sum_amount_tax'] = $data_update->total_estimate + $data_update->tax_interest;
+        $this->db
+            ->where('individual_id', $individual_id)
+            ->where('tax_id', $tax_id)
+            ->where('year_id', $this->session->userdata('year'))
+            ->update('tax_notice', $input);
+    }
+
+    public function update_receive_edit($individual_id, $tax_id)
+    {
+        $this->db->select('sum(tax_notice.notice_estimate) as total_estimate , tax_notice.tax_interest,tax_notice.land_amount,tax_notice.banner_amount,tax_notice.notice_amount');
+        $this->db->from('tax_notice');
+        $this->db->where("tax_notice.year_id = '" . $this->session->userdata('year') . "' AND
+                            tax_notice.tax_id = '" . $tax_id . "' AND
+                            tax_notice.individual_id = '" . $individual_id . "' AND
+                            tax_notice.`status` = 'active'");
+        $query = $this->db->get();
+
+        $data_row = $query->result();
+        return $data_row[0];
+
+    }
     ////outside///
     public function insert_outside($input)
     {

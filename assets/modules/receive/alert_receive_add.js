@@ -1,4 +1,3 @@
-var tab = 1;
 $('#tab1').click(function () {
     tab = 1;
 });

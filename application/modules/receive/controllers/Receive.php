@@ -54,6 +54,24 @@ class Receive extends MY_Controller
         redirect(base_url('receive/receive_dashborad'));
 
     }
+    
+    //delete receive_edit_delete
+    public function receive_edit_delete_local($id, $individual_id, $tax_id)
+    {
+        $this->Receive_model->del_receive_edit_local($id, $individual_id, $tax_id);
+        redirect(base_url('receive/receive_notice/' . $individual_id . '/' . $tax_id));
+    }
+    public function receive_edit_delete_label($id, $individual_id, $tax_id)
+    {
+        $this->Receive_model->del_receive_edit_label($id, $individual_id, $tax_id);
+        redirect(base_url('receive/receive_notice/' . $individual_id . '/' . $tax_id));
+    }
+    public function receive_edit_delete_house($id, $individual_id, $tax_id)
+    {
+        $this->Receive_model->del_receive_edit_house($id, $individual_id, $tax_id);
+        redirect(base_url('receive/receive_notice/' . $individual_id . '/' . $tax_id));
+    }
+
 
 
 
@@ -255,7 +273,7 @@ class Receive extends MY_Controller
             if (!empty($input['notice_number'][0][0])) {
                 $form_key = 0;
                 foreach ($input['notice_estimate'][$form_key] as $key => $v) {
-                    $data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
+                    @$data[$form_key][$key]['notice_id'] = $input['notice_id'][$form_key][$key];
                     $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
                     $data[$form_key][$key]['tax_id'] = 8;
                     $data[$form_key][$key]['total_estimate'] = str_replace(',', '', $input['total_estimate'][$form_key][0]);
@@ -273,7 +291,7 @@ class Receive extends MY_Controller
                     // --- $form_key $key ----//
                     $data[$form_key][$key]['notice_address_number'] = $input['notice_address_number'][$form_key][$key];
                     $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
-                    $data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
+                    @$data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
                     $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
                     $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
                     $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
@@ -337,7 +355,7 @@ class Receive extends MY_Controller
                         // --- $form_key $key ----//
                     // $data[$form_key][$key]['banner_image'] = $input['banner_image'][$form_key][$key];
                     $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
-                    $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
+                    @$data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
                     $data[$form_key][$key]['banner_type'] = $input['banner_type'][$form_key][$key];
                     $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
                     $data[$form_key][$key]['banner_width'] = str_replace(',', '', $input['banner_width'][$form_key][$key]);
@@ -528,10 +546,7 @@ class Receive extends MY_Controller
         redirect(base_url('receive/other_tax'));
 
     }
-
-
-
-
+    
 
     //form individual
     public function receive_taxadd_popup($id = '')
