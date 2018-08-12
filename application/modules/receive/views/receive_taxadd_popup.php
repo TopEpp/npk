@@ -19,13 +19,15 @@
               <br />
 
               <!-- Smart Wizard -->
-              <?php if (($this->uri->segment(3))) {?>
+              <?php if (($this->uri->segment(3))) { ?>
                 <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save' . '/' . $this->uri->segment(3)); ?>" data-parsley-validate class="form-horizontal form-label-left">
               <?php
-} else {?>
+
+            } else { ?>
                 <form id="individual-form" method="post" action="<?php echo base_url('receive/receive_taxadd_popup_save'); ?>" data-parsley-validate class="form-horizontal form-label-left">
               <?php
-}?>
+
+            } ?>
 
                 <!-- Smart Wizard -->
                   <div id="form_tab" class="x_panel">
@@ -33,7 +35,7 @@
 
 
                       <?php if (!empty($individual[0]->tax_type_id)) { // have  data individual
-    if ($individual[0]->tax_type_id == 1) {?>
+                        if ($individual[0]->tax_type_id == 1) { ?>
                           <div class="" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                               <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">บุคคลธรรมดา</a>
@@ -75,14 +77,15 @@
                                                 <select name="individual_prename[0]" class="form-control " type="text" id="type_tax">
                                                   <option selected disabled>เลือก</option>
                                                     <?php foreach ($prename as $key => $value) {
-        $prename = '';
-        if (@$individual[0]->individual_prename == $value->prename_th) {
-            $prename = 'selected';
-        }
-        ?>
+                                                      $prename = '';
+                                                      if (@$individual[0]->individual_prename == $value->prename_th) {
+                                                        $prename = 'selected';
+                                                      }
+                                                      ?>
                                                       <option <?php echo $prename; ?> value="<?php echo $value->prename_th; ?>"><?php echo $value->prename_th; ?></option>
                                                     <?php
-}?>
+
+                                                  } ?>
                                                 </select>
                                           </div>
                                         </div>
@@ -157,58 +160,61 @@
 
                                       <div class="row">
                                         <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
-                                          <label>จังหวัด
+                                          <label>จังหวัด <span class="required" style="color:red">*</span>
                                           </label>
                                           <div>
                                               <select style="width: 100%;" class="form-control" name="individual_provice[0]" id="province">
                                                 <option value="" >เลือก</option>
                                                 <?php foreach ($province as $key => $value) {
-        $data_province = '';
-        if (@$individual[0]->individual_provice == $value->area_code) {
-            $data_province = 'selected';
-        }
-        ?>
+                                                  $data_province = '';
+                                                  if (@$individual[0]->individual_provice == $value->area_code) {
+                                                    $data_province = 'selected';
+                                                  }
+                                                  ?>
                                                   <option <?php echo $data_province; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                 <?php
-}?>
+
+                                              } ?>
                                               </select>
                                           </div>
                                         </div>
                                         <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
-                                            <label >อำเภอ
+                                            <label >อำเภอ <span class="required" style="color:red">*</span>
                                             </label>
                                             <div>
                                               <select style="width: 100%;" class="form-control" name="individual_district[0]" id="district">
                                                 <option value=""  >เลือก</option>
                                                   <?php foreach ($amphur as $key => $value) {
-        $send_district = '';
-        if (@$individual[0]->individual_district == $value->area_code) {
-            $send_district = 'selected';
-        }
+                                                    $send_district = '';
+                                                    if (@$individual[0]->individual_district == $value->area_code) {
+                                                      $send_district = 'selected';
+                                                    }
 
-        ?>
+                                                    ?>
                                                     <option <?php echo $send_district; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                   <?php
-}?>
+
+                                                } ?>
                                               </select>
                                             </div>
                                           </div>
                                         <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
-                                            <label >ตำบล
+                                            <label >ตำบล <span class="required" style="color:red">*</span>
                                             </label>
                                             <div >
                                               <select style="width: 100%;" class="form-control" name="individual_subdistrict[0]" id="subdistrict">
                                                 <option value=""  >เลือก</option>
                                                   <?php foreach ($tambon as $key => $value) {
-        $send_district = '';
-        if (@$individual[0]->individual_subdistrict == $value->area_code) {
-            $send_district = 'selected';
-        }
+                                                    $send_district = '';
+                                                    if (@$individual[0]->individual_subdistrict == $value->area_code) {
+                                                      $send_district = 'selected';
+                                                    }
 
-        ?>
+                                                    ?>
                                                     <option <?php echo $send_district; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                   <?php
-}?>
+
+                                                } ?>
                                               </select>
                                             </div>
                                           </div>
@@ -249,10 +255,10 @@
                                     </div>
                                     <br/>
                                     <?php $display = 'display:none;';
-        if (!empty($individual[0]->individual_send_address)) {
-            $display = 'display:block';
-        }?>
-                                    <div class="form-group type-value" id="individual_tab1" style="<?=$display;?>margin-bottom: 0px;" >
+                                    if (!empty($individual[0]->individual_send_address)) {
+                                      $display = 'display:block';
+                                    } ?>
+                                    <div class="form-group type-value" id="individual_tab1" style="<?= $display; ?>margin-bottom: 0px;" >
 
                                       <div class="row">
 
@@ -297,15 +303,16 @@
                                               <select style="width: 100%;" class="form-control" name="individual_send_province[0]" id="province_send">
                                                 <option value="" >เลือก</option>
                                                 <?php foreach ($province as $key => $value) {
-            $data_province = '';
-            if (@$individual[0]->individual_send_province == $value->area_code) {
-                $data_province = 'selected';
-            }
+                                                  $data_province = '';
+                                                  if (@$individual[0]->individual_send_province == $value->area_code) {
+                                                    $data_province = 'selected';
+                                                  }
 
-            ?>
+                                                  ?>
                                                   <option <?php echo $data_province; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                 <?php
-}?>
+
+                                              } ?>
                                               </select>
                                           </div>
                                         </div>
@@ -316,15 +323,16 @@
                                               <select style="width: 100%;" class="form-control" name="individual_send_district[0]" id="district_send">
                                                 <option value=""  >เลือก</option>
                                                 <?php foreach ($send_amphur as $key => $value) {
-            $send_district = '';
-            if (@$individual[0]->individual_send_district == $value->area_code) {
-                $send_district = 'selected';
-            }
+                                                  $send_district = '';
+                                                  if (@$individual[0]->individual_send_district == $value->area_code) {
+                                                    $send_district = 'selected';
+                                                  }
 
-            ?>
+                                                  ?>
                                                   <option <?php echo $send_district; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                 <?php
-}?>
+
+                                              } ?>
                                               </select>
                                             </div>
                                         </div>
@@ -335,15 +343,16 @@
                                               <select style="width: 100%;" class="form-control" name="individual_send_subdistrict[0]"  id="subdistrict_send">
                                                 <option value=""  >เลือก</option>
                                                 <?php foreach ($send_tambon as $key => $value) {
-            $subdistrict = '';
-            if (@$individual[0]->individual_send_subdistrict == $value->area_code) {
-                $subdistrict = 'selected';
-            }
+                                                  $subdistrict = '';
+                                                  if (@$individual[0]->individual_send_subdistrict == $value->area_code) {
+                                                    $subdistrict = 'selected';
+                                                  }
 
-            ?>
+                                                  ?>
                                                   <option <?php echo $subdistrict; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                 <?php
-}?>
+
+                                              } ?>
                                               </select>
                                             </div>
                                           </div>
@@ -372,7 +381,8 @@
 
 
                       <?php
-} else {?>
+
+                    } else { ?>
                         <div class="" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                               <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">นิติบุคคล</a>
@@ -471,40 +481,42 @@
 
 
                                       <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
-                                        <label>จังหวัด
+                                        <label>จังหวัด <span class="required" style="color:red">*</span>
                                         </label>
                                         <div>
                                             <select style="width: 100%;" class="form-control" name="individual_provice[1]" id="province">
                                                   <option value="" >เลือก</option>
                                               <?php foreach ($province as $key => $value) {
-        $data_province = '';
-        if (@$individual[0]->individual_provice == $value->area_code) {
-            $data_province = 'selected';
-        }
+                                                $data_province = '';
+                                                if (@$individual[0]->individual_provice == $value->area_code) {
+                                                  $data_province = 'selected';
+                                                }
 
-        ?>
+                                                ?>
                                                 <option <?php echo $data_province; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                               <?php
-}?>
+
+                                            } ?>
                                             </select>
                                         </div>
                                       </div>
                                       <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 10px;">
-                                          <label >อำเภอ
+                                          <label >อำเภอ <span class="required" style="color:red">*</span>
                                           </label>
                                           <div>
                                             <select style="width: 100%;" class="form-control" name="individual_district[1]" id="district">
                                                 <option value=""  >เลือก</option>
                                                   <?php foreach ($amphur as $key => $value) {
-        $send_district = '';
-        if (@$individual[0]->individual_district == $value->area_code) {
-            $send_district = 'selected';
-        }
+                                                    $send_district = '';
+                                                    if (@$individual[0]->individual_district == $value->area_code) {
+                                                      $send_district = 'selected';
+                                                    }
 
-        ?>
+                                                    ?>
                                                     <option <?php echo $send_district; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                   <?php
-}?>
+
+                                                } ?>
                                             </select>
                                           </div>
                                       </div>
@@ -512,21 +524,22 @@
 
                                     <div class="row">
                                         <div class="col-md-4 col-sm-6 col-xs-12">
-                                          <label >ตำบล
+                                          <label >ตำบล <span class="required" style="color:red">*</span>
                                           </label>
                                           <div >
                                             <select style="width: 100%;" class="form-control" name="individual_subdistrict[1]" id="subdistrict">
                                               <option value=""  >เลือก</option>
                                                 <?php foreach ($tambon as $key => $value) {
-        $subdistrict = '';
-        if (@$individual[0]->individual_subdistrict == $value->area_code) {
-            $subdistrict = 'selected';
-        }
+                                                  $subdistrict = '';
+                                                  if (@$individual[0]->individual_subdistrict == $value->area_code) {
+                                                    $subdistrict = 'selected';
+                                                  }
 
-        ?>
+                                                  ?>
                                                   <option <?php echo $subdistrict; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                 <?php
-}?>
+
+                                              } ?>
                                             </select>
                                           </div>
                                         </div>
@@ -535,7 +548,7 @@
                                         <label  >รหัสไปรษณีย์ <span class="required" style="color:red">*</span>
                                         </label>
                                         <div >
-                                            <input type="text" name="individual_zipcode[1]" value="<?php echo @$individual[0]->individual_zipcode; ?>" class="form-control col-md-7 col-xs-12" >
+                                            <input type="text" name="individual_zipcode[1]" value="<?php echo @$individual[0]->individual_zipcode; ?>" class="form-control col-md-7 col-xs-12" maxlength="5" onKeyUp="if(this.value*1!=this.value) this.value='' ;">
                                         </div>
                                       </div>
 
@@ -558,11 +571,11 @@
                                   </div>
                                   <br/>
                                   <?php $display = 'display:none;';
-        if (!empty($individual[0]->individual_send_address)) {
+                                  if (!empty($individual[0]->individual_send_address)) {
 
-            $display = 'display:block';
-        }?>
-                                  <div class="form-group type-value" id="individual_tab2"style="<?=$display;?> margin-bottom: 0px;" >
+                                    $display = 'display:block';
+                                  } ?>
+                                  <div class="form-group type-value" id="individual_tab2"style="<?= $display; ?> margin-bottom: 0px;" >
 
                                     <div class="row">
 
@@ -607,14 +620,15 @@
                                             <select style="width: 100%;" class="form-control" name="individual_send_province[1]" id="province_send">
                                                   <option value="" >เลือก</option>
                                               <?php foreach ($province as $key => $value) {
-            $data_province = '';
-            if (@$individual[0]->individual_send_province == $value->area_code) {
-                $data_province = 'selected';
-            }
-            ?>
+                                                $data_province = '';
+                                                if (@$individual[0]->individual_send_province == $value->area_code) {
+                                                  $data_province = 'selected';
+                                                }
+                                                ?>
                                                 <option <?php echo $data_province; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                               <?php
-}?>
+
+                                            } ?>
                                             </select>
                                         </div>
                                       </div>
@@ -625,15 +639,16 @@
                                             <select style="width: 100%;" class="form-control" name="individual_send_district[1]" id="district_send">
                                               <option value=""  >เลือก</option>
                                                 <?php foreach ($send_amphur as $key => $value) {
-            $subdistrict = '';
-            if (@$individual[0]->individual_send_district == $value->area_code) {
-                $subdistrict = 'selected';
-            }
+                                                  $subdistrict = '';
+                                                  if (@$individual[0]->individual_send_district == $value->area_code) {
+                                                    $subdistrict = 'selected';
+                                                  }
 
-            ?>
+                                                  ?>
                                                   <option <?php echo $subdistrict; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                 <?php
-}?>
+
+                                              } ?>
                                             </select>
                                           </div>
                                       </div>
@@ -644,15 +659,16 @@
                                             <select  style="width: 100%;" class="form-control" name="individual_send_subdistrict[1]" id="subdistrict_send">
                                               <option value=""  >เลือก</option>
                                                 <?php foreach ($send_tambon as $key => $value) {
-            $subdistrict = '';
-            if (@$individual[0]->individual_send_subdistrict == $value->area_code) {
-                $subdistrict = 'selected';
-            }
+                                                  $subdistrict = '';
+                                                  if (@$individual[0]->individual_send_subdistrict == $value->area_code) {
+                                                    $subdistrict = 'selected';
+                                                  }
 
-            ?>
+                                                  ?>
                                                   <option <?php echo $subdistrict; ?> value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                                 <?php
-}?>
+
+                                              } ?>
                                             </select>
                                           </div>
                                       </div>
@@ -680,8 +696,9 @@
                           </div>
 
                       <?php
-}
-} else { //don't have data ?>
+
+                    }
+                  } else { //don't have data ?>
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                       <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -726,10 +743,11 @@
                                     <div class="form-group">
                                           <label >คำนำหน้าชื่อ <span class="required" style="color:red">*</span></label>
                                           <select name="individual_prename[0]" class="form-control " type="text" id="type_tax">
-                                              <?php foreach ($prename as $key => $value) {?>
+                                              <?php foreach ($prename as $key => $value) { ?>
                                                 <option value="<?php echo $value->prename_th; ?>"><?php echo $value->prename_th; ?></option>
                                               <?php
-}?>
+
+                                            } ?>
                                           </select>
                                     </div>
                                   </div>
@@ -809,10 +827,11 @@
                                     <div>
                                         <select style="width: 100%;" class="form-control" name="individual_provice[0]" id="province">
                                               <option value="" >เลือก</option>
-                                          <?php foreach ($province as $key => $value) {?>
+                                          <?php foreach ($province as $key => $value) { ?>
                                             <option value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                           <?php
-}?>
+
+                                        } ?>
                                         </select>
                                     </div>
                                   </div>
@@ -912,10 +931,11 @@
                                     <div>
                                         <select style="width: 100%;" class="form-control" name="individual_send_province[0]" id="province_send">
                                               <option value="" >เลือก</option>
-                                          <?php foreach ($province as $key => $value) {?>
+                                          <?php foreach ($province as $key => $value) { ?>
                                             <option value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                           <?php
-}?>
+
+                                        } ?>
                                         </select>
                                     </div>
                                   </div>
@@ -1054,10 +1074,11 @@
                                     <div>
                                         <select style="width: 100%;" class="form-control" name="individual_provice[1]" id="province_1">
                                               <option value="" >เลือก</option>
-                                          <?php foreach ($province as $key => $value) {?>
+                                          <?php foreach ($province as $key => $value) { ?>
                                             <option value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                           <?php
-}?>
+
+                                        } ?>
                                         </select>
                                     </div>
                                   </div>
@@ -1152,10 +1173,11 @@
                                     <div>
                                         <select style="width: 100%;" class="form-control" name="individual_send_province[1]" id="province_send_1">
                                               <option value="" >เลือก</option>
-                                          <?php foreach ($province as $key => $value) {?>
+                                          <?php foreach ($province as $key => $value) { ?>
                                             <option value="<?php echo $value->area_code; ?>"><?php echo $value->area_name_th; ?> </option>
                                           <?php
-}?>
+
+                                        } ?>
                                         </select>
                                     </div>
                                   </div>
@@ -1205,7 +1227,8 @@
 
 
                       <?php
-}?>
+
+                    } ?>
 
 
                   </div>

@@ -11,12 +11,24 @@ class Receive_model extends CI_Model
         $this->db->from('tbl_individual');
         $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
         $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
-        // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_district', 'left');
-        // $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
 
         $query = $this->db->get();
         return $query->result();
     }
+    public function read_address($id = '')
+    {
+        if (!empty($id)) {
+            $this->db->where('individual_id', $id);
+        }
+        $this->db->select('tbl_individual.*,tbl_tax_type.*,std_area.*');
+        $this->db->from('tbl_individual');
+        $this->db->join('tbl_tax_type', 'tbl_tax_type.tax_type_id = tbl_individual.individual_type', 'left');
+        $this->db->join('std_area', 'std_area.area_code = tbl_individual.individual_subdistrict', 'left');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
 
     public function read_dashborad()
     {
@@ -63,9 +75,13 @@ class Receive_model extends CI_Model
 
     public function insertNoticeFormUpdate($year, $data)
     {
-        $this->db->where('year_id', $year);
+        // $this->db->where('year_id', $year);
         $this->db->set('year_id', $year);
         $this->db->insert('tax_notice', $data);
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+
     }
 
     public function updateNotice($year, $data)
@@ -1012,7 +1028,6 @@ class Receive_model extends CI_Model
         return $this->db->get('std_area')->result_array();
 
     }
-
 
     public function getAlert($data)
     {

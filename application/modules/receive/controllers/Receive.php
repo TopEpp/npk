@@ -73,160 +73,9 @@ class Receive extends MY_Controller
     }
 
 
-
-
-    public function receive_add($id = '')
-    {
-        $data = array();
-
-        $id = $this->uri->segment(3);
-        // $query = $this->Receive_model->get_notic_one($id);
-        // $data['tax_notice'] = $query;
-
-        $data['tax_notice'] = $this->Receive_model->read_receive($id);
-
-        $query = $this->db->query("SELECT * FROM tbl_operation");
-        $data['operation'] = $query->result();
-
-        $query = $this->db->query("SELECT * FROM tbl_year");
-        $data['years'] = $query->result();
-
-        $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
-        $data['tax_years'] = $query->result();
-
-
-        $query = $this->db->query("SELECT * FROM tbl_banner");
-        $data['banner'] = $query->result();
-
-        $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
-        $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
-        $this->setView('receive_add', $data);
-        $this->publish();
-    }
-
-    public function receive_notice_save($id = '')
-    {
-        $data = array();
-        $input = $this->input->post();
-
-        foreach ($input['notice_number'] as $k => $value) {
-            for ($form_key = 0; $form_key < 3; $form_key++) {
-                if (!empty($input['notice_number'][0][0])) {
-                    if ($form_key == 0) {
-                        foreach ($input['notice_estimate'][0] as $key => $v) {
-                            $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
-                            $data[$form_key][$key]['tax_id'] = 8;
-                            $data[$form_key][$key]['total_estimate'] = str_replace(',', '', $input['total_estimate'][$form_key][0]);
-                            $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
-                            $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
-
-
-
-                            $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
-                            $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
-                            $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
-                            $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
-                            $data[$form_key][$key]['notice_date_p2'] = $this->mydate->date_thai2eng($input['notice_date_p2'][$form_key][0], -543);
-                            $data[$form_key][$key]['notice_amount'] = str_replace(',', '', $input['notice_amount'][$form_key][0]);
-                            
-                    // --- $form_key $key ----//
-                            $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
-                            $data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
-                            $data[$form_key][$key]['notice_address_number'] = $input['notice_address_number'][$form_key][$key];
-                            $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
-                            $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
-                            $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
-                            $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
-                            $data[$form_key][$key]['noice_type_operation'] = $input['noice_type_operation'][$form_key][$key];
-                            $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
-                            $data[$form_key][$key]['notice_annual_fee'] = str_replace(',', '', $input['notice_annual_fee'][$form_key][$key]);
-
-                        }
-                    }
-
-                }
-                if (!empty($input['notice_number'][1][0])) {
-                    if ($form_key == 1) {
-                        foreach ($input['notice_estimate'][1] as $key => $v) {
-                            $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
-                            $data[$form_key][$key]['tax_id'] = 9;
-                            $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
-                            $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
-
-
-
-                            $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
-                            $data[$form_key][$key]['notice_date_p5'] = $this->mydate->date_thai2eng($input['notice_date_p5'][$form_key][0], -543);
-                            $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
-                            $data[$form_key][$key]['land_amount'] = str_replace(',', '', $input['land_amount'][$form_key][0]);
-
-                    // --- $form_key $key ----//
-                            $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
-                            $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
-
-
-                            $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
-                            $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
-                            $data[$form_key][$key]['land_rai'] = str_replace(',', '', $input['land_rai'][$form_key][$key]);
-                            $data[$form_key][$key]['land_ngan'] = str_replace(',', '', $input['land_ngan'][$form_key][$key]);
-                            $data[$form_key][$key]['land_wa'] = str_replace(',', '', $input['land_wa'][$form_key][$key]);
-                            $data[$form_key][$key]['land_tax'] = str_replace(',', '', $input['land_tax'][$form_key][$key]);
-                            $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
-                            $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
-                            $data[$form_key][$key]['tax_local_year'] = $input['tax_local_year'][$form_key][$key];
-                        }
-                    }
-                }
-                if (!empty($input['notice_number'][2][0])) {
-                    if ($form_key == 2) {
-                        foreach ($input['notice_estimate'][2] as $key => $v) {
-                            $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
-                            $data[$form_key][$key]['tax_id'] = 10;
-                            $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
-                            $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
-
-
-                            $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
-                            $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
-                            $data[$form_key][$key]['banner_amount'] = str_replace(',', '', $input['banner_amount'][$form_key][0]);
-                            @$data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][0];
-
-
-                        // --- $form_key $key ----//
-
-                    // $data[$form_key][$key]['ban'] = $input['ban'][$form_key][$key];
-                            $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
-                            $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
-                            $data[$form_key][$key]['banner_type'] = $input['banner_type'][$form_key][$key];
-                            $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
-                            $data[$form_key][$key]['banner_width'] = str_replace(',', '', $input['banner_width'][$form_key][$key]);
-                            $data[$form_key][$key]['banner_heigth'] = str_replace(',', '', $input['banner_heigth'][$form_key][$key]);
-                            $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
-
-                            // $config['upload_path'] = './assets/';
-                            // $config['allowed_types'] = '*';
-                            // $this->load->library('upload', $config);
-                            // $this->upload->do_upload('file_name');
-                            // $up_file_name = $this->upload->data();
-                            // $data = array('banner_image' => $up_file_name['file_name']);
-                        }
-                    }
-
-                }
-            }
-        }
-        $year = $this->session->userdata('year');
-        $this->Receive_model->insertNotice($year, $data);
-        redirect(base_url('receive/receive_dashborad'));
-
-        // echo '<pre>';
-        // print_r($data);
-        // exit;
-    }
-
-
     public function receive_notice($id = '', $tax_id)
     {
+
         $data = array();
 
         if (!empty($id)) {
@@ -237,8 +86,15 @@ class Receive extends MY_Controller
             }
         }
         $data['tax_notice_read'] = $this->Receive_model->read_receive($id);
+        $data['read_address'] = $this->Receive_model->read_address($id);
+
         $data['tax_notice_id'] = $this->Receive_model->getNoticeAll($id);
         $data['tax_id'] = $tax_id;
+
+        $data['individual_subdistrict'] = $this->Receive_model->address($data['read_address'][0]['individual_subdistrict']);
+        $data['individual_district'] = $this->Receive_model->address($data['read_address'][0]['individual_district']);
+        $data['individual_provice'] = $this->Receive_model->address($data['read_address'][0]['individual_provice']);
+
 
         $query = $this->db->query("SELECT * FROM tbl_operation");
         $data['operation'] = $query->result();
@@ -353,7 +209,6 @@ class Receive extends MY_Controller
 
 
                         // --- $form_key $key ----//
-                    // $data[$form_key][$key]['banner_image'] = $input['banner_image'][$form_key][$key];
                     $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
                     @$data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
                     $data[$form_key][$key]['banner_type'] = $input['banner_type'][$form_key][$key];
@@ -361,42 +216,98 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['banner_width'] = str_replace(',', '', $input['banner_width'][$form_key][$key]);
                     $data[$form_key][$key]['banner_heigth'] = str_replace(',', '', $input['banner_heigth'][$form_key][$key]);
                     $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
-                }
 
+                    if ($k == 2) {
+
+                        // echo '<pre>';
+                        // print_r($_FILES);
+                        // echo '</pre>';
+
+                        $upload_path = './assets/uploads/images/banner/';
+                        $upload_imgae[$key] = $this->upload_image('banner_image' . $key, $upload_path);
+                        $data[$form_key][$key]['banner_image'] = $upload_imgae[$key]['target_name'];
+
+                        // echo '<pre>';
+                        // print_r($upload_imgae);
+                        // print_r($data);
+                        // echo '</pre>';
+
+                    }
+
+
+                }
+                // exit();
             }
+
+
 
         }
         foreach ($data as $form_key => $val_data) {
             foreach ($data[$form_key] as $key => $value) {
                 if (($data[$form_key][$key]['notice_id'] != '')) {
+
                     $year = $this->session->userdata('year');
                     $this->Receive_model->updateNotice($year, $value);
-                } else {
 
-                    // $config['upload_path'] = './uploads/';
-                    // $config['allowed_types'] = 'gif|jpg|png';
-                    // $config['max_size'] = 0;
-                    // $config['max_width'] = 0;
-                    // $config['max_height'] = 0;
-                    // $config['encrypt_name'] = true;
-
-                    // $this->load->library('upload', $config);
-                    // $this->upload->do_upload('banner_image');
-                    // $data = array(
-                    //     'banner_image' => $this->upload->data('file_name'),
-                    // );
-
-
-                    $year = $this->session->userdata('year');
-                    $this->Receive_model->insertNoticeFormUpdate($year, $value);
-                }
+                } 
+                // else {
+                //     $year = $this->session->userdata('year');
+                //     $this->Receive_model->insertNoticeFormUpdate($year, $value);
+                // }
 
             }
         }
-        redirect(base_url('receive/receive_dashborad'));
+
+        // redirect(base_url('receive/receive_dashborad'));
         // echo '<pre>';
         // print_r($data);
         // exit;
+        echo '<pre>';
+        print_r($upload_imgae);
+        print_r($_FILES);
+        print_r($data);
+        echo '</pre>';
+
+    }
+
+    public function upload_image($image_name, $upload_path = '')
+    {
+        // echo '<pre>';
+        // print_r($_FILES[$image_name]);
+        // echo '</pre>';
+        $target_file = basename($_FILES[$image_name]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is a actual image or fake image
+
+        // Check file size
+        if ($_FILES[$image_name]["size"] > 500000) {
+            $message = "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        // Allow certain file formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif") {
+            $message = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            $message = "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+            $target_file_name = time() . '_' . rand() . '.' . $imageFileType;
+            if (move_uploaded_file($_FILES[$image_name]["tmp_name"], $upload_path . $target_file_name)) {
+                $message = "The file " . $target_file_name . " has been uploaded.";
+            } else {
+                $message = "Sorry, there was an error uploading your file.";
+                $uploadOk = 0;
+            }
+        }
+        $output = array('message' => $message, 'status' => $uploadOk, 'target_name' => $target_file_name);
+        return $output;
+
 
     }
 
@@ -625,7 +536,7 @@ class Receive extends MY_Controller
                 $data['code_name'] = $this->input->post('code_name')[$key];
                 $data['individual_number'] = $this->input->post('individual_number')[$key];
                 $data['individual_prename'] = $this->input->post('individual_prename')[$key];
-                $data['individual_fullname'] = $this->input->post('individual_prename')[$key] . '' . $this->input->post('individual_firstname')[$key] . ' ' . $this->input->post('individual_lastname')[$key];
+                $data['individual_fullname'] = $this->input->post('individual_firstname')[$key] . ' ' . $this->input->post('individual_lastname')[$key];
                 $data['individual_firstname'] = $this->input->post('individual_firstname')[$key];
                 $data['individual_lastname'] = $this->input->post('individual_lastname')[$key];
                 $data['individual_address'] = $this->input->post('individual_address')[$key];
@@ -877,61 +788,7 @@ class Receive extends MY_Controller
         $data['error'] = $results['error_message'];
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
-  //   import users to table indevidual form data house
-  //   public function import_data_house(){
-  //       //import module
-  //       $this->load->model('import/import_model');
-  //       $this->load->model('receive_model');
 
-		// $dataTmp = $this->import_model->getTmpHouse();
-  //       // change some data to type int
-		// foreach ($dataTmp as $key => $value) {
-		// 	$provice_id = $this->import_model->getProviceID($value->tmp_province_send);
-		// 	$district_id = $this->import_model->getDistrictID($provice_id,$value->tmp_district_send);
-		// 	$subdistrict_id = $this->import_model->getSubDistrictID($district_id,$value->tmp_subdistrict_send);
-
-		// 	$dataTmp[$key]->provice_id_send = $provice_id;
-		// 	$dataTmp[$key]->district_id_send = $district_id;
-		// 	$dataTmp[$key]->subdistrict_id_send = $subdistrict_id;
-  //       }
-
-  //       //import data to table individual
-  //       $dataImport = array();
-  //       foreach ($dataTmp as $key => $value) {
-
-  //           if (strlen($value->tmp_Identification) == 12){
-  //               $dataImport['individual_type'] = 2;
-  //           }else{
-  //               $dataImport['individual_type'] = 1;
-  //           }
-
-  //           $dataImport['individual_prename'] = $value->tmp_prename;
-  //           $dataImport['individual_fullname'] = $value->tmp_firstname .' '. $value->tmp_lastname;
-  //           $dataImport['individual_firstname'] = $value->tmp_firstname;
-  //           $dataImport['individual_lastname'] = $value->tmp_lastname;
-  //           $dataImport['individual_number'] = $value->tmp_Identification;
-  //           $dataImport['individual_address'] = $value->tmp_number;
-  //           $dataImport['individual_village'] = $value->tmp_village;
-  //           $dataImport['individual_subdistrict'] = $value->tmp_subdistrict;
-  //           $dataImport['individual_send_address'] = $value->tmp_number_send;
-  //           $dataImport['individual_send_village'] = $value->tmp_village_send;
-  //           $dataImport['individual_send_road'] = $value->tmp_road_send;
-  //           $dataImport['individual_send_lane'] = $value->tmp_lane_send;
-  //           $dataImport['individual_send_province'] = $value->provice_id_send;
-  //           $dataImport['individual_send_district'] = $value->district_id_send;
-  //           $dataImport['individual_send_subdistrict'] = $value->subdistrict_id_send;
-  //           $dataImport['individual_send_zipcode'] = $value->tmp_zipcode_send;
-  //           $dataImport['individual_business_name'] = $value->tmp_type_business;
-
-  //           //insert data to table
-  //           $status = $this->receive_model->insertData($dataImport);
-
-  //       }
-  //       echo $status ;
-  //           die();
-
-
-  //   }
 
     public function import_data_label()
     {
@@ -1713,9 +1570,208 @@ class Receive extends MY_Controller
         $this->output->set_content_type('application/json')->set_output(json_encode($result));
     }
 
-
-
-
-
-
 }
+
+    // public function receive_add($id = '')
+    // {
+    //     $data = array();
+
+    //     $id = $this->uri->segment(3);
+    //     // $query = $this->Receive_model->get_notic_one($id);
+    //     // $data['tax_notice'] = $query;
+
+    //     $data['tax_notice'] = $this->Receive_model->read_receive($id);
+
+    //     $query = $this->db->query("SELECT * FROM tbl_operation");
+    //     $data['operation'] = $query->result();
+
+    //     $query = $this->db->query("SELECT * FROM tbl_year");
+    //     $data['years'] = $query->result();
+
+    //     $query = $this->db->query("SELECT * FROM tbl_tax_year ORDER BY tax_year_id DESC");
+    //     $data['tax_years'] = $query->result();
+
+
+    //     $query = $this->db->query("SELECT * FROM tbl_banner");
+    //     $data['banner'] = $query->result();
+
+    //     $this->template->javascript->add('assets/modules/receive/alert_receive_add.js');
+    //     $this->config->set_item('title', 'หน้าหลัก - เทศบาลตำบลหนองป่าครั่ง');
+    //     $this->setView('receive_add', $data);
+    //     $this->publish();
+    // }
+
+    // public function receive_notice_save($id = '')
+    // {
+    //     $data = array();
+    //     $input = $this->input->post();
+
+    //     foreach ($input['notice_number'] as $k => $value) {
+    //         for ($form_key = 0; $form_key < 3; $form_key++) {
+    //             if (!empty($input['notice_number'][0][0])) {
+    //                 if ($form_key == 0) {
+    //                     foreach ($input['notice_estimate'][0] as $key => $v) {
+    //                         $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
+    //                         $data[$form_key][$key]['tax_id'] = 8;
+    //                         $data[$form_key][$key]['total_estimate'] = str_replace(',', '', $input['total_estimate'][$form_key][0]);
+    //                         $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+    //                         $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
+
+
+    //                         $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+    //                         $data[$form_key][$key]['notice_no'] = $input['notice_no'][$form_key][0];
+    //                         $data[$form_key][$key]['notice_number_p2'] = $input['notice_number_p2'][$form_key][0];
+    //                         $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
+    //                         $data[$form_key][$key]['notice_date_p2'] = $this->mydate->date_thai2eng($input['notice_date_p2'][$form_key][0], -543);
+    //                         $data[$form_key][$key]['notice_amount'] = str_replace(',', '', $input['notice_amount'][$form_key][0]);
+                            
+    //                 // --- $form_key $key ----//
+    //                         $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
+    //                         $data[$form_key][$key]['noice_name_operation_other'] = $input['noice_name_operation_other'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_address_number'] = $input['notice_address_number'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+    //                         $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
+    //                         $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
+    //                         $data[$form_key][$key]['noice_type_operation'] = $input['noice_type_operation'][$form_key][$key];
+    //                         $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_annual_fee'] = str_replace(',', '', $input['notice_annual_fee'][$form_key][$key]);
+
+    //                     }
+    //                 }
+
+    //             }
+    //             if (!empty($input['notice_number'][1][0])) {
+    //                 if ($form_key == 1) {
+    //                     foreach ($input['notice_estimate'][1] as $key => $v) {
+    //                         $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
+    //                         $data[$form_key][$key]['tax_id'] = 9;
+    //                         $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+    //                         $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
+
+
+    //                         $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+    //                         $data[$form_key][$key]['notice_date_p5'] = $this->mydate->date_thai2eng($input['notice_date_p5'][$form_key][0], -543);
+    //                         $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
+    //                         $data[$form_key][$key]['land_amount'] = str_replace(',', '', $input['land_amount'][$form_key][0]);
+
+    //                 // --- $form_key $key ----//
+    //                         $data[$form_key][$key]['land_deed_number'] = $input['land_deed_number'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
+
+
+    //                         $data[$form_key][$key]['notice_address_moo'] = $input['notice_address_moo'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+    //                         $data[$form_key][$key]['land_rai'] = str_replace(',', '', $input['land_rai'][$form_key][$key]);
+    //                         $data[$form_key][$key]['land_ngan'] = str_replace(',', '', $input['land_ngan'][$form_key][$key]);
+    //                         $data[$form_key][$key]['land_wa'] = str_replace(',', '', $input['land_wa'][$form_key][$key]);
+    //                         $data[$form_key][$key]['land_tax'] = str_replace(',', '', $input['land_tax'][$form_key][$key]);
+    //                         $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
+    //                         $data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][$key];
+    //                         $data[$form_key][$key]['tax_local_year'] = $input['tax_local_year'][$form_key][$key];
+    //                     }
+    //                 }
+    //             }
+    //             if (!empty($input['notice_number'][2][0])) {
+    //                 if ($form_key == 2) {
+    //                     foreach ($input['notice_estimate'][2] as $key => $v) {
+    //                         $data[$form_key][$key]['individual_id'] = $input['individual_id'][$form_key][0];
+    //                         $data[$form_key][$key]['tax_id'] = 10;
+    //                         $data[$form_key][$key]['tax_interest'] = str_replace(',', '', $input['tax_interest'][$form_key][0]);
+    //                         $data[$form_key][$key]['sum_amount_tax'] = str_replace(',', '', $input['sum_amount_tax'][$form_key][0]);
+
+
+    //                         $data[$form_key][$key]['notice_number'] = $input['notice_number'][$form_key][0];
+    //                         $data[$form_key][$key]['notice_date'] = $this->mydate->date_thai2eng($input['notice_date'][$form_key][0], -543);
+    //                         $data[$form_key][$key]['banner_amount'] = str_replace(',', '', $input['banner_amount'][$form_key][0]);
+    //                         @$data[$form_key][$key]['tax_year'] = $input['tax_year'][$form_key][0];
+
+
+    //                     // --- $form_key $key ----//
+
+    //                 // $data[$form_key][$key]['ban'] = $input['ban'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_mark'] = $input['notice_mark'][$form_key][$key];
+    //                         $data[$form_key][$key]['noice_name_operation'] = $input['noice_name_operation'][$form_key][$key];
+    //                         $data[$form_key][$key]['banner_type'] = $input['banner_type'][$form_key][$key];
+    //                         $data[$form_key][$key]['notice_address_subdistrict'] = 50011300;
+    //                         $data[$form_key][$key]['banner_width'] = str_replace(',', '', $input['banner_width'][$form_key][$key]);
+    //                         $data[$form_key][$key]['banner_heigth'] = str_replace(',', '', $input['banner_heigth'][$form_key][$key]);
+    //                         $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
+
+    //                         // $config['upload_path'] = './assets/';
+    //                         // $config['allowed_types'] = '*';
+    //                         // $this->load->library('upload', $config);
+    //                         // $this->upload->do_upload('file_name');
+    //                         // $up_file_name = $this->upload->data();
+    //                         // $data = array('banner_image' => $up_file_name['file_name']);
+    //                     }
+    //                 }
+
+    //             }
+    //         }
+    //     }
+    //     $year = $this->session->userdata('year');
+    //     $this->Receive_model->insertNotice($year, $data);
+    //     redirect(base_url('receive/receive_dashborad'));
+
+    //     // echo '<pre>';
+    //     // print_r($data);
+    //     // exit;
+    // }
+  //   import users to table indevidual form data house
+  //   public function import_data_house(){
+  //       //import module
+  //       $this->load->model('import/import_model');
+  //       $this->load->model('receive_model');
+
+		// $dataTmp = $this->import_model->getTmpHouse();
+  //       // change some data to type int
+		// foreach ($dataTmp as $key => $value) {
+		// 	$provice_id = $this->import_model->getProviceID($value->tmp_province_send);
+		// 	$district_id = $this->import_model->getDistrictID($provice_id,$value->tmp_district_send);
+		// 	$subdistrict_id = $this->import_model->getSubDistrictID($district_id,$value->tmp_subdistrict_send);
+
+		// 	$dataTmp[$key]->provice_id_send = $provice_id;
+		// 	$dataTmp[$key]->district_id_send = $district_id;
+		// 	$dataTmp[$key]->subdistrict_id_send = $subdistrict_id;
+  //       }
+
+  //       //import data to table individual
+  //       $dataImport = array();
+  //       foreach ($dataTmp as $key => $value) {
+
+  //           if (strlen($value->tmp_Identification) == 12){
+  //               $dataImport['individual_type'] = 2;
+  //           }else{
+  //               $dataImport['individual_type'] = 1;
+  //           }
+
+  //           $dataImport['individual_prename'] = $value->tmp_prename;
+  //           $dataImport['individual_fullname'] = $value->tmp_firstname .' '. $value->tmp_lastname;
+  //           $dataImport['individual_firstname'] = $value->tmp_firstname;
+  //           $dataImport['individual_lastname'] = $value->tmp_lastname;
+  //           $dataImport['individual_number'] = $value->tmp_Identification;
+  //           $dataImport['individual_address'] = $value->tmp_number;
+  //           $dataImport['individual_village'] = $value->tmp_village;
+  //           $dataImport['individual_subdistrict'] = $value->tmp_subdistrict;
+  //           $dataImport['individual_send_address'] = $value->tmp_number_send;
+  //           $dataImport['individual_send_village'] = $value->tmp_village_send;
+  //           $dataImport['individual_send_road'] = $value->tmp_road_send;
+  //           $dataImport['individual_send_lane'] = $value->tmp_lane_send;
+  //           $dataImport['individual_send_province'] = $value->provice_id_send;
+  //           $dataImport['individual_send_district'] = $value->district_id_send;
+  //           $dataImport['individual_send_subdistrict'] = $value->subdistrict_id_send;
+  //           $dataImport['individual_send_zipcode'] = $value->tmp_zipcode_send;
+  //           $dataImport['individual_business_name'] = $value->tmp_type_business;
+
+  //           //insert data to table
+  //           $status = $this->receive_model->insertData($dataImport);
+
+  //       }
+  //       echo $status ;
+  //           die();
+
+
+  //   }

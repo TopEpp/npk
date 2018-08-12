@@ -13,7 +13,7 @@
       			    <h2>ภาษีโรงเรือนและที่ดิน</h2> 
       			    <input type="hidden" name="tax_id" value="8">
       			    <input type="file" class="form-control" style="margin-top: 10px; margin-bottom: 10px;" name="fileToUpload" id="fileToUpload">
-      			    <input type="submit" class="btn btn-default" value="อัพโหลด excel" name="submit">
+      			    <input type="submit" class="btn btn-success" value="อัพโหลด excel" name="submit">
       			</form>
           </div>
       </div>
@@ -26,12 +26,11 @@
       			    <h2>ภาษีบำรุงท้องที่</h2> 
       			    <input type="hidden" name="tax_id" value="9">
       			    <input type="file" class="form-control" style="margin-top: 10px; margin-bottom: 10px;" name="fileToUpload" id="fileToUpload">
-      			    <input type="submit" class="btn btn-default" value="อัพโหลด excel" name="submit">
+      			    <input type="submit" class="btn btn-success" value="อัพโหลด excel" name="submit">
       			</form>
           </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel" style="top: 10px;">
@@ -39,7 +38,7 @@
       			    <h2>ภาษีป้าย</h2> 
       			    <input type="hidden" name="tax_id" value="10">
       			    <input type="file" class="form-control" style="margin-top: 10px; margin-bottom: 10px;" name="fileToUpload" id="fileToUpload">
-      			    <input type="submit" class="btn btn-default" value="อัพโหลด excel" name="submit">
+      			    <input type="submit" class="btn btn-success" value="อัพโหลด excel" name="submit">
       			</form>
           </div>
       </div>

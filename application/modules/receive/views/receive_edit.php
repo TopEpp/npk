@@ -43,7 +43,7 @@
                                                             <div class="form-group">
                                                                 <label class="control col-md-2" >ผู้เสียภาษี :</label>
                                                                 <div class="control col-md-3">
-                                                                    <p><?php echo $tax_notice_read[0]->individual_prename . $tax_notice_read[0]->individual_firstname . " " . $tax_notice_read[0]->individual_lastname; ?></p>
+                                                                    <p><?php echo $tax_notice_read[0]->individual_prename . " " . $tax_notice_read[0]->individual_fullname; ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -66,8 +66,8 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="control col-md-2" >ที่อยู่ :</label>
-                                                                <div class="control col-md-4">
-                                                                    <p><?php echo $tax_notice_read[0]->individual_address . " " . "หมู่" . " " . $tax_notice_read[0]->individual_village . " " . "ตำบล หนองป่าครั่ง อำเภอ เมือง จังหวัด เชียงใหม่ "; ?></p>
+                                                                <div class="control col-md-6">
+                                                                    <p><?php echo $tax_notice_read[0]->individual_address . " " . "หมู่" . " " . $tax_notice_read[0]->individual_village . " " . " ตำบล" . @$individual_subdistrict[0]['area_name_th'] . " " . " อำเภอ" . @$individual_district[0]['area_name_th'] . " " . " จังหวัด" . @$individual_provice[0]['area_name_th'] ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -217,7 +217,7 @@
                                                                                                                     <label for="middle-name" > ประเภทกิจการ
                                                                                                                     </label>
                                                                                                                     <div >
-                                                                                                                        <input type="text" name="noice_name_operation_other[0][]" placeholder="ระบุประเภทกิจการ" class="select cls-select form-control col-md-7 col-xs-12" >
+                                                                                                                        <input type="text" name="noice_name_operation_other[0][]" value="<?php echo @$notice->noice_name_operation_other; ?>" placeholder="ระบุประเภทกิจการ" class="select cls-select form-control col-md-7 col-xs-12" >
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                         </div>
@@ -1330,12 +1330,18 @@
                                                                                                         <div class="input-group">
                                                                                                             <span class="input-group-btn">
                                                                                                                 <span class="btn btn-success btn-file">
-                                                                                                                อัปโหลด <input type="file" id="imgInp_<?php echo $key_label ?>" class="imgInp">
+
+                                                                                                                อัปโหลด <input type="file" name="banner_image<?php echo $key_label ?>" multiple="" id="imgInp_<?php echo $key_label ?>" class="imgInp">
                                                                                                                 </span>
                                                                                                             </span>
-                                                                                                            <input type="text" class="form-control" readonly>
+                                                                                                            <input type="text" name="banner_image<?php echo $key_label ?>" value="<?php echo @$notice->banner_image ?>" class="form-control" readonly>
                                                                                                         </div>
-                                                                                                        <img class="img-upload" id="img-upload_<?php echo $key_label ?>"/>
+                                                                                                        <?php if (($notice->banner_image) != '') : ?>
+                                                                                                                <img id="img-upload_<?php echo $key_label ?>" class="img-upload post_images" src="<?php echo base_url() ?>/assets/uploads/images/banner/<?php echo @$notice->banner_image ?>">
+
+                                                                                                            <?php else : ?> 
+
+                                                                                                        <?php endif; ?>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div> 
@@ -1549,7 +1555,7 @@
                                                                                                     <div class="input-group">
                                                                                                         <span class="input-group-btn">
                                                                                                             <span class="btn btn-success btn-file">
-                                                                                                            อัปโหลด <input type="file" name="banner_image" id="imgInp_0" class="imgInp">
+                                                                                                            อัปโหลด <input type="file" name="banner_image0" multiple="" id="imgInp_0" class="imgInp">
                                                                                                             </span>
                                                                                                         </span>
                                                                                                         <input type="text" class="form-control" readonly>
@@ -2168,6 +2174,7 @@ function setScript(){
                                          '</div>'+
                                  '</div>'+
                              '</div>'+
+
             
                      '<div class="row">'+
                              '<div class="col-md-3 col-sm-6 col-xs-12">'+
@@ -2176,7 +2183,7 @@ function setScript(){
                                          '<div class="input-group">'+
                                              '<span class="input-group-btn">'+
                                                  '<span class="btn btn-success btn-file">'+
-                                                 'อัปโหลด <input type="file" id="imgInp_'+id+'" class="imgInp">'+
+                                                 'อัปโหลด <input type="file" name="banner_image'+id+'" id="imgInp_'+id+'" class="imgInp">'+
                                                  '</span>'+
                                              '</span>'+
                                              '<input type="text" class="form-control" readonly>'+

@@ -23,7 +23,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo ($tax_notice[0]['individual_fullname']); ?></p>
+                                    <p class="control"><?php echo $tax_notice[0]['individual_prename'] . " " . $tax_notice[0]['individual_fullname'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่ :
                                     </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . $individual_subdistrict[0]['area_name_th'] . " " . " อำเภอ" . $individual_district[0]['area_name_th'] . " " . " จังหวัด" . $individual_provice[0]['area_name_th'] ?></p>
+                                    <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . @$individual_subdistrict[0]['area_name_th'] . " " . " อำเภอ" . @$individual_district[0]['area_name_th'] . " " . " จังหวัด" . @$individual_provice[0]['area_name_th'] ?></p>
                                 </div>
                             </div>
                         </div>
