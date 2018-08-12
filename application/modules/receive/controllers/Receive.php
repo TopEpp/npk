@@ -249,11 +249,10 @@ class Receive extends MY_Controller
                     $year = $this->session->userdata('year');
                     $this->Receive_model->updateNotice($year, $value);
 
-                } 
-                // else {
-                //     $year = $this->session->userdata('year');
-                //     $this->Receive_model->insertNoticeFormUpdate($year, $value);
-                // }
+                } else {
+                    $year = $this->session->userdata('year');
+                    $this->Receive_model->insertNoticeFormUpdate($year, $value);
+                }
 
             }
         }
