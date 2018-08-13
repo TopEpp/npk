@@ -218,37 +218,37 @@ class Receive extends MY_Controller
                     $data[$form_key][$key]['notice_estimate'] = str_replace(',', '', $input['notice_estimate'][$form_key][$key]);
 
                     if ($k == 2) {
-
-                        // echo '<pre>';
-                        // print_r($_FILES);
-                        // echo '</pre>';
-
                         $upload_path = './assets/uploads/images/banner/';
                         $upload_imgae[$key] = $this->upload_image('banner_image' . $key, $upload_path);
                         $data[$form_key][$key]['banner_image'] = $upload_imgae[$key]['target_name'];
 
                         // echo '<pre>';
+                        // print_r($_FILES);
+                        // echo '</pre>';
+
+
+                        // echo '<pre>';
                         // print_r($upload_imgae);
                         // print_r($data);
                         // echo '</pre>';
-
                     }
 
 
                 }
-                // exit();
             }
-
-
-
         }
         foreach ($data as $form_key => $val_data) {
             foreach ($data[$form_key] as $key => $value) {
                 if (($data[$form_key][$key]['notice_id'] != '')) {
+                    if (($upload_imgae[$key]['target_name'] != '')) {
+                        $year = $this->session->userdata('year');
+                        $this->Receive_model->updateNotice($year, $value);
 
-                    $year = $this->session->userdata('year');
-                    $this->Receive_model->updateNotice($year, $value);
+                    } else {
+                        $year = $this->session->userdata('year');
+                        $this->Receive_model->updateNotice($year, $value);
 
+                    }
                 } else {
                     $year = $this->session->userdata('year');
                     $this->Receive_model->insertNoticeFormUpdate($year, $value);
@@ -259,13 +259,10 @@ class Receive extends MY_Controller
 
         // redirect(base_url('receive/receive_dashborad'));
         // echo '<pre>';
+        // print_r($upload_imgae);
+        // print_r($_FILES);
         // print_r($data);
-        // exit;
-        echo '<pre>';
-        print_r($upload_imgae);
-        print_r($_FILES);
-        print_r($data);
-        echo '</pre>';
+        // echo '</pre>';
 
     }
 
@@ -281,7 +278,7 @@ class Receive extends MY_Controller
         // Check if image file is a actual image or fake image
 
         // Check file size
-        if ($_FILES[$image_name]["size"] > 500000) {
+        if ($_FILES[$image_name]["size"] > 5000000) {
             $message = "Sorry, your file is too large.";
             $uploadOk = 0;
         }

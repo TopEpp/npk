@@ -1326,11 +1326,12 @@
                                                                                         <div class="row">   
                                                                                             <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                                 <div class="form-group">
+                                                                                                <input type="hidden" name="old_image" value="<?php echo $notice->banner_image ?>">
+
                                                                                                     <label>อัปโหลดรูปภาพ</label>
                                                                                                         <div class="input-group">
                                                                                                             <span class="input-group-btn">
                                                                                                                 <span class="btn btn-success btn-file">
-
                                                                                                                 อัปโหลด <input type="file" name="banner_image<?php echo $key_label ?>" multiple="" id="imgInp_<?php echo $key_label ?>" class="imgInp">
                                                                                                                 </span>
                                                                                                             </span>
