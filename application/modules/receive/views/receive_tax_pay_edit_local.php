@@ -23,7 +23,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ผู้เสียภาษี :
                                     </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo ($tax_receive[0]['individual_fullname']); ?></p>
+                                    <p class="control"><?php echo $tax_receive[0]['individual_prename'] . " " . $tax_receive[0]['individual_fullname'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">รหัสชื่อ :
                                     </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $tax_notice[0]['code_name'] ?></p>
+                                    <p class="control"><?php echo $tax_receive[0]['code_name'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="id_tax">ที่อยู่ :
                                     </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . $individual_subdistrict[0]['area_name_th'] . " " . " อำเภอ" . $individual_district[0]['area_name_th'] . " " . " จังหวัด" . $individual_provice[0]['area_name_th'] ?></p>
+                                    <p class="control"><?php echo $tax_notice[0]['individual_address'] . " " . " หมู่" . " " . $tax_notice[0]['individual_village'] . " " . " ตำบล" . @$individual_subdistrict[0]['area_name_th'] . " " . " อำเภอ" . @$individual_district[0]['area_name_th'] . " " . " จังหวัด" . @$individual_provice[0]['area_name_th'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -205,18 +205,6 @@
                     <tbody>
                       <?php foreach ($tax_tabel_pay as $key => $value) : ?>
                         <tr>
-                            <?php if (($value['receive_id']) == 365) : ?>
-                                        <td scope="row" style="text-align: center;"><span style="color: red;"><?php echo $key + 1 ?></td>
-                                        <td align="center"><span style="color: red;"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
-                                        <td><span style="color: red;"><?php echo $value['receipt_no'] ?></td>
-                                        <td><span style="color: red;"><?php echo $value['receipt_number'] ?></td>
-                                        <td><span style="color: red;"><?php echo $value['individual_fullname'] ?></td>
-                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['amount'], 2); ?></td>
-                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['interest'], 2); ?></td>
-                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['receive_amount'], 2); ?></td>
-                                        <td style="text-align: right;"><span style="color: red;"><?php echo number_format($value['balance'], 2); ?></span></td>
-                                
-                                <?php else : ?> 
                                         <td scope="row" style="text-align: center;"><?php echo $key + 1 ?></td>
                                         <td align="center"><?php echo $this->mydate->date_eng2thai($value['receive_date'], 543, 'S'); ?></td>                                       
                                         <td><?php echo $value['receipt_no'] ?></td>
@@ -226,7 +214,6 @@
                                         <td style="text-align: right;"><?php echo number_format($value['interest'], 2); ?></td>
                                         <td style="text-align: right;"><?php echo number_format($value['receive_amount'], 2); ?></td>
                                         <td style="text-align: right;"><?php echo number_format($value['balance'], 2); ?></span></td>
-                            <?php endif; ?>
                            
                         </tr>
                       <?php endforeach; ?>

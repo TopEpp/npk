@@ -76,6 +76,13 @@ $(function () {
             },
             {
                 data: 'individual_fullname',
+                render: function (data, type, row) {
+                    if (row.individual_prename == null) {
+                        return row.individual_fullname;
+                    }
+                    return row.individual_prename + " " + row.individual_fullname;
+                },
+
             },
             {
                 data: 'tax_name',

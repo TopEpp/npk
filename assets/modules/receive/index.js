@@ -48,7 +48,10 @@ $(function () {
       {
         data: 'individual_fullname',
         render: function (data, type, row) {
-          return row.individual_fullname;
+          if (row.individual_prename == null) {
+            return row.individual_fullname;
+          }
+          return row.individual_prename + " " + row.individual_fullname;
         },
 
       },

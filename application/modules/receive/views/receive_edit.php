@@ -1,9 +1,22 @@
-
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
             <div class="title_left">
                 <h3>บันทึกรายการ</h3>
+                <?php 
+                if ($tax_id == 8) {
+                    $tab = 1;
+                } elseif ($tax_id == 9) {
+                    $tab = 2;
+                } elseif ($tax_id == 10) {
+                    $tab = 3;
+                } else {
+                    $tab = 1;
+                }
+                ?>
+                <script> 
+                    var tab = <?php echo $tab ?> ;
+                </script>
             </div>
         </div>
             <br>
@@ -14,7 +27,7 @@
                         <div class="x_panel">
                             <div class="x_content">
                                 <br />
-                                    <form id="notice-form" method="post" action="<?php echo base_url('receive/receive_notice_update'); ?>" data-parsley-validate class="form-horizontal form-label-left">
+                                    <form id="notice-form" method="post" action="<?php echo base_url('receive/receive_notice_update'); ?>" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
                                             <div id="form_tab" class="x_panel">
                                                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -30,7 +43,13 @@
                                                             <div class="form-group">
                                                                 <label class="control col-md-2" >ผู้เสียภาษี :</label>
                                                                 <div class="control col-md-3">
-                                                                    <p><?php echo $tax_notice_read[0]->individual_prename . $tax_notice_read[0]->individual_firstname . " " . $tax_notice_read[0]->individual_lastname; ?></p>
+                                                                    <p><?php echo $tax_notice_read[0]->individual_prename . " " . $tax_notice_read[0]->individual_fullname; ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control col-md-2" >รหัสชื่อ :</label>
+                                                                <div class="control col-md-3">
+                                                                    <p><?php echo $tax_notice_read[0]->code_name; ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -47,8 +66,8 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="control col-md-2" >ที่อยู่ :</label>
-                                                                <div class="control col-md-4">
-                                                                    <p><?php echo $tax_notice_read[0]->individual_address . " " . "หมู่" . " " . $tax_notice_read[0]->individual_village . " " . "ตำบล หนองป่าครั่ง อำเภอ เมือง จังหวัด เชียงใหม่ "; ?></p>
+                                                                <div class="control col-md-6">
+                                                                    <p><?php echo $tax_notice_read[0]->individual_address . " " . "หมู่" . " " . $tax_notice_read[0]->individual_village . " " . " ตำบล" . @$individual_subdistrict[0]['area_name_th'] . " " . " อำเภอ" . @$individual_district[0]['area_name_th'] . " " . " จังหวัด" . @$individual_provice[0]['area_name_th'] ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -72,8 +91,8 @@
                                                                                     </label>
                                                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                             <div class="input-group">
-                                                                                                <input type="text"  id="num_one" class="form-control col-md-4 col-xs-12" name="notice_amount[0][]"value="<?php echo @$tax_notice_id[0]->notice_amount; ?>" >
-                                                                                                <input type="hidden"  class="form-control col-md-4 col-xs-12" name="individual_id[0][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
+                                                                                                <input type="text"  id="num_one" class="num_one_edit form-control col-md-4 col-xs-12" name="notice_amount[0][]"value="<?php echo @$tax_notice_id[0]->notice_amount; ?>" >
+                                                                                                <input type="hidden"  class="individual_id form-control col-md-4 col-xs-12" name="individual_id[0][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
                                                                                                 <span class="input-group-btn">
                                                                                                     <button class="btn btn-success" type="button" id="addNum_one" style="margin-right: 0px;">
                                                                                                         <i class="fa fa-plus-square"></i>
@@ -90,8 +109,23 @@
                                                                             foreach ($tax_notice[8] as $key => $notice) {
                                                                                 $tax_count++;
                                                                                 ?>
+                                                                                    <input type="hidden" class="tax_id" value="<?php echo $notice->tax_id; ?>">
                                                                                     <input type="hidden" name="notice_id[0][]" value="<?php echo @$notice->notice_id; ?>" >
-                                                                                    <h2 class="StepTitle">ภาษีโรงเรือนและที่ดิน <?php echo $tax_count; ?> </h2>
+                                                                            <div id="button_one<?php echo $key ?>">
+
+                                                                                    <section class="row">
+                                                                                        <div class="col-md-6 col-sm-4 col-xs-4">
+                                                                                            <h2 class="StepTitle">ภาษีโรงเรือนและที่ดิน <?php echo $tax_count; ?> </h2>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
+                                                                                            <div class="btn-group">
+                                                                                                <button class="btn btn-danger btn-sm" type="button" style="margin-right: 0px;" title="ลบ" data-name="<?php echo $key ?>" data-id="<?php echo $notice->notice_id; ?>"  data-toggle="modal" data-target="#delpay_modal_house">
+                                                                                                    <i class="fa fa-minus-square"></i>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </section>
+                                                                                        
                                                                                         <?php if ($tax_count == 1) {
                                                                                             ?>
                                                                                                     <div class="row">
@@ -183,7 +217,7 @@
                                                                                                                     <label for="middle-name" > ประเภทกิจการ
                                                                                                                     </label>
                                                                                                                     <div >
-                                                                                                                        <input type="text" name="noice_name_operation_other[0][]" placeholder="ระบุประเภทกิจการ" class="select cls-select form-control col-md-7 col-xs-12" disabled>
+                                                                                                                        <input type="text" name="noice_name_operation_other[0][]" value="<?php echo @$notice->noice_name_operation_other; ?>" placeholder="ระบุประเภทกิจการ" class="select cls-select form-control col-md-7 col-xs-12" >
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                         </div>
@@ -279,21 +313,22 @@
                                                                                                             
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-md-12 col-sm-6 col-xs-12">
-                                                                                                                <div class="form-group">
-                                                                                                                    <div id="targetDiv1"></div>
-                                                                                                                </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <hr>
-
+                                                                                                                                                                                      
+                                                                                    </div>
                                                                                                    
                                                                                                     
                                                                                 <?php 
                                                                             }// if for
 
                                                                             ?>
+                                                                            <div class="row">
+                                                                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <div id="targetDiv1"></div>
+                                                                                        </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>      
                                                                             
                                                                             <div class="row">
                                                                                 <div class="col-md-12 col-sm-6 col-xs-12">
@@ -347,7 +382,7 @@
                                                                                 </label>
                                                                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                     <div class="input-group">
-                                                                                    <input type="text" id="num_one" name="notice_amount[0][]" class="form-control col-md-4 col-xs-12" value="1" >
+                                                                                    <input type="text" id="num_one" name="notice_amount[0][]" class="num_one form-control col-md-4 col-xs-12" value="1" >
                                                                                     <input type="hidden" name="individual_id[0][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>">
                                                                                     <span class="input-group-btn">
                                                                                         <button class="btn btn-success" type="button" id="addNum_one" style="margin-right: 0px;">
@@ -615,9 +650,9 @@
                                                                                         </label>
                                                                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                             <div class="input-group">
-                                                                                            <input type="text" id="num_two" name="land_amount[1][]" class="form-control col-md-4 col-xs-12" value="<?php echo @$tax_notice_id[0]->land_amount; ?>" >
+                                                                                            <input type="text" id="num_two" name="land_amount[1][]" class="num_two form-control col-md-4 col-xs-12" value="<?php echo @$tax_notice_id[0]->land_amount; ?>" >
                                                     
-                                                                                            <input type="hidden"  class="form-control col-md-4 col-xs-12" name="individual_id[1][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
+                                                                                            <input type="hidden"  class="individual_id form-control col-md-4 col-xs-12" name="individual_id[1][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
 
                                                                                             <span class="input-group-btn">
                                                                                                 <button class="btn btn-success" type="button" id="addNum_two" style="margin-right: 0px;">
@@ -634,8 +669,22 @@
                                                                             foreach ($tax_notice[9] as $key => $notice) {
                                                                                 $tax_count++;
                                                                                 ?>
+                                                                                 <input type="hidden" class="tax_id" value="<?php echo $notice->tax_id; ?>">
                                                                                  <input type="hidden" name="notice_id[1][]" value="<?php echo @$notice->notice_id; ?>" >
-                                                                                <h2 class="StepTitle">ภาษีบำรุงท้องที่ <?php echo $tax_count; ?></h2>
+                                                                        <div id="button_two<?php echo $key ?>">
+                                                                                    <section class="row">
+                                                                                        <div class="col-md-6 col-sm-4 col-xs-4">
+                                                                                            <h2 class="StepTitle">ภาษีบำรุงท้องที่ <?php echo $tax_count; ?></h2>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
+                                                                                            <div class="btn-group">
+                                                                                                <button class="btn btn-danger btn-sm" type="button" style="margin-right: 0px;" title="ลบ" data-name="<?php echo $key ?>" data-id="<?php echo $notice->notice_id; ?>"  data-toggle="modal" data-target="#delpay_modal_local">
+                                                                                                    <i class="fa fa-minus-square"></i>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </section>
+                                                                                
                                                                                     <?php if ($tax_count == 1) {
                                                                                         ?>
                                                                                     <div class="row">
@@ -754,7 +803,7 @@
                                                                                             <label for="middle-name" class="" for="name"> เนื้อที่ดินที่ต้องชำระภาษี<span class="required" style="color:red"> *</span>
                                                                                             </label>
                                                                                             <div >
-                                                                                                <input type="text" readonly name="land_tax[1][]" value="<?php echo @$notice->land_tax; ?>"  onkeyup="land(<?php echo $key ?>)" class="total_land<?php echo $key ?> form-control col-md-7 col-xs-12">
+                                                                                                <input type="text" name="land_tax[1][]" value="<?php echo @$notice->land_tax; ?>"  onkeyup="land(<?php echo $key ?>)" class="total_land<?php echo $key ?> form-control col-md-7 col-xs-12">
                                                                                             </div>
                                                                                             </div>
                                                                                         </div>
@@ -811,17 +860,19 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12 col-sm-6 col-xs-12">
-                                                                                            <div class="form-group">
-                                                                                                <div id="targetDiv2"></div>
-                                                                                            </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            <hr>
+                                                                               
+                                                                        </div>
                                                                         <?php 
                                                                     } // if for
                                                                     ?>
+                                                                     <div class="row">
+                                                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <div id="targetDiv2"></div>
+                                                                                        </div>
+                                                                                </div>
+                                                                     </div>
+                                                                        <hr>
                                                                     <div class="row">
                                                                             <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                     <div class="form-group">
@@ -873,7 +924,7 @@
                                                                             </label>
                                                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                 <div class="input-group">
-                                                                                <input type="text" id="num_two" name="land_amount[1][]" class="form-control col-md-4 col-xs-12" value="1" >
+                                                                                <input type="text" id="num_two" name="land_amount[1][]" class="num_two form-control col-md-4 col-xs-12" value="1" >
                                                                                 <input type="hidden"  class="form-control col-md-4 col-xs-12" name="individual_id[1][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
                                                                                 <span class="input-group-btn">
                                                                                     <button class="btn btn-success" type="button" id="addNum_two" style="margin-right: 0px;">
@@ -1004,7 +1055,7 @@
                                                                                 <label for="middle-name" class="" for="name"> เนื้อที่ดินที่ต้องชำระภาษี<span class="required" style="color:red"> *</span>
                                                                                 </label>
                                                                                 <div >
-                                                                                    <input type="text" readonly name="land_tax[1][]"  onkeyup="land(0)" class="total_land0 form-control col-md-7 col-xs-12">
+                                                                                    <input type="text" name="land_tax[1][]"  onkeyup="land(0)" class="total_land0 form-control col-md-7 col-xs-12">
                                                                                 </div>
                                                                                 </div>
                                                                             </div>
@@ -1118,7 +1169,7 @@
                                                                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                     <div class="input-group">
                                                                                     <input type="text" id="num_three" name="banner_amount[2][]" value="<?php echo @$tax_notice_id[0]->banner_amount; ?>"class="form-control col-md-4 col-xs-12" >
-                                                                                    <input type="hidden"  class="form-control col-md-4 col-xs-12" name="individual_id[2][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
+                                                                                    <input type="hidden"  class="individual_id form-control col-md-4 col-xs-12" name="individual_id[2][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
                                                                                     <span class="input-group-btn">
                                                                                     <button class="btn btn-success" type="button" id="addNum_three" style="margin-right: 0px;">
                                                                                             <i class="fa fa-plus-square"></i>
@@ -1134,8 +1185,22 @@
                                                                         foreach ($tax_notice[10] as $key_label => $notice) {
                                                                             $tax_count++;
                                                                             ?>
+                                                                             <input type="hidden" class="tax_id" value="<?php echo $notice->tax_id; ?>">
                                                                              <input type="hidden" name="notice_id[2][]" value="<?php echo @$notice->notice_id; ?>" >
-                                                                                <h2 class="StepTitle">ภาษีป้าย <?php echo $tax_count; ?></h2>
+                                                                        <div id="button_three<?php echo $key ?>">
+
+                                                                                <section class="row">
+                                                                                        <div class="col-md-6 col-sm-4 col-xs-4">
+                                                                                            <h2 class="StepTitle">ภาษีป้าย <?php echo $tax_count; ?></h2>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">
+                                                                                            <div class="btn-group">
+                                                                                                <button class="btn btn-danger btn-sm" type="button" style="margin-right: 0px;" title="ลบ" data-name="<?php echo $key ?>" data-id="<?php echo $notice->notice_id; ?>"  data-toggle="modal" data-target="#delpay_modal_label">
+                                                                                                    <i class="fa fa-minus-square"></i>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                </section>
                                                                                     <?php if ($tax_count == 1) {
                                                                                         ?>
                                                                                     <div class="form-group" style="margin-bottom: 0px;" >
@@ -1263,34 +1328,41 @@
                                                                                         <div class="row">   
                                                                                             <div class="col-md-3 col-sm-6 col-xs-12">
                                                                                                 <div class="form-group">
+                                                                                                <input type="hidden" name="old_image" value="<?php echo $notice->banner_image ?>">
+
                                                                                                     <label>อัปโหลดรูปภาพ</label>
                                                                                                         <div class="input-group">
                                                                                                             <span class="input-group-btn">
                                                                                                                 <span class="btn btn-success btn-file">
-                                                                                                                อัปโหลด <input type="file" id="imgInp_<?php echo $key_label ?>" class="imgInp">
+                                                                                                                อัปโหลด <input type="file" name="banner_image<?php echo $key_label ?>" multiple="" id="imgInp_<?php echo $key_label ?>" class="imgInp">
                                                                                                                 </span>
                                                                                                             </span>
-                                                                                                            <input type="text" class="form-control" readonly>
+                                                                                                            <input type="text" name="banner_image<?php echo $key_label ?>" value="<?php echo @$notice->banner_image ?>" class="form-control" readonly>
                                                                                                         </div>
-                                                                                                        <img class="img-upload" id="img-upload_<?php echo $key_label ?>"/>
+                                                                                                        <?php if (($notice->banner_image) != '') : ?>
+                                                                                                                <img id="img-upload_<?php echo $key_label ?>" class="img-upload post_images" src="<?php echo base_url() ?>/assets/uploads/images/banner/<?php echo @$notice->banner_image ?>">
+
+                                                                                                            <?php else : ?> 
+
+                                                                                                        <?php endif; ?>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div> 
 
-                                                                                        <div class="row">
+                                                                                        
+                                                                            </div>    
+                                                                                
+                                                                            <?php 
+                                                                        } // if for 
+                                                                        ?>
+                                                                       <div class="row">
                                                                                             <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                                     <div class="form-group">
                                                                                                         <div id="targetDiv3"></div>
                                                                                                     </div>
                                                                                             </div>
                                                                                         </div> 
-                                                                                    <hr>
-                                                                                
-                                                                                
-                                                                            <?php 
-                                                                        } // if for 
-                                                                        ?>
-                                                                        
+                                                                                    <hr> 
                                                                         <div class="row">
                                                                                 <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                         <div class="form-group">
@@ -1342,7 +1414,7 @@
                                                                                 </label>
                                                                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                                                                     <div class="input-group">
-                                                                                    <input type="text" id="num_three" name="banner_amount[2][]" class="form-control col-md-4 col-xs-12" value="1" >
+                                                                                    <input type="text" id="num_three" name="banner_amount[2][]" class="num_three form-control col-md-4 col-xs-12" value="1" >
           
                                                                                     <input type="hidden"  class="form-control col-md-4 col-xs-12" name="individual_id[2][]" value="<?php echo @$tax_notice_read[0]->individual_id; ?>" >
                                                                                     <span class="input-group-btn">
@@ -1486,7 +1558,7 @@
                                                                                                     <div class="input-group">
                                                                                                         <span class="input-group-btn">
                                                                                                             <span class="btn btn-success btn-file">
-                                                                                                            อัปโหลด <input type="file" id="imgInp_0" class="imgInp">
+                                                                                                            อัปโหลด <input type="file" name="banner_image0" multiple="" id="imgInp_0" class="imgInp">
                                                                                                             </span>
                                                                                                         </span>
                                                                                                         <input type="text" class="form-control" readonly>
@@ -1687,10 +1759,21 @@ function setScript(){
 
 <script>
     function house(id) {
-        group = '<div>' + // create group template
+        group = '<div id="button_one'+id+'">' + // create group template
                 '<hr/>'+
                 '<br>'+
-                '<h2 class="StepTitle">ภาษีโรงเรือนและที่ดิน </h2>'+
+                    '<section class="row">'+
+                        '<div class="col-md-6 col-sm-4 col-xs-4">'+
+                            '<h2 class="StepTitle">ภาษีโรงเรือนและที่ดิน </h2>'+
+                        '</div>'+
+                        '<div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">'+
+                            '<div class="btn-group">'+
+                                '<button class="btn btn-danger btn-sm " onclick="remove_tab_house('+id+')" title="ลบ" type="button" style="margin-right: 0px;">'+
+                                    '<i class="fa fa-minus-square"></i>'+
+                                '</button>'+
+                            '</div>'+
+                        '</div>'+
+                    '</section>'+
                                 '<div class="row">'+
                                 
                                     '<div class="col-md-3 col-sm-6 col-xs-12">'+
@@ -1814,6 +1897,8 @@ function setScript(){
                         return group;
         
     }
+
+
         $(function(){
                         $('#addNum_one').bind('click',function(){
                         var n = $('#num_one').val(); // number of groups to add
@@ -1832,13 +1917,26 @@ function setScript(){
 
                         setScript();
                     });
+                    
         });
 
+
         function local(id) {
-                 group = '<div>' + 
+                 group = '<div id="button_two'+id+'">' + 
                              '<hr/>'+
                              '<br>'+
-                             '<h2 class="StepTitle">ภาษีบำรุงท้องที่ </h2>'+
+                                '<section class="row">'+
+                                    '<div class="col-md-6 col-sm-4 col-xs-4">'+
+                                        '<h2 class="StepTitle">ภาษีบำรุงท้องที่ </h2>'+
+                                    '</div>'+
+                                    '<div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">'+
+                                        '<div class="btn-group">'+
+                                            '<button class="btn btn-danger btn-sm " onclick="remove_tab_local('+id+')" title="ลบ" type="button" style="margin-right: 0px;">'+
+                                                '<i class="fa fa-minus-square"></i>'+
+                                            '</button>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</section>'+
 
                                                  '<div class="row">'+
                                                          '<div class="col-md-3 col-sm-6 col-xs-12">'+
@@ -1917,7 +2015,7 @@ function setScript(){
                                                          ' <span class="required" style="color:red"> *</span>'+
                                                              '</label>'+
                                                              '<div >'+
-                                                                 '<input type="text" readonly name="land_tax[1][]"  onkeyup="land('+id+')" class="total_land'+id+' form-control col-md-7 col-xs-12">'+
+                                                                 '<input type="text" name="land_tax[1][]"  onkeyup="land('+id+')" class="total_land'+id+' form-control col-md-7 col-xs-12">'+
                                                          ' </div>'+
                                                          '</div>'+
                                                      '</div>'+
@@ -1962,6 +2060,7 @@ function setScript(){
                                                              '</div>'+
                                                      '</div>'+
                                              '</div>'+
+                                             '</div>'+
                                      ' </div>';
 
                                  return group;
@@ -1988,10 +2087,21 @@ function setScript(){
             });
             
             function label(id) {
-                var group = '<div>' +
+                group = '<div id="button_three'+id+'">' + 
                  '<hr/>'+
                  '<br>'+
-                 '<h2 class="StepTitle">ภาษีป้าย </h2>'+
+                 '<section class="row">'+
+                     '<div class="col-md-6 col-sm-4 col-xs-4">'+
+                        '<h2 class="StepTitle">ภาษีป้าย </h2>'+
+                     '</div>'+
+                     '<div class="col-md-6 col-sm-8 col-xs-8 text-right" style="margin-top: 7px;">'+
+                         '<div class="btn-group">'+
+                             '<button class="btn btn-danger btn-sm " onclick="remove_tab_label('+id+')" title="ลบ" type="button" style="margin-right: 0px;">'+
+                                 '<i class="fa fa-minus-square"></i>'+
+                             '</button>'+
+                         '</div>'+
+                     '</div>'+
+                 '</section>'+
                      '<div class="row">'+
 
                      '<div class="col-md-3 col-sm-6 col-xs-12">'+
@@ -2067,11 +2177,8 @@ function setScript(){
                                          '</div>'+
                                  '</div>'+
                              '</div>'+
-                            
 
-                            
-                             '</div>'+
-
+            
                      '<div class="row">'+
                              '<div class="col-md-3 col-sm-6 col-xs-12">'+
                                  '<div class="form-group">'+
@@ -2079,7 +2186,7 @@ function setScript(){
                                          '<div class="input-group">'+
                                              '<span class="input-group-btn">'+
                                                  '<span class="btn btn-success btn-file">'+
-                                                 'อัปโหลด <input type="file" id="imgInp_'+id+'" class="imgInp">'+
+                                                 'อัปโหลด <input type="file" name="banner_image'+id+'" id="imgInp_'+id+'" class="imgInp">'+
                                                  '</span>'+
                                              '</span>'+
                                              '<input type="text" class="form-control" readonly>'+
@@ -2112,8 +2219,93 @@ function setScript(){
                         setScript();
                     });
                 });
-
 </script>
+
+<!-- Modal Popup -->          
+        <div class="modal fade" id="delpay_modal_local" tabindex="-1" role="dialog" aria-labelledby="delmodal_local" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                    <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="delmodal_local">การแจ้งเตือน!</h4>
+                      </div>
+
+
+                      <div class="modal-body">
+                              <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                      </div>
+
+                      <div class="modal-footer">
+                          <button type="button" id="btn-delpay_local"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                          </button>
+
+                          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
+                          </button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+<!-- Modal Popup -->          
+        <div class="modal fade" id="delpay_modal_label" tabindex="-1" role="dialog" aria-labelledby="delmodal_label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                    <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="delmodal_label">การแจ้งเตือน!</h4>
+                      </div>
+
+
+                      <div class="modal-body">
+                              <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                      </div>
+
+                      <div class="modal-footer">
+                          <button type="button" id="btn-delpay_label"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                          </button>
+
+                          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
+                          </button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+<!-- Modal Popup -->          
+<div class="modal fade" id="delpay_modal_house" tabindex="-1" role="dialog" aria-labelledby="delmodal_house" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                    <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="delmodal_house">การแจ้งเตือน!</h4>
+                      </div>
+
+
+                      <div class="modal-body">
+                              <h5 align="center">ต้องการลบข้อมูลรายการนี้ใช่หรือไม่</h5>
+                      </div>
+
+                      <div class="modal-footer">
+                          <button type="button" id="btn-delpay_house"  class="btn btn-danger"><i class="fa fa-trash"></i> ลบ
+                          </button>
+
+                          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> ยกเลิก
+                          </button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+
 
 
 
