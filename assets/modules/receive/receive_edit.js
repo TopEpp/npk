@@ -202,3 +202,12 @@
      $('.num_three').val(num_three - 1);
      $('#button_three' + id).remove();
  }
+
+ //  function sel() {
+ //      $("#sel1").on('click', function () {
+ //          var yearselect = $(this).find('option:selected').html();
+ //          var year = (yearselect * 1) + 3;
+ //          console.log(year);
+ //          $("#sel2").val(year);
+ //      });
+ //  }

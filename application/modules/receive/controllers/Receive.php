@@ -221,16 +221,6 @@ class Receive extends MY_Controller
                         $upload_path = './assets/uploads/images/banner/';
                         $upload_imgae[$key] = $this->upload_image('banner_image' . $key, $upload_path);
                         $data[$form_key][$key]['banner_image'] = $upload_imgae[$key]['target_name'];
-
-                        // echo '<pre>';
-                        // print_r($_FILES);
-                        // echo '</pre>';
-
-
-                        // echo '<pre>';
-                        // print_r($upload_imgae);
-                        // print_r($data);
-                        // echo '</pre>';
                     }
 
 
@@ -239,12 +229,18 @@ class Receive extends MY_Controller
         }
         foreach ($data as $form_key => $val_data) {
             foreach ($data[$form_key] as $key => $value) {
+
                 if (($data[$form_key][$key]['notice_id'] != '')) {
                     if (($upload_imgae[$key]['target_name'] != '')) {
                         $year = $this->session->userdata('year');
                         $this->Receive_model->updateNotice($year, $value);
 
                     } else {
+                        $this->load->library('upload');
+                        if (!$this->upload->do_upload('banner_image')) {
+                            $image = $this->input->post('old_image');
+                        }
+                        $value['banner_image'] = $image;
                         $year = $this->session->userdata('year');
                         $this->Receive_model->updateNotice($year, $value);
 
@@ -257,20 +253,11 @@ class Receive extends MY_Controller
             }
         }
 
-        // redirect(base_url('receive/receive_dashborad'));
-        // echo '<pre>';
-        // print_r($upload_imgae);
-        // print_r($_FILES);
-        // print_r($data);
-        // echo '</pre>';
-
+        redirect(base_url('receive/receive_dashborad'));
     }
 
     public function upload_image($image_name, $upload_path = '')
     {
-        // echo '<pre>';
-        // print_r($_FILES[$image_name]);
-        // echo '</pre>';
         $target_file = basename($_FILES[$image_name]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

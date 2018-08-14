@@ -313,14 +313,7 @@
                                                                                                             
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-md-12 col-sm-6 col-xs-12">
-                                                                                                                <div class="form-group">
-                                                                                                                    <div id="targetDiv1"></div>
-                                                                                                                </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <hr>                                                                                        
+                                                                                                                                                                                      
                                                                                     </div>
                                                                                                    
                                                                                                     
@@ -328,6 +321,14 @@
                                                                             }// if for
 
                                                                             ?>
+                                                                            <div class="row">
+                                                                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <div id="targetDiv1"></div>
+                                                                                        </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>      
                                                                             
                                                                             <div class="row">
                                                                                 <div class="col-md-12 col-sm-6 col-xs-12">
@@ -859,18 +860,19 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12 col-sm-6 col-xs-12">
-                                                                                            <div class="form-group">
-                                                                                                <div id="targetDiv2"></div>
-                                                                                            </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            <hr>
+                                                                               
                                                                         </div>
                                                                         <?php 
                                                                     } // if for
                                                                     ?>
+                                                                     <div class="row">
+                                                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                                                        <div class="form-group">
+                                                                                            <div id="targetDiv2"></div>
+                                                                                        </div>
+                                                                                </div>
+                                                                     </div>
+                                                                        <hr>
                                                                     <div class="row">
                                                                             <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                     <div class="form-group">
@@ -1347,20 +1349,20 @@
                                                                                             </div>
                                                                                         </div> 
 
-                                                                                        <div class="row">
+                                                                                        
+                                                                            </div>    
+                                                                                
+                                                                            <?php 
+                                                                        } // if for 
+                                                                        ?>
+                                                                       <div class="row">
                                                                                             <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                                     <div class="form-group">
                                                                                                         <div id="targetDiv3"></div>
                                                                                                     </div>
                                                                                             </div>
                                                                                         </div> 
-                                                                                    <hr>
-                                                                            </div>    
-                                                                                
-                                                                            <?php 
-                                                                        } // if for 
-                                                                        ?>
-                                                                        
+                                                                                    <hr> 
                                                                         <div class="row">
                                                                                 <div class="col-md-12 col-sm-6 col-xs-12">
                                                                                         <div class="form-group">

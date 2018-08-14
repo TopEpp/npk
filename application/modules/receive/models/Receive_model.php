@@ -90,6 +90,10 @@ class Receive_model extends CI_Model
         $this->db->where('year_id', $year);
         $this->db->set('year_id', $year);
         $this->db->update('tax_notice', $data);
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+
     }
 
     public function update_del_notice($input)
