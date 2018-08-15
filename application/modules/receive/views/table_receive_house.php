@@ -15,6 +15,12 @@
 	</thead>
 	<tbody>
 	<?php foreach ($receive as $key => $value) { ?>
+	<!-- <?php 
+					echo ("<pre>");
+					print_r($value);
+					echo ($value['receive_amount']);
+					echo ("</pre>")
+					?> -->
 		<tr>
 			<td style="text-align: center;"><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['notice_number']); ?>/<?php echo $value['tax_year'] + 543 ?></td>
 			<td style="text-align: center;"><?php echo str_replace($keyword, '<span style="color: red;">' . $keyword . '</span>', $value['individual_number']); ?></td>
@@ -27,8 +33,14 @@
 			<?php if (($value['sum_amount_tax'] + $value['tax_interest'] - $value['tax_amount']) > 0) : ?>
                  <a title="จ่าย" class="btn btn-success btn-sm" href="<?php echo base_url('receive/receive_tax_pay_add_house/' . $value['individual_id'] . '/' . $value['tax_id']) ?>">ชำระภาษี</a>
 			<?php endif; ?>
+			
 			</td>
 		</tr>
+			<!-- <?php echo (($value['sum_amount_tax'])); ?>
+			<?php echo (($value['tax_interest'])); ?>
+			<?php echo (($value['tax_amount'])); ?> -->
+
+
 	<?php 
 } ?>
 	</tbody>

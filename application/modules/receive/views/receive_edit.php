@@ -315,8 +315,7 @@
                                                                                                     </div>
                                                                                                                                                                                       
                                                                                     </div>
-                                                                                                   
-                                                                                                    
+                                                                                    <hr>
                                                                                 <?php 
                                                                             }// if for
 

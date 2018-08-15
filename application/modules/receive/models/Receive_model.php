@@ -313,6 +313,8 @@ class Receive_model extends CI_Model
         $this->db->where('tax_notice.individual_id', $id);
         $this->db->where('tax_notice.tax_id', $tax_id);
         $this->db->where('tax_notice.status = ', 'active');
+        $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
+
 
 
         $this->db->from('tax_notice');
@@ -332,6 +334,7 @@ class Receive_model extends CI_Model
 
             ->select('tax_receive.*,tbl_tax.*,tax_notice.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = ', '8')
             ->where('tax_notice.status = ', 'active')
@@ -352,6 +355,7 @@ class Receive_model extends CI_Model
 
             ->select('tax_receive.*,tbl_tax.*,tax_notice.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = ', '9')
             ->where('tax_notice.status = ', 'active')
@@ -372,6 +376,7 @@ class Receive_model extends CI_Model
 
             ->select('tax_receive.*,tbl_tax.*,tax_notice.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = ', '10')
             ->where('tax_notice.status = ', 'active')
@@ -393,6 +398,7 @@ class Receive_model extends CI_Model
         return $this->db
             ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 8')
             ->where('tax_receive.receive_id', $receive_id)
@@ -409,6 +415,7 @@ class Receive_model extends CI_Model
         return $this->db
             ->select('tax_receive.*,tax_notice.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 8')
             ->where('tax_notice.status = ', 'active')
@@ -431,6 +438,7 @@ class Receive_model extends CI_Model
                     sum(tax_receive.receive_amount) as total_receive_amount,
                     sum(tax_receive.balance) as total_balance')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_notice.status = ', 'active')
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 8')
@@ -445,6 +453,7 @@ class Receive_model extends CI_Model
         return $this->db
             ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 9')
             ->where('tax_receive.receive_id', $receive_id)
@@ -461,6 +470,7 @@ class Receive_model extends CI_Model
         return $this->db
             ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 9')
             ->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left')
@@ -480,6 +490,7 @@ class Receive_model extends CI_Model
                     sum(tax_receive.receive_amount) as total_receive_amount,
                     sum(tax_receive.balance) as total_balance')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 9')
             ->where('tax_notice.status = ', 'active')
@@ -496,6 +507,7 @@ class Receive_model extends CI_Model
         return $this->db
             ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 10')
             ->where('tax_receive.receive_id', $receive_id)
@@ -513,6 +525,7 @@ class Receive_model extends CI_Model
         return $this->db
             ->select('tax_receive.*,tbl_tax.*,tbl_individual.*,tbl_tax_type.*,std_area.*')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 10')
             ->join('tbl_tax', 'tbl_tax.tax_id = tax_receive.tax_id', 'left')
@@ -532,6 +545,7 @@ class Receive_model extends CI_Model
                     sum(tax_receive.receive_amount) as total_receive_amount,
                     sum(tax_receive.balance) as total_balance')
             ->from('tax_receive')
+            ->where('tax_receive.year_id', $this->session->userdata('year'))
             ->where('tax_receive.individual_id', $id)
             ->where('tax_receive.tax_id = 10')
             ->where('tax_notice.status = ', 'active')
@@ -568,7 +582,15 @@ class Receive_model extends CI_Model
 
     public function getTaxByKeywordHouse($keyword)
     {
-        $this->db->select('tax_notice.*,sum(notice_estimate) as sum_notice_estimate,(select sum(receive_amount)-tax_notice.notice_estimate from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_estimate,(select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,(select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,tbl_individual.*,tbl_tax_type.*,tbl_tax.*');
+        $this->db->select('tax_notice.*,
+                            sum(notice_estimate) as sum_notice_estimate,
+                            (select sum(receive_amount)-tax_notice.notice_estimate from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_estimate,
+                            (select sum(receive_amount) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_amount,
+                            (select sum(interest) from tax_receive where tax_notice.notice_id = tax_receive.notice_id) as tax_interest,
+                            tbl_individual.*,
+                            tbl_tax_type.*,
+                            tbl_tax.*');
+
         $this->db->from('tax_notice');
         $this->db->where('tax_notice.year_id', $this->session->userdata('year'));
         $this->db->where('tax_notice.status = ', 'active');

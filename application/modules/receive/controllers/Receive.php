@@ -1215,7 +1215,6 @@ class Receive extends MY_Controller
         $value = str_replace(',', '', $this->input->post('balance'));
         $input['balance'] = $value;
 
-
         $year = $this->session->userdata('year');
         $this->Receive_model->recieve_tax_add($year, $input);
         redirect(base_url('receive/receive_save_house/'));
